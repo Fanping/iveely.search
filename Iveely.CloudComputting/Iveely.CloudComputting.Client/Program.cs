@@ -59,20 +59,22 @@ namespace Iveely.CloudComputting.Client
             //2. 读取编译后的文件
             Logger.Info("Preparing for send your application to platform...");
             string sourceCode = File.ReadAllText(filePath);
-            //sourceCode = sourceCode.Replace("#fromIP#", Dns.GetHostName()).Replace("#port#", "8002");
             byte[] bytes = Encoding.UTF8.GetBytes(sourceCode);
 
             //2. 上传程序至各个节点
             Thread thread = new Thread(StartListen);
             thread.Start();
 
+            StateHelper.Put("ISE://history/" + timeStamp + "/" + appName,
+              Dns.GetHostName());
+
             IEnumerable<string> ipPathes = StateHelper.GetChildren("ISE://system/state/worker");
             foreach (var ipPath in ipPathes)
             {
-                string ip = ipPath.Substring(ipPath.LastIndexOf('/') + 1, ipPath.Length - ipPath.LastIndexOf('/') - 1);
-                Framework.Network.Synchronous.Client transfer = new Framework.Network.Synchronous.Client(ip, 8001);
+                string[] ip = ipPath.Substring(ipPath.LastIndexOf('/') + 1, ipPath.Length - ipPath.LastIndexOf('/') - 1).Split(',');
+                Framework.Network.Synchronous.Client transfer = new Framework.Network.Synchronous.Client(ip[0], int.Parse(ip[1]));
                 CodePacket codePacket = new CodePacket(bytes, className, appName, timeStamp);
-                codePacket.SetReturnAddress(Dns.GetHostName(), 8002);
+                codePacket.SetReturnAddress(Dns.GetHostName(), 8800);
                 transfer.Send<object>(codePacket);
             }
 
@@ -99,7 +101,7 @@ namespace Iveely.CloudComputting.Client
         {
             if (_server == null)
             {
-                _server = new Server(Dns.GetHostName(), 8002, ProcessResponse);
+                _server = new Server(Dns.GetHostName(), 8800, ProcessResponse);
                 _server.Listen();
             }
         }

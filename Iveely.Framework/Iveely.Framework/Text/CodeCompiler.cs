@@ -85,7 +85,7 @@ namespace Iveely.Framework.Text
             if (instance != null)
             {
                 MethodInfo method = instance.GetType().GetMethod(functionName);
-                return method.Invoke(instance, parameters);
+                return method.Invoke(instance, new[] { parameters });
             }
             throw new NullReferenceException("Instance can not be null.");
         }
@@ -127,7 +127,7 @@ namespace Iveely.Framework.Text
         }
 
         [TestMethod]
-        public void TestExecode()
+        public void TestExecodeWithOutParameters()
         {
             StringBuilder builder = new StringBuilder();
             builder.AppendLine("using System;");
@@ -143,6 +143,28 @@ namespace Iveely.Framework.Text
             builder.AppendLine("}");
             int result = int.Parse(Execode(builder.ToString(), "test.Program", null, null).ToString());
             Assert.IsTrue(result == 100);
+        }
+
+        [TestMethod]
+        public void TestExecodeWithParameters()
+        {
+            StringBuilder builder = new StringBuilder();
+            builder.AppendLine("using System;");
+            builder.AppendLine("namespace test");
+            builder.AppendLine("{");
+            builder.AppendLine("public class Program");
+            builder.AppendLine("{");
+            builder.AppendLine("public int Run(int a,int b)");
+            builder.AppendLine("{");
+            builder.AppendLine("return a+b;");
+            builder.AppendLine("}");
+            builder.AppendLine("}");
+            builder.AppendLine("}");
+            object[] objects = new object[2];
+            objects[0] = 4;
+            objects[1] = 5;
+            int result = int.Parse(Execode(builder.ToString(), "test.Program", null, objects).ToString());
+            Assert.IsTrue(result == 9);
         }
 
 #endif

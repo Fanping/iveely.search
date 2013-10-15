@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using Iveely.CloudComputting.StateAPI;
 using Iveely.Framework.Network;
 using Iveely.Framework.Text;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -17,31 +18,21 @@ namespace Iveely.CloudComputting.Client
     {
         protected Framework.Network.Synchronous.Client Sender;
 
-        public abstract void Run();
+        public abstract void Run(object[] args);
 
-        public void DiagnosticsWrite(string information)
+        public void DiagnosticsWrite(string information, object[] parameters)
         {
             if (Sender == null)
             {
-                //BUG:ip和端口需要改正
-                string fromIp = Dns.GetHostName();
-                string port = "8002";
+                //BUG:传递parameter这个参数，非常不友好
+                string fromIp = parameters[0].ToString();
+                string port = parameters[1].ToString();
                 Sender = new Framework.Network.Synchronous.Client(fromIp, int.Parse(port));
             }
-            Packet packet = new Packet(Serializer.SerializeToBytes("[result from:" + Dns.GetHostName() + "] " + information));
+            Packet packet = new Packet(Serializer.SerializeToBytes("[result from:" + parameters[2] + ",+" + parameters[3] + "] " + information));
             //无需等待反馈
             packet.WaiteCallBack = false;
             Sender.Send<Packet>(packet);
         }
-
-#if DEBUG
-
-        [TestMethod]
-        public void TestDiagnosticesWrite()
-        {
-            DiagnosticsWrite("Hello world!");
-        }
-
-#endif
     }
 }
