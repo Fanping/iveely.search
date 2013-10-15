@@ -1,0 +1,17 @@
+C:\Users\Fanping\Desktop\项目\Iveely.CloudComputting\Iveely.CloudComputting.Client\bin\Debug\Iveely.CloudComputting.Client.exe.config
+C:\Users\Fanping\Desktop\项目\Iveely.CloudComputting\Iveely.CloudComputting.Client\obj\Debug\Iveely.CloudComputting.Client.csprojResolveAssemblyReference.cache
+C:\Users\Fanping\Desktop\项目\Iveely.CloudComputting\Debug\log4net.config
+C:\Users\Fanping\Desktop\项目\Iveely.CloudComputting\Debug\Iveely.CloudComputting.Client.dll.config
+C:\Users\Fanping\Desktop\项目\Iveely.CloudComputting\Debug\Iveely.CloudComputting.Client.dll
+C:\Users\Fanping\Desktop\项目\Iveely.CloudComputting\Debug\Iveely.CloudComputting.Client.pdb
+C:\Users\Fanping\Desktop\项目\Iveely.CloudComputting\Iveely.CloudComputting.Client\obj\Debug\Iveely.CloudComputting.Client.dll
+C:\Users\Fanping\Desktop\项目\Iveely.CloudComputting\Iveely.CloudComputting.Client\obj\Debug\Iveely.CloudComputting.Client.pdb
+C:\Users\Fanping\Desktop\项目\Iveely\Iveely.CloudComputting\Debug\Iveely.CloudComputting.Client.pdb
+C:\Users\Fanping\Desktop\项目\Iveely\Iveely.CloudComputting\Iveely.CloudComputting.Client\obj\Debug\Iveely.CloudComputting.Client.csprojResolveAssemblyReference.cache
+C:\Users\Fanping\Desktop\项目\Iveely\Iveely.CloudComputting\Iveely.CloudComputting.Client\obj\Debug\Iveely.CloudComputting.Client.pdb
+C:\Users\Fanping\Desktop\项目\Iveely\Iveely.CloudComputting\Debug\Example.cs
+C:\Users\Fanping\Desktop\项目\Iveely\Iveely.CloudComputting\Debug\RunExample.bat
+C:\Users\Fanping\Desktop\项目\Iveely\Iveely.CloudComputting\Debug\Iveely.CloudComputting.Client.exe.config
+C:\Users\Fanping\Desktop\项目\Iveely\Iveely.CloudComputting\Debug\Iveely.CloudComputting.Client.exe
+C:\Users\Fanping\Desktop\项目\Iveely\Iveely.CloudComputting\Iveely.CloudComputting.Client\obj\Debug\Iveely.CloudComputting.Client.exe
+C:\Users\Fanping\Desktop\项目\Iveely\Iveely.CloudComputting\Debug\log4net.config

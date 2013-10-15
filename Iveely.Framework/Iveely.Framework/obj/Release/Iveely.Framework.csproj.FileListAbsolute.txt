@@ -1,0 +1,7 @@
+C:\Users\Fanping\Desktop\项目\Iveely\Iveely.Framework\Iveely.Framework\bin\Release\Iveely.Framework.dll
+C:\Users\Fanping\Desktop\项目\Iveely\Iveely.Framework\Iveely.Framework\bin\Release\Iveely.Framework.pdb
+C:\Users\Fanping\Desktop\项目\Iveely\Iveely.Framework\Iveely.Framework\obj\Release\Iveely.Framework.csprojResolveAssemblyReference.cache
+C:\Users\Fanping\Desktop\项目\Iveely\Iveely.Framework\Iveely.Framework\obj\Release\Iveely.Framework.dll
+C:\Users\Fanping\Desktop\项目\Iveely\Iveely.Framework\Iveely.Framework\obj\Release\Iveely.Framework.pdb
+C:\Users\Fanping\Desktop\项目\Iveely\Iveely.Framework\Iveely.Framework\bin\Release\log4net.config
+C:\Users\Fanping\Desktop\项目\Iveely\Iveely.Framework\Iveely.Framework\bin\Release\log4net.dll

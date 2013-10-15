@@ -1,0 +1,7 @@
+C:\Users\Fanping\Desktop\项目\Iveely\Iveely.CloudComputting\Release\Iveely.CloudComputting.StateCenter.exe.config
+C:\Users\Fanping\Desktop\项目\Iveely\Iveely.CloudComputting\Release\log4net.config
+C:\Users\Fanping\Desktop\项目\Iveely\Iveely.CloudComputting\Release\Iveely.CloudComputting.StateCenter.exe
+C:\Users\Fanping\Desktop\项目\Iveely\Iveely.CloudComputting\Release\Iveely.CloudComputting.StateCenter.pdb
+C:\Users\Fanping\Desktop\项目\Iveely\Iveely.CloudComputting\Iveely.CloudComputting.StateCenter\obj\Release\Iveely.CloudComputting.StateCenter.csprojResolveAssemblyReference.cache
+C:\Users\Fanping\Desktop\项目\Iveely\Iveely.CloudComputting\Iveely.CloudComputting.StateCenter\obj\Release\Iveely.CloudComputting.StateCenter.exe
+C:\Users\Fanping\Desktop\项目\Iveely\Iveely.CloudComputting\Iveely.CloudComputting.StateCenter\obj\Release\Iveely.CloudComputting.StateCenter.pdb

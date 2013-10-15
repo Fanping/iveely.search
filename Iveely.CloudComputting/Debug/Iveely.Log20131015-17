@@ -1,0 +1,51 @@
+[2013-10-15 17:22:41,857] [Fanping-PC] [INFO ] [State Center is start listening... ]
+[2013-10-15 17:22:44,587] [Fanping-PC] [INFO ] [put path ISE://system/state/worker/Fanping-PC ]
+[2013-10-15 17:22:44,618] [Fanping-PC] [INFO ] [Added information to path-ISE://system/state/worker/Fanping-PC  value=System.Byte[] ]
+[2013-10-15 17:22:44,618] [Fanping-PC] [INFO ] [Starting listen the worker's task... ]
+[2013-10-15 17:22:54,661] [Fanping-PC] [INFO ] [Start Compile your code... ]
+[2013-10-15 17:22:54,801] [Fanping-PC] [INFO ] [Preparing for send your application to platform... ]
+[2013-10-15 17:22:54,863] [Fanping-PC] [INFO ] [Get children from path:ISE://system/state/worker ]
+[2013-10-15 17:22:57,359] [Fanping-PC] [INFO ] [put path ISE://application/130263313746766662/ExampleApp/Fanping-PC ]
+[2013-10-15 17:22:57,375] [Fanping-PC] [INFO ] [Added information to path-ISE://application/130263313746766662/ExampleApp/Fanping-PC  value=System.Byte[] ]
+[2013-10-15 17:22:57,422] [Fanping-PC] [INFO ] [Get children from path:ISE://application/130263313746766662/ExampleApp ]
+[2013-10-15 17:22:59,387] [Fanping-PC] [INFO ] [Get from path-ISE://application/130263313746766662/ExampleApp/Fanping-PC ]
+[2013-10-15 17:22:59,403] [Fanping-PC] [INFO ] [Get data from path:ISE://application/130263313746766662/ExampleApp/Fanping-PC ]
+[2013-10-15 17:22:59,481] [Fanping-PC] [INFO ] [ISE://application/130263313746766662/ExampleApp/Fanping-PC:Finished with success! ]
+[2013-10-15 17:31:24,881] [Fanping-PC] [INFO ] [State Center is start listening... ]
+[2013-10-15 17:31:27,596] [Fanping-PC] [INFO ] [put path ISE://system/state/worker/Fanping-PC ]
+[2013-10-15 17:31:27,611] [Fanping-PC] [INFO ] [Added information to path-ISE://system/state/worker/Fanping-PC  value=System.Byte[] ]
+[2013-10-15 17:31:27,627] [Fanping-PC] [INFO ] [Starting listen the worker's task... ]
+[2013-10-15 17:31:36,115] [Fanping-PC] [INFO ] [Start Compile your code... ]
+[2013-10-15 17:31:36,287] [Fanping-PC] [INFO ] [Preparing for send your application to platform... ]
+[2013-10-15 17:31:36,318] [Fanping-PC] [INFO ] [Get children from path:ISE://system/state/worker ]
+[2013-10-15 17:31:38,471] [Fanping-PC] [INFO ] [put path ISE://application/130263318961311721/ExampleApp/Fanping-PC ]
+[2013-10-15 17:31:38,486] [Fanping-PC] [INFO ] [Added information to path-ISE://application/130263318961311721/ExampleApp/Fanping-PC  value=System.Byte[] ]
+[2013-10-15 17:31:38,595] [Fanping-PC] [INFO ] [Get children from path:ISE://application/130263318961311721/ExampleApp ]
+[2013-10-15 17:31:42,589] [Fanping-PC] [INFO ] [Get from path-ISE://application/130263318961311721/ExampleApp/Fanping-PC ]
+[2013-10-15 17:31:42,589] [Fanping-PC] [INFO ] [Get data from path:ISE://application/130263318961311721/ExampleApp/Fanping-PC ]
+[2013-10-15 17:31:42,589] [Fanping-PC] [INFO ] [ISE://application/130263318961311721/ExampleApp/Fanping-PC:Finished with success! ]
+[2013-10-15 17:58:13,137] [Fanping-PC] [INFO ] [State Center is start listening... ]
+[2013-10-15 17:58:15,536] [Fanping-PC] [INFO ] [put path ISE://system/state/worker/Fanping-PC ]
+[2013-10-15 17:58:15,565] [Fanping-PC] [INFO ] [Added information to path-ISE://system/state/worker/Fanping-PC  value=System.Byte[] ]
+[2013-10-15 17:58:15,570] [Fanping-PC] [INFO ] [Starting listen the worker's task... ]
+[2013-10-15 17:58:51,225] [Fanping-PC] [INFO ] [Start Compile your code... ]
+[2013-10-15 17:58:51,333] [Fanping-PC] [INFO ] [Preparing for send your application to platform... ]
+[2013-10-15 17:58:51,366] [Fanping-PC] [INFO ] [Get children from path:ISE://system/state/worker ]
+[2013-10-15 17:58:51,526] [Fanping-PC] [INFO ] [put path ISE://application/130263335312461545/ExampleApp/Fanping-PC ]
+[2013-10-15 17:58:51,530] [Fanping-PC] [INFO ] [Added information to path-ISE://application/130263335312461545/ExampleApp/Fanping-PC  value=System.Byte[] ]
+[2013-10-15 17:58:51,578] [Fanping-PC] [INFO ] [Get children from path:ISE://application/130263335312461545/ExampleApp ]
+[2013-10-15 17:58:51,588] [Fanping-PC] [INFO ] [Get from path-ISE://application/130263335312461545/ExampleApp/Fanping-PC ]
+[2013-10-15 17:58:51,589] [Fanping-PC] [INFO ] [Get data from path:ISE://application/130263335312461545/ExampleApp/Fanping-PC ]
+[2013-10-15 17:58:51,591] [Fanping-PC] [INFO ] [ISE://application/130263335312461545/ExampleApp/Fanping-PC:Finished with System.Reflection.TargetInvocationException: Exception has been thrown by the target of an invocation. ---> System.FormatException: Input string was not in a correct format.
+   at System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
+   at System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
+   at System.Int32.Parse(String s)
+   at Iveely.CloudComputting.Client.Application.DiagnosticsWrite(String information) in c:\Users\Fanping\Desktop\项目\Iveely\Iveely.CloudComputting\Iveely.CloudComputting.Client\Application.cs:line 26
+   at Iveely.CloudComputting.Client.Example.Run()
+   --- End of inner exception stack trace ---
+   at System.RuntimeMethodHandle.InvokeMethod(Object target, Object[] arguments, Signature sig, Boolean constructor)
+   at System.Reflection.RuntimeMethodInfo.UnsafeInvokeInternal(Object obj, Object[] parameters, Object[] arguments)
+   at System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at System.Reflection.MethodBase.Invoke(Object obj, Object[] parameters)
+   at Iveely.Framework.Text.CodeCompiler.Execode(String code, String className, List`1 libraries, Object[] parameters) in c:\Users\Fanping\Desktop\项目\Iveely\Iveely.Framework\Iveely.Framework\Text\CodeCompiler.cs:line 88
+   at Iveely.CloudComputting.Worker.Program.ProcessTask(Byte[] bytes) in c:\Users\Fanping\Desktop\项目\Iveely\Iveely.CloudComputting\Iveely.CloudComputting.Worker\Program.cs:line 50 ]

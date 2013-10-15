@@ -1,0 +1,4 @@
+C:\Users\Fanping\Desktop\项目\Iveely\Iveely.CloudComputting\Iveely.CloudComputting.IntegrationTesting\bin\Debug\Iveely.CloudComputting.IntegrationTesting.dll
+C:\Users\Fanping\Desktop\项目\Iveely\Iveely.CloudComputting\Iveely.CloudComputting.IntegrationTesting\bin\Debug\Iveely.CloudComputting.IntegrationTesting.pdb
+C:\Users\Fanping\Desktop\项目\Iveely\Iveely.CloudComputting\Iveely.CloudComputting.IntegrationTesting\obj\Debug\Iveely.CloudComputting.IntegrationTesting.dll
+C:\Users\Fanping\Desktop\项目\Iveely\Iveely.CloudComputting\Iveely.CloudComputting.IntegrationTesting\obj\Debug\Iveely.CloudComputting.IntegrationTesting.pdb

@@ -1,0 +1,4 @@
+[2013-10-15 00:15:45,977] [Fanping-PC] [INFO ] [State Center is start listening... ]
+[2013-10-15 00:15:49,346] [Fanping-PC] [INFO ] [put path ISE://system/state/worker/Fanping-PC ]
+[2013-10-15 00:15:49,368] [Fanping-PC] [INFO ] [Starting listen the worker's task... ]
+[2013-10-15 00:15:49,376] [Fanping-PC] [INFO ] [Added information to path-ISE://system/state/worker/Fanping-PC  value=System.Byte[] ]

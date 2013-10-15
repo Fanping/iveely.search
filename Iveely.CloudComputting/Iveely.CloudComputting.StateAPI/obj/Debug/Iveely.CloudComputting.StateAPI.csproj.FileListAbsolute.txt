@@ -1,0 +1,5 @@
+C:\Users\Fanping\Desktop\项目\Iveely\Iveely.CloudComputting\Debug\Iveely.CloudComputting.StateAPI.dll
+C:\Users\Fanping\Desktop\项目\Iveely\Iveely.CloudComputting\Debug\Iveely.CloudComputting.StateAPI.pdb
+C:\Users\Fanping\Desktop\项目\Iveely\Iveely.CloudComputting\Iveely.CloudComputting.StateAPI\obj\Debug\Iveely.CloudComputting.StateAPI.csprojResolveAssemblyReference.cache
+C:\Users\Fanping\Desktop\项目\Iveely\Iveely.CloudComputting\Iveely.CloudComputting.StateAPI\obj\Debug\Iveely.CloudComputting.StateAPI.dll
+C:\Users\Fanping\Desktop\项目\Iveely\Iveely.CloudComputting\Iveely.CloudComputting.StateAPI\obj\Debug\Iveely.CloudComputting.StateAPI.pdb

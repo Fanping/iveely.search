@@ -1,0 +1,27 @@
+[2013-10-15 18:03:29,442] [Fanping-PC] [INFO ] [Start Compile your code... ]
+[2013-10-15 18:03:29,723] [Fanping-PC] [INFO ] [Preparing for send your application to platform... ]
+[2013-10-15 18:24:35,064] [Fanping-PC] [INFO ] [State Center is start listening... ]
+[2013-10-15 18:24:37,397] [Fanping-PC] [INFO ] [put path ISE://system/state/worker/Fanping-PC ]
+[2013-10-15 18:24:37,424] [Fanping-PC] [INFO ] [Added information to path-ISE://system/state/worker/Fanping-PC  value=System.Byte[] ]
+[2013-10-15 18:24:37,430] [Fanping-PC] [INFO ] [Starting listen the worker's task... ]
+[2013-10-15 18:24:45,137] [Fanping-PC] [INFO ] [Start Compile your code... ]
+[2013-10-15 18:24:45,235] [Fanping-PC] [INFO ] [Preparing for send your application to platform... ]
+[2013-10-15 18:24:47,510] [Fanping-PC] [INFO ] [Get children from path:ISE://system/state/worker ]
+[2013-10-15 18:24:47,599] [Fanping-PC] [INFO ] [[Response 2013/10/15 18:24:47] Hello,the result is 3. ]
+[2013-10-15 18:24:47,682] [Fanping-PC] [INFO ] [put path ISE://application/130263350851580863/ExampleApp/Fanping-PC ]
+[2013-10-15 18:24:47,688] [Fanping-PC] [INFO ] [Added information to path-ISE://application/130263350851580863/ExampleApp/Fanping-PC  value=System.Byte[] ]
+[2013-10-15 18:24:47,737] [Fanping-PC] [INFO ] [Get children from path:ISE://application/130263350851580863/ExampleApp ]
+[2013-10-15 18:24:47,740] [Fanping-PC] [INFO ] [Get from path-ISE://application/130263350851580863/ExampleApp/Fanping-PC ]
+[2013-10-15 18:24:47,742] [Fanping-PC] [INFO ] [Get data from path:ISE://application/130263350851580863/ExampleApp/Fanping-PC ]
+[2013-10-15 18:24:47,743] [Fanping-PC] [INFO ] [ISE://application/130263350851580863/ExampleApp/Fanping-PC:Finished with System.Reflection.TargetInvocationException: Exception has been thrown by the target of an invocation. ---> System.InvalidCastException: Unable to cast object of type 'System.String' to type 'Iveely.Framework.Network.Packet'.
+   at Iveely.Framework.Text.Serializer.DeserializeFromBytes[T](Byte[] bytes) in c:\Users\Fanping\Desktop\项目\Iveely\Iveely.Framework\Iveely.Framework\Text\Serializer.cs:line 81
+   at Iveely.Framework.Network.Synchronous.Client.Send[T](Packet packet) in c:\Users\Fanping\Desktop\项目\Iveely\Iveely.Framework\Iveely.Framework\Network\Synchronous\Client.cs:line 81
+   at Iveely.CloudComputting.Client.Application.DiagnosticsWrite(String information) in c:\Users\Fanping\Desktop\项目\Iveely\Iveely.CloudComputting\Iveely.CloudComputting.Client\Application.cs:line 31
+   at Iveely.CloudComputting.Client.Example.Run()
+   --- End of inner exception stack trace ---
+   at System.RuntimeMethodHandle.InvokeMethod(Object target, Object[] arguments, Signature sig, Boolean constructor)
+   at System.Reflection.RuntimeMethodInfo.UnsafeInvokeInternal(Object obj, Object[] parameters, Object[] arguments)
+   at System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at System.Reflection.MethodBase.Invoke(Object obj, Object[] parameters)
+   at Iveely.Framework.Text.CodeCompiler.Execode(String code, String className, List`1 libraries, Object[] parameters) in c:\Users\Fanping\Desktop\项目\Iveely\Iveely.Framework\Iveely.Framework\Text\CodeCompiler.cs:line 88
+   at Iveely.CloudComputting.Worker.Program.ProcessTask(Byte[] bytes) in c:\Users\Fanping\Desktop\项目\Iveely\Iveely.CloudComputting\Iveely.CloudComputting.Worker\Program.cs:line 50 ]

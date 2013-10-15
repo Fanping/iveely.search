@@ -1,0 +1,3 @@
+C:\Users\Fanping\Desktop\项目\Iveely.CloudComputting\Iveely.CloudComputting.Client\bin\Release\Iveely.CloudComputting.Client.exe.config
+C:\Users\Fanping\Desktop\项目\Iveely.CloudComputting\Release\Iveely.CloudComputting.Client.exe.config
+C:\Users\Fanping\Desktop\项目\Iveely.CloudComputting\Iveely.CloudComputting.Client\obj\Release\Iveely.CloudComputting.Client.csprojResolveAssemblyReference.cache
