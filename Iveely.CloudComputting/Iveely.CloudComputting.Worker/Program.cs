@@ -53,7 +53,7 @@ namespace Iveely.CloudComputting.Worker
             {
                 List<string> references = new List<string>();
                 references.Add("Iveely.CloudComputting.Client.exe");
-                CodeCompiler.Execode(sourceCode, packet.ClassName, references, new object[] { packet.ReturnIp, packet.Port, MachineName, ServicePort });
+                CodeCompiler.Execode(sourceCode, packet.ClassName, references, new object[] { packet.ReturnIp, packet.Port, MachineName, ServicePort, packet.TimeStamp, packet.AppName });
                 StateHelper.Put(runningPath, "Finished with success!");
             }
             catch (Exception exception)

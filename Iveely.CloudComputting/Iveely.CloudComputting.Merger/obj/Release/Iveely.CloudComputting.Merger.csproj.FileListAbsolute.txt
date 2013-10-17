@@ -4,3 +4,5 @@ C:\Users\Fanping\Desktop\项目\Iveely\Iveely.CloudComputting\Release\Iveely.Clo
 C:\Users\Fanping\Desktop\项目\Iveely\Iveely.CloudComputting\Release\Iveely.CloudComputting.Merger.pdb
 C:\Users\Fanping\Desktop\项目\Iveely\Iveely.CloudComputting\Iveely.CloudComputting.Merger\obj\Release\Iveely.CloudComputting.Merger.exe
 C:\Users\Fanping\Desktop\项目\Iveely\Iveely.CloudComputting\Iveely.CloudComputting.Merger\obj\Release\Iveely.CloudComputting.Merger.pdb
+C:\Users\Fanping\Desktop\项目\Iveely\Iveely.CloudComputting\Release\log4net.config
+C:\Users\Fanping\Desktop\项目\Iveely\Iveely.CloudComputting\Iveely.CloudComputting.Merger\obj\Release\Iveely.CloudComputting.Merger.csprojResolveAssemblyReference.cache

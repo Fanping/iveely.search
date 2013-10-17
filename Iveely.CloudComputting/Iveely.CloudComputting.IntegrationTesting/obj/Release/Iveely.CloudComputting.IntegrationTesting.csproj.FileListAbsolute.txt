@@ -1,0 +1,6 @@
+C:\Users\Fanping\Desktop\项目\Iveely\Iveely.CloudComputting\Release\Deploy-Local-Environment.bat
+C:\Users\Fanping\Desktop\项目\Iveely\Iveely.CloudComputting\Release\Stop-Local-Environment.bat
+C:\Users\Fanping\Desktop\项目\Iveely\Iveely.CloudComputting\Release\Iveely.CloudComputting.IntegrationTesting.dll
+C:\Users\Fanping\Desktop\项目\Iveely\Iveely.CloudComputting\Release\Iveely.CloudComputting.IntegrationTesting.pdb
+C:\Users\Fanping\Desktop\项目\Iveely\Iveely.CloudComputting\Iveely.CloudComputting.IntegrationTesting\obj\Release\Iveely.CloudComputting.IntegrationTesting.dll
+C:\Users\Fanping\Desktop\项目\Iveely\Iveely.CloudComputting\Iveely.CloudComputting.IntegrationTesting\obj\Release\Iveely.CloudComputting.IntegrationTesting.pdb

@@ -8,7 +8,8 @@ namespace Iveely.CloudComputting.Client
         {
             int a = 1;
             int b = 2;
-            DiagnosticsWrite("a+b=" + (a + b) + ".", args);
+            double sum = Mathematics.Sum(3, args);
+            DiagnosticsWrite("sum=" + sum + ".", args);
             DiagnosticsWrite("a-b=" + (a - b) + ".", args);
         }
     }

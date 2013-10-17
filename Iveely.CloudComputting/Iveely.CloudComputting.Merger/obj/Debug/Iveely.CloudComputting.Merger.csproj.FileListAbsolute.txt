@@ -6,3 +6,5 @@ C:\Users\Fanping\Desktop\项目\Iveely\Iveely.CloudComputting\Iveely.CloudComput
 C:\Users\Fanping\Desktop\项目\Iveely\Iveely.CloudComputting\Debug\Iveely.CloudComputting.Merger.exe.config
 C:\Users\Fanping\Desktop\项目\Iveely\Iveely.CloudComputting\Debug\Iveely.CloudComputting.Merger.exe
 C:\Users\Fanping\Desktop\项目\Iveely\Iveely.CloudComputting\Debug\Iveely.CloudComputting.Merger.pdb
+C:\Users\Fanping\Desktop\项目\Iveely\Iveely.CloudComputting\Iveely.CloudComputting.Merger\obj\Debug\Iveely.CloudComputting.Merger.csprojResolveAssemblyReference.cache
+C:\Users\Fanping\Desktop\项目\Iveely\Iveely.CloudComputting\Debug\log4net.config

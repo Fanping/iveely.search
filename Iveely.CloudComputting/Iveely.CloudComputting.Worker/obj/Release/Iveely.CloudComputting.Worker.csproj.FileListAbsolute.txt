@@ -6,3 +6,5 @@ C:\Users\Fanping\Desktop\项目\Iveely\Iveely.CloudComputting\Release\Iveely.Clo
 C:\Users\Fanping\Desktop\项目\Iveely\Iveely.CloudComputting\Iveely.CloudComputting.Worker\obj\Release\Iveely.CloudComputting.Worker.csprojResolveAssemblyReference.cache
 C:\Users\Fanping\Desktop\项目\Iveely\Iveely.CloudComputting\Iveely.CloudComputting.Worker\obj\Release\Iveely.CloudComputting.Worker.exe
 C:\Users\Fanping\Desktop\项目\Iveely\Iveely.CloudComputting\Iveely.CloudComputting.Worker\obj\Release\Iveely.CloudComputting.Worker.pdb
+C:\Users\Fanping\Desktop\项目\Iveely\Iveely.CloudComputting\Release\Example.cs
+C:\Users\Fanping\Desktop\项目\Iveely\Iveely.CloudComputting\Release\RunExample.bat

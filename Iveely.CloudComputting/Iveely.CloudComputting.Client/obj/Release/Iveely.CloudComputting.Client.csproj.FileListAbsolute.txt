@@ -1,3 +1,12 @@
 C:\Users\Fanping\Desktop\项目\Iveely.CloudComputting\Iveely.CloudComputting.Client\bin\Release\Iveely.CloudComputting.Client.exe.config
 C:\Users\Fanping\Desktop\项目\Iveely.CloudComputting\Release\Iveely.CloudComputting.Client.exe.config
 C:\Users\Fanping\Desktop\项目\Iveely.CloudComputting\Iveely.CloudComputting.Client\obj\Release\Iveely.CloudComputting.Client.csprojResolveAssemblyReference.cache
+C:\Users\Fanping\Desktop\项目\Iveely\Iveely.CloudComputting\Release\log4net.config
+C:\Users\Fanping\Desktop\项目\Iveely\Iveely.CloudComputting\Release\Example.cs
+C:\Users\Fanping\Desktop\项目\Iveely\Iveely.CloudComputting\Release\RunExample.bat
+C:\Users\Fanping\Desktop\项目\Iveely\Iveely.CloudComputting\Release\Iveely.CloudComputting.Client.exe.config
+C:\Users\Fanping\Desktop\项目\Iveely\Iveely.CloudComputting\Release\Iveely.CloudComputting.Client.exe
+C:\Users\Fanping\Desktop\项目\Iveely\Iveely.CloudComputting\Release\Iveely.CloudComputting.Client.pdb
+C:\Users\Fanping\Desktop\项目\Iveely\Iveely.CloudComputting\Iveely.CloudComputting.Client\obj\Release\Iveely.CloudComputting.Client.csprojResolveAssemblyReference.cache
+C:\Users\Fanping\Desktop\项目\Iveely\Iveely.CloudComputting\Iveely.CloudComputting.Client\obj\Release\Iveely.CloudComputting.Client.exe
+C:\Users\Fanping\Desktop\项目\Iveely\Iveely.CloudComputting\Iveely.CloudComputting.Client\obj\Release\Iveely.CloudComputting.Client.pdb

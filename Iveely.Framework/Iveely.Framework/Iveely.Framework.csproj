@@ -48,6 +48,7 @@
     <Compile Include="Network\Synchronous\Client.cs" />
     <Compile Include="Network\Synchronous\Server.cs" />
     <Compile Include="Process\ParallelHelper.cs" />
+    <Compile Include="Process\RunningState.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Text\CodeCompiler.cs" />
     <Compile Include="Text\Serializer.cs" />
