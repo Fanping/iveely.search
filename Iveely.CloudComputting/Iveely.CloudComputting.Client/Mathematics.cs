@@ -7,6 +7,7 @@
  *========================================*/
 
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -40,6 +41,26 @@ namespace Iveely.CloudComputting.Client
             packet.WaiteCallBack = true;
             Logger.Info(args[2].ToString() + "," + args[3].ToString() + " send average commond,value is " + val);
             return client.Send<double>(packet);
+        }
+
+        public static List<T> CombineList<T>(List<T> objects, object[] args)
+        {
+            Init();
+            MergePacket packet = new MergePacket(Serializer.SerializeToBytes(objects), MergePacket.MergeType.CombineList,
+                args[4].ToString(), args[5].ToString());
+            packet.WaiteCallBack = true;
+            Logger.Info(args[2].ToString() + "," + args[3].ToString() + " send combine list commond.");
+            return client.Send<List<T>>(packet);
+        }
+
+        public static Hashtable CombineTable(Hashtable table, object[] args)
+        {
+            Init();
+            MergePacket packet = new MergePacket(Serializer.SerializeToBytes(table), MergePacket.MergeType.CombineTable,
+                args[4].ToString(), args[5].ToString());
+            packet.WaiteCallBack = true;
+            Logger.Info(args[2].ToString() + "," + args[3].ToString() + " send combine table commond.");
+            return client.Send<Hashtable>(packet);
         }
 
         public static List<T> Distinct<T>(List<T> objects, object[] args)

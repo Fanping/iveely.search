@@ -42,6 +42,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Average.cs" />
+    <Compile Include="CombineList.cs" />
+    <Compile Include="CombineTable.cs" />
     <Compile Include="Distinct.cs" />
     <Compile Include="Operate.cs" />
     <Compile Include="Program.cs" />

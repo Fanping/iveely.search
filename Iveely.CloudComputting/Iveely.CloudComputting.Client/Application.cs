@@ -43,7 +43,7 @@ namespace Iveely.CloudComputting.Client
         /// <param name="line">数据</param>
         /// <param name="fileName">文件名</param>
         /// <param name="parameters">其它参数</param>
-        public void WriteText(string line, string fileName, object[] parameters)
+        public void WriteText(string line, string fileName, bool globalFile, object[] parameters)
         {
             //1. 检查根目录是否存在
             string rootFolder = GetRootFolder(parameters);
@@ -54,12 +54,28 @@ namespace Iveely.CloudComputting.Client
 
             //2. 写文件数据
             string filePath = rootFolder + "/" + fileName;
+            if (globalFile)
+            {
+                filePath += ".global";
+            }
+            else
+            {
+                filePath += ".part";
+            }
             File.AppendAllText(filePath, line);
         }
 
-        public string ReadText(string fileName, object[] parameters)
+        public string ReadText(string fileName, bool globalFile, object[] parameters)
         {
             string filePath = GetRootFolder(parameters) + "/" + fileName;
+            if (globalFile)
+            {
+                filePath += ".global";
+            }
+            else
+            {
+                filePath += ".part";
+            }
             if (File.Exists(filePath))
             {
                 return File.ReadAllText(filePath);
@@ -74,7 +90,7 @@ namespace Iveely.CloudComputting.Client
         /// <param name="line">数据</param>
         /// <param name="fileName">文件名</param>
         /// <param name="parameters">其它参数</param>
-        public void WriteAllText(string[] lines, string fileName, object[] parameters)
+        public void WriteAllText(string[] lines, string fileName, bool globalFile, object[] parameters)
         {
             //1. 构建contents
             StringBuilder builder = new StringBuilder();
@@ -84,12 +100,20 @@ namespace Iveely.CloudComputting.Client
             }
 
             //2. 写入文件
-            WriteText(builder.ToString(), fileName, parameters);
+            WriteText(builder.ToString(), fileName, globalFile, parameters);
         }
 
-        public string[] ReadAllText(string fileName, object[] parameters)
+        public string[] ReadAllText(string fileName, bool globalFile, object[] parameters)
         {
             string filePath = GetRootFolder(parameters) + "/" + fileName;
+            if (globalFile)
+            {
+                filePath += ".global";
+            }
+            else
+            {
+                fileName += ".part";
+            }
             if (File.Exists(filePath))
             {
                 return File.ReadAllLines(filePath);

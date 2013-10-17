@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Net;
 using Iveely.CloudComputting.MergerCommon;
@@ -63,6 +64,24 @@ namespace Iveely.CloudComputting.Merger
                     List<object> objects = distinct.Compute(Serializer.DeserializeFromBytes<List<object>>(client.Data));
                     string flag = "distinct_" + client.TimeStamp + "_" + client.AppName;
                     Logger.Info(flag + ", result count is " + objects.Count);
+                    return Serializer.SerializeToBytes(objects);
+                }
+
+                if (client.Type == MergePacket.MergeType.CombineTable)
+                {
+                    CombineTable combineTable = new CombineTable(client.TimeStamp, client.AppName);
+                    Hashtable objects = combineTable.Compute(Serializer.DeserializeFromBytes<Hashtable>(client.Data));
+                    string flag = "combine_table_" + client.TimeStamp + "_" + client.AppName;
+                    Logger.Info(flag + ", combine table.");
+                    return Serializer.SerializeToBytes(objects);
+                }
+
+                if (client.Type == MergePacket.MergeType.CombineList)
+                {
+                    CombineList combineList = new CombineList(client.TimeStamp, client.AppName);
+                    List<object> objects = combineList.Compute(Serializer.DeserializeFromBytes<List<object>>(client.Data));
+                    string flag = "combine_list_" + client.TimeStamp + "_" + client.AppName;
+                    Logger.Info(flag + ", combine list.");
                     return Serializer.SerializeToBytes(objects);
                 }
             }
