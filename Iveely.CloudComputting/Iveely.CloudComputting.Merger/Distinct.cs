@@ -7,25 +7,20 @@
  *========================================*/
 
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Iveely.CloudComputting.Merger
 {
-    /// <summary>
-    /// 求和运算
-    /// </summary>
-    public class Sum : Operate
+    public class Distinct : Operate
     {
-        private const string OperateType = "sum";
+        private const string OperateType = "distinct";
 
         private string flag;
 
-        public Sum(string appTimeStamp, string appName)
+        public Distinct(string appTimeStamp, string appName)
             : base(appTimeStamp, appName)
         {
             this.AppName = appName;
@@ -44,8 +39,12 @@ namespace Iveely.CloudComputting.Merger
                 }
                 else
                 {
-                    double sum = double.Parse(Table[flag].ToString()) + double.Parse(val.ToString());
-                    Table[flag] = sum;
+                    List<object> objects = (List<object>) Table[flag];
+                    List<object> newObjects = (List<object>) Convert.ChangeType(val, typeof (List<object>));
+                    objects.AddRange(newObjects);
+                    List<object> distinctObjects = new List<object>(objects.Distinct());
+                    Table[flag] = distinctObjects;
+
                     int count = int.Parse(CountTable[flag].ToString());
                     CountTable[flag] = count + 1;
                 }

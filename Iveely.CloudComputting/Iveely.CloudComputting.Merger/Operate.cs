@@ -78,7 +78,7 @@ namespace Iveely.CloudComputting.Merger
         public bool Waite(string flag)
         {
             //BUG:什么时候清理CountTable中的数据？
-            int allowSeconds = 100;
+            int allowSeconds = 10;
             DateTime dateTime = DateTime.UtcNow;
             while ((DateTime.UtcNow - dateTime).TotalSeconds <= allowSeconds)
             {
@@ -93,13 +93,11 @@ namespace Iveely.CloudComputting.Merger
 
         public void Remove(string flag)
         {
-            lock (CountTable)
+
+            if (CountTable.ContainsKey(flag))
             {
-                if (CountTable[flag] != null)
-                {
-                    CountTable.Remove(flag);
-                    Table.Remove(flag);
-                }
+                CountTable.Remove(flag);
+                Table.Remove(flag);
             }
         }
     }

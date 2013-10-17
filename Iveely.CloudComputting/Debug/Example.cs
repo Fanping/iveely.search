@@ -1,4 +1,6 @@
-﻿using System.Threading;
+﻿using System;
+using System.Collections.Generic;
+
 
 namespace Iveely.CloudComputting.Client
 {
@@ -6,11 +8,12 @@ namespace Iveely.CloudComputting.Client
     {
         public override void Run(object[] args)
         {
-            int a = 1;
-            int b = 2;
-            double sum = Mathematics.Sum(3, args);
-            DiagnosticsWrite("sum=" + sum + ".", args);
-            DiagnosticsWrite("a-b=" + (a - b) + ".", args);
+            string content = ReadText("news.txt", args);
+            string[] words = content.Split(new[] { ' ', '"', '.', ',' }, StringSplitOptions.RemoveEmptyEntries);
+            DiagnosticsWrite("local words count:" + words.Length, args);
+            int globalWordCount = Mathematics.Sum<int>(words.Length, args);
+            DiagnosticsWrite("global words count:" + globalWordCount, args);
+
         }
     }
 }

@@ -14,7 +14,6 @@ namespace Iveely.CloudComputting.MergerCommon
         {
             Sum,
             Average,
-            Count,
             Distinct,
             TopN
         }

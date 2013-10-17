@@ -25,7 +25,7 @@ namespace Iveely.CloudComputting.Merger
             //3. 启动监听
             if (MergerSupervisor == null)
             {
-                MergerSupervisor = new Server(Dns.GetHostName(), 8801, ProcessMergerClient);
+                MergerSupervisor = new Server(Dns.GetHostName(), 8801, ProcessMergerClient, 5);
                 MergerSupervisor.Listen();
             }
         }
@@ -41,45 +41,34 @@ namespace Iveely.CloudComputting.Merger
                 if (client.Type == MergePacket.MergeType.Sum)
                 {
                     Sum sum = new Sum(client.TimeStamp, client.AppName);
-
                     double result = sum.Compute(Serializer.DeserializeFromBytes<double>(client.Data));
-                    string flag = "Sum_" + client.TimeStamp + "_" + client.AppName;
-                    LogHelper.Info(flag + ",result is " + result);
+                    string flag = "sum_" + client.TimeStamp + "_" + client.AppName;
+                    Logger.Info(flag + ",result is " + result);
                     sum.Remove(flag);
                     return Serializer.SerializeToBytes(result);
                 }
-                //if (client.Type == MergePacket.MergeType.Average)
-                //{
-                //    double result = MergerMath.Average(client.Name, Serializer.Deserialize<double>(client.Data));
-                //    LogHelper.Info("Data Avg");
-                //    return Serializer.SerializeToBytes(result);
-                //}
-                //if (client.Type == MergePacket.MergeType.Count)
-                //{
-                //    double result = MergerMath.Count(client.Name, Serializer.Deserialize<double>(client.Data));
-                //    //LogHelper.Info("Delete from path-" + client.Path);
-                //    return Serializer.SerializeToBytes(result);
-                //}
-                //if (client.Type == MergePacket.MergeType.Distinct)
-                //{
-                //    var result = new List<object>();
-                //    result.AddRange(MergerMath.Distinct<object>(client.Name, Serializer.Deserialize<IEnumerable<object>>(client.Data)));
-                //    //LogHelper.Info("Get from path-" + client.Path);
-                //    return Serializer.SerializeToBytes(result);
-                //}
-                //if (client.Type == MergePacket.MergeType.TopN)
-                //{
+                if (client.Type == MergePacket.MergeType.Average)
+                {
+                    Average average = new Average(client.TimeStamp, client.AppName);
+                    double result = average.Compute(Serializer.DeserializeFromBytes<double>(client.Data));
+                    string flag = "average_" + client.TimeStamp + "_" + client.AppName;
+                    Logger.Info(flag + ",result is " + result);
+                    average.Remove(flag);
+                    return Serializer.SerializeToBytes(result);
+                }
 
-                //    var result = Serializer.DeserializeFromBytes<List<double>>(client.Data);//(List<double>)client.Data;
-                //    long n = result.ToArray().Length;
-                //    result = MergerMath.TopN(client.Name, Serializer.Deserialize<List<double>>(client.Data), n);
-                //    //LogHelper.Info("IsExists from path-" + client.Path);
-                //    return Serializer.SerializeToBytes(result);
-                //}
+                if (client.Type == MergePacket.MergeType.Distinct)
+                {
+                    Distinct distinct = new Distinct(client.TimeStamp, client.AppName);
+                    List<object> objects = distinct.Compute(Serializer.DeserializeFromBytes<List<object>>(client.Data));
+                    string flag = "distinct_" + client.TimeStamp + "_" + client.AppName;
+                    Logger.Info(flag + ", result count is " + objects.Count);
+                    return Serializer.SerializeToBytes(objects);
+                }
             }
             catch (Exception exception)
             {
-                LogHelper.Error(exception);
+                Logger.Error(exception);
             }
             return Serializer.SerializeToBytes(-1);
         }

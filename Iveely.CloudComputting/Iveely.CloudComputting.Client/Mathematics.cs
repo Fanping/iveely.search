@@ -13,6 +13,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Iveely.CloudComputting.Configuration;
 using Iveely.CloudComputting.MergerCommon;
+using Iveely.Framework.Log;
 using Iveely.Framework.Text;
 
 namespace Iveely.CloudComputting.Client
@@ -22,15 +23,40 @@ namespace Iveely.CloudComputting.Client
         private static Framework.Network.Synchronous.Client client;
 
 
-        public static double Sum(double val, object[] args)
+        public static T Sum<T>(double val, object[] args)
         {
             Init();
             MergerCommon.MergePacket packet = new MergePacket(Serializer.SerializeToBytes(val), MergePacket.MergeType.Sum, args[4].ToString(), args[5].ToString());
             packet.WaiteCallBack = true;
+            Logger.Info(args[2].ToString() + "," + args[3].ToString() + " send sum commond,value is " + val);
+            return (T)Convert.ChangeType(client.Send<object>(packet), typeof(T));
+        }
+
+        public static double Average(double val, object[] args)
+        {
+            Init();
+            MergePacket packet = new MergePacket(Serializer.SerializeToBytes(val), MergePacket.MergeType.Average,
+                args[4].ToString(), args[5].ToString());
+            packet.WaiteCallBack = true;
+            Logger.Info(args[2].ToString() + "," + args[3].ToString() + " send average commond,value is " + val);
             return client.Send<double>(packet);
         }
 
-
+        public static List<T> Distinct<T>(List<T> objects, object[] args)
+        {
+            Init();
+            MergePacket packet = new MergePacket(Serializer.SerializeToBytes(objects), MergePacket.MergeType.Distinct,
+                args[4].ToString(), args[5].ToString());
+            packet.WaiteCallBack = true;
+            Logger.Info(args[2].ToString() + "," + args[3].ToString() + " send distinct commond. ");
+            List<object> results = client.Send<List<object>>(packet);
+            List<T> list = new List<T>();
+            foreach (var result in results)
+            {
+                list.Add((T)result);
+            }
+            return list;
+        }
 
         private static void Init()
         {

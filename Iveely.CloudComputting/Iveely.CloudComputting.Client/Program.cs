@@ -75,6 +75,7 @@ namespace Iveely.CloudComputting.Client
                 Framework.Network.Synchronous.Client transfer = new Framework.Network.Synchronous.Client(ip[0], int.Parse(ip[1]));
                 CodePacket codePacket = new CodePacket(bytes, className, appName, timeStamp);
                 codePacket.SetReturnAddress(Dns.GetHostName(), 8800);
+                codePacket.WaiteCallBack = false;
                 transfer.Send<object>(codePacket);
             }
 
@@ -88,7 +89,7 @@ namespace Iveely.CloudComputting.Client
                     Console.ReadLine();
                     return;
                 }
-                Thread.Sleep(60 * 1000);
+                Thread.Sleep(1000);
             }
             Console.WriteLine("Application failured as run too much time,press any key to exit.");
             Console.ReadLine();

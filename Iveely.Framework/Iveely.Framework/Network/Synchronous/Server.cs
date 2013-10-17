@@ -8,6 +8,8 @@
 
 using System;
 using System.Net.Sockets;
+using System.Threading;
+using Iveely.Framework.Log;
 using Iveely.Framework.Text;
 
 namespace Iveely.Framework.Network.Synchronous
@@ -49,6 +51,10 @@ namespace Iveely.Framework.Network.Synchronous
         /// </summary>
         private bool _isListening;
 
+        private int MaxVisitThread = 5;
+
+        private int currentThreadCount = 0;
+
         /// <summary>
         /// 网络传输最大大小
         /// </summary>
@@ -59,11 +65,12 @@ namespace Iveely.Framework.Network.Synchronous
         /// </summary>
         /// <param name="host">IP地址</param>
         /// <param name="port">端口号</param>
-        public Server(string host, int port)
+        public Server(string host, int port, int maxVisitThread = 1)
         {
             _isListening = false;
             _address = host;
             _port = port;
+            MaxVisitThread = maxVisitThread;
         }
 
         /// <summary>
@@ -72,12 +79,13 @@ namespace Iveely.Framework.Network.Synchronous
         /// <param name="host">IP地址</param>
         /// <param name="port">端口号</param>
         /// <param name="processing">数据处理过程</param>
-        public Server(string host, int port, Processing processing)
+        public Server(string host, int port, Processing processing, int maxVisitThread = 1)
         {
             _isListening = false;
             _address = host;
             _port = port;
             _processing = processing;
+            MaxVisitThread = maxVisitThread;
         }
 
         /// <summary>
@@ -97,31 +105,16 @@ namespace Iveely.Framework.Network.Synchronous
 
                     //启动监听服务
                     _listener.Start();
+
+
                     while (true)
                     {
-                        //等待客户端链接
                         TcpClient client = _listener.AcceptTcpClient();
 
-                        //字节数组容器
-                        var reciveBytes = new byte[_maxTransferSize];
-                        var sendBytes = new byte[_maxTransferSize];
-
-                        //读取网络流
-                        using (NetworkStream netStream = client.GetStream())
-                        {
-                            //设定读超时
-                            netStream.ReadTimeout = 600000;
-                            netStream.Read(reciveBytes, 0, reciveBytes.Length);
-
-                            //转换为字节数组
-                            //Packet clientPacket = Serializer.DeserializeFromBytes<Packet>(bytes);
-                            sendBytes = _processing(reciveBytes);
-                            if (sendBytes != null)
-                            {
-                                netStream.Write(sendBytes, 0, sendBytes.Length);
-                                netStream.Flush();
-                            }
-                        }
+                        //用线程解决高并发问题，此处很重要
+                        Thread thread = new Thread(ProcessClient);
+                        thread.Start(client);
+       
                     }
                 }
                 throw new Exception("服务器已经启动监听，本次启动无效！");
@@ -158,6 +151,34 @@ namespace Iveely.Framework.Network.Synchronous
             {
                 _maxTransferSize = size;
             }
+        }
+
+        private void ProcessClient(object objClient)
+        {
+
+            TcpClient client = (TcpClient)objClient;
+            //字节数组容器
+            var reciveBytes = new byte[_maxTransferSize];
+            var sendBytes = new byte[_maxTransferSize];
+
+            //读取网络流
+            using (NetworkStream netStream = client.GetStream())
+            {
+                //设定读超时
+                netStream.ReadTimeout = 600000;
+                netStream.Read(reciveBytes, 0, reciveBytes.Length);
+
+                //转换为字节数组
+                //Packet clientPacket = Serializer.DeserializeFromBytes<Packet>(bytes);
+                sendBytes = _processing(reciveBytes);
+                if (sendBytes != null)
+                {
+                    netStream.Write(sendBytes, 0, sendBytes.Length);
+                    netStream.Flush();
+                }
+            }
+
+            currentThreadCount--;
         }
     }
 }

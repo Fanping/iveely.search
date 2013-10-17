@@ -7,25 +7,23 @@
  *========================================*/
 
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Iveely.CloudComputting.Merger
 {
     /// <summary>
-    /// 求和运算
+    /// 平均数运算
     /// </summary>
-    public class Sum : Operate
+    public class Average : Operate
     {
-        private const string OperateType = "sum";
+        private const string OperateType = "average";
 
         private string flag;
 
-        public Sum(string appTimeStamp, string appName)
+        public Average(string appTimeStamp, string appName)
             : base(appTimeStamp, appName)
         {
             this.AppName = appName;
@@ -44,8 +42,8 @@ namespace Iveely.CloudComputting.Merger
                 }
                 else
                 {
-                    double sum = double.Parse(Table[flag].ToString()) + double.Parse(val.ToString());
-                    Table[flag] = sum;
+                    double average = (double.Parse(Table[flag].ToString()) + double.Parse(val.ToString())) / 2.0;
+                    Table[flag] = average;
                     int count = int.Parse(CountTable[flag].ToString());
                     CountTable[flag] = count + 1;
                 }
