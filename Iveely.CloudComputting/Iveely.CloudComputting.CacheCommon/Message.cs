@@ -8,14 +8,17 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace Iveely.CloudComputting.Cache
+namespace Iveely.CloudComputting.CacheCommon
 {
     /// <summary>
     /// 缓存传输消息
     /// </summary>
     [Serializable]
-    internal class Message
+    public class Message
     {
         /// <summary>
         /// 缓存消息执行类型

@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using Iveely.CloudComputting.CacheAPI;
 using Iveely.CloudComputting.StateAPI;
 using Iveely.Framework.Network;
 using Iveely.Framework.Text;
@@ -19,9 +20,18 @@ namespace Iveely.CloudComputting.Client
     {
         protected Framework.Network.Synchronous.Client Sender;
 
+        public static object[] parameters;
+
         public abstract void Run(object[] args);
 
-        public void DiagnosticsWrite(string information, object[] parameters)
+        public void Init(object[] args)
+        {
+            parameters = args;
+        }
+
+        #region 交互操作
+
+        public void WriteToConsole(string information)
         {
             if (Sender == null)
             {
@@ -36,6 +46,10 @@ namespace Iveely.CloudComputting.Client
             Sender.Send<Packet>(packet);
         }
 
+        #endregion
+
+        #region 文本操作
+
         /// <summary>
         /// 写单行数据
         /// （如果文件存在，则追加）
@@ -43,39 +57,23 @@ namespace Iveely.CloudComputting.Client
         /// <param name="line">数据</param>
         /// <param name="fileName">文件名</param>
         /// <param name="parameters">其它参数</param>
-        public void WriteText(string line, string fileName, bool globalFile, object[] parameters)
+        public void WriteText(string line, string fileName, bool globalFile)
         {
             //1. 检查根目录是否存在
-            string rootFolder = GetRootFolder(parameters);
+            string rootFolder = GetRootFolder();
             if (!Directory.Exists(rootFolder))
             {
                 Directory.CreateDirectory(rootFolder);
             }
 
             //2. 写文件数据
-            string filePath = rootFolder + "/" + fileName;
-            if (globalFile)
-            {
-                filePath += ".global";
-            }
-            else
-            {
-                filePath += ".part";
-            }
+            string filePath = GetFilePath(fileName, globalFile);
             File.AppendAllText(filePath, line);
         }
 
-        public string ReadText(string fileName, bool globalFile, object[] parameters)
+        public string ReadText(string fileName, bool globalFile)
         {
-            string filePath = GetRootFolder(parameters) + "/" + fileName;
-            if (globalFile)
-            {
-                filePath += ".global";
-            }
-            else
-            {
-                filePath += ".part";
-            }
+            string filePath = GetFilePath(fileName, globalFile);
             if (File.Exists(filePath))
             {
                 return File.ReadAllText(filePath);
@@ -90,7 +88,7 @@ namespace Iveely.CloudComputting.Client
         /// <param name="line">数据</param>
         /// <param name="fileName">文件名</param>
         /// <param name="parameters">其它参数</param>
-        public void WriteAllText(string[] lines, string fileName, bool globalFile, object[] parameters)
+        public void WriteAllText(string[] lines, string fileName, bool globalFile)
         {
             //1. 构建contents
             StringBuilder builder = new StringBuilder();
@@ -100,20 +98,12 @@ namespace Iveely.CloudComputting.Client
             }
 
             //2. 写入文件
-            WriteText(builder.ToString(), fileName, globalFile, parameters);
+            WriteText(builder.ToString(), fileName, globalFile);
         }
 
-        public string[] ReadAllText(string fileName, bool globalFile, object[] parameters)
+        public string[] ReadAllText(string fileName, bool globalFile)
         {
-            string filePath = GetRootFolder(parameters) + "/" + fileName;
-            if (globalFile)
-            {
-                filePath += ".global";
-            }
-            else
-            {
-                fileName += ".part";
-            }
+            string filePath = GetFilePath(fileName, globalFile);
             if (File.Exists(filePath))
             {
                 return File.ReadAllLines(filePath);
@@ -121,10 +111,67 @@ namespace Iveely.CloudComputting.Client
             throw new FileNotFoundException(fileName + " not found!");
         }
 
-        private string GetRootFolder(object[] parameters)
+        public bool IsExist(string fileName, bool globalFile)
+        {
+            string filePath = GetFilePath(fileName, globalFile);
+            return File.Exists(filePath);
+        }
+
+        public void Delete(string fileName, bool globalFile)
+        {
+            string filePath = GetFilePath(fileName, globalFile);
+            File.Delete(filePath);
+        }
+
+        #endregion
+
+        #region 缓存操作
+
+        public void SetCache(string key, object value)
+        {
+            if (string.IsNullOrEmpty(key))
+            {
+                throw new NullReferenceException("Key can not be null.");
+            }
+            key += parameters[2].ToString() + parameters[3] + parameters[4] + parameters[5];
+            Memory.Set(key, value);
+        }
+
+        public T GetCache<T>(string key)
+        {
+            if (string.IsNullOrEmpty(key))
+            {
+                throw new NullReferenceException("Key can not be null.");
+            }
+            key += parameters[2].ToString() + parameters[3] + parameters[4] + parameters[5];
+            object obj = Memory.Get(key);
+            return (T)Convert.ChangeType(obj, typeof(T));
+        }
+
+        #endregion
+
+        #region 其它私有方法
+
+        private string GetRootFolder()
         {
             string rootFolder = parameters[3].ToString();
             return rootFolder;
         }
+
+        private string GetFilePath(string fileName, bool globalFile)
+        {
+            string filePath = GetRootFolder() + "/" + fileName;
+            if (globalFile)
+            {
+                filePath += ".global";
+            }
+            else
+            {
+                filePath += ".part";
+            }
+            return filePath;
+        }
+
+        #endregion
     }
 }

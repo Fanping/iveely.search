@@ -1,19 +1,15 @@
-﻿/*==========================================
- *创建人：刘凡平
- *邮  箱：liufanping@iveely.com
- *电  话：13896622743
- *版  本：0.1.0
- *Iveely=I void everything,except love you!
- *========================================*/
-
+﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
+using System.Text;
+using System.Threading.Tasks;
 using Iveely.CloudComputting.Configuration;
 using Iveely.Framework.Network;
 using Iveely.Framework.Network.Synchronous;
 using Iveely.Framework.Text;
 
-namespace Iveely.CloudComputting.Cache
+namespace Iveely.CloudComputting.CacheCommon
 {
     /// <summary>
     /// 目标缓存存储结点选择器

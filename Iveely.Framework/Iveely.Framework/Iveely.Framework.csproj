@@ -33,6 +33,7 @@
     <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -51,12 +52,17 @@
     <Compile Include="Process\RunningState.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Text\CodeCompiler.cs" />
+    <Compile Include="Text\Html.cs" />
     <Compile Include="Text\Serializer.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Network\Asynchronous\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Dependency\HtmlAgilityPack\HtmlAgilityPack.csproj">
+      <Project>{193bb801-054f-4729-9d5d-fce1e32594bf}</Project>
+      <Name>HtmlAgilityPack</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Dependency\Log4Net\log4net.csproj">
       <Project>{181fe707-e161-4722-9f38-6aaab6faa106}</Project>
       <Name>log4net</Name>

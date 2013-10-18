@@ -4,6 +4,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Iveely.CloudComputting", "Iveely.CloudComputting", "{456AA3BF-F2BE-4979-9CC6-FF1BE180FDAD}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Iveely.SearchEngine", "Iveely.SearchEngine", "{7505B016-9220-4620-944E-D7F119A637E8}"
+	ProjectSection(SolutionItems) = preProject
+		Spider.script = Spider.script
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Dependency", "Dependency", "{B40A826B-7BE9-4629-BE4A-69809B06560D}"
 EndProject
@@ -30,6 +33,12 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Iveely.CloudComputting.IntegrationTesting", "Iveely.CloudComputting\Iveely.CloudComputting.IntegrationTesting\Iveely.CloudComputting.IntegrationTesting.csproj", "{EA0177B5-9EE3-4656-AB56-B5CF4AA3D982}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Iveely.CloudComputting.MergerCommon", "Iveely.CloudComputting\Iveely.CloudComputting.MergerCommon\Iveely.CloudComputting.MergerCommon.csproj", "{FC94189A-EA54-4FB3-9CC3-708FDFC0BA4B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Iveely.CloudComputting.CacheCommon", "Iveely.CloudComputting\Iveely.CloudComputting.CacheCommon\Iveely.CloudComputting.CacheCommon.csproj", "{E375FF72-F36B-4EBF-ABA0-691944E1119A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Iveely.CloudComputting.CacheAPI", "Iveely.CloudComputting\Iveely.CloudComputting.CacheAPI\Iveely.CloudComputting.CacheAPI.csproj", "{A153F408-FFA3-45BE-9886-15E0D4BC06E7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HtmlAgilityPack", "Dependency\HtmlAgilityPack\HtmlAgilityPack.csproj", "{193BB801-054F-4729-9D5D-FCE1E32594BF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -85,6 +94,18 @@ Global
 		{FC94189A-EA54-4FB3-9CC3-708FDFC0BA4B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FC94189A-EA54-4FB3-9CC3-708FDFC0BA4B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FC94189A-EA54-4FB3-9CC3-708FDFC0BA4B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E375FF72-F36B-4EBF-ABA0-691944E1119A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E375FF72-F36B-4EBF-ABA0-691944E1119A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E375FF72-F36B-4EBF-ABA0-691944E1119A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E375FF72-F36B-4EBF-ABA0-691944E1119A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A153F408-FFA3-45BE-9886-15E0D4BC06E7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A153F408-FFA3-45BE-9886-15E0D4BC06E7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A153F408-FFA3-45BE-9886-15E0D4BC06E7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A153F408-FFA3-45BE-9886-15E0D4BC06E7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{193BB801-054F-4729-9D5D-FCE1E32594BF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{193BB801-054F-4729-9D5D-FCE1E32594BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{193BB801-054F-4729-9D5D-FCE1E32594BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{193BB801-054F-4729-9D5D-FCE1E32594BF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -100,6 +121,9 @@ Global
 		{394ECE63-79BF-4758-992F-BC23975FE10A} = {456AA3BF-F2BE-4979-9CC6-FF1BE180FDAD}
 		{EA0177B5-9EE3-4656-AB56-B5CF4AA3D982} = {456AA3BF-F2BE-4979-9CC6-FF1BE180FDAD}
 		{FC94189A-EA54-4FB3-9CC3-708FDFC0BA4B} = {456AA3BF-F2BE-4979-9CC6-FF1BE180FDAD}
+		{E375FF72-F36B-4EBF-ABA0-691944E1119A} = {456AA3BF-F2BE-4979-9CC6-FF1BE180FDAD}
+		{A153F408-FFA3-45BE-9886-15E0D4BC06E7} = {456AA3BF-F2BE-4979-9CC6-FF1BE180FDAD}
 		{181FE707-E161-4722-9F38-6AAAB6FAA106} = {B40A826B-7BE9-4629-BE4A-69809B06560D}
+		{193BB801-054F-4729-9D5D-FCE1E32594BF} = {B40A826B-7BE9-4629-BE4A-69809B06560D}
 	EndGlobalSection
 EndGlobal

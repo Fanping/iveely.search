@@ -7,9 +7,13 @@
  *========================================*/
 
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using Iveely.Framework.Network;
 
-namespace Iveely.CloudComputting.Cache
+namespace Iveely.CloudComputting.CacheCommon
 {
     /// <summary>
     /// 缓存网络传输包

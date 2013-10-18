@@ -8,6 +8,7 @@
 
 using System.Collections.Generic;
 using System.Net;
+using Iveely.CloudComputting.CacheCommon;
 using Iveely.CloudComputting.Configuration;
 using Iveely.Framework.Log;
 using Iveely.Framework.Network;
