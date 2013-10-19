@@ -1,107 +1,503 @@
-[2013-10-17 23:21:23,768] [Fanping-PC] [INFO ] [put path ISE://system/state/merger/Fanping-PC ]
-[2013-10-17 23:21:23,815] [Fanping-PC] [INFO ] [Added information to path-ISE://system/state/worker/Fanping-PC,8001  value=System.Byte[] ]
-[2013-10-17 23:21:23,815] [Fanping-PC] [INFO ] [Starting listen the worker's task... ]
-[2013-10-17 23:21:23,830] [Fanping-PC] [INFO ] [worker's task supervisor instance build success... ]
-[2013-10-17 23:21:23,768] [Fanping-PC] [INFO ] [put path ISE://system/state/worker/Fanping-PC,8002 ]
-[2013-10-17 23:21:23,846] [Fanping-PC] [INFO ] [Added information to path-ISE://system/state/worker/Fanping-PC,8002  value=System.Byte[] ]
-[2013-10-17 23:21:23,846] [Fanping-PC] [INFO ] [Starting listen the worker's task... ]
-[2013-10-17 23:21:23,846] [Fanping-PC] [INFO ] [worker's task supervisor instance build success... ]
-[2013-10-17 23:21:31,359] [Fanping-PC] [INFO ] [Start Compile your code... ]
-[2013-10-17 23:21:31,812] [Fanping-PC] [INFO ] [Preparing for send your application to platform... ]
-[2013-10-17 23:21:31,859] [Fanping-PC] [INFO ] [put path ISE://history/130265256913754454/ExampleApp ]
-[2013-10-17 23:21:31,874] [Fanping-PC] [INFO ] [Added information to path-ISE://history/130265256913754454/ExampleApp  value=System.Byte[] ]
-[2013-10-17 23:21:31,890] [Fanping-PC] [INFO ] [Get children from path:ISE://system/state/worker ]
-[2013-10-17 23:21:31,890] [Fanping-PC] [INFO ] [Running path ISE://application/130265256913754454/ExampleApp/Fanping-PC,8001 ]
-[2013-10-17 23:21:31,983] [Fanping-PC] [INFO ] [Get children from path:ISE://application/130265256913754454/ExampleApp ]
-[2013-10-17 23:21:32,015] [Fanping-PC] [INFO ] [Running path ISE://application/130265256913754454/ExampleApp/Fanping-PC,8002 ]
-[2013-10-17 23:21:32,217] [Fanping-PC] [INFO ] [Fanping-PC,8001 send sum commond,value is 422 ]
-[2013-10-17 23:21:32,233] [Fanping-PC] [INFO ] [Get children from path:ISE://system/state/worker ]
-[2013-10-17 23:21:32,249] [Fanping-PC] [INFO ] [Fanping-PC,8002 send sum commond,value is 752 ]
-[2013-10-17 23:21:32,249] [Fanping-PC] [INFO ] [sum_130265256913754454_ExampleApp,result is 1174 ]
-[2013-10-17 23:21:32,249] [Fanping-PC] [INFO ] [sum_130265256913754454_ExampleApp,result is 1174 ]
-[2013-10-17 23:21:32,280] [Fanping-PC] [INFO ] [Fanping-PC,8002 send combine table commond. ]
-[2013-10-17 23:21:32,280] [Fanping-PC] [INFO ] [Fanping-PC,8001 send combine table commond. ]
-[2013-10-17 23:21:32,280] [Fanping-PC] [INFO ] [combine_table_130265256913754454_ExampleApp, combine table. ]
-[2013-10-17 23:21:32,280] [Fanping-PC] [INFO ] [combine_table_130265256913754454_ExampleApp, combine table. ]
-[2013-10-17 23:21:32,295] [Fanping-PC] [INFO ] [put path ISE://application/130265256913754454/ExampleApp/Fanping-PC,8002 ]
-[2013-10-17 23:21:32,295] [Fanping-PC] [INFO ] [Added information to path-ISE://application/130265256913754454/ExampleApp/Fanping-PC,8002  value=System.Byte[] ]
-[2013-10-17 23:21:32,373] [Fanping-PC] [ERROR] [System.Reflection.TargetInvocationException: Exception has been thrown by the target of an invocation. ---> System.Runtime.Serialization.SerializationException: Binary stream '0' does not contain a valid BinaryHeader. Possible causes are invalid stream or object version change between serialization and deserialization.
+[2013-10-19 01:12:32,451] [Fanping-PC] [INFO ] [State Center is start listening... ]
+[2013-10-19 01:12:32,552] [Fanping-PC] [INFO ] [put path ISE://system/state/merger/Fanping-PC ]
+[2013-10-19 01:12:32,599] [Fanping-PC] [INFO ] [Added information to path-ISE://system/state/merger/Fanping-PC  value=System.Byte[] ]
+[2013-10-19 01:12:32,669] [Fanping-PC] [INFO ] [put path ISE://system/state/worker/Fanping-PC,8002 ]
+[2013-10-19 01:12:32,698] [Fanping-PC] [INFO ] [Added information to path-ISE://system/state/worker/Fanping-PC,8002  value=System.Byte[] ]
+[2013-10-19 01:12:32,704] [Fanping-PC] [INFO ] [Starting listen the worker's task... ]
+[2013-10-19 01:12:32,705] [Fanping-PC] [INFO ] [worker's task supervisor instance build success... ]
+[2013-10-19 01:12:32,689] [Fanping-PC] [INFO ] [put path ISE://system/state/worker/Fanping-PC,8001 ]
+[2013-10-19 01:12:32,719] [Fanping-PC] [INFO ] [Added information to path-ISE://system/state/worker/Fanping-PC,8001  value=System.Byte[] ]
+[2013-10-19 01:12:32,723] [Fanping-PC] [INFO ] [Starting listen the worker's task... ]
+[2013-10-19 01:12:32,724] [Fanping-PC] [INFO ] [worker's task supervisor instance build success... ]
+[2013-10-19 01:12:32,964] [Fanping-PC] [INFO ] [Start memory cache Fanping-PC:8081 ]
+[2013-10-19 01:12:35,967] [Fanping-PC] [INFO ] [Start Compile your code... ]
+[2013-10-19 01:12:36,082] [Fanping-PC] [INFO ] [Preparing for send your application to platform... ]
+[2013-10-19 01:12:36,090] [Fanping-PC] [INFO ] [put path ISE://history/130266187559874635/ISE ]
+[2013-10-19 01:12:36,099] [Fanping-PC] [INFO ] [Added information to path-ISE://history/130266187559874635/ISE  value=System.Byte[] ]
+[2013-10-19 01:12:36,108] [Fanping-PC] [INFO ] [Get children from path:ISE://system/state/worker ]
+[2013-10-19 01:12:36,124] [Fanping-PC] [INFO ] [Get children from path:ISE://application/130266187559874635/ISE ]
+[2013-10-19 01:12:36,127] [Fanping-PC] [INFO ] [Running path ISE://application/130266187559874635/ISE/Fanping-PC,8001 ]
+[2013-10-19 01:12:36,129] [Fanping-PC] [INFO ] [Running path ISE://application/130266187559874635/ISE/Fanping-PC,8002 ]
+[2013-10-19 01:12:37,130] [Fanping-PC] [INFO ] [Get children from path:ISE://application/130266187559874635/ISE ]
+[2013-10-19 01:12:38,141] [Fanping-PC] [INFO ] [Get children from path:ISE://application/130266187559874635/ISE ]
+[2013-10-19 01:12:39,159] [Fanping-PC] [INFO ] [Get children from path:ISE://application/130266187559874635/ISE ]
+[2013-10-19 01:12:40,170] [Fanping-PC] [INFO ] [Get children from path:ISE://application/130266187559874635/ISE ]
+[2013-10-19 01:12:41,181] [Fanping-PC] [INFO ] [Get children from path:ISE://application/130266187559874635/ISE ]
+[2013-10-19 01:12:42,194] [Fanping-PC] [INFO ] [Get children from path:ISE://application/130266187559874635/ISE ]
+[2013-10-19 01:12:43,211] [Fanping-PC] [INFO ] [Get children from path:ISE://application/130266187559874635/ISE ]
+[2013-10-19 01:12:44,214] [Fanping-PC] [INFO ] [Get children from path:ISE://application/130266187559874635/ISE ]
+[2013-10-19 01:12:45,220] [Fanping-PC] [INFO ] [Get children from path:ISE://application/130266187559874635/ISE ]
+[2013-10-19 01:12:46,233] [Fanping-PC] [INFO ] [Get children from path:ISE://application/130266187559874635/ISE ]
+[2013-10-19 01:12:47,255] [Fanping-PC] [INFO ] [Get children from path:ISE://application/130266187559874635/ISE ]
+[2013-10-19 01:12:48,271] [Fanping-PC] [INFO ] [Get children from path:ISE://application/130266187559874635/ISE ]
+[2013-10-19 01:12:49,277] [Fanping-PC] [INFO ] [Get children from path:ISE://application/130266187559874635/ISE ]
+[2013-10-19 01:12:50,282] [Fanping-PC] [INFO ] [Get children from path:ISE://application/130266187559874635/ISE ]
+[2013-10-19 01:12:51,287] [Fanping-PC] [INFO ] [Get children from path:ISE://application/130266187559874635/ISE ]
+[2013-10-19 01:12:52,297] [Fanping-PC] [INFO ] [Get children from path:ISE://application/130266187559874635/ISE ]
+[2013-10-19 01:12:53,318] [Fanping-PC] [INFO ] [Get children from path:ISE://application/130266187559874635/ISE ]
+[2013-10-19 01:12:54,332] [Fanping-PC] [INFO ] [Get children from path:ISE://application/130266187559874635/ISE ]
+[2013-10-19 01:12:55,348] [Fanping-PC] [INFO ] [Get children from path:ISE://application/130266187559874635/ISE ]
+[2013-10-19 01:12:56,286] [Fanping-PC] [ERROR] [System.Reflection.TargetInvocationException: Exception has been thrown by the target of an invocation. ---> System.IO.IOException: Unable to read data from the transport connection: An existing connection was forcibly closed by the remote host. ---> System.Net.Sockets.SocketException: An existing connection was forcibly closed by the remote host
+   at System.Net.Sockets.Socket.Receive(Byte[] buffer, Int32 offset, Int32 size, SocketFlags socketFlags)
+   at System.Net.Sockets.NetworkStream.Read(Byte[] buffer, Int32 offset, Int32 size)
+   --- End of inner exception stack trace ---
+   at System.Net.Sockets.NetworkStream.Read(Byte[] buffer, Int32 offset, Int32 size)
+   at Iveely.Framework.Network.Synchronous.Client.Send[T](Packet packet) in c:\Users\Fanping\Desktop\项目\Iveely\Iveely.Framework\Iveely.Framework\Network\Synchronous\Client.cs:line 79
+   at Iveely.CloudComputting.CacheCommon.Selector.SetItems(IEnumerable`1 keys, Object sameValue, Boolean overrides) in c:\Users\Fanping\Desktop\项目\Iveely\Iveely.CloudComputting\Iveely.CloudComputting.CacheCommon\Selector.cs:line 104
+   at Iveely.CloudComputting.CacheAPI.Memory.SetList(IEnumerable`1 keys, Object value, Boolean overrides) in c:\Users\Fanping\Desktop\项目\Iveely\Iveely.CloudComputting\Iveely.CloudComputting.CacheAPI\Memory.cs:line 47
+   at Iveely.CloudComputting.Client.Application.SetListIntoCache(IEnumerable`1 objects, Object value) in c:\Users\Fanping\Desktop\项目\Iveely\Iveely.CloudComputting\Iveely.CloudComputting.Client\Application.cs:line 211
+   at Iveely.SearchEngine.Program.Crawler()
+   at Iveely.SearchEngine.Program.Run(Object[] args)
+   --- End of inner exception stack trace ---
+   at System.RuntimeMethodHandle.InvokeMethod(Object target, Object[] arguments, Signature sig, Boolean constructor)
+   at System.Reflection.RuntimeMethodInfo.UnsafeInvokeInternal(Object obj, Object[] parameters, Object[] arguments)
+   at System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at System.Reflection.MethodBase.Invoke(Object obj, Object[] parameters)
+   at Iveely.Framework.Text.CodeCompiler.Execode(String code, String className, List`1 libraries, Object[] parameters) in c:\Users\Fanping\Desktop\项目\Iveely\Iveely.Framework\Iveely.Framework\Text\CodeCompiler.cs:line 90
+   at Iveely.CloudComputting.Worker.Program.ProcessTask(Byte[] bytes) in c:\Users\Fanping\Desktop\项目\Iveely\Iveely.CloudComputting\Iveely.CloudComputting.Worker\Program.cs:line 60 ]
+[2013-10-19 01:12:56,328] [Fanping-PC] [INFO ] [put path ISE://application/130266187559874635/ISE/Fanping-PC,8001 ]
+[2013-10-19 01:12:56,333] [Fanping-PC] [ERROR] [System.Runtime.Serialization.SerializationException: Binary stream '0' does not contain a valid BinaryHeader. Possible causes are invalid stream or object version change between serialization and deserialization.
+   at System.Runtime.Serialization.Formatters.Binary.__BinaryParser.Run()
+   at System.Runtime.Serialization.Formatters.Binary.ObjectReader.Deserialize(HeaderHandler handler, __BinaryParser serParser, Boolean fCheck, Boolean isCrossAppDomain, IMethodCallMessage methodCallMessage)
+   at System.Runtime.Serialization.Formatters.Binary.BinaryFormatter.Deserialize(Stream serializationStream, HeaderHandler handler, Boolean fCheck, Boolean isCrossAppDomain, IMethodCallMessage methodCallMessage)
+   at System.Runtime.Serialization.Formatters.Binary.BinaryFormatter.Deserialize(Stream serializationStream)
+   at Iveely.Framework.Text.Serializer.DeserializeFromBytes[T](Byte[] bytes) in c:\Users\Fanping\Desktop\项目\Iveely\Iveely.Framework\Iveely.Framework\Text\Serializer.cs:line 80
+   at Iveely.CloudComputting.StateCenter.Service.OnReceive(Byte[] datas) in c:\Users\Fanping\Desktop\项目\Iveely\Iveely.CloudComputting\Iveely.CloudComputting.StateCenter\Service.cs:line 161 ]
+[2013-10-19 01:12:56,352] [Fanping-PC] [ERROR] [System.NullReferenceException: Object reference not set to an instance of an object.
+   at Iveely.CloudComputting.StateCenter.Service.ProcessClient(TcpClient client) in c:\Users\Fanping\Desktop\项目\Iveely\Iveely.CloudComputting\Iveely.CloudComputting.StateCenter\Service.cs:line 133 ]
+[2013-10-19 01:12:56,374] [Fanping-PC] [INFO ] [Get children from path:ISE://application/130266187559874635/ISE ]
+[2013-10-19 01:12:57,382] [Fanping-PC] [INFO ] [Get children from path:ISE://application/130266187559874635/ISE ]
+[2013-10-19 01:12:58,388] [Fanping-PC] [INFO ] [Get children from path:ISE://application/130266187559874635/ISE ]
+[2013-10-19 01:12:59,408] [Fanping-PC] [INFO ] [Get children from path:ISE://application/130266187559874635/ISE ]
+[2013-10-19 01:14:37,525] [Fanping-PC] [INFO ] [put path ISE://system/state/worker/Fanping-PC,8001 ]
+[2013-10-19 01:14:37,565] [Fanping-PC] [INFO ] [put path ISE://system/state/merger/Fanping-PC ]
+[2013-10-19 01:14:37,580] [Fanping-PC] [INFO ] [State Center is start listening... ]
+[2013-10-19 01:14:37,635] [Fanping-PC] [INFO ] [Added information to path-ISE://system/state/worker/Fanping-PC,8001  value=System.Byte[] ]
+[2013-10-19 01:14:37,642] [Fanping-PC] [INFO ] [Starting listen the worker's task... ]
+[2013-10-19 01:14:37,645] [Fanping-PC] [INFO ] [worker's task supervisor instance build success... ]
+[2013-10-19 01:14:37,643] [Fanping-PC] [INFO ] [Added information to path-ISE://system/state/merger/Fanping-PC  value=System.Byte[] ]
+[2013-10-19 01:14:37,617] [Fanping-PC] [INFO ] [put path ISE://system/state/worker/Fanping-PC,8002 ]
+[2013-10-19 01:14:37,660] [Fanping-PC] [INFO ] [Added information to path-ISE://system/state/worker/Fanping-PC,8002  value=System.Byte[] ]
+[2013-10-19 01:14:37,664] [Fanping-PC] [INFO ] [Starting listen the worker's task... ]
+[2013-10-19 01:14:37,666] [Fanping-PC] [INFO ] [worker's task supervisor instance build success... ]
+[2013-10-19 01:14:38,008] [Fanping-PC] [INFO ] [Start memory cache Fanping-PC:8081 ]
+[2013-10-19 01:14:45,474] [Fanping-PC] [INFO ] [Start Compile your code... ]
+[2013-10-19 01:14:45,585] [Fanping-PC] [INFO ] [Preparing for send your application to platform... ]
+[2013-10-19 01:14:45,611] [Fanping-PC] [INFO ] [put path ISE://history/130266188854988712/ISE ]
+[2013-10-19 01:14:45,618] [Fanping-PC] [INFO ] [Added information to path-ISE://history/130266188854988712/ISE  value=System.Byte[] ]
+[2013-10-19 01:14:45,632] [Fanping-PC] [INFO ] [Get children from path:ISE://system/state/worker ]
+[2013-10-19 01:14:45,663] [Fanping-PC] [INFO ] [Get children from path:ISE://application/130266188854988712/ISE ]
+[2013-10-19 01:14:45,666] [Fanping-PC] [INFO ] [Running path ISE://application/130266188854988712/ISE/Fanping-PC,8001 ]
+[2013-10-19 01:14:45,675] [Fanping-PC] [INFO ] [Running path ISE://application/130266188854988712/ISE/Fanping-PC,8002 ]
+[2013-10-19 01:14:46,682] [Fanping-PC] [INFO ] [Get children from path:ISE://application/130266188854988712/ISE ]
+[2013-10-19 01:14:47,690] [Fanping-PC] [INFO ] [Get children from path:ISE://application/130266188854988712/ISE ]
+[2013-10-19 01:14:48,707] [Fanping-PC] [INFO ] [Get children from path:ISE://application/130266188854988712/ISE ]
+[2013-10-19 01:14:49,724] [Fanping-PC] [INFO ] [Get children from path:ISE://application/130266188854988712/ISE ]
+[2013-10-19 01:14:50,733] [Fanping-PC] [INFO ] [Get children from path:ISE://application/130266188854988712/ISE ]
+[2013-10-19 01:14:51,737] [Fanping-PC] [INFO ] [Get children from path:ISE://application/130266188854988712/ISE ]
+[2013-10-19 01:14:52,761] [Fanping-PC] [INFO ] [Get children from path:ISE://application/130266188854988712/ISE ]
+[2013-10-19 01:14:53,778] [Fanping-PC] [INFO ] [Get children from path:ISE://application/130266188854988712/ISE ]
+[2013-10-19 01:14:54,802] [Fanping-PC] [INFO ] [Get children from path:ISE://application/130266188854988712/ISE ]
+[2013-10-19 01:14:55,816] [Fanping-PC] [INFO ] [Get children from path:ISE://application/130266188854988712/ISE ]
+[2013-10-19 01:14:56,837] [Fanping-PC] [INFO ] [Get children from path:ISE://application/130266188854988712/ISE ]
+[2013-10-19 01:14:57,852] [Fanping-PC] [INFO ] [Get children from path:ISE://application/130266188854988712/ISE ]
+[2013-10-19 01:14:58,863] [Fanping-PC] [INFO ] [Get children from path:ISE://application/130266188854988712/ISE ]
+[2013-10-19 01:14:59,773] [Fanping-PC] [ERROR] [System.Reflection.TargetInvocationException: Exception has been thrown by the target of an invocation. ---> System.IO.IOException: Unable to read data from the transport connection: An existing connection was forcibly closed by the remote host. ---> System.Net.Sockets.SocketException: An existing connection was forcibly closed by the remote host
+   at System.Net.Sockets.Socket.Receive(Byte[] buffer, Int32 offset, Int32 size, SocketFlags socketFlags)
+   at System.Net.Sockets.NetworkStream.Read(Byte[] buffer, Int32 offset, Int32 size)
+   --- End of inner exception stack trace ---
+   at System.Net.Sockets.NetworkStream.Read(Byte[] buffer, Int32 offset, Int32 size)
+   at Iveely.Framework.Network.Synchronous.Client.Send[T](Packet packet) in c:\Users\Fanping\Desktop\项目\Iveely\Iveely.Framework\Iveely.Framework\Network\Synchronous\Client.cs:line 79
+   at Iveely.CloudComputting.CacheCommon.Selector.SetItems(IEnumerable`1 keys, Object sameValue, Boolean overrides) in c:\Users\Fanping\Desktop\项目\Iveely\Iveely.CloudComputting\Iveely.CloudComputting.CacheCommon\Selector.cs:line 104
+   at Iveely.CloudComputting.CacheAPI.Memory.SetList(IEnumerable`1 keys, Object value, Boolean overrides) in c:\Users\Fanping\Desktop\项目\Iveely\Iveely.CloudComputting\Iveely.CloudComputting.CacheAPI\Memory.cs:line 47
+   at Iveely.CloudComputting.Client.Application.SetListIntoCache(IEnumerable`1 objects, Object value) in c:\Users\Fanping\Desktop\项目\Iveely\Iveely.CloudComputting\Iveely.CloudComputting.Client\Application.cs:line 211
+   at Iveely.SearchEngine.Program.Crawler()
+   at Iveely.SearchEngine.Program.Run(Object[] args)
+   --- End of inner exception stack trace ---
+   at System.RuntimeMethodHandle.InvokeMethod(Object target, Object[] arguments, Signature sig, Boolean constructor)
+   at System.Reflection.RuntimeMethodInfo.UnsafeInvokeInternal(Object obj, Object[] parameters, Object[] arguments)
+   at System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at System.Reflection.MethodBase.Invoke(Object obj, Object[] parameters)
+   at Iveely.Framework.Text.CodeCompiler.Execode(String code, String className, List`1 libraries, Object[] parameters) in c:\Users\Fanping\Desktop\项目\Iveely\Iveely.Framework\Iveely.Framework\Text\CodeCompiler.cs:line 90
+   at Iveely.CloudComputting.Worker.Program.ProcessTask(Byte[] bytes) in c:\Users\Fanping\Desktop\项目\Iveely\Iveely.CloudComputting\Iveely.CloudComputting.Worker\Program.cs:line 60 ]
+[2013-10-19 01:14:59,804] [Fanping-PC] [INFO ] [put path ISE://application/130266188854988712/ISE/Fanping-PC,8002 ]
+[2013-10-19 01:14:59,814] [Fanping-PC] [INFO ] [Added information to path-ISE://application/130266188854988712/ISE/Fanping-PC,8002  value=System.Byte[] ]
+[2013-10-19 01:14:59,766] [Fanping-PC] [ERROR] [System.Reflection.TargetInvocationException: Exception has been thrown by the target of an invocation. ---> System.IO.IOException: Unable to read data from the transport connection: An existing connection was forcibly closed by the remote host. ---> System.Net.Sockets.SocketException: An existing connection was forcibly closed by the remote host
+   at System.Net.Sockets.Socket.Receive(Byte[] buffer, Int32 offset, Int32 size, SocketFlags socketFlags)
+   at System.Net.Sockets.NetworkStream.Read(Byte[] buffer, Int32 offset, Int32 size)
+   --- End of inner exception stack trace ---
+   at System.Net.Sockets.NetworkStream.Read(Byte[] buffer, Int32 offset, Int32 size)
+   at Iveely.Framework.Network.Synchronous.Client.Send[T](Packet packet) in c:\Users\Fanping\Desktop\项目\Iveely\Iveely.Framework\Iveely.Framework\Network\Synchronous\Client.cs:line 79
+   at Iveely.CloudComputting.CacheCommon.Selector.SetItems(IEnumerable`1 keys, Object sameValue, Boolean overrides) in c:\Users\Fanping\Desktop\项目\Iveely\Iveely.CloudComputting\Iveely.CloudComputting.CacheCommon\Selector.cs:line 104
+   at Iveely.CloudComputting.CacheAPI.Memory.SetList(IEnumerable`1 keys, Object value, Boolean overrides) in c:\Users\Fanping\Desktop\项目\Iveely\Iveely.CloudComputting\Iveely.CloudComputting.CacheAPI\Memory.cs:line 47
+   at Iveely.CloudComputting.Client.Application.SetListIntoCache(IEnumerable`1 objects, Object value) in c:\Users\Fanping\Desktop\项目\Iveely\Iveely.CloudComputting\Iveely.CloudComputting.Client\Application.cs:line 211
+   at Iveely.SearchEngine.Program.Crawler()
+   at Iveely.SearchEngine.Program.Run(Object[] args)
+   --- End of inner exception stack trace ---
+   at System.RuntimeMethodHandle.InvokeMethod(Object target, Object[] arguments, Signature sig, Boolean constructor)
+   at System.Reflection.RuntimeMethodInfo.UnsafeInvokeInternal(Object obj, Object[] parameters, Object[] arguments)
+   at System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at System.Reflection.MethodBase.Invoke(Object obj, Object[] parameters)
+   at Iveely.Framework.Text.CodeCompiler.Execode(String code, String className, List`1 libraries, Object[] parameters) in c:\Users\Fanping\Desktop\项目\Iveely\Iveely.Framework\Iveely.Framework\Text\CodeCompiler.cs:line 90
+   at Iveely.CloudComputting.Worker.Program.ProcessTask(Byte[] bytes) in c:\Users\Fanping\Desktop\项目\Iveely\Iveely.CloudComputting\Iveely.CloudComputting.Worker\Program.cs:line 60 ]
+[2013-10-19 01:14:59,824] [Fanping-PC] [INFO ] [put path ISE://application/130266188854988712/ISE/Fanping-PC,8001 ]
+[2013-10-19 01:14:59,830] [Fanping-PC] [INFO ] [Added information to path-ISE://application/130266188854988712/ISE/Fanping-PC,8001  value=System.Byte[] ]
+[2013-10-19 01:14:59,881] [Fanping-PC] [INFO ] [Get children from path:ISE://application/130266188854988712/ISE ]
+[2013-10-19 01:14:59,887] [Fanping-PC] [INFO ] [Get from path-ISE://application/130266188854988712/ISE/Fanping-PC,8001 ]
+[2013-10-19 01:14:59,889] [Fanping-PC] [INFO ] [Get data from path:ISE://application/130266188854988712/ISE/Fanping-PC,8001 ]
+[2013-10-19 01:14:59,890] [Fanping-PC] [INFO ] [ISE://application/130266188854988712/ISE/Fanping-PC,8001:Finished with System.Reflection.TargetInvocationException: Exception has been thrown by the target of an invocation. ---> System.IO.IOException: Unable to read data from the transport connection: An existing connection was forcibly closed by the remote host. ---> System.Net.Sockets.SocketException: An existing connection was forcibly closed by the remote host
+   at System.Net.Sockets.Socket.Receive(Byte[] buffer, Int32 offset, Int32 size, SocketFlags socketFlags)
+   at System.Net.Sockets.NetworkStream.Read(Byte[] buffer, Int32 offset, Int32 size)
+   --- End of inner exception stack trace ---
+   at System.Net.Sockets.NetworkStream.Read(Byte[] buffer, Int32 offset, Int32 size)
+   at Iveely.Framework.Network.Synchronous.Client.Send[T](Packet packet) in c:\Users\Fanping\Desktop\项目\Iveely\Iveely.Framework\Iveely.Framework\Network\Synchronous\Client.cs:line 79
+   at Iveely.CloudComputting.CacheCommon.Selector.SetItems(IEnumerable`1 keys, Object sameValue, Boolean overrides) in c:\Users\Fanping\Desktop\项目\Iveely\Iveely.CloudComputting\Iveely.CloudComputting.CacheCommon\Selector.cs:line 104
+   at Iveely.CloudComputting.CacheAPI.Memory.SetList(IEnumerable`1 keys, Object value, Boolean overrides) in c:\Users\Fanping\Desktop\项目\Iveely\Iveely.CloudComputting\Iveely.CloudComputting.CacheAPI\Memory.cs:line 47
+   at Iveely.CloudComputting.Client.Application.SetListIntoCache(IEnumerable`1 objects, Object value) in c:\Users\Fanping\Desktop\项目\Iveely\Iveely.CloudComputting\Iveely.CloudComputting.Client\Application.cs:line 211
+   at Iveely.SearchEngine.Program.Crawler()
+   at Iveely.SearchEngine.Program.Run(Object[] args)
+   --- End of inner exception stack trace ---
+   at System.RuntimeMethodHandle.InvokeMethod(Object target, Object[] arguments, Signature sig, Boolean constructor)
+   at System.Reflection.RuntimeMethodInfo.UnsafeInvokeInternal(Object obj, Object[] parameters, Object[] arguments)
+   at System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at System.Reflection.MethodBase.Invoke(Object obj, Object[] parameters)
+   at Iveely.Framework.Text.CodeCompiler.Execode(String code, String className, List`1 libraries, Object[] parameters) in c:\Users\Fanping\Desktop\项目\Iveely\Iveely.Framework\Iveely.Framework\Text\CodeCompiler.cs:line 90
+   at Iveely.CloudComputting.Worker.Program.ProcessTask(Byte[] bytes) in c:\Users\Fanping\Desktop\项目\Iveely\Iveely.CloudComputting\Iveely.CloudComputting.Worker\Program.cs:line 60 ]
+[2013-10-19 01:14:59,903] [Fanping-PC] [INFO ] [Get from path-ISE://application/130266188854988712/ISE/Fanping-PC,8002 ]
+[2013-10-19 01:14:59,905] [Fanping-PC] [INFO ] [Get data from path:ISE://application/130266188854988712/ISE/Fanping-PC,8002 ]
+[2013-10-19 01:14:59,907] [Fanping-PC] [INFO ] [ISE://application/130266188854988712/ISE/Fanping-PC,8002:Finished with System.Reflection.TargetInvocationException: Exception has been thrown by the target of an invocation. ---> System.IO.IOException: Unable to read data from the transport connection: An existing connection was forcibly closed by the remote host. ---> System.Net.Sockets.SocketException: An existing connection was forcibly closed by the remote host
+   at System.Net.Sockets.Socket.Receive(Byte[] buffer, Int32 offset, Int32 size, SocketFlags socketFlags)
+   at System.Net.Sockets.NetworkStream.Read(Byte[] buffer, Int32 offset, Int32 size)
+   --- End of inner exception stack trace ---
+   at System.Net.Sockets.NetworkStream.Read(Byte[] buffer, Int32 offset, Int32 size)
+   at Iveely.Framework.Network.Synchronous.Client.Send[T](Packet packet) in c:\Users\Fanping\Desktop\项目\Iveely\Iveely.Framework\Iveely.Framework\Network\Synchronous\Client.cs:line 79
+   at Iveely.CloudComputting.CacheCommon.Selector.SetItems(IEnumerable`1 keys, Object sameValue, Boolean overrides) in c:\Users\Fanping\Desktop\项目\Iveely\Iveely.CloudComputting\Iveely.CloudComputting.CacheCommon\Selector.cs:line 104
+   at Iveely.CloudComputting.CacheAPI.Memory.SetList(IEnumerable`1 keys, Object value, Boolean overrides) in c:\Users\Fanping\Desktop\项目\Iveely\Iveely.CloudComputting\Iveely.CloudComputting.CacheAPI\Memory.cs:line 47
+   at Iveely.CloudComputting.Client.Application.SetListIntoCache(IEnumerable`1 objects, Object value) in c:\Users\Fanping\Desktop\项目\Iveely\Iveely.CloudComputting\Iveely.CloudComputting.Client\Application.cs:line 211
+   at Iveely.SearchEngine.Program.Crawler()
+   at Iveely.SearchEngine.Program.Run(Object[] args)
+   --- End of inner exception stack trace ---
+   at System.RuntimeMethodHandle.InvokeMethod(Object target, Object[] arguments, Signature sig, Boolean constructor)
+   at System.Reflection.RuntimeMethodInfo.UnsafeInvokeInternal(Object obj, Object[] parameters, Object[] arguments)
+   at System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at System.Reflection.MethodBase.Invoke(Object obj, Object[] parameters)
+   at Iveely.Framework.Text.CodeCompiler.Execode(String code, String className, List`1 libraries, Object[] parameters) in c:\Users\Fanping\Desktop\项目\Iveely\Iveely.Framework\Iveely.Framework\Text\CodeCompiler.cs:line 90
+   at Iveely.CloudComputting.Worker.Program.ProcessTask(Byte[] bytes) in c:\Users\Fanping\Desktop\项目\Iveely\Iveely.CloudComputting\Iveely.CloudComputting.Worker\Program.cs:line 60 ]
+[2013-10-19 01:15:42,621] [Fanping-PC] [INFO ] [State Center is start listening... ]
+[2013-10-19 01:15:42,656] [Fanping-PC] [INFO ] [put path ISE://system/state/worker/Fanping-PC,8001 ]
+[2013-10-19 01:15:42,663] [Fanping-PC] [INFO ] [put path ISE://system/state/worker/Fanping-PC,8002 ]
+[2013-10-19 01:15:42,734] [Fanping-PC] [INFO ] [Added information to path-ISE://system/state/worker/Fanping-PC,8001  value=System.Byte[] ]
+[2013-10-19 01:15:42,742] [Fanping-PC] [INFO ] [Added information to path-ISE://system/state/worker/Fanping-PC,8002  value=System.Byte[] ]
+[2013-10-19 01:15:42,748] [Fanping-PC] [INFO ] [worker's task supervisor instance build success... ]
+[2013-10-19 01:15:42,751] [Fanping-PC] [INFO ] [Starting listen the worker's task... ]
+[2013-10-19 01:15:42,753] [Fanping-PC] [INFO ] [worker's task supervisor instance build success... ]
+[2013-10-19 01:15:42,799] [Fanping-PC] [INFO ] [put path ISE://system/state/merger/Fanping-PC ]
+[2013-10-19 01:15:42,825] [Fanping-PC] [INFO ] [Added information to path-ISE://system/state/merger/Fanping-PC  value=System.Byte[] ]
+[2013-10-19 01:15:43,157] [Fanping-PC] [INFO ] [Start memory cache Fanping-PC:8081 ]
+[2013-10-19 01:15:52,016] [Fanping-PC] [INFO ] [Start Compile your code... ]
+[2013-10-19 01:15:52,125] [Fanping-PC] [INFO ] [Preparing for send your application to platform... ]
+[2013-10-19 01:15:52,138] [Fanping-PC] [INFO ] [put path ISE://history/130266189520356769/ISE ]
+[2013-10-19 01:15:52,146] [Fanping-PC] [INFO ] [Added information to path-ISE://history/130266189520356769/ISE  value=System.Byte[] ]
+[2013-10-19 01:15:52,160] [Fanping-PC] [INFO ] [Get children from path:ISE://system/state/worker ]
+[2013-10-19 01:15:52,171] [Fanping-PC] [INFO ] [Get children from path:ISE://application/130266189520356769/ISE ]
+[2013-10-19 01:15:52,176] [Fanping-PC] [INFO ] [Running path ISE://application/130266189520356769/ISE/Fanping-PC,8001 ]
+[2013-10-19 01:15:52,182] [Fanping-PC] [INFO ] [Running path ISE://application/130266189520356769/ISE/Fanping-PC,8002 ]
+[2013-10-19 01:15:53,176] [Fanping-PC] [INFO ] [Get children from path:ISE://application/130266189520356769/ISE ]
+[2013-10-19 01:15:54,181] [Fanping-PC] [INFO ] [Get children from path:ISE://application/130266189520356769/ISE ]
+[2013-10-19 01:15:55,205] [Fanping-PC] [INFO ] [Get children from path:ISE://application/130266189520356769/ISE ]
+[2013-10-19 01:15:56,217] [Fanping-PC] [INFO ] [Get children from path:ISE://application/130266189520356769/ISE ]
+[2013-10-19 01:15:57,224] [Fanping-PC] [INFO ] [Get children from path:ISE://application/130266189520356769/ISE ]
+[2013-10-19 01:15:58,228] [Fanping-PC] [INFO ] [Get children from path:ISE://application/130266189520356769/ISE ]
+[2013-10-19 01:15:59,238] [Fanping-PC] [INFO ] [Get children from path:ISE://application/130266189520356769/ISE ]
+[2013-10-19 01:16:00,248] [Fanping-PC] [INFO ] [Get children from path:ISE://application/130266189520356769/ISE ]
+[2013-10-19 01:16:01,257] [Fanping-PC] [INFO ] [Get children from path:ISE://application/130266189520356769/ISE ]
+[2013-10-19 01:16:02,261] [Fanping-PC] [INFO ] [Get children from path:ISE://application/130266189520356769/ISE ]
+[2013-10-19 01:16:03,275] [Fanping-PC] [INFO ] [Get children from path:ISE://application/130266189520356769/ISE ]
+[2013-10-19 01:16:04,314] [Fanping-PC] [INFO ] [Get children from path:ISE://application/130266189520356769/ISE ]
+[2013-10-19 01:16:05,326] [Fanping-PC] [INFO ] [Get children from path:ISE://application/130266189520356769/ISE ]
+[2013-10-19 01:16:06,335] [Fanping-PC] [INFO ] [Get children from path:ISE://application/130266189520356769/ISE ]
+[2013-10-19 01:16:07,076] [Fanping-PC] [ERROR] [System.Reflection.TargetInvocationException: Exception has been thrown by the target of an invocation. ---> System.IO.IOException: Unable to read data from the transport connection: An existing connection was forcibly closed by the remote host. ---> System.Net.Sockets.SocketException: An existing connection was forcibly closed by the remote host
+   at System.Net.Sockets.Socket.Receive(Byte[] buffer, Int32 offset, Int32 size, SocketFlags socketFlags)
+   at System.Net.Sockets.NetworkStream.Read(Byte[] buffer, Int32 offset, Int32 size)
+   --- End of inner exception stack trace ---
+   at System.Net.Sockets.NetworkStream.Read(Byte[] buffer, Int32 offset, Int32 size)
+   at Iveely.Framework.Network.Synchronous.Client.Send[T](Packet packet) in c:\Users\Fanping\Desktop\项目\Iveely\Iveely.Framework\Iveely.Framework\Network\Synchronous\Client.cs:line 79
+   at Iveely.CloudComputting.CacheCommon.Selector.SetItems(IEnumerable`1 keys, Object sameValue, Boolean overrides) in c:\Users\Fanping\Desktop\项目\Iveely\Iveely.CloudComputting\Iveely.CloudComputting.CacheCommon\Selector.cs:line 104
+   at Iveely.CloudComputting.CacheAPI.Memory.SetList(IEnumerable`1 keys, Object value, Boolean overrides) in c:\Users\Fanping\Desktop\项目\Iveely\Iveely.CloudComputting\Iveely.CloudComputting.CacheAPI\Memory.cs:line 47
+   at Iveely.CloudComputting.Client.Application.SetListIntoCache(IEnumerable`1 objects, Object value) in c:\Users\Fanping\Desktop\项目\Iveely\Iveely.CloudComputting\Iveely.CloudComputting.Client\Application.cs:line 211
+   at Iveely.SearchEngine.Program.Crawler()
+   at Iveely.SearchEngine.Program.Run(Object[] args)
+   --- End of inner exception stack trace ---
+   at System.RuntimeMethodHandle.InvokeMethod(Object target, Object[] arguments, Signature sig, Boolean constructor)
+   at System.Reflection.RuntimeMethodInfo.UnsafeInvokeInternal(Object obj, Object[] parameters, Object[] arguments)
+   at System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at System.Reflection.MethodBase.Invoke(Object obj, Object[] parameters)
+   at Iveely.Framework.Text.CodeCompiler.Execode(String code, String className, List`1 libraries, Object[] parameters) in c:\Users\Fanping\Desktop\项目\Iveely\Iveely.Framework\Iveely.Framework\Text\CodeCompiler.cs:line 90
+   at Iveely.CloudComputting.Worker.Program.ProcessTask(Byte[] bytes) in c:\Users\Fanping\Desktop\项目\Iveely\Iveely.CloudComputting\Iveely.CloudComputting.Worker\Program.cs:line 60 ]
+[2013-10-19 01:16:07,119] [Fanping-PC] [INFO ] [put path ISE://application/130266189520356769/ISE/Fanping-PC,8001 ]
+[2013-10-19 01:16:07,078] [Fanping-PC] [ERROR] [System.Reflection.TargetInvocationException: Exception has been thrown by the target of an invocation. ---> System.IO.IOException: Unable to read data from the transport connection: An existing connection was forcibly closed by the remote host. ---> System.Net.Sockets.SocketException: An existing connection was forcibly closed by the remote host
+   at System.Net.Sockets.Socket.Receive(Byte[] buffer, Int32 offset, Int32 size, SocketFlags socketFlags)
+   at System.Net.Sockets.NetworkStream.Read(Byte[] buffer, Int32 offset, Int32 size)
+   --- End of inner exception stack trace ---
+   at System.Net.Sockets.NetworkStream.Read(Byte[] buffer, Int32 offset, Int32 size)
+   at Iveely.Framework.Network.Synchronous.Client.Send[T](Packet packet) in c:\Users\Fanping\Desktop\项目\Iveely\Iveely.Framework\Iveely.Framework\Network\Synchronous\Client.cs:line 79
+   at Iveely.CloudComputting.CacheCommon.Selector.SetItems(IEnumerable`1 keys, Object sameValue, Boolean overrides) in c:\Users\Fanping\Desktop\项目\Iveely\Iveely.CloudComputting\Iveely.CloudComputting.CacheCommon\Selector.cs:line 104
+   at Iveely.CloudComputting.CacheAPI.Memory.SetList(IEnumerable`1 keys, Object value, Boolean overrides) in c:\Users\Fanping\Desktop\项目\Iveely\Iveely.CloudComputting\Iveely.CloudComputting.CacheAPI\Memory.cs:line 47
+   at Iveely.CloudComputting.Client.Application.SetListIntoCache(IEnumerable`1 objects, Object value) in c:\Users\Fanping\Desktop\项目\Iveely\Iveely.CloudComputting\Iveely.CloudComputting.Client\Application.cs:line 211
+   at Iveely.SearchEngine.Program.Crawler()
+   at Iveely.SearchEngine.Program.Run(Object[] args)
+   --- End of inner exception stack trace ---
+   at System.RuntimeMethodHandle.InvokeMethod(Object target, Object[] arguments, Signature sig, Boolean constructor)
+   at System.Reflection.RuntimeMethodInfo.UnsafeInvokeInternal(Object obj, Object[] parameters, Object[] arguments)
+   at System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at System.Reflection.MethodBase.Invoke(Object obj, Object[] parameters)
+   at Iveely.Framework.Text.CodeCompiler.Execode(String code, String className, List`1 libraries, Object[] parameters) in c:\Users\Fanping\Desktop\项目\Iveely\Iveely.Framework\Iveely.Framework\Text\CodeCompiler.cs:line 90
+   at Iveely.CloudComputting.Worker.Program.ProcessTask(Byte[] bytes) in c:\Users\Fanping\Desktop\项目\Iveely\Iveely.CloudComputting\Iveely.CloudComputting.Worker\Program.cs:line 60 ]
+[2013-10-19 01:16:07,136] [Fanping-PC] [INFO ] [put path ISE://application/130266189520356769/ISE/Fanping-PC,8002 ]
+[2013-10-19 01:16:07,135] [Fanping-PC] [INFO ] [Added information to path-ISE://application/130266189520356769/ISE/Fanping-PC,8001  value=System.Byte[] ]
+[2013-10-19 01:16:07,147] [Fanping-PC] [INFO ] [Added information to path-ISE://application/130266189520356769/ISE/Fanping-PC,8002  value=System.Byte[] ]
+[2013-10-19 01:16:07,368] [Fanping-PC] [INFO ] [Get children from path:ISE://application/130266189520356769/ISE ]
+[2013-10-19 01:16:07,378] [Fanping-PC] [INFO ] [Get from path-ISE://application/130266189520356769/ISE/Fanping-PC,8001 ]
+[2013-10-19 01:16:07,381] [Fanping-PC] [INFO ] [Get data from path:ISE://application/130266189520356769/ISE/Fanping-PC,8001 ]
+[2013-10-19 01:16:07,384] [Fanping-PC] [INFO ] [ISE://application/130266189520356769/ISE/Fanping-PC,8001:Finished with System.Reflection.TargetInvocationException: Exception has been thrown by the target of an invocation. ---> System.IO.IOException: Unable to read data from the transport connection: An existing connection was forcibly closed by the remote host. ---> System.Net.Sockets.SocketException: An existing connection was forcibly closed by the remote host
+   at System.Net.Sockets.Socket.Receive(Byte[] buffer, Int32 offset, Int32 size, SocketFlags socketFlags)
+   at System.Net.Sockets.NetworkStream.Read(Byte[] buffer, Int32 offset, Int32 size)
+   --- End of inner exception stack trace ---
+   at System.Net.Sockets.NetworkStream.Read(Byte[] buffer, Int32 offset, Int32 size)
+   at Iveely.Framework.Network.Synchronous.Client.Send[T](Packet packet) in c:\Users\Fanping\Desktop\项目\Iveely\Iveely.Framework\Iveely.Framework\Network\Synchronous\Client.cs:line 79
+   at Iveely.CloudComputting.CacheCommon.Selector.SetItems(IEnumerable`1 keys, Object sameValue, Boolean overrides) in c:\Users\Fanping\Desktop\项目\Iveely\Iveely.CloudComputting\Iveely.CloudComputting.CacheCommon\Selector.cs:line 104
+   at Iveely.CloudComputting.CacheAPI.Memory.SetList(IEnumerable`1 keys, Object value, Boolean overrides) in c:\Users\Fanping\Desktop\项目\Iveely\Iveely.CloudComputting\Iveely.CloudComputting.CacheAPI\Memory.cs:line 47
+   at Iveely.CloudComputting.Client.Application.SetListIntoCache(IEnumerable`1 objects, Object value) in c:\Users\Fanping\Desktop\项目\Iveely\Iveely.CloudComputting\Iveely.CloudComputting.Client\Application.cs:line 211
+   at Iveely.SearchEngine.Program.Crawler()
+   at Iveely.SearchEngine.Program.Run(Object[] args)
+   --- End of inner exception stack trace ---
+   at System.RuntimeMethodHandle.InvokeMethod(Object target, Object[] arguments, Signature sig, Boolean constructor)
+   at System.Reflection.RuntimeMethodInfo.UnsafeInvokeInternal(Object obj, Object[] parameters, Object[] arguments)
+   at System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at System.Reflection.MethodBase.Invoke(Object obj, Object[] parameters)
+   at Iveely.Framework.Text.CodeCompiler.Execode(String code, String className, List`1 libraries, Object[] parameters) in c:\Users\Fanping\Desktop\项目\Iveely\Iveely.Framework\Iveely.Framework\Text\CodeCompiler.cs:line 90
+   at Iveely.CloudComputting.Worker.Program.ProcessTask(Byte[] bytes) in c:\Users\Fanping\Desktop\项目\Iveely\Iveely.CloudComputting\Iveely.CloudComputting.Worker\Program.cs:line 60 ]
+[2013-10-19 01:16:07,402] [Fanping-PC] [INFO ] [Get from path-ISE://application/130266189520356769/ISE/Fanping-PC,8002 ]
+[2013-10-19 01:16:07,404] [Fanping-PC] [INFO ] [Get data from path:ISE://application/130266189520356769/ISE/Fanping-PC,8002 ]
+[2013-10-19 01:16:07,406] [Fanping-PC] [INFO ] [ISE://application/130266189520356769/ISE/Fanping-PC,8002:Finished with System.Reflection.TargetInvocationException: Exception has been thrown by the target of an invocation. ---> System.IO.IOException: Unable to read data from the transport connection: An existing connection was forcibly closed by the remote host. ---> System.Net.Sockets.SocketException: An existing connection was forcibly closed by the remote host
+   at System.Net.Sockets.Socket.Receive(Byte[] buffer, Int32 offset, Int32 size, SocketFlags socketFlags)
+   at System.Net.Sockets.NetworkStream.Read(Byte[] buffer, Int32 offset, Int32 size)
+   --- End of inner exception stack trace ---
+   at System.Net.Sockets.NetworkStream.Read(Byte[] buffer, Int32 offset, Int32 size)
+   at Iveely.Framework.Network.Synchronous.Client.Send[T](Packet packet) in c:\Users\Fanping\Desktop\项目\Iveely\Iveely.Framework\Iveely.Framework\Network\Synchronous\Client.cs:line 79
+   at Iveely.CloudComputting.CacheCommon.Selector.SetItems(IEnumerable`1 keys, Object sameValue, Boolean overrides) in c:\Users\Fanping\Desktop\项目\Iveely\Iveely.CloudComputting\Iveely.CloudComputting.CacheCommon\Selector.cs:line 104
+   at Iveely.CloudComputting.CacheAPI.Memory.SetList(IEnumerable`1 keys, Object value, Boolean overrides) in c:\Users\Fanping\Desktop\项目\Iveely\Iveely.CloudComputting\Iveely.CloudComputting.CacheAPI\Memory.cs:line 47
+   at Iveely.CloudComputting.Client.Application.SetListIntoCache(IEnumerable`1 objects, Object value) in c:\Users\Fanping\Desktop\项目\Iveely\Iveely.CloudComputting\Iveely.CloudComputting.Client\Application.cs:line 211
+   at Iveely.SearchEngine.Program.Crawler()
+   at Iveely.SearchEngine.Program.Run(Object[] args)
+   --- End of inner exception stack trace ---
+   at System.RuntimeMethodHandle.InvokeMethod(Object target, Object[] arguments, Signature sig, Boolean constructor)
+   at System.Reflection.RuntimeMethodInfo.UnsafeInvokeInternal(Object obj, Object[] parameters, Object[] arguments)
+   at System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at System.Reflection.MethodBase.Invoke(Object obj, Object[] parameters)
+   at Iveely.Framework.Text.CodeCompiler.Execode(String code, String className, List`1 libraries, Object[] parameters) in c:\Users\Fanping\Desktop\项目\Iveely\Iveely.Framework\Iveely.Framework\Text\CodeCompiler.cs:line 90
+   at Iveely.CloudComputting.Worker.Program.ProcessTask(Byte[] bytes) in c:\Users\Fanping\Desktop\项目\Iveely\Iveely.CloudComputting\Iveely.CloudComputting.Worker\Program.cs:line 60 ]
+[2013-10-19 01:21:04,882] [Fanping-PC] [INFO ] [State Center is start listening... ]
+[2013-10-19 01:21:04,929] [Fanping-PC] [INFO ] [put path ISE://system/state/worker/Fanping-PC,8001 ]
+[2013-10-19 01:21:05,050] [Fanping-PC] [INFO ] [Starting listen the worker's task... ]
+[2013-10-19 01:21:05,058] [Fanping-PC] [INFO ] [worker's task supervisor instance build success... ]
+[2013-10-19 01:21:05,057] [Fanping-PC] [INFO ] [put path ISE://system/state/merger/Fanping-PC ]
+[2013-10-19 01:21:05,089] [Fanping-PC] [INFO ] [Added information to path-ISE://system/state/worker/Fanping-PC,8002  value=System.Byte[] ]
+[2013-10-19 01:21:05,095] [Fanping-PC] [INFO ] [Starting listen the worker's task... ]
+[2013-10-19 01:21:05,103] [Fanping-PC] [INFO ] [worker's task supervisor instance build success... ]
+[2013-10-19 01:21:05,459] [Fanping-PC] [INFO ] [Start memory cache Fanping-PC:8081 ]
+[2013-10-19 01:21:08,060] [Fanping-PC] [INFO ] [Start Compile your code... ]
+[2013-10-19 01:21:08,176] [Fanping-PC] [INFO ] [Preparing for send your application to platform... ]
+[2013-10-19 01:21:08,186] [Fanping-PC] [INFO ] [put path ISE://history/130266192680797535/ISE ]
+[2013-10-19 01:21:08,196] [Fanping-PC] [INFO ] [Added information to path-ISE://history/130266192680797535/ISE  value=System.Byte[] ]
+[2013-10-19 01:21:08,210] [Fanping-PC] [INFO ] [Get children from path:ISE://system/state/worker ]
+[2013-10-19 01:21:08,223] [Fanping-PC] [INFO ] [Get children from path:ISE://application/130266192680797535/ISE ]
+[2013-10-19 01:21:08,226] [Fanping-PC] [INFO ] [Running path ISE://application/130266192680797535/ISE/Fanping-PC,8001 ]
+[2013-10-19 01:21:09,226] [Fanping-PC] [INFO ] [Get children from path:ISE://application/130266192680797535/ISE ]
+[2013-10-19 01:21:10,233] [Fanping-PC] [INFO ] [Get children from path:ISE://application/130266192680797535/ISE ]
+[2013-10-19 01:21:10,665] [Fanping-PC] [ERROR] [System.Reflection.TargetInvocationException: Exception has been thrown by the target of an invocation. ---> System.Runtime.Serialization.SerializationException: Binary stream '0' does not contain a valid BinaryHeader. Possible causes are invalid stream or object version change between serialization and deserialization.
    at System.Runtime.Serialization.Formatters.Binary.__BinaryParser.Run()
    at System.Runtime.Serialization.Formatters.Binary.ObjectReader.Deserialize(HeaderHandler handler, __BinaryParser serParser, Boolean fCheck, Boolean isCrossAppDomain, IMethodCallMessage methodCallMessage)
    at System.Runtime.Serialization.Formatters.Binary.BinaryFormatter.Deserialize(Stream serializationStream, HeaderHandler handler, Boolean fCheck, Boolean isCrossAppDomain, IMethodCallMessage methodCallMessage)
    at System.Runtime.Serialization.Formatters.Binary.BinaryFormatter.Deserialize(Stream serializationStream)
    at Iveely.Framework.Text.Serializer.DeserializeFromBytes[T](Byte[] bytes) in c:\Users\Fanping\Desktop\项目\Iveely\Iveely.Framework\Iveely.Framework\Text\Serializer.cs:line 80
    at Iveely.Framework.Network.Synchronous.Client.Send[T](Packet packet) in c:\Users\Fanping\Desktop\项目\Iveely\Iveely.Framework\Iveely.Framework\Network\Synchronous\Client.cs:line 81
-   at Iveely.CloudComputting.Client.Mathematics.CombineTable(Hashtable table, Object[] args) in c:\Users\Fanping\Desktop\项目\Iveely\Iveely.CloudComputting\Iveely.CloudComputting.Client\Mathematics.cs:line 63
-   at Iveely.CloudComputting.Client.Example.Run(Object[] args)
+   at Iveely.CloudComputting.CacheCommon.Selector.SetItems(IEnumerable`1 keys, Object sameValue, Boolean overrides) in c:\Users\Fanping\Desktop\项目\Iveely\Iveely.CloudComputting\Iveely.CloudComputting.CacheCommon\Selector.cs:line 104
+   at Iveely.CloudComputting.CacheAPI.Memory.SetList(IEnumerable`1 keys, Object value, Boolean overrides) in c:\Users\Fanping\Desktop\项目\Iveely\Iveely.CloudComputting\Iveely.CloudComputting.CacheAPI\Memory.cs:line 47
+   at Iveely.CloudComputting.Client.Application.SetListIntoCache(IEnumerable`1 objects, Object value) in c:\Users\Fanping\Desktop\项目\Iveely\Iveely.CloudComputting\Iveely.CloudComputting.Client\Application.cs:line 211
+   at Iveely.SearchEngine.Program.Crawler()
+   at Iveely.SearchEngine.Program.Run(Object[] args)
    --- End of inner exception stack trace ---
    at System.RuntimeMethodHandle.InvokeMethod(Object target, Object[] arguments, Signature sig, Boolean constructor)
    at System.Reflection.RuntimeMethodInfo.UnsafeInvokeInternal(Object obj, Object[] parameters, Object[] arguments)
    at System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
    at System.Reflection.MethodBase.Invoke(Object obj, Object[] parameters)
-   at Iveely.Framework.Text.CodeCompiler.Execode(String code, String className, List`1 libraries, Object[] parameters) in c:\Users\Fanping\Desktop\项目\Iveely\Iveely.Framework\Iveely.Framework\Text\CodeCompiler.cs:line 88
-   at Iveely.CloudComputting.Worker.Program.ProcessTask(Byte[] bytes) in c:\Users\Fanping\Desktop\项目\Iveely\Iveely.CloudComputting\Iveely.CloudComputting.Worker\Program.cs:line 61 ]
-[2013-10-17 23:21:32,467] [Fanping-PC] [INFO ] [put path ISE://application/130265256913754454/ExampleApp/Fanping-PC,8001 ]
-[2013-10-17 23:21:32,483] [Fanping-PC] [INFO ] [Added information to path-ISE://application/130265256913754454/ExampleApp/Fanping-PC,8001  value=System.Byte[] ]
-[2013-10-17 23:21:33,013] [Fanping-PC] [INFO ] [Get children from path:ISE://application/130265256913754454/ExampleApp ]
-[2013-10-17 23:21:33,013] [Fanping-PC] [INFO ] [Get from path-ISE://application/130265256913754454/ExampleApp/Fanping-PC,8001 ]
-[2013-10-17 23:21:33,013] [Fanping-PC] [INFO ] [Get data from path:ISE://application/130265256913754454/ExampleApp/Fanping-PC,8001 ]
-[2013-10-17 23:21:33,013] [Fanping-PC] [INFO ] [ISE://application/130265256913754454/ExampleApp/Fanping-PC,8001:Finished with System.Reflection.TargetInvocationException: Exception has been thrown by the target of an invocation. ---> System.Runtime.Serialization.SerializationException: Binary stream '0' does not contain a valid BinaryHeader. Possible causes are invalid stream or object version change between serialization and deserialization.
+   at Iveely.Framework.Text.CodeCompiler.Execode(String code, String className, List`1 libraries, Object[] parameters) in c:\Users\Fanping\Desktop\项目\Iveely\Iveely.Framework\Iveely.Framework\Text\CodeCompiler.cs:line 90
+   at Iveely.CloudComputting.Worker.Program.ProcessTask(Byte[] bytes) in c:\Users\Fanping\Desktop\项目\Iveely\Iveely.CloudComputting\Iveely.CloudComputting.Worker\Program.cs:line 60 ]
+[2013-10-19 01:21:10,685] [Fanping-PC] [INFO ] [put path ISE://application/130266192680797535/ISE/Fanping-PC,8002 ]
+[2013-10-19 01:21:10,694] [Fanping-PC] [INFO ] [Added information to path-ISE://application/130266192680797535/ISE/Fanping-PC,8002  value=System.Byte[] ]
+[2013-10-19 01:21:11,236] [Fanping-PC] [INFO ] [Get children from path:ISE://application/130266192680797535/ISE ]
+[2013-10-19 01:21:12,244] [Fanping-PC] [INFO ] [Get children from path:ISE://application/130266192680797535/ISE ]
+[2013-10-19 01:21:13,248] [Fanping-PC] [INFO ] [Get children from path:ISE://application/130266192680797535/ISE ]
+[2013-10-19 01:21:14,259] [Fanping-PC] [INFO ] [Get children from path:ISE://application/130266192680797535/ISE ]
+[2013-10-19 01:21:15,271] [Fanping-PC] [INFO ] [Get children from path:ISE://application/130266192680797535/ISE ]
+[2013-10-19 01:21:16,287] [Fanping-PC] [INFO ] [Get children from path:ISE://application/130266192680797535/ISE ]
+[2013-10-19 01:21:17,298] [Fanping-PC] [INFO ] [Get children from path:ISE://application/130266192680797535/ISE ]
+[2013-10-19 01:21:18,315] [Fanping-PC] [INFO ] [Get children from path:ISE://application/130266192680797535/ISE ]
+[2013-10-19 01:21:19,340] [Fanping-PC] [INFO ] [Get children from path:ISE://application/130266192680797535/ISE ]
+[2013-10-19 01:21:20,357] [Fanping-PC] [INFO ] [Get children from path:ISE://application/130266192680797535/ISE ]
+[2013-10-19 01:21:21,385] [Fanping-PC] [INFO ] [Get children from path:ISE://application/130266192680797535/ISE ]
+[2013-10-19 01:21:22,401] [Fanping-PC] [INFO ] [Get children from path:ISE://application/130266192680797535/ISE ]
+[2013-10-19 01:21:23,438] [Fanping-PC] [INFO ] [Get children from path:ISE://application/130266192680797535/ISE ]
+[2013-10-19 01:21:24,463] [Fanping-PC] [INFO ] [Get children from path:ISE://application/130266192680797535/ISE ]
+[2013-10-19 01:21:25,483] [Fanping-PC] [INFO ] [Get children from path:ISE://application/130266192680797535/ISE ]
+[2013-10-19 01:21:26,498] [Fanping-PC] [INFO ] [Get children from path:ISE://application/130266192680797535/ISE ]
+[2013-10-19 01:21:27,527] [Fanping-PC] [INFO ] [Get children from path:ISE://application/130266192680797535/ISE ]
+[2013-10-19 01:21:28,541] [Fanping-PC] [INFO ] [Get children from path:ISE://application/130266192680797535/ISE ]
+[2013-10-19 01:21:29,563] [Fanping-PC] [INFO ] [Get children from path:ISE://application/130266192680797535/ISE ]
+[2013-10-19 01:21:30,590] [Fanping-PC] [INFO ] [Get children from path:ISE://application/130266192680797535/ISE ]
+[2013-10-19 01:21:31,609] [Fanping-PC] [INFO ] [Get children from path:ISE://application/130266192680797535/ISE ]
+[2013-10-19 01:21:32,619] [Fanping-PC] [INFO ] [Get children from path:ISE://application/130266192680797535/ISE ]
+[2013-10-19 01:21:33,636] [Fanping-PC] [INFO ] [Get children from path:ISE://application/130266192680797535/ISE ]
+[2013-10-19 01:21:34,646] [Fanping-PC] [INFO ] [Get children from path:ISE://application/130266192680797535/ISE ]
+[2013-10-19 01:21:35,661] [Fanping-PC] [INFO ] [Get children from path:ISE://application/130266192680797535/ISE ]
+[2013-10-19 01:21:36,687] [Fanping-PC] [INFO ] [Get children from path:ISE://application/130266192680797535/ISE ]
+[2013-10-19 01:21:37,700] [Fanping-PC] [INFO ] [Get children from path:ISE://application/130266192680797535/ISE ]
+[2013-10-19 01:21:38,208] [Fanping-PC] [ERROR] [System.Reflection.TargetInvocationException: Exception has been thrown by the target of an invocation. ---> System.IO.IOException: Unable to read data from the transport connection: An existing connection was forcibly closed by the remote host. ---> System.Net.Sockets.SocketException: An existing connection was forcibly closed by the remote host
+   at System.Net.Sockets.Socket.Receive(Byte[] buffer, Int32 offset, Int32 size, SocketFlags socketFlags)
+   at System.Net.Sockets.NetworkStream.Read(Byte[] buffer, Int32 offset, Int32 size)
+   --- End of inner exception stack trace ---
+   at System.Net.Sockets.NetworkStream.Read(Byte[] buffer, Int32 offset, Int32 size)
+   at Iveely.Framework.Network.Synchronous.Client.Send[T](Packet packet) in c:\Users\Fanping\Desktop\项目\Iveely\Iveely.Framework\Iveely.Framework\Network\Synchronous\Client.cs:line 79
+   at Iveely.CloudComputting.CacheCommon.Selector.SetItems(IEnumerable`1 keys, Object sameValue, Boolean overrides) in c:\Users\Fanping\Desktop\项目\Iveely\Iveely.CloudComputting\Iveely.CloudComputting.CacheCommon\Selector.cs:line 104
+   at Iveely.CloudComputting.CacheAPI.Memory.SetList(IEnumerable`1 keys, Object value, Boolean overrides) in c:\Users\Fanping\Desktop\项目\Iveely\Iveely.CloudComputting\Iveely.CloudComputting.CacheAPI\Memory.cs:line 47
+   at Iveely.CloudComputting.Client.Application.SetListIntoCache(IEnumerable`1 objects, Object value) in c:\Users\Fanping\Desktop\项目\Iveely\Iveely.CloudComputting\Iveely.CloudComputting.Client\Application.cs:line 211
+   at Iveely.SearchEngine.Program.Crawler()
+   at Iveely.SearchEngine.Program.Run(Object[] args)
+   --- End of inner exception stack trace ---
+   at System.RuntimeMethodHandle.InvokeMethod(Object target, Object[] arguments, Signature sig, Boolean constructor)
+   at System.Reflection.RuntimeMethodInfo.UnsafeInvokeInternal(Object obj, Object[] parameters, Object[] arguments)
+   at System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at System.Reflection.MethodBase.Invoke(Object obj, Object[] parameters)
+   at Iveely.Framework.Text.CodeCompiler.Execode(String code, String className, List`1 libraries, Object[] parameters) in c:\Users\Fanping\Desktop\项目\Iveely\Iveely.Framework\Iveely.Framework\Text\CodeCompiler.cs:line 90
+   at Iveely.CloudComputting.Worker.Program.ProcessTask(Byte[] bytes) in c:\Users\Fanping\Desktop\项目\Iveely\Iveely.CloudComputting\Iveely.CloudComputting.Worker\Program.cs:line 60 ]
+[2013-10-19 01:21:38,243] [Fanping-PC] [INFO ] [put path ISE://application/130266192680797535/ISE/Fanping-PC,8001 ]
+[2013-10-19 01:21:38,256] [Fanping-PC] [INFO ] [Added information to path-ISE://application/130266192680797535/ISE/Fanping-PC,8001  value=System.Byte[] ]
+[2013-10-19 01:21:38,717] [Fanping-PC] [INFO ] [Get children from path:ISE://application/130266192680797535/ISE ]
+[2013-10-19 01:21:38,766] [Fanping-PC] [INFO ] [Get from path-ISE://application/130266192680797535/ISE/Fanping-PC,8001 ]
+[2013-10-19 01:21:38,770] [Fanping-PC] [INFO ] [Get data from path:ISE://application/130266192680797535/ISE/Fanping-PC,8001 ]
+[2013-10-19 01:21:38,783] [Fanping-PC] [INFO ] [ISE://application/130266192680797535/ISE/Fanping-PC,8001:Finished with System.Reflection.TargetInvocationException: Exception has been thrown by the target of an invocation. ---> System.IO.IOException: Unable to read data from the transport connection: An existing connection was forcibly closed by the remote host. ---> System.Net.Sockets.SocketException: An existing connection was forcibly closed by the remote host
+   at System.Net.Sockets.Socket.Receive(Byte[] buffer, Int32 offset, Int32 size, SocketFlags socketFlags)
+   at System.Net.Sockets.NetworkStream.Read(Byte[] buffer, Int32 offset, Int32 size)
+   --- End of inner exception stack trace ---
+   at System.Net.Sockets.NetworkStream.Read(Byte[] buffer, Int32 offset, Int32 size)
+   at Iveely.Framework.Network.Synchronous.Client.Send[T](Packet packet) in c:\Users\Fanping\Desktop\项目\Iveely\Iveely.Framework\Iveely.Framework\Network\Synchronous\Client.cs:line 79
+   at Iveely.CloudComputting.CacheCommon.Selector.SetItems(IEnumerable`1 keys, Object sameValue, Boolean overrides) in c:\Users\Fanping\Desktop\项目\Iveely\Iveely.CloudComputting\Iveely.CloudComputting.CacheCommon\Selector.cs:line 104
+   at Iveely.CloudComputting.CacheAPI.Memory.SetList(IEnumerable`1 keys, Object value, Boolean overrides) in c:\Users\Fanping\Desktop\项目\Iveely\Iveely.CloudComputting\Iveely.CloudComputting.CacheAPI\Memory.cs:line 47
+   at Iveely.CloudComputting.Client.Application.SetListIntoCache(IEnumerable`1 objects, Object value) in c:\Users\Fanping\Desktop\项目\Iveely\Iveely.CloudComputting\Iveely.CloudComputting.Client\Application.cs:line 211
+   at Iveely.SearchEngine.Program.Crawler()
+   at Iveely.SearchEngine.Program.Run(Object[] args)
+   --- End of inner exception stack trace ---
+   at System.RuntimeMethodHandle.InvokeMethod(Object target, Object[] arguments, Signature sig, Boolean constructor)
+   at System.Reflection.RuntimeMethodInfo.UnsafeInvokeInternal(Object obj, Object[] parameters, Object[] arguments)
+   at System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at System.Reflection.MethodBase.Invoke(Object obj, Object[] parameters)
+   at Iveely.Framework.Text.CodeCompiler.Execode(String code, String className, List`1 libraries, Object[] parameters) in c:\Users\Fanping\Desktop\项目\Iveely\Iveely.Framework\Iveely.Framework\Text\CodeCompiler.cs:line 90
+   at Iveely.CloudComputting.Worker.Program.ProcessTask(Byte[] bytes) in c:\Users\Fanping\Desktop\项目\Iveely\Iveely.CloudComputting\Iveely.CloudComputting.Worker\Program.cs:line 60 ]
+[2013-10-19 01:21:38,813] [Fanping-PC] [INFO ] [Get from path-ISE://application/130266192680797535/ISE/Fanping-PC,8002 ]
+[2013-10-19 01:21:38,820] [Fanping-PC] [INFO ] [Get data from path:ISE://application/130266192680797535/ISE/Fanping-PC,8002 ]
+[2013-10-19 01:21:38,823] [Fanping-PC] [INFO ] [ISE://application/130266192680797535/ISE/Fanping-PC,8002:Finished with System.Reflection.TargetInvocationException: Exception has been thrown by the target of an invocation. ---> System.Runtime.Serialization.SerializationException: Binary stream '0' does not contain a valid BinaryHeader. Possible causes are invalid stream or object version change between serialization and deserialization.
    at System.Runtime.Serialization.Formatters.Binary.__BinaryParser.Run()
    at System.Runtime.Serialization.Formatters.Binary.ObjectReader.Deserialize(HeaderHandler handler, __BinaryParser serParser, Boolean fCheck, Boolean isCrossAppDomain, IMethodCallMessage methodCallMessage)
    at System.Runtime.Serialization.Formatters.Binary.BinaryFormatter.Deserialize(Stream serializationStream, HeaderHandler handler, Boolean fCheck, Boolean isCrossAppDomain, IMethodCallMessage methodCallMessage)
    at System.Runtime.Serialization.Formatters.Binary.BinaryFormatter.Deserialize(Stream serializationStream)
    at Iveely.Framework.Text.Serializer.DeserializeFromBytes[T](Byte[] bytes) in c:\Users\Fanping\Desktop\项目\Iveely\Iveely.Framework\Iveely.Framework\Text\Serializer.cs:line 80
    at Iveely.Framework.Network.Synchronous.Client.Send[T](Packet packet) in c:\Users\Fanping\Desktop\项目\Iveely\Iveely.Framework\Iveely.Framework\Network\Synchronous\Client.cs:line 81
-   at Iveely.CloudComputting.Client.Mathematics.CombineTable(Hashtable table, Object[] args) in c:\Users\Fanping\Desktop\项目\Iveely\Iveely.CloudComputting\Iveely.CloudComputting.Client\Mathematics.cs:line 63
-   at Iveely.CloudComputting.Client.Example.Run(Object[] args)
+   at Iveely.CloudComputting.CacheCommon.Selector.SetItems(IEnumerable`1 keys, Object sameValue, Boolean overrides) in c:\Users\Fanping\Desktop\项目\Iveely\Iveely.CloudComputting\Iveely.CloudComputting.CacheCommon\Selector.cs:line 104
+   at Iveely.CloudComputting.CacheAPI.Memory.SetList(IEnumerable`1 keys, Object value, Boolean overrides) in c:\Users\Fanping\Desktop\项目\Iveely\Iveely.CloudComputting\Iveely.CloudComputting.CacheAPI\Memory.cs:line 47
+   at Iveely.CloudComputting.Client.Application.SetListIntoCache(IEnumerable`1 objects, Object value) in c:\Users\Fanping\Desktop\项目\Iveely\Iveely.CloudComputting\Iveely.CloudComputting.Client\Application.cs:line 211
+   at Iveely.SearchEngine.Program.Crawler()
+   at Iveely.SearchEngine.Program.Run(Object[] args)
    --- End of inner exception stack trace ---
    at System.RuntimeMethodHandle.InvokeMethod(Object target, Object[] arguments, Signature sig, Boolean constructor)
    at System.Reflection.RuntimeMethodInfo.UnsafeInvokeInternal(Object obj, Object[] parameters, Object[] arguments)
    at System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
    at System.Reflection.MethodBase.Invoke(Object obj, Object[] parameters)
-   at Iveely.Framework.Text.CodeCompiler.Execode(String code, String className, List`1 libraries, Object[] parameters) in c:\Users\Fanping\Desktop\项目\Iveely\Iveely.Framework\Iveely.Framework\Text\CodeCompiler.cs:line 88
-   at Iveely.CloudComputting.Worker.Program.ProcessTask(Byte[] bytes) in c:\Users\Fanping\Desktop\项目\Iveely\Iveely.CloudComputting\Iveely.CloudComputting.Worker\Program.cs:line 61 ]
-[2013-10-17 23:21:33,029] [Fanping-PC] [INFO ] [Get from path-ISE://application/130265256913754454/ExampleApp/Fanping-PC,8002 ]
-[2013-10-17 23:21:33,044] [Fanping-PC] [INFO ] [Get data from path:ISE://application/130265256913754454/ExampleApp/Fanping-PC,8002 ]
-[2013-10-17 23:21:33,044] [Fanping-PC] [INFO ] [ISE://application/130265256913754454/ExampleApp/Fanping-PC,8002:Finished with success! ]
-[2013-10-17 23:38:52,597] [Fanping-PC] [INFO ] [State Center is start listening... ]
-[2013-10-17 23:38:52,600] [Fanping-PC] [INFO ] [put path ISE://system/state/worker/Fanping-PC,8001 ]
-[2013-10-17 23:38:52,649] [Fanping-PC] [INFO ] [Added information to path-ISE://system/state/worker/Fanping-PC,8001  value=System.Byte[] ]
-[2013-10-17 23:38:52,654] [Fanping-PC] [INFO ] [Starting listen the worker's task... ]
-[2013-10-17 23:38:52,655] [Fanping-PC] [INFO ] [worker's task supervisor instance build success... ]
-[2013-10-17 23:38:52,654] [Fanping-PC] [INFO ] [put path ISE://system/state/worker/Fanping-PC,8002 ]
-[2013-10-17 23:38:52,660] [Fanping-PC] [INFO ] [put path ISE://system/state/merger/Fanping-PC ]
-[2013-10-17 23:38:52,681] [Fanping-PC] [INFO ] [Added information to path-ISE://system/state/worker/Fanping-PC,8002  value=System.Byte[] ]
-[2013-10-17 23:38:52,684] [Fanping-PC] [INFO ] [Starting listen the worker's task... ]
-[2013-10-17 23:38:52,686] [Fanping-PC] [INFO ] [worker's task supervisor instance build success... ]
-[2013-10-17 23:38:52,687] [Fanping-PC] [INFO ] [Added information to path-ISE://system/state/merger/Fanping-PC  value=System.Byte[] ]
-[2013-10-17 23:38:58,446] [Fanping-PC] [INFO ] [Start Compile your code... ]
-[2013-10-17 23:38:58,540] [Fanping-PC] [INFO ] [Preparing for send your application to platform... ]
-[2013-10-17 23:38:58,565] [Fanping-PC] [INFO ] [put path ISE://history/130265267384676116/ExampleApp ]
-[2013-10-17 23:38:58,572] [Fanping-PC] [INFO ] [Added information to path-ISE://history/130265267384676116/ExampleApp  value=System.Byte[] ]
-[2013-10-17 23:38:58,583] [Fanping-PC] [INFO ] [Get children from path:ISE://system/state/worker ]
-[2013-10-17 23:38:58,596] [Fanping-PC] [INFO ] [Get children from path:ISE://application/130265267384676116/ExampleApp ]
-[2013-10-17 23:38:58,598] [Fanping-PC] [INFO ] [Running path ISE://application/130265267384676116/ExampleApp/Fanping-PC,8001 ]
-[2013-10-17 23:38:58,608] [Fanping-PC] [INFO ] [Running path ISE://application/130265267384676116/ExampleApp/Fanping-PC,8002 ]
-[2013-10-17 23:38:58,708] [Fanping-PC] [INFO ] [Fanping-PC,8001 send sum commond,value is 423 ]
-[2013-10-17 23:38:58,717] [Fanping-PC] [INFO ] [Fanping-PC,8002 send sum commond,value is 760 ]
-[2013-10-17 23:38:58,726] [Fanping-PC] [INFO ] [Get children from path:ISE://system/state/worker ]
-[2013-10-17 23:38:58,737] [Fanping-PC] [INFO ] [Get children from path:ISE://system/state/worker ]
-[2013-10-17 23:38:58,740] [Fanping-PC] [INFO ] [sum_130265267384676116_ExampleApp,result is 1183 ]
-[2013-10-17 23:38:58,740] [Fanping-PC] [INFO ] [sum_130265267384676116_ExampleApp,result is 1183 ]
-[2013-10-17 23:38:58,751] [Fanping-PC] [INFO ] [Fanping-PC,8001 send combine table commond. ]
-[2013-10-17 23:38:58,747] [Fanping-PC] [INFO ] [Fanping-PC,8002 send combine table commond. ]
-[2013-10-17 23:38:58,767] [Fanping-PC] [INFO ] [combine_table_130265267384676116_ExampleApp, combine table. ]
-[2013-10-17 23:38:58,775] [Fanping-PC] [INFO ] [put path ISE://application/130265267384676116/ExampleApp/Fanping-PC,8001 ]
-[2013-10-17 23:38:58,767] [Fanping-PC] [INFO ] [combine_table_130265267384676116_ExampleApp, combine table. ]
-[2013-10-17 23:38:58,790] [Fanping-PC] [INFO ] [Added information to path-ISE://application/130265267384676116/ExampleApp/Fanping-PC,8001  value=System.Byte[] ]
-[2013-10-17 23:38:58,789] [Fanping-PC] [INFO ] [put path ISE://application/130265267384676116/ExampleApp/Fanping-PC,8002 ]
-[2013-10-17 23:38:58,805] [Fanping-PC] [INFO ] [Added information to path-ISE://application/130265267384676116/ExampleApp/Fanping-PC,8002  value=System.Byte[] ]
-[2013-10-17 23:38:59,602] [Fanping-PC] [INFO ] [Get children from path:ISE://application/130265267384676116/ExampleApp ]
-[2013-10-17 23:38:59,612] [Fanping-PC] [INFO ] [Get from path-ISE://application/130265267384676116/ExampleApp/Fanping-PC,8001 ]
-[2013-10-17 23:38:59,616] [Fanping-PC] [INFO ] [Get data from path:ISE://application/130265267384676116/ExampleApp/Fanping-PC,8001 ]
-[2013-10-17 23:38:59,620] [Fanping-PC] [INFO ] [ISE://application/130265267384676116/ExampleApp/Fanping-PC,8001:Finished with success! ]
-[2013-10-17 23:38:59,622] [Fanping-PC] [INFO ] [Get from path-ISE://application/130265267384676116/ExampleApp/Fanping-PC,8002 ]
-[2013-10-17 23:38:59,626] [Fanping-PC] [INFO ] [Get data from path:ISE://application/130265267384676116/ExampleApp/Fanping-PC,8002 ]
-[2013-10-17 23:38:59,629] [Fanping-PC] [INFO ] [ISE://application/130265267384676116/ExampleApp/Fanping-PC,8002:Finished with success! ]
+   at Iveely.Framework.Text.CodeCompiler.Execode(String code, String className, List`1 libraries, Object[] parameters) in c:\Users\Fanping\Desktop\项目\Iveely\Iveely.Framework\Iveely.Framework\Text\CodeCompiler.cs:line 90
+   at Iveely.CloudComputting.Worker.Program.ProcessTask(Byte[] bytes) in c:\Users\Fanping\Desktop\项目\Iveely\Iveely.CloudComputting\Iveely.CloudComputting.Worker\Program.cs:line 60 ]
+[2013-10-19 01:22:47,753] [Fanping-PC] [INFO ] [State Center is start listening... ]
+[2013-10-19 01:22:47,793] [Fanping-PC] [INFO ] [put path ISE://system/state/worker/Fanping-PC,8001 ]
+[2013-10-19 01:22:47,821] [Fanping-PC] [INFO ] [put path ISE://system/state/worker/Fanping-PC,8002 ]
+[2013-10-19 01:22:47,873] [Fanping-PC] [INFO ] [Added information to path-ISE://system/state/worker/Fanping-PC,8001  value=System.Byte[] ]
+[2013-10-19 01:22:47,879] [Fanping-PC] [INFO ] [Starting listen the worker's task... ]
+[2013-10-19 01:22:47,882] [Fanping-PC] [INFO ] [worker's task supervisor instance build success... ]
+[2013-10-19 01:22:47,898] [Fanping-PC] [INFO ] [Added information to path-ISE://system/state/worker/Fanping-PC,8002  value=System.Byte[] ]
+[2013-10-19 01:22:47,909] [Fanping-PC] [INFO ] [Starting listen the worker's task... ]
+[2013-10-19 01:22:47,912] [Fanping-PC] [INFO ] [worker's task supervisor instance build success... ]
+[2013-10-19 01:22:47,962] [Fanping-PC] [INFO ] [put path ISE://system/state/merger/Fanping-PC ]
+[2013-10-19 01:22:47,988] [Fanping-PC] [INFO ] [Added information to path-ISE://system/state/merger/Fanping-PC  value=System.Byte[] ]
+[2013-10-19 01:22:48,329] [Fanping-PC] [INFO ] [Start memory cache Fanping-PC:8081 ]
+[2013-10-19 01:22:50,989] [Fanping-PC] [INFO ] [Start Compile your code... ]
+[2013-10-19 01:22:51,114] [Fanping-PC] [INFO ] [Preparing for send your application to platform... ]
+[2013-10-19 01:22:51,124] [Fanping-PC] [INFO ] [put path ISE://history/130266193710136410/ISE ]
+[2013-10-19 01:22:51,132] [Fanping-PC] [INFO ] [Added information to path-ISE://history/130266193710136410/ISE  value=System.Byte[] ]
+[2013-10-19 01:22:51,142] [Fanping-PC] [INFO ] [Get children from path:ISE://system/state/worker ]
+[2013-10-19 01:22:51,155] [Fanping-PC] [INFO ] [Get children from path:ISE://application/130266193710136410/ISE ]
+[2013-10-19 01:22:51,159] [Fanping-PC] [INFO ] [Running path ISE://application/130266193710136410/ISE/Fanping-PC,8001 ]
+[2013-10-19 01:22:51,161] [Fanping-PC] [INFO ] [Running path ISE://application/130266193710136410/ISE/Fanping-PC,8002 ]
+[2013-10-19 01:22:52,160] [Fanping-PC] [INFO ] [Get children from path:ISE://application/130266193710136410/ISE ]
+[2013-10-19 01:22:53,177] [Fanping-PC] [INFO ] [Get children from path:ISE://application/130266193710136410/ISE ]
+[2013-10-19 01:22:54,181] [Fanping-PC] [INFO ] [Get children from path:ISE://application/130266193710136410/ISE ]
+[2013-10-19 01:22:55,191] [Fanping-PC] [INFO ] [Get children from path:ISE://application/130266193710136410/ISE ]
+[2013-10-19 01:22:55,711] [Fanping-PC] [ERROR] [System.Reflection.TargetInvocationException: Exception has been thrown by the target of an invocation. ---> System.IO.IOException: Unable to read data from the transport connection: An existing connection was forcibly closed by the remote host. ---> System.Net.Sockets.SocketException: An existing connection was forcibly closed by the remote host
+   at System.Net.Sockets.Socket.Receive(Byte[] buffer, Int32 offset, Int32 size, SocketFlags socketFlags)
+   at System.Net.Sockets.NetworkStream.Read(Byte[] buffer, Int32 offset, Int32 size)
+   --- End of inner exception stack trace ---
+   at System.Net.Sockets.NetworkStream.Read(Byte[] buffer, Int32 offset, Int32 size)
+   at Iveely.Framework.Network.Synchronous.Client.Send[T](Packet packet) in c:\Users\Fanping\Desktop\项目\Iveely\Iveely.Framework\Iveely.Framework\Network\Synchronous\Client.cs:line 79
+   at Iveely.CloudComputting.CacheCommon.Selector.SetItems(IEnumerable`1 keys, Object sameValue, Boolean overrides) in c:\Users\Fanping\Desktop\项目\Iveely\Iveely.CloudComputting\Iveely.CloudComputting.CacheCommon\Selector.cs:line 104
+   at Iveely.CloudComputting.CacheAPI.Memory.SetList(IEnumerable`1 keys, Object value, Boolean overrides) in c:\Users\Fanping\Desktop\项目\Iveely\Iveely.CloudComputting\Iveely.CloudComputting.CacheAPI\Memory.cs:line 47
+   at Iveely.CloudComputting.Client.Application.SetListIntoCache(IEnumerable`1 objects, Object value) in c:\Users\Fanping\Desktop\项目\Iveely\Iveely.CloudComputting\Iveely.CloudComputting.Client\Application.cs:line 211
+   at Iveely.SearchEngine.Program.Crawler()
+   at Iveely.SearchEngine.Program.Run(Object[] args)
+   --- End of inner exception stack trace ---
+   at System.RuntimeMethodHandle.InvokeMethod(Object target, Object[] arguments, Signature sig, Boolean constructor)
+   at System.Reflection.RuntimeMethodInfo.UnsafeInvokeInternal(Object obj, Object[] parameters, Object[] arguments)
+   at System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at System.Reflection.MethodBase.Invoke(Object obj, Object[] parameters)
+   at Iveely.Framework.Text.CodeCompiler.Execode(String code, String className, List`1 libraries, Object[] parameters) in c:\Users\Fanping\Desktop\项目\Iveely\Iveely.Framework\Iveely.Framework\Text\CodeCompiler.cs:line 90
+   at Iveely.CloudComputting.Worker.Program.ProcessTask(Byte[] bytes) in c:\Users\Fanping\Desktop\项目\Iveely\Iveely.CloudComputting\Iveely.CloudComputting.Worker\Program.cs:line 60 ]
+[2013-10-19 01:22:55,713] [Fanping-PC] [ERROR] [System.Reflection.TargetInvocationException: Exception has been thrown by the target of an invocation. ---> System.IO.IOException: Unable to read data from the transport connection: An existing connection was forcibly closed by the remote host. ---> System.Net.Sockets.SocketException: An existing connection was forcibly closed by the remote host
+   at System.Net.Sockets.Socket.Receive(Byte[] buffer, Int32 offset, Int32 size, SocketFlags socketFlags)
+   at System.Net.Sockets.NetworkStream.Read(Byte[] buffer, Int32 offset, Int32 size)
+   --- End of inner exception stack trace ---
+   at System.Net.Sockets.NetworkStream.Read(Byte[] buffer, Int32 offset, Int32 size)
+   at Iveely.Framework.Network.Synchronous.Client.Send[T](Packet packet) in c:\Users\Fanping\Desktop\项目\Iveely\Iveely.Framework\Iveely.Framework\Network\Synchronous\Client.cs:line 79
+   at Iveely.CloudComputting.CacheCommon.Selector.SetItems(IEnumerable`1 keys, Object sameValue, Boolean overrides) in c:\Users\Fanping\Desktop\项目\Iveely\Iveely.CloudComputting\Iveely.CloudComputting.CacheCommon\Selector.cs:line 104
+   at Iveely.CloudComputting.CacheAPI.Memory.SetList(IEnumerable`1 keys, Object value, Boolean overrides) in c:\Users\Fanping\Desktop\项目\Iveely\Iveely.CloudComputting\Iveely.CloudComputting.CacheAPI\Memory.cs:line 47
+   at Iveely.CloudComputting.Client.Application.SetListIntoCache(IEnumerable`1 objects, Object value) in c:\Users\Fanping\Desktop\项目\Iveely\Iveely.CloudComputting\Iveely.CloudComputting.Client\Application.cs:line 211
+   at Iveely.SearchEngine.Program.Crawler()
+   at Iveely.SearchEngine.Program.Run(Object[] args)
+   --- End of inner exception stack trace ---
+   at System.RuntimeMethodHandle.InvokeMethod(Object target, Object[] arguments, Signature sig, Boolean constructor)
+   at System.Reflection.RuntimeMethodInfo.UnsafeInvokeInternal(Object obj, Object[] parameters, Object[] arguments)
+   at System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at System.Reflection.MethodBase.Invoke(Object obj, Object[] parameters)
+   at Iveely.Framework.Text.CodeCompiler.Execode(String code, String className, List`1 libraries, Object[] parameters) in c:\Users\Fanping\Desktop\项目\Iveely\Iveely.Framework\Iveely.Framework\Text\CodeCompiler.cs:line 90
+   at Iveely.CloudComputting.Worker.Program.ProcessTask(Byte[] bytes) in c:\Users\Fanping\Desktop\项目\Iveely\Iveely.CloudComputting\Iveely.CloudComputting.Worker\Program.cs:line 60 ]
+[2013-10-19 01:22:55,766] [Fanping-PC] [INFO ] [put path ISE://application/130266193710136410/ISE/Fanping-PC,8001 ]
+[2013-10-19 01:22:55,764] [Fanping-PC] [INFO ] [put path ISE://application/130266193710136410/ISE/Fanping-PC,8002 ]
+[2013-10-19 01:22:55,772] [Fanping-PC] [ERROR] [System.Runtime.Serialization.SerializationException: Binary stream '0' does not contain a valid BinaryHeader. Possible causes are invalid stream or object version change between serialization and deserialization.
+   at System.Runtime.Serialization.Formatters.Binary.__BinaryParser.Run()
+   at System.Runtime.Serialization.Formatters.Binary.ObjectReader.Deserialize(HeaderHandler handler, __BinaryParser serParser, Boolean fCheck, Boolean isCrossAppDomain, IMethodCallMessage methodCallMessage)
+   at System.Runtime.Serialization.Formatters.Binary.BinaryFormatter.Deserialize(Stream serializationStream, HeaderHandler handler, Boolean fCheck, Boolean isCrossAppDomain, IMethodCallMessage methodCallMessage)
+   at System.Runtime.Serialization.Formatters.Binary.BinaryFormatter.Deserialize(Stream serializationStream)
+   at Iveely.Framework.Text.Serializer.DeserializeFromBytes[T](Byte[] bytes) in c:\Users\Fanping\Desktop\项目\Iveely\Iveely.Framework\Iveely.Framework\Text\Serializer.cs:line 80
+   at Iveely.CloudComputting.StateCenter.Service.OnReceive(Byte[] datas) in c:\Users\Fanping\Desktop\项目\Iveely\Iveely.CloudComputting\Iveely.CloudComputting.StateCenter\Service.cs:line 161 ]
+[2013-10-19 01:22:55,786] [Fanping-PC] [ERROR] [System.NullReferenceException: Object reference not set to an instance of an object.
+   at Iveely.CloudComputting.StateCenter.Service.ProcessClient(TcpClient client) in c:\Users\Fanping\Desktop\项目\Iveely\Iveely.CloudComputting\Iveely.CloudComputting.StateCenter\Service.cs:line 133 ]
+[2013-10-19 01:22:55,794] [Fanping-PC] [INFO ] [Added information to path-ISE://application/130266193710136410/ISE/Fanping-PC,8002  value=System.Byte[] ]
+[2013-10-19 01:22:56,225] [Fanping-PC] [INFO ] [Get children from path:ISE://application/130266193710136410/ISE ]
+[2013-10-19 01:22:57,233] [Fanping-PC] [INFO ] [Get children from path:ISE://application/130266193710136410/ISE ]
+[2013-10-19 01:22:58,246] [Fanping-PC] [INFO ] [Get children from path:ISE://application/130266193710136410/ISE ]
+[2013-10-19 01:22:59,270] [Fanping-PC] [INFO ] [Get children from path:ISE://application/130266193710136410/ISE ]

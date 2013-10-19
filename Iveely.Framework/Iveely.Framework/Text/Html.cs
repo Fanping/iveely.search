@@ -686,26 +686,35 @@ namespace Iveely.Framework.Text
         /// <returns>返回Html对象</returns>
         public static Html CreatHtml(Uri uri)
         {
-            if (_processors == null)
+            try
             {
-                InitProcessors(new HtmlProcessor());
-            }
 
-            var request = CreateRequest(uri);
-            //request.Credentials = new NetworkCredential("spidertest", "iveely123456");
-            //获取响应
-            using (var response = (HttpWebResponse)request.GetResponse())
-            {
-                //处理获取到得响应结果
-                using (var crawlerContent = ProcessFactory.Create(uri, response))
+                if (_processors == null)
                 {
-                    Html html = new Html();
-                    html.Title = crawlerContent.GetTitle();
-                    html.Content = crawlerContent.GetContent();
-                    html.SourceCode = crawlerContent.Text;
-                    html.ChildrenLink = new List<Uri>(ProcessContent(crawlerContent, uri));
-                    return html;
+                    InitProcessors(new HtmlProcessor());
                 }
+
+                var request = CreateRequest(uri);
+                //request.Credentials = new NetworkCredential("spidertest", "iveely123456");
+                //获取响应
+                using (var response = (HttpWebResponse)request.GetResponse())
+                {
+                    //处理获取到得响应结果
+                    using (var crawlerContent = ProcessFactory.Create(uri, response))
+                    {
+                        Html html = new Html();
+                        html.Title = crawlerContent.GetTitle();
+                        html.Content = crawlerContent.GetContent();
+                        //html.SourceCode = crawlerContent.Text;
+                        html.ChildrenLink = new List<Uri>(ProcessContent(crawlerContent, uri));
+                        return html;
+                    }
+                }
+            }
+            catch (Exception exception)
+            {
+                Logger.Error(exception);
+                return null;
             }
         }
 

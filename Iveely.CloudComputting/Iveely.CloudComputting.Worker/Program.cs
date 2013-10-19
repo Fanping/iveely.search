@@ -55,7 +55,6 @@ namespace Iveely.CloudComputting.Worker
             {
                 List<string> references = new List<string>();
                 references.Add("Iveely.CloudComputting.Client.exe");
-                references.Add("System.Core.dll");
                 references.Add("System.Xml.dll");
                 references.Add("System.Xml.Linq.dll");
                 CodeCompiler.Execode(sourceCode, packet.ClassName, references, new object[] { packet.ReturnIp, packet.Port, MachineName, ServicePort, packet.TimeStamp, packet.AppName });

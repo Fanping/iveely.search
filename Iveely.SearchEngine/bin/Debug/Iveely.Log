@@ -1,0 +1,7 @@
+[2013-10-19 01:02:21,675] [Fanping-PC] [ERROR] [System.ArgumentException: '' is not a supported encoding name.
+Parameter name: name
+   at System.Globalization.EncodingTable.internalGetCodePageFromName(String name)
+   at System.Globalization.EncodingTable.GetCodePageFromName(String name)
+   at System.Text.Encoding.GetEncoding(String name)
+   at Iveely.Framework.Text.Html.BasicContent.get_Text() in c:\Users\Fanping\Desktop\项目\Iveely\Iveely.Framework\Iveely.Framework\Text\Html.cs:line 160
+   at Iveely.Framework.Text.Html.CreatHtml(Uri uri) in c:\Users\Fanping\Desktop\项目\Iveely\Iveely.Framework\Iveely.Framework\Text\Html.cs:line 708 ]

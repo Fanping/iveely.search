@@ -71,7 +71,7 @@ namespace Iveely.CloudComputting.CacheCommon
         {
             int code = key.GetHashCode();
             string host = _nodeLocator.GetNodeForKey(code);
-            Message message = new Message(host, Message.CommandType.Set, key, value, null, overrides);
+            Message message = new Message(host, Message.CommandType.Set, key, value, 1, null, overrides);
             _client = new Client(host, SettingItem.GetInstance().CacheNodePort);
 
             Packet packet = new CachePacket(Serializer.SerializeToBytes(message));
@@ -91,7 +91,7 @@ namespace Iveely.CloudComputting.CacheCommon
                 }
                 else
                 {
-                    Message cacheMsg = new Message(host, Message.CommandType.SetList, key, sameValue, new[] { key },
+                    Message cacheMsg = new Message(host, Message.CommandType.SetList, key, sameValue, 1, new[] { key },
                                                              overrides);
                     list.Add(host, cacheMsg);
                 }
@@ -130,7 +130,7 @@ namespace Iveely.CloudComputting.CacheCommon
             foreach (var host in hosts)
             {
                 _client = new Client(host, SettingItem.GetInstance().CacheNodePort);
-                Message message = new Message(host, Message.CommandType.GetList, changeValue, value);
+                Message message = new Message(host, Message.CommandType.GetList, changeValue, value, topN);
                 Packet packet = new CachePacket(Serializer.SerializeToBytes(message));
                 packet.WaiteCallBack = true;
                 message = _client.Send<Message>(packet);

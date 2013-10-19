@@ -38,6 +38,7 @@ namespace Iveely.Framework.Text
             ICodeCompiler objICodeCompiler = objCSharpCodePrivoder.CreateCompiler();
             CompilerParameters objCompilerParameters = new CompilerParameters();
             objCompilerParameters.ReferencedAssemblies.Add("System.dll");
+            objCompilerParameters.ReferencedAssemblies.Add("System.Core.dll");
             if (references != null)
             {
                 foreach (var reference in references)
@@ -71,6 +72,7 @@ namespace Iveely.Framework.Text
             compilerParameters.GenerateExecutable = false;
             compilerParameters.GenerateInMemory = true;
             compilerParameters.ReferencedAssemblies.Add("System.dll");
+            compilerParameters.ReferencedAssemblies.Add("System.Core.dll");
             if (libraries != null)
             {
                 foreach (var library in libraries)

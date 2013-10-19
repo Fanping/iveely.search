@@ -3,11 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Iveely.CloudComputting", "Iveely.CloudComputting", "{456AA3BF-F2BE-4979-9CC6-FF1BE180FDAD}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Iveely.SearchEngine", "Iveely.SearchEngine", "{7505B016-9220-4620-944E-D7F119A637E8}"
-	ProjectSection(SolutionItems) = preProject
-		Spider.script = Spider.script
-	EndProjectSection
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Dependency", "Dependency", "{B40A826B-7BE9-4629-BE4A-69809B06560D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Iveely.CloudComputting.Cache", "Iveely.CloudComputting\Iveely.CloudComputting.Cache\Iveely.CloudComputting.Cache.csproj", "{4E3B627F-42F8-4DC1-A15E-243926A4331F}"
@@ -39,6 +34,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Iveely.CloudComputting.CacheAPI", "Iveely.CloudComputting\Iveely.CloudComputting.CacheAPI\Iveely.CloudComputting.CacheAPI.csproj", "{A153F408-FFA3-45BE-9886-15E0D4BC06E7}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HtmlAgilityPack", "Dependency\HtmlAgilityPack\HtmlAgilityPack.csproj", "{193BB801-054F-4729-9D5D-FCE1E32594BF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Iveely.SearchEngine", "Iveely.SearchEngine\Iveely.SearchEngine.csproj", "{DAF40080-9414-41CE-8891-98F00ECFB6E8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -106,6 +103,10 @@ Global
 		{193BB801-054F-4729-9D5D-FCE1E32594BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{193BB801-054F-4729-9D5D-FCE1E32594BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{193BB801-054F-4729-9D5D-FCE1E32594BF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DAF40080-9414-41CE-8891-98F00ECFB6E8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DAF40080-9414-41CE-8891-98F00ECFB6E8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DAF40080-9414-41CE-8891-98F00ECFB6E8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DAF40080-9414-41CE-8891-98F00ECFB6E8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

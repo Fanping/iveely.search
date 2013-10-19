@@ -67,6 +67,12 @@ namespace Iveely.CloudComputting.CacheCommon
         public object Value { get; set; }
 
         /// <summary>
+        /// 获取前N项缓存
+        /// （在获取list的时候有效）
+        /// </summary>
+        public int TopN { get; set; }
+
+        /// <summary>
         /// 消息的Value集合
         /// </summary>
         public List<object> Values { get; set; }
@@ -79,7 +85,7 @@ namespace Iveely.CloudComputting.CacheCommon
         /// <summary>
         /// 构建缓存消息
         /// </summary>
-        public Message(string endpoint, CommandType command, object key, object value, object[] values = null, bool overrides = true)
+        public Message(string endpoint, CommandType command, object key, object value, int topN = 200, object[] values = null, bool overrides = true)
         {
             Endpoint = endpoint;
             Command = command;
@@ -89,6 +95,7 @@ namespace Iveely.CloudComputting.CacheCommon
             {
                 Values = new List<object>(values);
             }
+            TopN = topN;
             Overrrides = overrides;
         }
     }

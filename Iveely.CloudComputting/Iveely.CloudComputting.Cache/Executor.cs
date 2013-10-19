@@ -101,7 +101,7 @@ namespace Iveely.CloudComputting.Cache
             }
             else
             {
-                message.Values = new List<object>(GetKeyByValue(message.Value, message.Key));
+                message.Values = new List<object>(GetKeyByValue(message.Value, message.Key, message.TopN));
             }
             return Serializer.SerializeToBytes(message);
         }
@@ -135,9 +135,9 @@ namespace Iveely.CloudComputting.Cache
         /// <param name="value"></param>
         /// <param name="changeValue"></param>
         /// <returns></returns>
-        private object[] GetKeyByValue(object value, object changeValue)
+        private object[] GetKeyByValue(object value, object changeValue, int topN)
         {
-            return _table.ReadByValue(value, changeValue, 200);
+            return _table.ReadByValue(value, changeValue, topN);
         }
 
 #if DEBUG
@@ -164,7 +164,7 @@ namespace Iveely.CloudComputting.Cache
             }
 
             //读取出来之后，会按照插入的逆序进行输出
-            object[] objects = GetKeyByValue(1, -1);
+            object[] objects = GetKeyByValue(1, -1, 10);
             for (int i = 0; i < 10; i++)
             {
                 Assert.AreEqual(objects[i], (9 - i) + "Key");

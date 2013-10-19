@@ -46,6 +46,21 @@ namespace Iveely.CloudComputting.Client
             Sender.Send<Packet>(packet);
         }
 
+        public void GetHtml(string url, ref string title, ref string content, ref List<string> childrenLink)
+        {
+            Html html = Html.CreatHtml(new Uri(url));
+            if (html != null)
+            {
+                title = html.Title;
+                content = html.Content;
+                childrenLink = html.ChildrenLink.Select(o => o.ToString()).ToList();
+            }
+            else
+            {
+                childrenLink = new List<string>();
+            }
+        }
+
         #endregion
 
         #region 文本操作
@@ -68,7 +83,7 @@ namespace Iveely.CloudComputting.Client
 
             //2. 写文件数据
             string filePath = GetFilePath(fileName, globalFile);
-            File.AppendAllText(filePath, line);
+            File.AppendAllText(filePath, line, Encoding.UTF8);
         }
 
         public string ReadText(string fileName, bool globalFile)
@@ -127,25 +142,73 @@ namespace Iveely.CloudComputting.Client
 
         #region 缓存操作
 
+        /// <summary>
+        /// 设置缓存
+        /// </summary>
+        /// <param name="key">缓存的key</param>
+        /// <param name="value">缓存的value</param>
         public void SetCache(string key, object value)
         {
             if (string.IsNullOrEmpty(key))
             {
                 throw new NullReferenceException("Key can not be null.");
             }
-            key += parameters[2].ToString() + parameters[3] + parameters[4] + parameters[5];
+            key = parameters[2].ToString() + parameters[3] + parameters[4] + parameters[5] + ":" + key;
             Memory.Set(key, value);
         }
 
+        /// <summary>
+        /// 获取缓存
+        /// </summary>
+        /// <typeparam name="T">缓存返回值类型</typeparam>
+        /// <param name="key">缓存的key</param>
+        /// <returns>返回值</returns>
         public T GetCache<T>(string key)
         {
             if (string.IsNullOrEmpty(key))
             {
                 throw new NullReferenceException("Key can not be null.");
             }
-            key += parameters[2].ToString() + parameters[3] + parameters[4] + parameters[5];
+            key = parameters[2].ToString() + parameters[3] + parameters[4] + parameters[5] + ":" + key;
             object obj = Memory.Get(key);
             return (T)Convert.ChangeType(obj, typeof(T));
+        }
+
+        /// <summary>
+        /// 通过value获取keys
+        /// （将相同value的keys获取出）
+        /// </summary>
+        /// <param name="expression">value的值</param>
+        /// <param name="keysCount">期望获取key的数量</param>
+        /// <param name="changedValue">获取后改变key的值</param>
+        /// <returns>返回keys</returns>
+        public string[] GetKeysByValueFromCache(object expression, int keysCount, object changedValue)
+        {
+            object[] objects = Memory.GetKeysByValue(expression, keysCount, changedValue);
+            List<string> keys = new List<string>();
+            foreach (object obj in objects)
+            {
+                string key = obj.ToString();
+                keys.Add(key.Substring(key.IndexOf(':') + 1, key.Length - key.IndexOf(':') - 1));
+            }
+            return keys.ToArray();
+        }
+
+        /// <summary>
+        /// 设置缓存集
+        /// （拥有相同value的keys）
+        /// </summary>
+        /// <param name="objects">keys</param>
+        /// <param name="value">缓存值</param>
+        public void SetListIntoCache(IEnumerable<object> objects, object value)
+        {
+            List<string> keys = new List<string>();
+            foreach (object obj in objects)
+            {
+                string key = parameters[2].ToString() + parameters[3] + parameters[4] + parameters[5] + ":" + obj;
+                keys.Add(key);
+            }
+            Memory.SetList(keys, value, false);
         }
 
         #endregion
