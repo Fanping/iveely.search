@@ -30,6 +30,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -39,7 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
+    <Compile Include="CacheTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -49,6 +50,20 @@
     <None Include="Stop-Local-Environment.bat">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Iveely.CloudComputting.CacheAPI\Iveely.CloudComputting.CacheAPI.csproj">
+      <Project>{a153f408-ffa3-45be-9886-15e0d4bc06e7}</Project>
+      <Name>Iveely.CloudComputting.CacheAPI</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Iveely.CloudComputting.CacheCommon\Iveely.CloudComputting.CacheCommon.csproj">
+      <Project>{e375ff72-f36b-4ebf-aba0-691944e1119a}</Project>
+      <Name>Iveely.CloudComputting.CacheCommon</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Iveely.CloudComputting.Cache\Iveely.CloudComputting.Cache.csproj">
+      <Project>{4e3b627f-42f8-4dc1-a15e-243926a4331f}</Project>
+      <Name>Iveely.CloudComputting.Cache</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

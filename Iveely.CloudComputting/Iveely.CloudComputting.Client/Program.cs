@@ -143,6 +143,7 @@ namespace Iveely.CloudComputting.Client
                 //Framework.Text.CodeCompiler compiler = new CodeCompiler();
                 List<string> references = new List<string>();
                 references.Add("Iveely.CloudComputting.Client.exe");
+                references.Add("Iveely.Framework.dll");
                 return CodeCompiler.Compile(File.ReadAllLines(fileName), references);
             }
             throw new FileNotFoundException(fileName + " is not found!");
@@ -150,15 +151,23 @@ namespace Iveely.CloudComputting.Client
 
         private static byte[] ProcessResponse(byte[] bytes)
         {
-            Packet packet = Serializer.DeserializeFromBytes<Packet>(bytes);
-            byte[] dataBytes = packet.Data;
-            string information = Serializer.DeserializeFromBytes<string>(dataBytes);
+            try
+            {
+                Packet packet = Serializer.DeserializeFromBytes<Packet>(bytes);
+                byte[] dataBytes = packet.Data;
+                string information = Serializer.DeserializeFromBytes<string>(dataBytes);
 
-            ConsoleColor color = Console.ForegroundColor;
-            Console.ForegroundColor = ConsoleColor.Blue;
-            Console.WriteLine(string.Format("[Response {0}] {1}", DateTime.UtcNow.ToString(), information));
-            Console.ForegroundColor = color;
+                ConsoleColor color = Console.ForegroundColor;
+                Console.ForegroundColor = ConsoleColor.Blue;
+                Console.WriteLine(string.Format("[Response {0}] {1}", DateTime.UtcNow.ToString(), information));
+                Console.ForegroundColor = color;
+            }
+            catch (Exception exception)
+            {
+                Logger.Error(exception);
+            }
             return null;
+
         }
     }
 }

@@ -109,15 +109,22 @@ namespace Iveely.Framework.Network.Synchronous
 
                     while (true)
                     {
-                        TcpClient client = _listener.AcceptTcpClient();
+                        if (_isListening)
+                        {
+                            TcpClient client = _listener.AcceptTcpClient();
 
-                        //用线程解决高并发问题，此处很重要
-                        Thread thread = new Thread(ProcessClient);
-                        thread.Start(client);
-       
+                            //用线程解决高并发问题，此处很重要
+                            Thread thread = new Thread(ProcessClient);
+                            thread.Start(client);
+                        }
+                        else
+                        {
+                            _isListening = false;
+                            break;
+                        }
                     }
                 }
-                throw new Exception("服务器已经启动监听，本次启动无效！");
+                //throw new Exception("服务器已经启动监听，本次启动无效！");
             }
             finally
             {
@@ -144,7 +151,7 @@ namespace Iveely.Framework.Network.Synchronous
         /// <summary>
         /// 设定网络传输最大容量
         /// </summary>
-        /// <param name="size">容量大小(单位：b，默认10M)</param>
+        /// <param name="size">容量大小(单位：b，默认1M)</param>
         public void SetMaxTransferSize(int size)
         {
             if (!_isListening && size > 0)
@@ -157,27 +164,29 @@ namespace Iveely.Framework.Network.Synchronous
         {
 
             TcpClient client = (TcpClient)objClient;
-            //字节数组容器
-            var reciveBytes = new byte[_maxTransferSize];
-            var sendBytes = new byte[_maxTransferSize];
-
-            //读取网络流
-            using (NetworkStream netStream = client.GetStream())
+            if (client.Available > 0)
             {
-                //设定读超时
-                netStream.ReadTimeout = 600000;
-                netStream.Read(reciveBytes, 0, reciveBytes.Length);
+                //字节数组容器
+                var reciveBytes = new byte[_maxTransferSize];
+                var sendBytes = new byte[_maxTransferSize];
 
-                //转换为字节数组
-                //Packet clientPacket = Serializer.DeserializeFromBytes<Packet>(bytes);
-                sendBytes = _processing(reciveBytes);
-                if (sendBytes != null)
+                //读取网络流
+                using (NetworkStream netStream = client.GetStream())
                 {
-                    netStream.Write(sendBytes, 0, sendBytes.Length);
-                    netStream.Flush();
+                    //设定读超时
+                    netStream.ReadTimeout = 600000;
+                    netStream.Read(reciveBytes, 0, reciveBytes.Length);
+
+                    //转换为字节数组
+                    //Packet clientPacket = Serializer.DeserializeFromBytes<Packet>(bytes);
+                    sendBytes = _processing(reciveBytes);
+                    if (sendBytes != null)
+                    {
+                        netStream.Write(sendBytes, 0, sendBytes.Length);
+                        netStream.Flush();
+                    }
                 }
             }
-
             currentThreadCount--;
         }
     }

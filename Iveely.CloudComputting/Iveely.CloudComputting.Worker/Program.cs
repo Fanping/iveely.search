@@ -15,9 +15,9 @@ namespace Iveely.CloudComputting.Worker
     {
         private static Server _taskSuperviser;
 
-        private static string MachineName;
+        private static string _machineName;
 
-        private static int ServicePort;
+        private static int _servicePort;
 
         public static void Main(string[] args)
         {
@@ -27,11 +27,11 @@ namespace Iveely.CloudComputting.Worker
             {
                 port = int.Parse(args[0]);
             }
-            MachineName = Dns.GetHostName();
-            ServicePort = port;
+            _machineName = Dns.GetHostName();
+            _servicePort = port;
 
             //2. 向State Center发送上线消息
-            StateHelper.Put("ISE://system/state/worker/" + MachineName + "," + ServicePort, MachineName + ":" + ServicePort + " is ready online!");
+            StateHelper.Put("ISE://system/state/worker/" + _machineName + "," + _servicePort, _machineName + ":" + _servicePort + " is ready online!");
 
             //3. 启动任务接收监听
             if (_taskSuperviser == null)
@@ -49,15 +49,16 @@ namespace Iveely.CloudComputting.Worker
             byte[] dataBytes = packet.Data;
             string sourceCode = System.Text.Encoding.UTF8.GetString(dataBytes);
             string runningPath = "ISE://application/" + packet.TimeStamp + "/" + packet.AppName + "/" +
-                                 MachineName + "," + ServicePort;
+                                 _machineName + "," + _servicePort;
             Logger.Info("Running path " + runningPath);
             try
             {
                 List<string> references = new List<string>();
                 references.Add("Iveely.CloudComputting.Client.exe");
+                references.Add("Iveely.Framework.dll");
                 references.Add("System.Xml.dll");
                 references.Add("System.Xml.Linq.dll");
-                CodeCompiler.Execode(sourceCode, packet.ClassName, references, new object[] { packet.ReturnIp, packet.Port, MachineName, ServicePort, packet.TimeStamp, packet.AppName });
+                CodeCompiler.Execode(sourceCode, packet.ClassName, references, new object[] { packet.ReturnIp, packet.Port, _machineName, _servicePort, packet.TimeStamp, packet.AppName });
                 StateHelper.Put(runningPath, "Finished with success!");
             }
             catch (Exception exception)

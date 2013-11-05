@@ -9,3 +9,6 @@ C:\Users\Fanping\Desktop\项目\Iveely\Iveely.Framework\Iveely.Framework\obj\Deb
 C:\Users\Fanping\Desktop\项目\Iveely\Iveely.Framework\Iveely.Framework\bin\Debug\HtmlAgilityPack.dll
 C:\Users\Fanping\Desktop\项目\Iveely\Iveely.Framework\Iveely.Framework\bin\Debug\HtmlAgilityPack.pdb
 C:\Users\Fanping\Desktop\项目\Iveely\Iveely.Framework\Iveely.Framework\bin\Debug\HtmlAgilityPack.xml
+C:\Users\Fanping\Desktop\项目\Iveely\Iveely.Framework\Iveely.Framework\bin\Debug\Newtonsoft.Json.dll
+C:\Users\Fanping\Desktop\项目\Iveely\Iveely.Framework\Iveely.Framework\bin\Debug\Newtonsoft.Json.pdb
+C:\Users\Fanping\Desktop\项目\Iveely\Iveely.Framework\Iveely.Framework\bin\Debug\Newtonsoft.Json.xml

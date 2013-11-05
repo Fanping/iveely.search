@@ -42,6 +42,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Algorithm\BinarySearch.cs" />
+    <Compile Include="Algorithm\Invert.cs" />
+    <Compile Include="Algorithm\InvertFragment.cs" />
+    <Compile Include="Algorithm\InvertFrequency.cs" />
+    <Compile Include="Algorithm\Kmeans.cs" />
+    <Compile Include="DataStructure\DimensionTable.cs" />
+    <Compile Include="DataStructure\IntTable.cs" />
+    <Compile Include="DataStructure\ListTable.cs" />
     <Compile Include="DataStructure\MultiTree.cs" />
     <Compile Include="DataStructure\SortedList.cs" />
     <Compile Include="Log\Logger.cs" />
@@ -53,6 +60,15 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Text\CodeCompiler.cs" />
     <Compile Include="Text\Html.cs" />
+    <Compile Include="Text\Segment\Complex.cs" />
+    <Compile Include="Text\Segment\HMM.cs" />
+    <Compile Include="Text\Segment\InitialStateProbability.cs" />
+    <Compile Include="Text\Segment\Matrix.cs" />
+    <Compile Include="Text\Segment\Observed.cs" />
+    <Compile Include="Text\Segment\Participle.cs" />
+    <Compile Include="Text\Segment\Sequence.cs" />
+    <Compile Include="Text\Segment\State.cs" />
+    <Compile Include="Text\Segment\Transition.cs" />
     <Compile Include="Text\Serializer.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -66,6 +82,10 @@
     <ProjectReference Include="..\..\Dependency\Log4Net\log4net.csproj">
       <Project>{181fe707-e161-4722-9f38-6aaab6faa106}</Project>
       <Name>log4net</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Dependency\Newtonsoft.Json\Newtonsoft.Json.csproj">
+      <Project>{eeea67f9-9089-481d-a4dc-0966dec9fd7d}</Project>
+      <Name>Newtonsoft.Json</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -170,8 +170,36 @@ namespace Iveely.CloudComputting.Client
                 throw new NullReferenceException("Key can not be null.");
             }
             key = parameters[2].ToString() + parameters[3] + parameters[4] + parameters[5] + ":" + key;
+            return GetGlobalCache<T>(key);
+        }
+
+        /// <summary>
+        /// 设定全局缓存
+        /// </summary>
+        /// <param name="key">缓存的key</param>
+        /// <param name="value">缓存的value</param>
+        public void SetGlobalCache(string key, object value)
+        {
+            if (!string.IsNullOrEmpty(key))
+            {
+                Memory.Set(key, value);
+            }
+        }
+
+        /// <summary>
+        /// 获取全局缓存
+        /// </summary>
+        /// <typeparam name="T">value的类型</typeparam>
+        /// <param name="key">缓存的key</param>
+        /// <returns>返回缓存value</returns>
+        public T GetGlobalCache<T>(string key)
+        {
             object obj = Memory.Get(key);
-            return (T)Convert.ChangeType(obj, typeof(T));
+            if (obj != null)
+            {
+                return (T)Convert.ChangeType(obj, typeof(T));
+            }
+            return default(T);
         }
 
         /// <summary>

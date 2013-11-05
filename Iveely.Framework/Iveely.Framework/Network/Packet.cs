@@ -26,7 +26,7 @@ namespace Iveely.Framework.Network
         /// <summary>
         /// 信息包中的数据
         /// </summary>
-        public byte[] Data { get; protected set; }
+        public byte[] Data { get; set; }
 
         /// <summary>
         /// 信息包是否需要等待一个回复

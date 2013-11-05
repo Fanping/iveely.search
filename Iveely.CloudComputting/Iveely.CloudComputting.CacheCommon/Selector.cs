@@ -75,6 +75,7 @@ namespace Iveely.CloudComputting.CacheCommon
             _client = new Client(host, SettingItem.GetInstance().CacheNodePort);
 
             Packet packet = new CachePacket(Serializer.SerializeToBytes(message));
+            packet.WaiteCallBack = false;
             _client.Send<Message>(packet);
         }
 
@@ -101,6 +102,7 @@ namespace Iveely.CloudComputting.CacheCommon
             {
                 _client = new Client(host, SettingItem.GetInstance().CacheNodePort);
                 Packet packet = new CachePacket(Serializer.SerializeToBytes(list[host]));
+                packet.WaiteCallBack = false;
                 _client.Send<Message>(packet);
             }
         }

@@ -74,6 +74,7 @@ namespace Iveely.Framework.Text
         /// <returns>反序列化还原后的对象</returns>
         public static T DeserializeFromBytes<T>(byte[] bytes)
         {
+            
             using (MemoryStream stream = new MemoryStream(bytes))
             {
                 BinaryFormatter binaryFormatter = new BinaryFormatter();

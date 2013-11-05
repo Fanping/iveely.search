@@ -21,11 +21,10 @@ C:\Users\Fanping\Desktop\项目\Iveely\Iveely.SearchEngine\bin\Debug\Iveely.Clou
 C:\Users\Fanping\Desktop\项目\Iveely\Iveely.SearchEngine\bin\Debug\HtmlAgilityPack.pdb
 C:\Users\Fanping\Desktop\项目\Iveely\Iveely.SearchEngine\bin\Debug\HtmlAgilityPack.xml
 C:\Users\Fanping\Desktop\项目\Iveely\Iveely.SearchEngine\bin\Debug\log4net.pdb
-C:\Users\Fanping\Desktop\项目\Iveely\Iveely.SearchEngine\bin\Debug\log4net.xml
 C:\Users\Fanping\Desktop\项目\Iveely\Iveely.SearchEngine\bin\Debug\Iveely.CloudComputting.CacheCommon.pdb
 C:\Users\Fanping\Desktop\项目\Iveely\Iveely.SearchEngine\bin\Debug\Iveely.CloudComputting.StateCommon.pdb
 C:\Users\Fanping\Desktop\项目\Iveely\Iveely.SearchEngine\obj\Debug\Iveely.SearchEngine.csprojResolveAssemblyReference.cache
 C:\Users\Fanping\Desktop\项目\Iveely\Iveely.SearchEngine\obj\Debug\Iveely.SearchEngine.pdb
-C:\Users\Fanping\Desktop\项目\Iveely\Iveely.SearchEngine\bin\Debug\Program.cs
 C:\Users\Fanping\Desktop\项目\Iveely\Iveely.SearchEngine\bin\Debug\Iveely.SearchEngine.exe
 C:\Users\Fanping\Desktop\项目\Iveely\Iveely.SearchEngine\obj\Debug\Iveely.SearchEngine.exe
+C:\Users\Fanping\Desktop\项目\Iveely\Iveely.SearchEngine\bin\Debug\Collector.cs

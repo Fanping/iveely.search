@@ -92,7 +92,7 @@ namespace Iveely.CloudComputting.Cache
 
 #if DEBUG
         [TestMethod]
-        public void TestUpdate()
+        public void TestCyclingBuffer_Update()
         {
             for (int i = 0; i < 10; i++)
             {
@@ -101,6 +101,20 @@ namespace Iveely.CloudComputting.Cache
             Assert.AreEqual(GetCurrentData(), "9");
             Assert.IsTrue(ContainsValue("6"));
             Assert.IsFalse(ContainsValue("1"));
+        }
+
+        [TestMethod]
+        public void TestCyclingBuffer_Read()
+        {
+            for (int i = 0; i < 7; i++)
+            {
+                Update(i);
+            }
+            object[] objects = Read();
+            Assert.IsTrue(objects.Count() == 7);
+            Assert.AreEqual(objects[0], 0);
+            Assert.AreEqual(objects[6], 1);
+
         }
 #endif
     }

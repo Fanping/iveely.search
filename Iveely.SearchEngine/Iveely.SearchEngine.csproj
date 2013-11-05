@@ -42,8 +42,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Main.cs" />
-    <Compile Include="Program.cs">
+    <Compile Include="Searcher.cs" />
+    <Compile Include="Collector.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -52,6 +52,10 @@
     <ProjectReference Include="..\Iveely.CloudComputting\Iveely.CloudComputting.Client\Iveely.CloudComputting.Client.csproj">
       <Project>{3aecfeef-5e6e-484e-8b64-cb89d9339284}</Project>
       <Name>Iveely.CloudComputting.Client</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Iveely.Framework\Iveely.Framework\Iveely.Framework.csproj">
+      <Project>{aa439dcd-106a-4c8f-8277-8130e902c779}</Project>
+      <Name>Iveely.Framework</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

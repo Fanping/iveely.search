@@ -6,6 +6,7 @@
  *Iveely=I void everything,except love you!
  *========================================*/
 
+using System;
 using System.Collections.Generic;
 using System.Net;
 using Iveely.CloudComputting.CacheCommon;
@@ -79,31 +80,40 @@ namespace Iveely.CloudComputting.Cache
         /// <param name="packet"></param>
         public byte[] ProcessRequest(byte[] bytes)
         {
-
-            CachePacket packet = Serializer.DeserializeFromBytes<CachePacket>(bytes);
-            Message message = Serializer.DeserializeFromBytes<Message>(packet.Data);
-            if (Message.CommandType.Set == message.Command)
+            try
             {
-                SetItem(message.Key, message.Value, message.Overrrides);
-            }
-            else if (Message.CommandType.Get == message.Command)
-            {
-                object value = GetItem(message.Key);
-                message.Value = value;
-            }
-            else if (Message.CommandType.SetList == message.Command)
-            {
-                List<object> keys = message.Values;
-                foreach (var key in keys)
+                
+                CachePacket packet = Serializer.DeserializeFromBytes<CachePacket>(bytes);
+                Message message = Serializer.DeserializeFromBytes<Message>(packet.Data);
+                if (Message.CommandType.Set == message.Command)
                 {
-                    SetItem(key, message.Value, message.Overrrides);
+                    SetItem(message.Key, message.Value, message.Overrrides);
                 }
+                else if (Message.CommandType.Get == message.Command)
+                {
+                    object value = GetItem(message.Key);
+                    message.Value = value;
+                }
+                else if (Message.CommandType.SetList == message.Command)
+                {
+                    List<object> keys = message.Values;
+                    foreach (var key in keys)
+                    {
+                        SetItem(key, message.Value, message.Overrrides);
+                    }
+                }
+                else
+                {
+                    message.Values = new List<object>(GetKeyByValue(message.Value, message.Key, message.TopN));
+                }
+                return Serializer.SerializeToBytes(message);
+
             }
-            else
+            catch (Exception exception)
             {
-                message.Values = new List<object>(GetKeyByValue(message.Value, message.Key, message.TopN));
+                Logger.Error(exception);
             }
-            return Serializer.SerializeToBytes(message);
+            return null;
         }
 
         /// <summary>

@@ -47,12 +47,15 @@
   <ItemGroup>
     <Compile Include="Application.cs" />
     <Compile Include="CodePacket.cs" />
+    <Compile Include="InvertSegment.cs" />
     <Compile Include="Mathematics.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Example.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
+    <Compile Include="SupervisorPacket.cs" />
+    <Compile Include="Vector.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

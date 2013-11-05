@@ -5,9 +5,7 @@ C:\Users\Fanping\Desktop\项目\Iveely\Iveely.CloudComputting\Iveely.CloudComput
 C:\Users\Fanping\Desktop\项目\Iveely\Iveely.CloudComputting\Iveely.CloudComputting.CacheAPI\bin\Debug\Iveely.CloudComputting.Configuration.exe
 C:\Users\Fanping\Desktop\项目\Iveely\Iveely.CloudComputting\Iveely.CloudComputting.CacheAPI\bin\Debug\HtmlAgilityPack.dll
 C:\Users\Fanping\Desktop\项目\Iveely\Iveely.CloudComputting\Iveely.CloudComputting.CacheAPI\bin\Debug\log4net.dll
-C:\Users\Fanping\Desktop\项目\Iveely\Iveely.CloudComputting\Iveely.CloudComputting.CacheAPI\bin\Debug\Iveely.CloudComputting.CacheCommon.pdb
 C:\Users\Fanping\Desktop\项目\Iveely\Iveely.CloudComputting\Iveely.CloudComputting.CacheAPI\bin\Debug\Iveely.Framework.pdb
-C:\Users\Fanping\Desktop\项目\Iveely\Iveely.CloudComputting\Iveely.CloudComputting.CacheAPI\bin\Debug\Iveely.CloudComputting.Configuration.pdb
 C:\Users\Fanping\Desktop\项目\Iveely\Iveely.CloudComputting\Iveely.CloudComputting.CacheAPI\bin\Debug\HtmlAgilityPack.pdb
 C:\Users\Fanping\Desktop\项目\Iveely\Iveely.CloudComputting\Iveely.CloudComputting.CacheAPI\bin\Debug\HtmlAgilityPack.xml
 C:\Users\Fanping\Desktop\项目\Iveely\Iveely.CloudComputting\Iveely.CloudComputting.CacheAPI\bin\Debug\log4net.pdb
@@ -16,3 +14,5 @@ C:\Users\Fanping\Desktop\项目\Iveely\Iveely.CloudComputting\Iveely.CloudComput
 C:\Users\Fanping\Desktop\项目\Iveely\Iveely.CloudComputting\Iveely.CloudComputting.CacheAPI\obj\Debug\Iveely.CloudComputting.CacheAPI.dll
 C:\Users\Fanping\Desktop\项目\Iveely\Iveely.CloudComputting\Iveely.CloudComputting.CacheAPI\obj\Debug\Iveely.CloudComputting.CacheAPI.pdb
 C:\Users\Fanping\Desktop\项目\Iveely\Iveely.CloudComputting\Iveely.CloudComputting.CacheAPI\bin\Debug\log4net.config
+C:\Users\Fanping\Desktop\项目\Iveely\Iveely.CloudComputting\Iveely.CloudComputting.CacheAPI\bin\Debug\Iveely.CloudComputting.CacheCommon.pdb
+C:\Users\Fanping\Desktop\项目\Iveely\Iveely.CloudComputting\Iveely.CloudComputting.CacheAPI\bin\Debug\Iveely.CloudComputting.Configuration.pdb
