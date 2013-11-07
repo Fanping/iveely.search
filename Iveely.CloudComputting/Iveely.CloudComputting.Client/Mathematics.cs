@@ -27,9 +27,9 @@ namespace Iveely.CloudComputting.Client
         public static T Sum<T>(double val)
         {
             Init();
-            MergerCommon.MergePacket packet = new MergePacket(Serializer.SerializeToBytes(val), MergePacket.MergeType.Sum, Application.parameters[4].ToString(), Application.parameters[5].ToString());
+            MergerCommon.MergePacket packet = new MergePacket(Serializer.SerializeToBytes(val), MergePacket.MergeType.Sum, Application.Parameters[4].ToString(), Application.Parameters[5].ToString());
             packet.WaiteCallBack = true;
-            Logger.Info(Application.parameters[2].ToString() + "," + Application.parameters[3].ToString() + " send sum commond,value is " + val);
+            Logger.Info(Application.Parameters[2].ToString() + "," + Application.Parameters[3].ToString() + " send sum commond,value is " + val);
             return (T)Convert.ChangeType(client.Send<object>(packet), typeof(T));
         }
 
@@ -37,9 +37,9 @@ namespace Iveely.CloudComputting.Client
         {
             Init();
             MergePacket packet = new MergePacket(Serializer.SerializeToBytes(val), MergePacket.MergeType.Average,
-                Application.parameters[4].ToString(), Application.parameters[5].ToString());
+                Application.Parameters[4].ToString(), Application.Parameters[5].ToString());
             packet.WaiteCallBack = true;
-            Logger.Info(Application.parameters[2].ToString() + "," + Application.parameters[3].ToString() + " send average commond,value is " + val);
+            Logger.Info(Application.Parameters[2].ToString() + "," + Application.Parameters[3].ToString() + " send average commond,value is " + val);
             return client.Send<double>(packet);
         }
 
@@ -47,9 +47,9 @@ namespace Iveely.CloudComputting.Client
         {
             Init();
             MergePacket packet = new MergePacket(Serializer.SerializeToBytes(objects), MergePacket.MergeType.CombineList,
-                Application.parameters[4].ToString(), Application.parameters[5].ToString());
+                Application.Parameters[4].ToString(), Application.Parameters[5].ToString());
             packet.WaiteCallBack = true;
-            Logger.Info(Application.parameters[2].ToString() + "," + Application.parameters[3].ToString() + " send combine list commond.");
+            Logger.Info(Application.Parameters[2].ToString() + "," + Application.Parameters[3].ToString() + " send combine list commond.");
             return client.Send<List<T>>(packet);
         }
 

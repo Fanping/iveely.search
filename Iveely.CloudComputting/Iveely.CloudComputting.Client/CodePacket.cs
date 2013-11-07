@@ -14,8 +14,15 @@ using System.Threading.Tasks;
 using Iveely.Framework.Network;
 
 [Serializable]
-public class CodePacket : Packet
+public class ExcutePacket : Packet
 {
+    public enum Type
+    {
+        Code,
+        FileFragment,
+        Download
+    }
+
     public string ClassName
     {
         get;
@@ -52,12 +59,22 @@ public class CodePacket : Packet
         private set;
     }
 
-    public CodePacket(byte[] codeBytes, string className, string appName, string timeStamp)
+    /// <summary>
+    /// 执行类型
+    /// </summary>
+    public Type ExcuteType
+    {
+        get;
+        private set;
+    }
+
+    public ExcutePacket(byte[] codeBytes, string className, string appName, string timeStamp, Type excuteType)
     {
         this.Data = codeBytes;
         this.ClassName = className;
         this.AppName = appName;
         this.TimeStamp = timeStamp;
+        this.ExcuteType = excuteType;
     }
 
     public void SetReturnAddress(string ip, int port)

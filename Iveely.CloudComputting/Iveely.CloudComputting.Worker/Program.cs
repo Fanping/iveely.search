@@ -45,28 +45,47 @@ namespace Iveely.CloudComputting.Worker
 
         private static byte[] ProcessTask(byte[] bytes)
         {
-            CodePacket packet = Serializer.DeserializeFromBytes<CodePacket>(bytes);
-            byte[] dataBytes = packet.Data;
-            string sourceCode = System.Text.Encoding.UTF8.GetString(dataBytes);
-            string runningPath = "ISE://application/" + packet.TimeStamp + "/" + packet.AppName + "/" +
-                                 _machineName + "," + _servicePort;
-            Logger.Info("Running path " + runningPath);
-            try
+            ExcutePacket packet = Serializer.DeserializeFromBytes<ExcutePacket>(bytes);
+
+            //如果是执行代码
+            if (packet.ExcuteType == ExcutePacket.Type.Code)
             {
-                List<string> references = new List<string>();
-                references.Add("Iveely.CloudComputting.Client.exe");
-                references.Add("Iveely.Framework.dll");
-                references.Add("System.Xml.dll");
-                references.Add("System.Xml.Linq.dll");
-                CodeCompiler.Execode(sourceCode, packet.ClassName, references, new object[] { packet.ReturnIp, packet.Port, _machineName, _servicePort, packet.TimeStamp, packet.AppName });
-                StateHelper.Put(runningPath, "Finished with success!");
+                byte[] dataBytes = packet.Data;
+                string sourceCode = System.Text.Encoding.UTF8.GetString(dataBytes);
+                string runningPath = "ISE://application/" + packet.TimeStamp + "/" + packet.AppName + "/" +
+                                     _machineName + "," + _servicePort;
+                Logger.Info("Running path " + runningPath);
+                try
+                {
+                    List<string> references = new List<string>();
+                    references.Add("Iveely.CloudComputting.Client.exe");
+                    references.Add("Iveely.Framework.dll");
+                    references.Add("System.Xml.dll");
+                    references.Add("System.Xml.Linq.dll");
+                    CodeCompiler.Execode(sourceCode, packet.ClassName, references,
+                        new object[] { packet.ReturnIp, packet.Port, _machineName, _servicePort, packet.TimeStamp, packet.AppName });
+                    StateHelper.Put(runningPath, "Finished with success!");
+                }
+                catch (Exception exception)
+                {
+                    Logger.Error(exception);
+                    StateHelper.Put(runningPath, "Finished with " + exception.ToString());
+                }
+                return bytes;
             }
-            catch (Exception exception)
+
+            //如果是文件片
+            else if (packet.ExcuteType == ExcutePacket.Type.FileFragment)
             {
-                Logger.Error(exception);
-                StateHelper.Put(runningPath, "Finished with " + exception.ToString());
+
             }
-            return bytes;
+
+            //如果是下载文件
+            else if (packet.ExcuteType == ExcutePacket.Type.Download)
+            {
+
+            }
+            return null;
         }
 
 #if DEBUG

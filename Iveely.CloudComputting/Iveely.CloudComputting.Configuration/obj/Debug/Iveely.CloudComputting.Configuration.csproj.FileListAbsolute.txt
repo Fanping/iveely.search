@@ -6,3 +6,4 @@ C:\Users\Fanping\Desktop\项目\Iveely\Iveely.CloudComputting\Iveely.CloudComput
 C:\Users\Fanping\Desktop\项目\Iveely\Iveely.CloudComputting\Debug\Iveely.CloudComputting.Configuration.exe.config
 C:\Users\Fanping\Desktop\项目\Iveely\Iveely.CloudComputting\Debug\Iveely.CloudComputting.Configuration.exe
 C:\Users\Fanping\Desktop\项目\Iveely\Iveely.CloudComputting\Debug\Iveely.CloudComputting.Configuration.pdb
+C:\Users\Fanping\Desktop\项目\Iveely\Iveely.CloudComputting\Iveely.CloudComputting.Configuration\obj\Debug\Iveely.CloudComputting.Configuration.csprojResolveAssemblyReference.cache

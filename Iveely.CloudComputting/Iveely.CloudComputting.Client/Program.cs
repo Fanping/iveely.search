@@ -29,6 +29,9 @@ namespace Iveely.CloudComputting.Client
         /// <summary>
         /// 供提交客户端应用程序
         /// 格式：submit filepath namespace.classname appname
+        ///       split filepath, newFilepath
+        ///       
+        /// 
         /// </summary>
         /// <param name="args"></param>
         static void Main(string[] args)
@@ -41,58 +44,84 @@ namespace Iveely.CloudComputting.Client
                 return;
             }
 
-            //1. 编译应用程序
-            Logger.Info("Start Compile your code...");
-            string appName = args[3];
-            string className = args[2];
-            string filePath = args[1];
-            string timeStamp = DateTime.Now.ToFileTimeUtc().ToString();
-            string compileResult = CompileCode(filePath);
-            if (compileResult != string.Empty)
+            string cmd = args[0].ToLower();
+
+            #region submit
+            if (cmd == "submit")
             {
-                Logger.Error(compileResult);
-                Logger.Info("Please modify your code as the error said. press any key to exit.");
-                Console.ReadLine();
-                return;
-            }
-
-            //2. 读取编译后的文件
-            Logger.Info("Preparing for send your application to platform...");
-            string sourceCode = File.ReadAllText(filePath);
-            byte[] bytes = Encoding.UTF8.GetBytes(sourceCode);
-
-            //2. 上传程序至各个节点
-            Thread thread = new Thread(StartListen);
-            thread.Start();
-
-            StateHelper.Put("ISE://history/" + timeStamp + "/" + appName,
-              Dns.GetHostName());
-
-            IEnumerable<string> ipPathes = StateHelper.GetChildren("ISE://system/state/worker");
-            foreach (var ipPath in ipPathes)
-            {
-                string[] ip = ipPath.Substring(ipPath.LastIndexOf('/') + 1, ipPath.Length - ipPath.LastIndexOf('/') - 1).Split(',');
-                Framework.Network.Synchronous.Client transfer = new Framework.Network.Synchronous.Client(ip[0], int.Parse(ip[1]));
-                CodePacket codePacket = new CodePacket(bytes, className, appName, timeStamp);
-                codePacket.SetReturnAddress(Dns.GetHostName(), 8800);
-                codePacket.WaiteCallBack = false;
-                transfer.Send<object>(codePacket);
-            }
-
-            //3. 结点运行程序，直至结束
-            DateTime submitTime = DateTime.UtcNow;
-            while (!IsDelay(submitTime, 60))
-            {
-                if (CheckApplicationExit(timeStamp, appName, ipPathes.Count()))
+                //1. 编译应用程序
+                Logger.Info("Start Compile your code...");
+                string appName = args[3];
+                string className = args[2];
+                string filePath = args[1];
+                string timeStamp = DateTime.Now.ToFileTimeUtc().ToString();
+                string compileResult = CompileCode(filePath);
+                if (compileResult != string.Empty)
                 {
-                    Console.WriteLine("Application has finished,press any key to exit.");
+                    Logger.Error(compileResult);
+                    Logger.Info("Please modify your code as the error said. press any key to exit.");
                     Console.ReadLine();
                     return;
                 }
-                Thread.Sleep(1000);
+
+                //2. 读取编译后的文件
+                Logger.Info("Preparing for send your application to platform...");
+                string sourceCode = File.ReadAllText(filePath);
+                byte[] bytes = Encoding.UTF8.GetBytes(sourceCode);
+
+                //2. 上传程序至各个节点
+                Thread thread = new Thread(StartListen);
+                thread.Start();
+
+                StateHelper.Put("ISE://history/" + timeStamp + "/" + appName,
+                    Dns.GetHostName());
+
+                IEnumerable<string> ipPathes = StateHelper.GetChildren("ISE://system/state/worker");
+                foreach (var ipPath in ipPathes)
+                {
+                    string[] ip =
+                        ipPath.Substring(ipPath.LastIndexOf('/') + 1, ipPath.Length - ipPath.LastIndexOf('/') - 1)
+                            .Split(',');
+                    Framework.Network.Synchronous.Client transfer = new Framework.Network.Synchronous.Client(ip[0],
+                        int.Parse(ip[1]));
+                    ExcutePacket codePacket = new ExcutePacket(bytes, className, appName, timeStamp,
+                        ExcutePacket.Type.Code);
+                    codePacket.SetReturnAddress(Dns.GetHostName(), 8800);
+                    codePacket.WaiteCallBack = false;
+                    transfer.Send<object>(codePacket);
+                }
+
+                //3. 结点运行程序，直至结束
+                DateTime submitTime = DateTime.UtcNow;
+                while (!IsDelay(submitTime, 60))
+                {
+                    if (CheckApplicationExit(timeStamp, appName, ipPathes.Count()))
+                    {
+                        Console.WriteLine("Application has finished,press any key to exit.");
+                        Console.ReadLine();
+                        return;
+                    }
+                    Thread.Sleep(1000);
+                }
+                Console.WriteLine("Application failured as run too much time,press any key to exit.");
             }
-            Console.WriteLine("Application failured as run too much time,press any key to exit.");
-            Console.ReadLine();
+            #endregion
+
+            #region split
+            else if (cmd == "split")
+            {
+
+            }
+            #endregion
+
+            #region download
+
+            else if (cmd == "download")
+            {
+
+            }
+
+            #endregion
         }
 
         /// <summary>

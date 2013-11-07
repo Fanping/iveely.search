@@ -2,14 +2,10 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Net;
 using System.Text;
-using System.Threading.Tasks;
 using Iveely.CloudComputting.CacheAPI;
-using Iveely.CloudComputting.StateAPI;
 using Iveely.Framework.Network;
 using Iveely.Framework.Text;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Iveely.CloudComputting.Client
 {
@@ -20,13 +16,13 @@ namespace Iveely.CloudComputting.Client
     {
         protected Framework.Network.Synchronous.Client Sender;
 
-        public static object[] parameters;
+        public static object[] Parameters;
 
         public abstract void Run(object[] args);
 
         public void Init(object[] args)
         {
-            parameters = args;
+            Parameters = args;
         }
 
         #region 交互操作
@@ -36,11 +32,11 @@ namespace Iveely.CloudComputting.Client
             if (Sender == null)
             {
                 //BUG:传递parameter这个参数，非常不友好
-                string fromIp = parameters[0].ToString();
-                string port = parameters[1].ToString();
+                string fromIp = Parameters[0].ToString();
+                string port = Parameters[1].ToString();
                 Sender = new Framework.Network.Synchronous.Client(fromIp, int.Parse(port));
             }
-            Packet packet = new Packet(Serializer.SerializeToBytes("[result from:" + parameters[2] + ",+" + parameters[3] + "] " + information));
+            Packet packet = new Packet(Serializer.SerializeToBytes("[result from:" + Parameters[2] + ",+" + Parameters[3] + "] " + information));
             //无需等待反馈
             packet.WaiteCallBack = false;
             Sender.Send<Packet>(packet);
@@ -153,7 +149,7 @@ namespace Iveely.CloudComputting.Client
             {
                 throw new NullReferenceException("Key can not be null.");
             }
-            key = parameters[2].ToString() + parameters[3] + parameters[4] + parameters[5] + ":" + key;
+            key = Parameters[2].ToString() + Parameters[3] + Parameters[4] + Parameters[5] + ":" + key;
             Memory.Set(key, value);
         }
 
@@ -169,7 +165,7 @@ namespace Iveely.CloudComputting.Client
             {
                 throw new NullReferenceException("Key can not be null.");
             }
-            key = parameters[2].ToString() + parameters[3] + parameters[4] + parameters[5] + ":" + key;
+            key = Parameters[2].ToString() + Parameters[3] + Parameters[4] + Parameters[5] + ":" + key;
             return GetGlobalCache<T>(key);
         }
 
@@ -233,7 +229,7 @@ namespace Iveely.CloudComputting.Client
             List<string> keys = new List<string>();
             foreach (object obj in objects)
             {
-                string key = parameters[2].ToString() + parameters[3] + parameters[4] + parameters[5] + ":" + obj;
+                string key = Parameters[2].ToString() + Parameters[3] + Parameters[4] + Parameters[5] + ":" + obj;
                 keys.Add(key);
             }
             Memory.SetList(keys, value, false);
@@ -245,7 +241,7 @@ namespace Iveely.CloudComputting.Client
 
         private string GetRootFolder()
         {
-            string rootFolder = parameters[3].ToString();
+            string rootFolder = Parameters[3].ToString();
             return rootFolder;
         }
 
