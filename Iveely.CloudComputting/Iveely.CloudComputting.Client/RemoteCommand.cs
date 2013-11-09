@@ -25,6 +25,18 @@ namespace Iveely.CloudComputting.Client
     public abstract class RemoteCommand
     {
         public abstract void ProcessCmd(string[] args);
+
+        public static void UnknowCommand()
+        {
+            Console.WriteLine("         Unknow command,you should type as follow format:");
+            Console.WriteLine("             submit filepath namespace.classname appname");
+            Console.WriteLine("             split filepath remotepath");
+            Console.WriteLine("             download remotepath filepath");
+            Console.WriteLine("             delete remotepath");
+            Console.WriteLine("             rename filepath newfileName");
+            Console.WriteLine("             list /folder");
+            Console.WriteLine("             exit");
+        }
     }
 
     /// <summary>
@@ -34,6 +46,10 @@ namespace Iveely.CloudComputting.Client
     {
         public override void ProcessCmd(string[] args)
         {
+            if (args.Length != 3)
+            {
+                UnknowCommand();
+            }
             //2.1 将文件切分成块
             List<string> workers = new List<string>(StateHelper.GetChildren("ISE://system/state/worker"));
             string filePath = args[1];
@@ -104,6 +120,10 @@ namespace Iveely.CloudComputting.Client
 
         public override void ProcessCmd(string[] args)
         {
+            if (args.Length != 4)
+            {
+                UnknowCommand();
+            }
             //1.1 编译应用程序
             Logger.Info("Start Compile your code...");
             string appName = args[3];
@@ -238,6 +258,11 @@ namespace Iveely.CloudComputting.Client
     {
         public override void ProcessCmd(string[] args)
         {
+            if (args.Length != 3)
+            {
+                UnknowCommand();
+                return;
+            }
             //3.1 创建子文件存放的文件夹
             string fileName = args[2];
             string remoteFilePath = args[1];
@@ -306,6 +331,10 @@ namespace Iveely.CloudComputting.Client
     {
         public override void ProcessCmd(string[] args)
         {
+            if (args.Length != 2)
+            {
+                UnknowCommand();
+            }
             List<string> workers = new List<string>(StateHelper.GetChildren("ISE://system/state/worker"));
             string filePath = args[1];
             for (int i = 0; i < workers.Count; i++)
@@ -335,6 +364,10 @@ namespace Iveely.CloudComputting.Client
     {
         public override void ProcessCmd(string[] args)
         {
+            if (args.Length != 3)
+            {
+                UnknowCommand();
+            }
             List<string> workers = new List<string>(StateHelper.GetChildren("ISE://system/state/worker"));
             string filePath = args[1];
             string fileNewName = args[2];
@@ -372,6 +405,10 @@ namespace Iveely.CloudComputting.Client
     {
         public override void ProcessCmd(string[] args)
         {
+            if (args.Length > 2)
+            {
+                UnknowCommand();
+            }
             string path = string.Empty;
             if (args.Length != 1)
             {

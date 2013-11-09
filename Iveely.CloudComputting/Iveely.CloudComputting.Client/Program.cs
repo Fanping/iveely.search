@@ -110,18 +110,9 @@ namespace Iveely.CloudComputting.Client
             {
                 return true;
             }
-
             else
             {
-                Console.WriteLine("         Unknow command,you should type as follow format:");
-                Console.WriteLine("             submit filepath namespace.classname appname");
-                Console.WriteLine("             split filepath remotepath");
-                Console.WriteLine("             download remotepath filepath");
-                Console.WriteLine("             delete remotepath");
-                Console.WriteLine("             rename filepath newfileName");
-                Console.WriteLine("             list /folder");
-                Console.WriteLine("             exit");
-
+                RemoteCommand.UnknowCommand();
             }
             return false;
         }
