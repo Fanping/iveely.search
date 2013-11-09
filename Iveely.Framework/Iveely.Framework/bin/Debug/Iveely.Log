@@ -1,9 +1,0 @@
-[2013-10-22 00:49:37,054] [Fanping-PC] [ERROR] [System.Net.WebException: The remote name could not be resolved: 'www.baidu.com'
-   at System.Net.HttpWebRequest.GetResponse()
-   at Iveely.Framework.Text.Html.CreatHtml(Uri uri) in c:\Users\Fanping\Desktop\项目\Iveely\Iveely.Framework\Iveely.Framework\Text\Html.cs:line 700 ]
-[2013-10-22 00:50:06,679] [Fanping-PC] [ERROR] [System.Net.WebException: The remote name could not be resolved: 'www.baidu.com'
-   at System.Net.HttpWebRequest.GetResponse()
-   at Iveely.Framework.Text.Html.CreatHtml(Uri uri) in c:\Users\Fanping\Desktop\项目\Iveely\Iveely.Framework\Iveely.Framework\Text\Html.cs:line 700 ]
-[2013-10-22 00:56:12,825] [Fanping-PC] [ERROR] [System.Net.WebException: The remote name could not be resolved: 'www.baidu.com'
-   at System.Net.HttpWebRequest.GetResponse()
-   at Iveely.Framework.Text.Html.CreatHtml(Uri uri) in c:\Users\Fanping\Desktop\项目\Iveely\Iveely.Framework\Iveely.Framework\Text\Html.cs:line 700 ]

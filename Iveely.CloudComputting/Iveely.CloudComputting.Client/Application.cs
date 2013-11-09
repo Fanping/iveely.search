@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using Iveely.CloudComputting.CacheAPI;
+using Iveely.CloudComputting.StateAPI;
 using Iveely.Framework.Network;
 using Iveely.Framework.Text;
 
@@ -44,6 +46,7 @@ namespace Iveely.CloudComputting.Client
 
         public void GetHtml(string url, ref string title, ref string content, ref List<string> childrenLink)
         {
+            if (childrenLink == null) throw new ArgumentNullException("childrenLink");
             Html html = Html.CreatHtml(new Uri(url));
             if (html != null)
             {
@@ -67,7 +70,7 @@ namespace Iveely.CloudComputting.Client
         /// </summary>
         /// <param name="line">数据</param>
         /// <param name="fileName">文件名</param>
-        /// <param name="parameters">其它参数</param>
+        /// <param name="globalFile">是否是全局文件</param>
         public void WriteText(string line, string fileName, bool globalFile)
         {
             //1. 检查根目录是否存在
@@ -80,6 +83,23 @@ namespace Iveely.CloudComputting.Client
             //2. 写文件数据
             string filePath = GetFilePath(fileName, globalFile);
             File.AppendAllText(filePath, line, Encoding.UTF8);
+            FileInfo fileInfo = new FileInfo(filePath);
+
+            //3. 写到状态树
+            if (globalFile)
+            {
+                StateAPI.StateHelper.Put("ISE://File/" + fileName + ".global", fileInfo.Length / 1024);
+            }
+            else
+            {
+                List<string> workers = new List<string>(StateHelper.GetChildren("ISE://system/state/worker"));
+                int count = 1;
+                if (workers.Count > 0)
+                {
+                    count = workers.Count;
+                }
+                StateAPI.StateHelper.Put("ISE://File/" + fileName + ".part", fileInfo.Length / 1024 * count);
+            }
         }
 
         public string ReadText(string fileName, bool globalFile)

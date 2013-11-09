@@ -12,7 +12,6 @@ using System.Net;
 using Iveely.CloudComputting.CacheCommon;
 using Iveely.CloudComputting.Configuration;
 using Iveely.Framework.Log;
-using Iveely.Framework.Network;
 using Iveely.Framework.Network.Synchronous;
 using Iveely.Framework.Text;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -77,7 +76,6 @@ namespace Iveely.CloudComputting.Cache
         /// <summary>
         /// 处理操纵请求
         /// </summary>
-        /// <param name="packet"></param>
         public byte[] ProcessRequest(byte[] bytes)
         {
             try
@@ -144,6 +142,7 @@ namespace Iveely.CloudComputting.Cache
         /// </summary>
         /// <param name="value"></param>
         /// <param name="changeValue"></param>
+        /// <param name="topN"></param>
         /// <returns></returns>
         private object[] GetKeyByValue(object value, object changeValue, int topN)
         {

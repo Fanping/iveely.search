@@ -53,7 +53,9 @@ namespace Iveely.CloudComputting.StateCommon
             //Run App
             RunApp,
             //Kill App
-            KillApp
+            KillApp,
+            //Rename
+            Rename
 
         }
 

@@ -1,3 +1,0 @@
-C:\Users\Fanping\Desktop\项目\Iveely\Dependency\Release\log4net.config
-C:\Users\Fanping\Desktop\项目\Iveely\Dependency\Release\log4net.dll
-C:\Users\Fanping\Desktop\项目\Iveely\Dependency\Log4Net\obj\Release\log4net.dll

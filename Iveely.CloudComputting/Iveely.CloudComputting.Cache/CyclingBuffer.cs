@@ -114,7 +114,6 @@ namespace Iveely.CloudComputting.Cache
             Assert.IsTrue(objects.Count() == 7);
             Assert.AreEqual(objects[0], 0);
             Assert.AreEqual(objects[6], 1);
-
         }
 #endif
     }

@@ -9,9 +9,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Iveely.CloudComputting.Configuration;
 using Iveely.CloudComputting.MergerCommon;
 using Iveely.Framework.Log;
@@ -21,16 +18,16 @@ namespace Iveely.CloudComputting.Client
 {
     public class Mathematics
     {
-        private static Framework.Network.Synchronous.Client client;
+        private static Framework.Network.Synchronous.Client _client;
 
 
         public static T Sum<T>(double val)
         {
             Init();
-            MergerCommon.MergePacket packet = new MergePacket(Serializer.SerializeToBytes(val), MergePacket.MergeType.Sum, Application.Parameters[4].ToString(), Application.Parameters[5].ToString());
+            MergePacket packet = new MergePacket(Serializer.SerializeToBytes(val), MergePacket.MergeType.Sum, Application.Parameters[4].ToString(), Application.Parameters[5].ToString());
             packet.WaiteCallBack = true;
-            Logger.Info(Application.Parameters[2].ToString() + "," + Application.Parameters[3].ToString() + " send sum commond,value is " + val);
-            return (T)Convert.ChangeType(client.Send<object>(packet), typeof(T));
+            Logger.Info(Application.Parameters[2] + "," + Application.Parameters[3] + " send sum commond,value is " + val);
+            return (T)Convert.ChangeType(_client.Send<object>(packet), typeof(T));
         }
 
         public static double Average(double val)
@@ -39,8 +36,8 @@ namespace Iveely.CloudComputting.Client
             MergePacket packet = new MergePacket(Serializer.SerializeToBytes(val), MergePacket.MergeType.Average,
                 Application.Parameters[4].ToString(), Application.Parameters[5].ToString());
             packet.WaiteCallBack = true;
-            Logger.Info(Application.Parameters[2].ToString() + "," + Application.Parameters[3].ToString() + " send average commond,value is " + val);
-            return client.Send<double>(packet);
+            Logger.Info(Application.Parameters[2] + "," + Application.Parameters[3] + " send average commond,value is " + val);
+            return _client.Send<double>(packet);
         }
 
         public static List<T> CombineList<T>(List<T> objects)
@@ -49,8 +46,8 @@ namespace Iveely.CloudComputting.Client
             MergePacket packet = new MergePacket(Serializer.SerializeToBytes(objects), MergePacket.MergeType.CombineList,
                 Application.Parameters[4].ToString(), Application.Parameters[5].ToString());
             packet.WaiteCallBack = true;
-            Logger.Info(Application.Parameters[2].ToString() + "," + Application.Parameters[3].ToString() + " send combine list commond.");
-            return client.Send<List<T>>(packet);
+            Logger.Info(Application.Parameters[2] + "," + Application.Parameters[3] + " send combine list commond.");
+            return _client.Send<List<T>>(packet);
         }
 
         public static Hashtable CombineTable(Hashtable table, object[] args)
@@ -59,8 +56,8 @@ namespace Iveely.CloudComputting.Client
             MergePacket packet = new MergePacket(Serializer.SerializeToBytes(table), MergePacket.MergeType.CombineTable,
                 args[4].ToString(), args[5].ToString());
             packet.WaiteCallBack = true;
-            Logger.Info(args[2].ToString() + "," + args[3].ToString() + " send combine table commond.");
-            return client.Send<Hashtable>(packet);
+            Logger.Info(args[2] + "," + args[3] + " send combine table commond.");
+            return _client.Send<Hashtable>(packet);
         }
 
         public static List<T> Distinct<T>(List<T> objects, object[] args)
@@ -69,8 +66,8 @@ namespace Iveely.CloudComputting.Client
             MergePacket packet = new MergePacket(Serializer.SerializeToBytes(objects), MergePacket.MergeType.Distinct,
                 args[4].ToString(), args[5].ToString());
             packet.WaiteCallBack = true;
-            Logger.Info(args[2].ToString() + "," + args[3].ToString() + " send distinct commond. ");
-            List<object> results = client.Send<List<object>>(packet);
+            Logger.Info(args[2] + "," + args[3] + " send distinct commond. ");
+            List<object> results = _client.Send<List<object>>(packet);
             List<T> list = new List<T>();
             foreach (var result in results)
             {
@@ -81,11 +78,11 @@ namespace Iveely.CloudComputting.Client
 
         private static void Init()
         {
-            if (client == null)
+            if (_client == null)
             {
                 string remoteServer = SettingItem.GetInstance().MergeServerIP;
                 int remotePort = 8801;
-                client = new Framework.Network.Synchronous.Client(remoteServer, remotePort);
+                _client = new Framework.Network.Synchronous.Client(remoteServer, remotePort);
             }
         }
     }

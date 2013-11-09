@@ -289,7 +289,11 @@ namespace Iveely.CloudComputting.StateCenter
                         Logger.Error(exception);
                         return Serializer.SerializeToBytes(false);
                     }
-
+                }
+                if (client.PType == StatePacket.Type.Rename)
+                {
+                    State.Rename(client.Path, System.Text.Encoding.UTF8.GetString(client.Data));
+                    return Serializer.SerializeToBytes(false);
                 }
 
             }

@@ -1,8 +1,0 @@
-C:\Users\Fanping\Desktop\项目\Iveely\Iveely.CloudComputting\Iveely.CloudComputting.StateCenter\bin\Debug\Iveely.CloudComputting.StateCenter.exe.config
-C:\Users\Fanping\Desktop\项目\Iveely\Iveely.CloudComputting\Debug\Iveely.CloudComputting.StateCenter.exe.config
-C:\Users\Fanping\Desktop\项目\Iveely\Iveely.CloudComputting\Iveely.CloudComputting.StateCenter\obj\Debug\Iveely.CloudComputting.StateCenter.csprojResolveAssemblyReference.cache
-C:\Users\Fanping\Desktop\项目\Iveely\Iveely.CloudComputting\Debug\Iveely.CloudComputting.StateCenter.exe
-C:\Users\Fanping\Desktop\项目\Iveely\Iveely.CloudComputting\Debug\Iveely.CloudComputting.StateCenter.pdb
-C:\Users\Fanping\Desktop\项目\Iveely\Iveely.CloudComputting\Iveely.CloudComputting.StateCenter\obj\Debug\Iveely.CloudComputting.StateCenter.exe
-C:\Users\Fanping\Desktop\项目\Iveely\Iveely.CloudComputting\Iveely.CloudComputting.StateCenter\obj\Debug\Iveely.CloudComputting.StateCenter.pdb
-C:\Users\Fanping\Desktop\项目\Iveely\Iveely.CloudComputting\Debug\log4net.config

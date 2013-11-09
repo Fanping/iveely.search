@@ -18,6 +18,7 @@ Thumbs.db
 *.bak
 *.cache
 *.ilk
+*.dll
 *.log
 [Bb]in
 [Dd]ebug*/
@@ -27,3 +28,6 @@ obj/
 [Rr]elease*/
 _ReSharper*/
 [Tt]est[Rr]esult*
+*.dll
+*.pdb
+TestResults*/

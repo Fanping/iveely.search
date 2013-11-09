@@ -164,29 +164,29 @@ namespace Iveely.Framework.Network.Synchronous
         {
 
             TcpClient client = (TcpClient)objClient;
-            if (client.Available > 0)
+            //if (client.Available > 0)
+            //{
+            //字节数组容器
+            var reciveBytes = new byte[_maxTransferSize];
+            var sendBytes = new byte[_maxTransferSize];
+
+            //读取网络流
+            using (NetworkStream netStream = client.GetStream())
             {
-                //字节数组容器
-                var reciveBytes = new byte[_maxTransferSize];
-                var sendBytes = new byte[_maxTransferSize];
+                //设定读超时
+                netStream.ReadTimeout = 600000;
+                netStream.Read(reciveBytes, 0, reciveBytes.Length);
 
-                //读取网络流
-                using (NetworkStream netStream = client.GetStream())
+                //转换为字节数组
+                //Packet clientPacket = Serializer.DeserializeFromBytes<Packet>(bytes);
+                sendBytes = _processing(reciveBytes);
+                if (sendBytes != null)
                 {
-                    //设定读超时
-                    netStream.ReadTimeout = 600000;
-                    netStream.Read(reciveBytes, 0, reciveBytes.Length);
-
-                    //转换为字节数组
-                    //Packet clientPacket = Serializer.DeserializeFromBytes<Packet>(bytes);
-                    sendBytes = _processing(reciveBytes);
-                    if (sendBytes != null)
-                    {
-                        netStream.Write(sendBytes, 0, sendBytes.Length);
-                        netStream.Flush();
-                    }
+                    netStream.Write(sendBytes, 0, sendBytes.Length);
+                    netStream.Flush();
                 }
             }
+            //}
             currentThreadCount--;
         }
     }

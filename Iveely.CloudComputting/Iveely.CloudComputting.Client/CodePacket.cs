@@ -20,7 +20,10 @@ public class ExcutePacket : Packet
     {
         Code,
         FileFragment,
-        Download
+        Download,
+        Delete,
+        Rename,
+        List
     }
 
     public string ClassName

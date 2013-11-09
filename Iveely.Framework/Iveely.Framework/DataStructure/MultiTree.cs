@@ -180,6 +180,19 @@ namespace Iveely.Framework.DataStructure
             return node;
         }
 
+        public void Rename(string path, string newName)
+        {
+            Node node = GetNodeByName(path);
+            if (node != null)
+            {
+                node.Name = newName;
+                node.Path =
+                    node.Path.Substring(0, node.Path.LastIndexOf('/') + 1) +
+                    newName;
+            }
+
+        }
+
         /// <summary>
         /// Add a node under anther node
         /// </summary>

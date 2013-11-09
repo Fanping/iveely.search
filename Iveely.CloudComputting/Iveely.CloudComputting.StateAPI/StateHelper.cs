@@ -76,6 +76,15 @@ namespace Iveely.CloudComputting.StateAPI
             return isExist;
         }
 
+        public static void Rename(string path, string nodeName)
+        {
+            CheckConnect();
+            StatePacket packet = new StatePacket(path, StatePacket.Type.Rename,
+                System.Text.Encoding.UTF8.GetBytes(nodeName));
+            packet.WaiteCallBack = false;
+            _clients[0].Send<bool>(packet);
+        }
+
         /// <summary>
         /// Delete the path in the tree
         /// </summary>

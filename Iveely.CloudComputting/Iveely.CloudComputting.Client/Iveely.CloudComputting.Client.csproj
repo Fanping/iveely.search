@@ -54,6 +54,7 @@
     <Compile Include="Example.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
+    <Compile Include="RemoteCommand.cs" />
     <Compile Include="SupervisorPacket.cs" />
     <Compile Include="Vector.cs" />
   </ItemGroup>

@@ -61,6 +61,11 @@ namespace Iveely.CloudComputting.StateCenter
             }
         }
 
+        public static void Rename(string path, string newName)
+        {
+            _tree.Rename(FilterIse(path), newName);
+        }
+
         public static IEnumerable<string> SortByValue(string path)
         {
             IEnumerable<string> children = GetChildren(path);
@@ -294,6 +299,20 @@ namespace Iveely.CloudComputting.StateCenter
             Assert.IsFalse(IsExist(pathA));
             Restore();
             Assert.IsTrue(IsExist(pathA));
+        }
+
+        [TestMethod]
+        public void Test_State_Rename()
+        {
+            CleanAll();
+            string path = "ISE://mypath/pathA";
+            string newPathName = "PA";
+            Put(path, "A");
+            Rename(path, newPathName);
+            Assert.IsTrue(IsExist("ISE://mypath/PA"));
+            Assert.IsFalse(IsExist("ISE://mypath/pathA"));
+            string val = Get<string>("ISE://mypath/PA");
+            Assert.AreEqual(val, "A");
         }
 
 #endif

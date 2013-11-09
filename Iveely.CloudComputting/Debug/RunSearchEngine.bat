@@ -1,1 +1,0 @@
-start "Iveely Search Engine 0.5.0" Iveely.CloudComputting.Client.exe submit SearchEngine.txt Iveely.SearchEngine.Program ISE

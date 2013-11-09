@@ -1,0 +1,396 @@
+﻿/*==========================================
+ *创建人：刘凡平
+ *邮  箱：liufanping@iveely.com
+ *电  话：13896622743
+ *版  本：0.1.0
+ *Iveely=I void everything,except love you!
+ *========================================*/
+
+using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.IO;
+using System.Linq;
+using System.Net;
+using System.Text;
+using System.Threading;
+using Iveely.CloudComputting.StateAPI;
+using Iveely.Framework.Log;
+using Iveely.Framework.Network;
+using Iveely.Framework.Network.Synchronous;
+using Iveely.Framework.Text;
+
+namespace Iveely.CloudComputting.Client
+{
+    public abstract class RemoteCommand
+    {
+        public abstract void ProcessCmd(string[] args);
+    }
+
+    /// <summary>
+    /// 切分命令
+    /// </summary>
+    public class SplitCommond : RemoteCommand
+    {
+        public override void ProcessCmd(string[] args)
+        {
+            //2.1 将文件切分成块
+            List<string> workers = new List<string>(StateHelper.GetChildren("ISE://system/state/worker"));
+            string filePath = args[1];
+            if (File.Exists(filePath))
+            {
+                FileBlock.Split(filePath, workers.Count());
+            }
+            else
+            {
+                Logger.Error(filePath + " is not found.");
+                return;
+            }
+
+            //2.2 告诉worker即将发送文件块
+            string remotePath = args[2];
+            string[] childFiles = Directory.GetFiles(filePath + ".part");
+            for (int i = 0; i < workers.Count; i++)
+            {
+                string[] ip =
+                    workers[i].Substring(workers[i].LastIndexOf('/') + 1, workers[i].Length - workers[i].LastIndexOf('/') - 1)
+                        .Split(',');
+                Framework.Network.Synchronous.Client transfer = new Framework.Network.Synchronous.Client(ip[0],
+                    int.Parse(ip[1]));
+                ExcutePacket codePacket = new ExcutePacket(Encoding.UTF8.GetBytes(remotePath), string.Empty, string.Empty, string.Empty,
+                    ExcutePacket.Type.FileFragment);
+                codePacket.SetReturnAddress(Dns.GetHostName(), 8800);
+                codePacket.WaiteCallBack = false;
+                transfer.Send<bool>(codePacket);
+                Logger.Info(ip[0] + "," + ip[1] + " has been noticed to receive the file.");
+
+                int maxRetryCount = 5;
+                while (maxRetryCount > 0)
+                {
+                    try
+                    {
+                        FileTransfer fileTransfer = new FileTransfer();
+                        fileTransfer.Send(childFiles[i], ip[0], 7001);
+                        maxRetryCount = -1;
+                    }
+                    catch (Exception exception)
+                    {
+                        Logger.Error(exception.Message);
+                        maxRetryCount--;
+                        if (maxRetryCount > 0)
+                        {
+                            Console.WriteLine("Now retry...");
+                            Thread.Sleep(1000);
+                        }
+                    }
+                }
+                if (maxRetryCount == 0)
+                {
+                    Logger.Info(ip[0] + "," + ip[1] + " do not get the file.");
+                }
+            }
+            //2.4 删掉切分的文件
+            Directory.Delete(filePath + ".part", true);
+            StateHelper.Put("ISE://File/" + remotePath, new FileInfo(filePath).Length / 1024);
+        }
+    }
+
+    /// <summary>
+    /// 提交命令
+    /// </summary>
+    public class SubmitCmd : RemoteCommand
+    {
+        private static Server _server;
+
+        public override void ProcessCmd(string[] args)
+        {
+            //1.1 编译应用程序
+            Logger.Info("Start Compile your code...");
+            string appName = args[3];
+            string className = args[2];
+            string filePath = args[1];
+            string timeStamp = DateTime.Now.ToFileTimeUtc().ToString(CultureInfo.InvariantCulture);
+            string compileResult = CompileCode(filePath);
+            if (compileResult != string.Empty)
+            {
+                Logger.Error(compileResult);
+                return;
+            }
+
+            //1.2 读取编译后的文件
+            Logger.Info("Preparing for send your application to platform...");
+            string sourceCode = File.ReadAllText(filePath);
+            byte[] bytes = Encoding.UTF8.GetBytes(sourceCode);
+
+            //1.3 上传程序至各个节点
+            Thread thread = new Thread(StartListen);
+            thread.Start();
+
+            StateHelper.Put("ISE://history/" + timeStamp + "/" + appName,
+                Dns.GetHostName());
+
+            IEnumerable<string> ipPathes = StateHelper.GetChildren("ISE://system/state/worker");
+            foreach (var ipPath in ipPathes)
+            {
+                string[] ip =
+                    ipPath.Substring(ipPath.LastIndexOf('/') + 1, ipPath.Length - ipPath.LastIndexOf('/') - 1)
+                        .Split(',');
+                Framework.Network.Synchronous.Client transfer = new Framework.Network.Synchronous.Client(ip[0],
+                    int.Parse(ip[1]));
+                ExcutePacket codePacket = new ExcutePacket(bytes, className, appName, timeStamp,
+                    ExcutePacket.Type.Code);
+                codePacket.SetReturnAddress(Dns.GetHostName(), 8800);
+                codePacket.WaiteCallBack = false;
+                transfer.Send<object>(codePacket);
+            }
+
+            //1.4 结点运行程序，直至结束
+            DateTime submitTime = DateTime.UtcNow;
+            while (!IsDelay(submitTime, 60))
+            {
+                if (CheckApplicationExit(timeStamp, appName, ipPathes.Count()))
+                {
+                    Console.WriteLine("Application has finished.");
+                    return;
+                }
+                Thread.Sleep(1000);
+            }
+            Console.WriteLine("Application failured as run too much time.");
+
+        }
+
+        /// <summary>
+        /// 启动返回数据监听
+        /// </summary>
+        private static void StartListen()
+        {
+            if (_server == null)
+            {
+                _server = new Server(Dns.GetHostName(), 8800, ProcessResponse);
+                _server.Listen();
+            }
+        }
+
+        /// <summary>
+        /// 是否已经运行超时
+        /// </summary>
+        /// <param name="sumbitTime">应用程序提交时间</param>
+        /// <param name="allowMaxTime">允许最长运行时间(单位：分)</param>
+        /// <returns></returns>
+        private static bool IsDelay(DateTime sumbitTime, long allowMaxTime)
+        {
+            return (DateTime.UtcNow - sumbitTime).TotalMinutes > allowMaxTime;
+        }
+
+        /// <summary>
+        /// 检查应用程序是否已经退出
+        /// </summary>
+        /// <returns></returns>
+        private static bool CheckApplicationExit(string timeStamp, string appName, int workerCount)
+        {
+            IEnumerable<string> finishedStates = StateHelper.GetChildren("ISE://application/" + timeStamp + "/" + appName);
+            if (finishedStates.Any() && finishedStates.Count() == workerCount)
+            {
+                foreach (var finishedState in finishedStates)
+                {
+                    Logger.Info(finishedState + ":" + StateHelper.Get<string>(finishedState));
+                }
+                return true;
+            }
+            return false;
+        }
+
+        private static string CompileCode(string fileName)
+        {
+            if (File.Exists(fileName))
+            {
+                //Framework.Text.CodeCompiler compiler = new CodeCompiler();
+                List<string> references = new List<string>();
+                references.Add("Iveely.CloudComputting.Client.exe");
+                references.Add("Iveely.Framework.dll");
+                return CodeCompiler.Compile(File.ReadAllLines(fileName), references);
+            }
+            throw new FileNotFoundException(fileName + " is not found!");
+        }
+
+        private static byte[] ProcessResponse(byte[] bytes)
+        {
+            try
+            {
+                Packet packet = Serializer.DeserializeFromBytes<Packet>(bytes);
+                byte[] dataBytes = packet.Data;
+                string information = Serializer.DeserializeFromBytes<string>(dataBytes);
+                Console.WriteLine(string.Format("[Response {0}] {1}", DateTime.UtcNow.ToString(), information));
+            }
+            catch (Exception exception)
+            {
+                Logger.Error(exception);
+            }
+            return null;
+
+        }
+    }
+
+    /// <summary>
+    /// 下载命令
+    /// </summary>
+    public class DownloadCmd : RemoteCommand
+    {
+        public override void ProcessCmd(string[] args)
+        {
+            //3.1 创建子文件存放的文件夹
+            string fileName = args[2];
+            string remoteFilePath = args[1];
+            if (remoteFilePath.EndsWith(".part"))
+            {
+                string partFileFolder = fileName + ".part";
+                if (Directory.Exists(partFileFolder))
+                {
+                    Directory.Delete(partFileFolder, true);
+                }
+                Directory.CreateDirectory(partFileFolder);
+
+                List<string> workers = new List<string>(StateHelper.GetChildren("ISE://system/state/worker"));
+                for (int i = 0; i < workers.Count; i++)
+                {
+                    //3.2 通知下载文件
+                    string[] ip =
+                        workers[i].Substring(workers[i].LastIndexOf('/') + 1,
+                            workers[i].Length - workers[i].LastIndexOf('/') - 1)
+                            .Split(',');
+                    Framework.Network.Synchronous.Client transfer = new Framework.Network.Synchronous.Client(ip[0],
+                        int.Parse(ip[1]));
+                    ExcutePacket codePacket = new ExcutePacket(Encoding.UTF8.GetBytes(remoteFilePath), string.Empty,
+                        string.Empty, string.Empty,
+                        ExcutePacket.Type.Download);
+                    codePacket.SetReturnAddress(Dns.GetHostName(), 8800);
+                    codePacket.WaiteCallBack = false;
+                    transfer.Send<bool>(codePacket);
+                    Logger.Info(ip[0] + "," + ip[1] + " has been noticed to send file " + fileName);
+
+                    //3.3 准备接收文件块
+                    FileTransfer fileTransfer = new FileTransfer();
+                    fileTransfer.Receive(7002, partFileFolder + "/" + i);
+                }
+
+                //3.4 合并文件
+                FileBlock.Merge(partFileFolder, fileName);
+                Directory.Delete(partFileFolder, true);
+            }
+            else
+            {
+                List<string> workers = new List<string>(StateHelper.GetChildren("ISE://system/state/worker"));
+                string[] ip =
+                    workers[0].Substring(workers[0].LastIndexOf('/') + 1,
+                        workers[0].Length - workers[0].LastIndexOf('/') - 1)
+                        .Split(',');
+                Framework.Network.Synchronous.Client transfer = new Framework.Network.Synchronous.Client(ip[0],
+                    int.Parse(ip[1]));
+                ExcutePacket codePacket = new ExcutePacket(Encoding.UTF8.GetBytes(remoteFilePath), string.Empty,
+                    string.Empty, string.Empty,
+                    ExcutePacket.Type.Download);
+                codePacket.SetReturnAddress(Dns.GetHostName(), 8800);
+                codePacket.WaiteCallBack = false;
+                transfer.Send<bool>(codePacket);
+                Logger.Info(ip[0] + "," + ip[1] + " has been noticed to send file " + fileName);
+                FileTransfer fileTransfer = new FileTransfer();
+                fileTransfer.Receive(7002, fileName);
+            }
+        }
+    }
+
+    /// <summary>
+    /// 删除命令
+    /// </summary>
+    public class DeleteCmd : RemoteCommand
+    {
+        public override void ProcessCmd(string[] args)
+        {
+            List<string> workers = new List<string>(StateHelper.GetChildren("ISE://system/state/worker"));
+            string filePath = args[1];
+            for (int i = 0; i < workers.Count; i++)
+            {
+                //3.2 通知下载文件
+                string[] ip =
+                    workers[i].Substring(workers[i].LastIndexOf('/') + 1,
+                        workers[i].Length - workers[i].LastIndexOf('/') - 1)
+                        .Split(',');
+                Framework.Network.Synchronous.Client transfer = new Framework.Network.Synchronous.Client(ip[0],
+                    int.Parse(ip[1]));
+                ExcutePacket codePacket = new ExcutePacket(Encoding.UTF8.GetBytes(filePath), string.Empty,
+                    string.Empty, string.Empty,
+                    ExcutePacket.Type.Delete);
+                codePacket.SetReturnAddress(Dns.GetHostName(), 8800);
+                codePacket.WaiteCallBack = false;
+                transfer.Send<bool>(codePacket);
+                StateAPI.StateHelper.Delete("ISE://File/" + filePath);
+            }
+        }
+    }
+
+    /// <summary>
+    /// 重命名命令
+    /// </summary>
+    public class RenameCmd : RemoteCommand
+    {
+        public override void ProcessCmd(string[] args)
+        {
+            List<string> workers = new List<string>(StateHelper.GetChildren("ISE://system/state/worker"));
+            string filePath = args[1];
+            string fileNewName = args[2];
+            for (int i = 0; i < workers.Count; i++)
+            {
+                string[] ip =
+                    workers[i].Substring(workers[i].LastIndexOf('/') + 1,
+                        workers[i].Length - workers[i].LastIndexOf('/') - 1)
+                        .Split(',');
+                Framework.Network.Synchronous.Client transfer = new Framework.Network.Synchronous.Client(ip[0],
+                    int.Parse(ip[1]));
+                Tuple<string, string> fileTuple = new Tuple<string, string>(filePath, args[2]);
+                ExcutePacket codePacket = new ExcutePacket(Serializer.SerializeToBytes(fileTuple), string.Empty,
+                    string.Empty, string.Empty,
+                    ExcutePacket.Type.Rename);
+                codePacket.SetReturnAddress(Dns.GetHostName(), 8800);
+                codePacket.WaiteCallBack = false;
+                transfer.Send<bool>(codePacket);
+                StateHelper.Rename("ISE://File/" + filePath, fileNewName);
+                //if (StateHelper.IsExist("ISE://File/" + filePath) && !StateHelper.IsExist("ISE://File/" + fileNewName))
+                //{
+                //    string infor=StateHelper.Get<string>()
+                //    StateAPI.StateHelper.Delete("ISE://File/" + filePath);
+                //    StateAPI.StateHelper.Put("ISE://File/" + fileNewName, "");
+                //}
+
+            }
+        }
+    }
+
+    /// <summary>
+    /// 显示文件命令
+    /// </summary>
+    public class ListCmd : RemoteCommand
+    {
+        public override void ProcessCmd(string[] args)
+        {
+            string path = string.Empty;
+            if (args.Length != 1)
+            {
+                path = args[1];
+            }
+            List<string> files = new List<string>(StateHelper.GetChildren("ISE://File/" + path));
+            if (files.Any())
+            {
+                foreach (string file in files)
+                {
+                    Console.Write("          " + file.Replace("ISE://File", ""));
+                    Console.WriteLine("   Size:" + StateHelper.Get<long>(file) + "KB");
+                }
+            }
+            else
+            {
+                Console.WriteLine("Not found any files or folders.");
+            }
+
+        }
+    }
+}
