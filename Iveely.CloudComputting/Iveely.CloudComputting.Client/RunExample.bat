@@ -1,1 +1,0 @@
-﻿Iveely.CloudComputting.Client.exe submit Example.cs Iveely.CloudComputting.Client.Example WordCount

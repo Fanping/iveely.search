@@ -30,4 +30,7 @@ _ReSharper*/
 [Tt]est[Rr]esult*
 *.dll
 *.pdb
+*.doc
+*docx
+*.pdf
 TestResults*/

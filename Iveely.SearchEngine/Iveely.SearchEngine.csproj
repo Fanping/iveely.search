@@ -49,9 +49,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Iveely.CloudComputting\Iveely.CloudComputting.Client\Iveely.CloudComputting.Client.csproj">
+    <ProjectReference Include="..\Iveely.CloudComputing\Iveely.CloudComputing.Client\Iveely.CloudComputing.Client.csproj">
       <Project>{3aecfeef-5e6e-484e-8b64-cb89d9339284}</Project>
-      <Name>Iveely.CloudComputting.Client</Name>
+      <Name>Iveely.CloudComputing.Client</Name>
     </ProjectReference>
     <ProjectReference Include="..\Iveely.Framework\Iveely.Framework\Iveely.Framework.csproj">
       <Project>{aa439dcd-106a-4c8f-8277-8130e902c779}</Project>

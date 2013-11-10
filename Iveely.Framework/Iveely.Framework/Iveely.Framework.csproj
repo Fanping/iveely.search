@@ -66,6 +66,7 @@
     <Compile Include="Text\Segment\HMM.cs" />
     <Compile Include="Text\Segment\InitialStateProbability.cs" />
     <Compile Include="Text\Segment\Matrix.cs" />
+    <Compile Include="Text\Segment\NGram.cs" />
     <Compile Include="Text\Segment\Observed.cs" />
     <Compile Include="Text\Segment\Participle.cs" />
     <Compile Include="Text\Segment\Sequence.cs" />

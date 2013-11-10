@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
-using Iveely.CloudComputting.Client;
+using Iveely.CloudComputing.Client;
 using Iveely.Framework.Algorithm;
 using Iveely.Framework.Network;
 using Iveely.Framework.Network.Synchronous;
