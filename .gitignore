@@ -33,4 +33,5 @@ _ReSharper*/
 *.doc
 *docx
 *.pdf
+*.vsdx
 TestResults*/
