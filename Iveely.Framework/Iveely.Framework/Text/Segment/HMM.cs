@@ -21,7 +21,7 @@ using System;
 namespace Iveely.Framework.Text.Segment
 {
     /// <summary>
-    ///   隐马尔科夫训练模型
+    /// 隐马尔科夫训练模型
     /// </summary>
     [Serializable]
     public class HMM
@@ -46,7 +46,7 @@ namespace Iveely.Framework.Text.Segment
         }
 
         /// <summary>
-        ///   设定HMM的状态集
+        /// 设定HMM的状态集
         /// </summary>
         /// <param name="states"> 状态集 </param>
         public void SetState(string[] states)
@@ -63,7 +63,7 @@ namespace Iveely.Framework.Text.Segment
         }
 
         /// <summary>
-        ///   添加观察序列
+        /// 添加观察序列
         /// </summary>
         /// <param name="observer"> </param>
         public void AddObserver(string observer)

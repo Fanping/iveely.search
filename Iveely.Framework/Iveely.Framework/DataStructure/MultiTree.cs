@@ -1,55 +1,59 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Iveely.Framework.DataStructure
 {
     /// <summary>
-    /// Multi-Tree
+    /// 多叉树
     /// </summary>
     [Serializable]
+#if DEBUG
+    [TestClass]
+#endif
     public class MultiTree
     {
         /// <summary>
-        /// The node of multi-tree
+        /// 结点
         /// </summary>
         [Serializable]
         public class Node
         {
             /// <summary>
-            /// The name of the node (relative path)
+            /// 结点名称(是一个相对路径，不包含完整路径)
             /// </summary>
             public string Name { get; set; }
 
             /// <summary>
-            /// The deep of the node
+            /// 结点深度
             /// </summary>
             public int Deep { get; set; }
 
             /// <summary>
-            /// The full path of node (absolute path)
+            /// 结点全路径
             /// </summary>
             public string Path { get; set; }
 
             /// <summary>
-            /// The data of node
+            /// 结点值
             /// </summary>
             public object Data { get; set; }
 
             /// <summary>
-            /// The parent node
+            /// 父节点
             /// </summary>
             public Node Parent { get; set; }
 
             /// <summary>
-            /// The nodes of children
+            /// 结点的孩子结点集合
             /// </summary>
             public List<Node> Children { get; set; }
 
             /// <summary>
-            /// Create node
+            /// 创建结点(一般创建根结点)
             /// </summary>
-            /// <param name="name">name of node</param>
+            /// <param name="name">结点名称</param>
             public Node(string name)
             {
                 Path = name;
@@ -64,14 +68,14 @@ namespace Iveely.Framework.DataStructure
             }
 
             /// <summary>
-            /// Create node with parent
+            /// 创建结点(一般创建子结点)
             /// </summary>
-            /// <param name="name">name of node</param>
-            /// <param name="data"></param>
-            /// <param name="parent">parent of node</param>
+            /// <param name="name">结点名称</param>
+            /// <param name="data">结点值</param>
+            /// <param name="parent">结点的父结点</param>
             public Node(string name, object data, Node parent)
             {
-                if (parent.Path.Length > 1)
+                if (parent.Path.Length >= 1)
                 {
                     Path = parent.Path + "/" + name;
                 }
@@ -87,11 +91,11 @@ namespace Iveely.Framework.DataStructure
             }
 
             /// <summary>
-            /// Add a child
+            /// 添加孩子结点
             /// </summary>
-            /// <param name="name">name of the child</param>
-            /// <param name="data">data of the child</param>
-            /// <param name="parent">the parent of the child</param>
+            /// <param name="name">孩子结点名称</param>
+            /// <param name="data">孩子结点的值</param>
+            /// <param name="parent">孩子结点的父节点</param>
             public void AddChild(string name, object data, Node parent)
             {
                 var child = new Node(name, data, parent);
@@ -103,16 +107,12 @@ namespace Iveely.Framework.DataStructure
             }
 
             /// <summary>
-            /// Find a child by name
+            /// 根据结点名称查找结点
             /// </summary>
-            /// <param name="name">name of the child</param>
-            /// <returns>return the node of the child,null is not found.</returns>
+            /// <param name="name">被查找结点的名称</param>
+            /// <returns>返回被找到的结点，未找到则为null</returns>
             public Node FindChild(string name)
             {
-                //if (!name.StartsWith("/"))
-                //{
-                //    name = "/" + name;
-                //}
                 foreach (Node node in Children)
                 {
                     if (node.Name.Equals(name))
@@ -123,15 +123,18 @@ namespace Iveely.Framework.DataStructure
                 return null;
             }
 
+            /// <summary>
+            /// 清楚所有子结点
+            /// </summary>
             public void Clean()
             {
                 Children = new List<Node>();
             }
 
             /// <summary>
-            /// Get all full path on nodes of children
+            /// 获取所有孩子的全路径
             /// </summary>
-            /// <returns>list of the node path</returns>
+            /// <returns>全路径集合</returns>
             public IEnumerable<string> GetChildrenPath()
             {
                 IEnumerable<string> pathes = Children.Select(o => o.Path);
@@ -139,9 +142,9 @@ namespace Iveely.Framework.DataStructure
             }
 
             /// <summary>
-            /// Get the number of children
+            /// 获取孩子结点的数量
             /// </summary>
-            /// <returns>return the number</returns>
+            /// <returns>返回结点数量</returns>
             public int GetChildrenNum()
             {
                 IEnumerable<string> pathes = GetChildrenPath();
@@ -150,39 +153,40 @@ namespace Iveely.Framework.DataStructure
         }
 
         /// <summary>
-        /// The root node
+        /// 多叉树的根结点
         /// </summary>
         public Node Root { get; set; }
 
         public MultiTree()
         {
-            Root = new Node("/");
+            Root = new Node(string.Empty);
         }
 
         /// <summary>
-        /// Get a node by name
+        /// 根据全路径查找结点
         /// </summary>
-        /// <param name="name">name of the node</param>
-        /// <returns>the node has been found</returns>
-        public Node GetNodeByName(string name)
+        /// <param name="path">被查找结点的全路径</param>
+        /// <returns>返回被查找到的结点</returns>
+        public Node GetNodeByPath(string path)
         {
-            string[] catelogs = name.Split(new[] { '/' }, StringSplitOptions.RemoveEmptyEntries);
+            string[] catelogs = path.Split(new[] { '/' }, StringSplitOptions.RemoveEmptyEntries);
             Node node = Root;
             foreach (string catelog in catelogs)
             {
                 string relativePath = catelog;
-                //if (!relativePath.StartsWith("/"))
-                //{
-                //    relativePath = "/" + relativePath;
-                //}
                 node = FindNode(node, relativePath);
             }
             return node;
         }
 
+        /// <summary>
+        /// 重命名结点名称
+        /// </summary>
+        /// <param name="path">被重命名结点的全路径</param>
+        /// <param name="newName">被重命名结点的新名称(非全路径)</param>
         public void Rename(string path, string newName)
         {
-            Node node = GetNodeByName(path);
+            Node node = GetNodeByPath(path);
             if (node != null)
             {
                 node.Name = newName;
@@ -194,12 +198,12 @@ namespace Iveely.Framework.DataStructure
         }
 
         /// <summary>
-        /// Add a node under anther node
+        /// 添加结点
         /// </summary>
-        /// <param name="name">name of node which want to add</param>
-        /// <param name="data"></param>
-        /// <param name="parentName">parent name of the node</param>
-        /// <param name="lastNode"></param>
+        /// <param name="name">被添加结点的名称</param>
+        /// <param name="data">被添加结点的值</param>
+        /// <param name="parentName">被添加结点的父节点名称</param>
+        /// <param name="lastNode">是否是最后一个结点</param>
         public void AddNode(string name, object data, string parentName, bool lastNode = false)
         {
             Node parent;
@@ -209,7 +213,7 @@ namespace Iveely.Framework.DataStructure
             }
             else
             {
-                parent = GetNodeByName(parentName);
+                parent = GetNodeByPath(parentName);
             }
 
             if (parent != null)
@@ -237,17 +241,17 @@ namespace Iveely.Framework.DataStructure
         }
 
         /// <summary>
-        /// Add a node under root node
+        /// 添加根结点的孩子结点
         /// </summary>
-        /// <param name="name">name of the node</param>
-        /// <param name="data"></param>
+        /// <param name="name">结点名称</param>
+        /// <param name="data">结点值</param>
         public void AddNode(string name, object data)
         {
             AddNode(name, data, string.Empty);
         }
 
         /// <summary>
-        /// Clean all data
+        /// 清除所有结点
         /// </summary>
         public void Clean()
         {
@@ -255,11 +259,11 @@ namespace Iveely.Framework.DataStructure
         }
 
         /// <summary>
-        /// Find a node by name
+        /// 根据名称查找结点值
         /// </summary>
-        /// <param name="node">the node that start to find</param>
-        /// <param name="name">the name of node which want to find</param>
-        /// <returns>return the node has been found</returns>
+        /// <param name="node">开始查找结点</param>
+        /// <param name="name">被查找结点的名称</param>
+        /// <returns>返回被查找的结点</returns>
         private Node FindNode(Node node, string name)
         {
             Node result = null;
@@ -271,11 +275,6 @@ namespace Iveely.Framework.DataStructure
             {
                 foreach (Node child in node.Children)
                 {
-                    //if (!name.StartsWith("/"))
-                    //{
-                    //    name = "/" + name;
-                    //}
-
                     if (child.Name == name)
                     {
                         return child;
@@ -294,14 +293,58 @@ namespace Iveely.Framework.DataStructure
         }
 
         /// <summary>
-        /// Check the node whether exist on the node
+        /// 检查结点是否存在
         /// </summary>
-        /// <param name="name">the name of the node</param>
-        /// <param name="node">the node to check</param>
-        /// <returns></returns>
+        /// <param name="name">被查找结点的名称</param>
+        /// <param name="node">开始查找的结点</param>
+        /// <returns>true为存在，false不存在</returns>
         private bool IsExist(string name, Node node)
         {
             return FindNode(node, name) != null;
         }
+
+#if DEBUG
+
+        [TestMethod]
+        public void Test_MultiTree()
+        {
+            MultiTree multiTree = new MultiTree();
+            multiTree.AddNode("1", 1);
+            multiTree.AddNode("1.1", 1.1, "1");
+            multiTree.AddNode("2", 2);
+            multiTree.AddNode("2.1", 2.1, "2");
+            multiTree.AddNode("2.2", 2.2, "2");
+            multiTree.AddNode("3", 3);
+            multiTree.AddNode("3.1", 3.1, "3");
+            multiTree.AddNode("3.2", 3.2, "3");
+            multiTree.AddNode("3.3", 3.3, "3");
+            multiTree.AddNode("4", 4);
+            multiTree.AddNode("4.1", 4.1, "4");
+            multiTree.AddNode("4.2", 4.2, "4");
+            multiTree.AddNode("4.3", 4.3, "4");
+            multiTree.AddNode("4.4", 4.4, "4");
+
+            Node node = multiTree.GetNodeByPath("1");
+            Assert.IsTrue((int)node.Data == 1);
+            Assert.IsTrue(node.GetChildrenNum() == 1);
+            Assert.IsTrue(node.Deep == 1);
+            Assert.IsTrue(node.GetChildrenPath().Count() == 1);
+            Assert.IsTrue(node.Name == "1");
+            Assert.IsTrue(node.Path == "1");
+
+            node = multiTree.GetNodeByPath("1/1.1");
+            Assert.IsTrue(node.Name == "1.1");
+            Assert.IsTrue(node.Path == "1/1.1");
+
+            node = multiTree.GetNodeByPath("4");
+            Assert.IsTrue(node.Name == "4");
+            Assert.IsTrue(node.Path == "4");
+            Assert.IsTrue(node.GetChildrenNum() == 4);
+            node.Clean();
+            Assert.IsTrue(node.GetChildrenNum() == 0);
+
+        }
+
+#endif
     }
 }

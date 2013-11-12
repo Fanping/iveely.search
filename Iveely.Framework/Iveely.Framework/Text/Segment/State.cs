@@ -21,7 +21,7 @@ using System;
 namespace Iveely.Framework.Text.Segment
 {
     /// <summary>
-    ///   状态序列
+    /// 状态序列
     /// </summary>
     [Serializable]
     public class State : Sequence

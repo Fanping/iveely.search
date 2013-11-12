@@ -15,31 +15,31 @@ using System.Threading.Tasks;
 namespace Iveely.Framework.Algorithm
 {
     /// <summary>
-    ///   K-means 算法
+    /// K-means 算法
     /// </summary>
     public class Kmeans<T>
     {
         #region 内部类
 
         /// <summary>
-        ///   子元素的扩充
+        /// 子元素的扩充
         /// </summary>
         public class Subset
         {
             #region 属性 OR 字段
 
             /// <summary>
-            ///   元素属于哪一类
+            /// 元素属于哪一类
             /// </summary>
             public int Belong { get; set; }
 
             /// <summary>
-            ///   元素值
+            /// 元素值
             /// </summary>
             public T Data { get; set; }
 
             /// <summary>
-            ///   距离聚簇中心的距离
+            /// 距离聚簇中心的距离
             /// </summary>
             public double Distance { get; set; }
 
@@ -64,7 +64,7 @@ namespace Iveely.Framework.Algorithm
         #region Delegates
 
         /// <summary>
-        ///   委托的计算距离方法
+        /// 委托的计算距离方法
         /// </summary>
         /// <returns> 返回(a,b)的距离 </returns>
         public delegate double GetDistance(T a, T b);
@@ -72,27 +72,27 @@ namespace Iveely.Framework.Algorithm
         #endregion
 
         /// <summary>
-        ///   聚集质点集合
+        /// 聚集质点集合
         /// </summary>
         private readonly Subset[] _cluster;
 
         /// <summary>
-        ///   聚集质点数
+        /// 聚集质点数
         /// </summary>
         private readonly int _particle;
 
         /// <summary>
-        ///   实际计算距离执行方法
+        /// 实际计算距离执行方法
         /// </summary>
         private GetDistance _getlength;
 
         /// <summary>
-        ///   迭代次数
+        /// 迭代次数
         /// </summary>
         private int _iteration;
 
         /// <summary>
-        ///   用于计算的集合们
+        /// 用于计算的集合们
         /// </summary>
         public List<Subset> Data { get; private set; }
 
@@ -136,7 +136,7 @@ namespace Iveely.Framework.Algorithm
         #region 私有方法
 
         /// <summary>
-        ///   计算聚簇中心
+        /// 计算聚簇中心
         /// </summary>
         /// <returns> true表示中心未改变(则无需迭代) </returns>
         private bool SetCenter()
@@ -205,7 +205,7 @@ namespace Iveely.Framework.Algorithm
         #region 测试
 
         /// <summary>
-        ///   一元组距离算法
+        /// 一元组距离算法
         /// </summary>
         /// <param name="a"> </param>
         /// <param name="b"> </param>
@@ -216,7 +216,7 @@ namespace Iveely.Framework.Algorithm
         }
 
         /// <summary>
-        ///   一元组测试
+        /// 一元组测试
         /// </summary>
         public static void Ugram_Test()
         {

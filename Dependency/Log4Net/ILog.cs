@@ -55,7 +55,7 @@ namespace log4net
 	/// 
 	/// if (log.IsDebugEnabled)
 	/// {
-	///		log.Debug("This is another debug message");
+	/// 		log.Debug("This is another debug message");
 	/// }
 	/// </code>
 	/// </example>
@@ -855,7 +855,7 @@ namespace log4net
 		/// <code lang="C#">
 		/// if (log.IsDebugEnabled)
 		/// { 
-		///     log.Debug("This is entry number: " + i );
+		///  log.Debug("This is entry number: " + i );
 		/// }
 		/// </code>
 		/// <para>
@@ -880,7 +880,7 @@ namespace log4net
 		/// <code lang="C#">
 		/// if (isDebugEnabled)
 		/// { 
-		///     log.Debug("This is entry number: " + i );
+		///  log.Debug("This is entry number: " + i );
 		/// }
 		/// </code>
 		/// <para>

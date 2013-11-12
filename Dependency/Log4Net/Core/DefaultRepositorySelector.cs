@@ -485,9 +485,9 @@ namespace log4net.Core
 		/// </para>
 		/// </remarks>
 		/// <exception cref="ArgumentNullException">
-		///	<para><paramref name="repositoryAlias" /> is <see langword="null" />.</para>
-		///	<para>-or-</para>
-		///	<para><paramref name="repositoryTarget" /> is <see langword="null" />.</para>
+		/// 	<para><paramref name="repositoryAlias" /> is <see langword="null" />.</para>
+		/// 	<para>-or-</para>
+		/// 	<para><paramref name="repositoryTarget" /> is <see langword="null" />.</para>
 		/// </exception>
 		public void AliasRepository(string repositoryAlias, ILoggerRepository repositoryTarget) 
 		{
@@ -638,9 +638,9 @@ namespace log4net.Core
 		/// attributes which define the configuration for the repository.</param>
 		/// <param name="repository">The repository to configure.</param>
 		/// <exception cref="ArgumentNullException">
-		///	<para><paramref name="assembly" /> is <see langword="null" />.</para>
-		///	<para>-or-</para>
-		///	<para><paramref name="repository" /> is <see langword="null" />.</para>
+		/// 	<para><paramref name="assembly" /> is <see langword="null" />.</para>
+		/// 	<para>-or-</para>
+		/// 	<para><paramref name="repository" /> is <see langword="null" />.</para>
 		/// </exception>
 		private void ConfigureRepository(Assembly assembly, ILoggerRepository repository)
 		{
@@ -786,9 +786,9 @@ namespace log4net.Core
 		/// <param name="assembly">The assembly that contains the attributes.</param>
 		/// <param name="repository">The repository to add the plugins to.</param>
 		/// <exception cref="ArgumentNullException">
-		///	<para><paramref name="assembly" /> is <see langword="null" />.</para>
-		///	<para>-or-</para>
-		///	<para><paramref name="repository" /> is <see langword="null" />.</para>
+		/// 	<para><paramref name="assembly" /> is <see langword="null" />.</para>
+		/// 	<para>-or-</para>
+		/// 	<para><paramref name="repository" /> is <see langword="null" />.</para>
 		/// </exception>
 		private void LoadPlugins(Assembly assembly, ILoggerRepository repository)
 		{
@@ -826,9 +826,9 @@ namespace log4net.Core
 		/// <param name="assembly">The assembly that contains the attributes.</param>
 		/// <param name="repository">The repository to alias to.</param>
 		/// <exception cref="ArgumentNullException">
-		///	<para><paramref name="assembly" /> is <see langword="null" />.</para>
-		///	<para>-or-</para>
-		///	<para><paramref name="repository" /> is <see langword="null" />.</para>
+		/// 	<para><paramref name="assembly" /> is <see langword="null" />.</para>
+		/// 	<para>-or-</para>
+		/// 	<para><paramref name="repository" /> is <see langword="null" />.</para>
 		/// </exception>
 		private void LoadAliases(Assembly assembly, ILoggerRepository repository)
 		{

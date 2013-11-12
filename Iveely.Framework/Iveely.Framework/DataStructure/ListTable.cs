@@ -17,8 +17,8 @@ using System.Threading.Tasks;
 namespace Iveely.Framework.DataStructure
 {
     /// <summary>
-    ///   值为List的哈希表
-    ///   主要用于一个关键字对应一个集合
+    /// 值为List的哈希表
+    /// 主要用于一个关键字对应一个集合
     /// </summary>
     [Serializable]
     public class ListTable<T> : Hashtable
@@ -35,7 +35,7 @@ namespace Iveely.Framework.DataStructure
         }
 
         /// <summary>
-        ///   添加关键字
+        /// 添加关键字
         /// </summary>
         /// <param name="key"> 添加的关键字 </param>
         /// <param name="value"> 值（出现重复值，会累加） </param>
@@ -56,7 +56,7 @@ namespace Iveely.Framework.DataStructure
         }
 
         /// <summary>
-        ///   以升序的方式获取关键字对应的值
+        /// 以升序的方式获取关键字对应的值
         /// </summary>
         /// <param name="key"> 关键字 </param>
         /// <returns> 升序值序列 </returns>
@@ -66,7 +66,7 @@ namespace Iveely.Framework.DataStructure
         }
 
         /// <summary>
-        ///   以降序的方式获取关键字对应的值
+        /// 以降序的方式获取关键字对应的值
         /// </summary>
         /// <param name="key"> 关键字 </param>
         /// <returns> 降序值序列 </returns>

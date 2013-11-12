@@ -35,7 +35,7 @@ namespace Iveely.Framework.Text
         private class BasicContent : IDisposable
         {
             /// <summary>
-            ///   HTML类型
+            /// HTML类型
             /// </summary>
             private static readonly ReadOnlyCollection<string> _HtmlMimeTypes = new ReadOnlyCollection<string>(new[]
                                                                                                                {
@@ -46,7 +46,7 @@ namespace Iveely.Framework.Text
                                                                                                                });
 
             /// <summary>
-            ///   XML类型
+            /// XML类型
             /// </summary>
             private static readonly ReadOnlyCollection<string> _XmlMimeTypes = new ReadOnlyCollection<string>(new[]
                                                                                                               {
@@ -54,7 +54,7 @@ namespace Iveely.Framework.Text
                                                                                                               });
 
             /// <summary>
-            ///   CSS类型
+            /// CSS类型
             /// </summary>
             private static readonly ReadOnlyCollection<string> _CssMimeTypes = new ReadOnlyCollection<string>(new[]
                                                                                                               {
@@ -62,12 +62,12 @@ namespace Iveely.Framework.Text
                                                                                                               });
 
             /// <summary>
-            ///   内存流
+            /// 内存流
             /// </summary>
             private readonly MemoryStream _Stream = new MemoryStream();
 
             /// <summary>
-            ///   一般内容处理模式
+            /// 一般内容处理模式
             /// </summary>
             /// <param name="requestUrl"> 请求的URL </param>
             /// <param name="referrerUrl"> 引用的URL </param>
@@ -97,12 +97,12 @@ namespace Iveely.Framework.Text
             }
 
             /// <summary>
-            ///   页面信息编码
+            /// 页面信息编码
             /// </summary>
             private string CharSet { get; set; }
 
             /// <summary>
-            ///   HTML类型
+            /// HTML类型
             /// </summary>
             public static ReadOnlyCollection<string> HtmlMimeTypes
             {
@@ -110,7 +110,7 @@ namespace Iveely.Framework.Text
             }
 
             /// <summary>
-            ///   XML类型
+            /// XML类型
             /// </summary>
             public static ReadOnlyCollection<string> XmlMimeTypes
             {
@@ -123,17 +123,17 @@ namespace Iveely.Framework.Text
             }
 
             /// <summary>
-            ///   请求链接
+            /// 请求链接
             /// </summary>
             public Uri RequestUrl { get; protected set; }
 
             /// <summary>
-            ///   响应链接
+            /// 响应链接
             /// </summary>
             public Uri ResponseUrl { get; protected set; }
 
             /// <summary>
-            ///   媒体类型
+            /// 媒体类型
             /// </summary>
             public string MimeType { get; protected set; }
 
@@ -143,7 +143,7 @@ namespace Iveely.Framework.Text
             }
 
             /// <summary>
-            ///   文件大小
+            /// 文件大小
             /// </summary>
             public virtual long Size
             {
@@ -151,7 +151,7 @@ namespace Iveely.Framework.Text
             }
 
             /// <summary>
-            ///   文本内容
+            /// 文本内容
             /// </summary>
             public virtual string Text
             {
@@ -174,7 +174,7 @@ namespace Iveely.Framework.Text
             #endregion
 
             /// <summary>
-            ///   回去媒体类型
+            /// 回去媒体类型
             /// </summary>
             /// <param name="response"> Web请求的响应 </param>
             /// <returns> </returns>
@@ -189,7 +189,7 @@ namespace Iveely.Framework.Text
             }
 
             /// <summary>
-            ///   媒体标题
+            /// 媒体标题
             /// </summary>
             /// <returns> </returns>
             public virtual string GetTitle()
@@ -198,7 +198,7 @@ namespace Iveely.Framework.Text
             }
 
             /// <summary>
-            ///   正文
+            /// 正文
             /// </summary>
             /// <returns> </returns>
             public virtual string GetContent()
@@ -207,7 +207,7 @@ namespace Iveely.Framework.Text
             }
 
             /// <summary>
-            ///   是否是HTML类型
+            /// 是否是HTML类型
             /// </summary>
             /// <param name="mimeType"> </param>
             /// <returns> True为是HTML类型 </returns>
@@ -217,7 +217,7 @@ namespace Iveely.Framework.Text
             }
 
             /// <summary>
-            ///   是否是XML类型
+            /// 是否是XML类型
             /// </summary>
             /// <param name="mimeType"> </param>
             /// <returns> </returns>
@@ -227,7 +227,7 @@ namespace Iveely.Framework.Text
             }
 
             /// <summary>
-            ///   是否是CSS类型
+            /// 是否是CSS类型
             /// </summary>
             /// <param name="mimeType"> </param>
             /// <returns> </returns>
@@ -237,7 +237,7 @@ namespace Iveely.Framework.Text
             }
 
             /// <summary>
-            ///   是否是HTML类型
+            /// 是否是HTML类型
             /// </summary>
             /// <returns> </returns>
             public bool IsHtml()
@@ -245,17 +245,17 @@ namespace Iveely.Framework.Text
                 return IsHtml(MimeType);
             }
 
-            ///<summary>
+            /// <summary>
             ///  是否是XML类型
-            ///</summary>
-            ///<returns> </returns>
+            /// </summary>
+            /// <returns> </returns>
             public bool IsXml()
             {
                 return IsXml(MimeType);
             }
 
             /// <summary>
-            ///   是否是CSS类型
+            /// 是否是CSS类型
             /// </summary>
             /// <returns> </returns>
             public bool IsCss()
@@ -306,7 +306,7 @@ namespace Iveely.Framework.Text
             }
 
             /// <summary>
-            ///   获取网页标题
+            /// 获取网页标题
             /// </summary>
             /// <returns> 返回标题内容 </returns>
             public override string GetTitle()
@@ -322,7 +322,7 @@ namespace Iveely.Framework.Text
             }
 
             /// <summary>
-            ///   获取网页正文内容
+            /// 获取网页正文内容
             /// </summary>
             /// <returns> 返回网页正文 </returns>
             public override string GetContent()
@@ -358,7 +358,7 @@ namespace Iveely.Framework.Text
             //特殊的尖括号内容，一般这些标签的正文是不要的
 
             /// <summary>
-            ///   初始化类
+            /// 初始化类
             /// </summary>
             /// <param name="html"> 要分析的html代码 </param>
             public HtmlParser(string html)
@@ -368,7 +368,7 @@ namespace Iveely.Framework.Text
             }
 
             /// <summary>
-            ///   当指针进入尖括号内，就会触发这个属性。这里主要逻辑是提取尖括号里的标签名字
+            /// 当指针进入尖括号内，就会触发这个属性。这里主要逻辑是提取尖括号里的标签名字
             /// </summary>
             public bool inTag
             {
@@ -401,10 +401,10 @@ namespace Iveely.Framework.Text
                 }
             }
 
-            ///<summary>
+            /// <summary>
             ///  设置要保存那些标签不要被过滤掉
-            ///</summary>
-            ///<param name="tags"> </param>
+            /// </summary>
+            /// <param name="tags"> </param>
             public void KeepTag(string[] tags)
             {
                 _keepTag = tags;
@@ -486,7 +486,7 @@ namespace Iveely.Framework.Text
             }
 
             /// <summary>
-            ///   判断是否要保存这个标签
+            /// 判断是否要保存这个标签
             /// </summary>
             /// <param name="tag"> A <see cref="System.String" /> </param>
             /// <returns> A <see cref="System.Boolean" /> </returns>
@@ -621,12 +621,12 @@ namespace Iveely.Framework.Text
         }
 
         /// <summary>
-        ///   信息内容处理工厂（工厂模式）
+        /// 信息内容处理工厂（工厂模式）
         /// </summary>
         private static class ProcessFactory
         {
             /// <summary>
-            ///   信息内容处理
+            /// 信息内容处理
             /// </summary>
             /// <param name="requestUrl"> 请求的URL </param>
             /// <param name="referrerUrl"> 引用URL </param>
@@ -724,7 +724,7 @@ namespace Iveely.Framework.Text
         }
 
         /// <summary>
-        ///   创建请求
+        /// 创建请求
         /// </summary>
         /// <param name="url"> 请求的URL </param>
         /// <param name="referrerUrl"> 以及引用该URL的链接 </param>

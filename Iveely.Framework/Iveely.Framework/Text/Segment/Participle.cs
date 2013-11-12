@@ -26,31 +26,31 @@ using System.Text;
 namespace Iveely.Framework.Text.Segment
 {
     /// <summary>
-    ///   分词操作类
+    /// 分词操作类
     /// </summary>
     [Serializable]
     public class Participle : HMM
     {
         /// <summary>
-        ///   唯一单例
+        /// 唯一单例
         /// </summary>
         private static Participle participle;
 
         /// <summary>
-        ///   分界符（用于句子中的分割）
+        /// 分界符（用于句子中的分割）
         /// </summary>
         private string Delimiter;
 
         private string[] states = new string[] { "单字成词", "词头", "词中", "词尾" };
 
         /// <summary>
-        ///   分词结果
+        /// 分词结果
         /// </summary>
         private string Result;
 
 
         /// <summary>
-        ///   构造方法
+        /// 构造方法
         /// </summary>
         private Participle()
         {
@@ -102,7 +102,7 @@ namespace Iveely.Framework.Text.Segment
         }
 
         /// <summary>
-        ///   获取实例
+        /// 获取实例
         /// </summary>
         /// <returns> </returns>
         public static Participle GetInstance()
@@ -121,7 +121,7 @@ namespace Iveely.Framework.Text.Segment
         }
 
         /// <summary>
-        ///   执行分词操作
+        /// 执行分词操作
         /// </summary>
         /// <returns> 分词结果 </returns>
         public string Split(string sentences)
@@ -197,7 +197,7 @@ namespace Iveely.Framework.Text.Segment
                 Console.WriteLine(instance.Split("我的心痛竟是你的快乐！"));
                 Console.WriteLine(instance.Split("可是我不想对你念念不舍！"));
                 Console.WriteLine(instance.Split("但什么让我辗转反侧！"));
-                ////Console.WriteLine(
+                /// /Console.WriteLine(
                 //    participle.Split(
                 //        "【武汉地铁站冠名全被取消】煮熟的鸭子飞走了！即将开通的武汉地铁2号线，包括周黑鸭在内的9个车站冠名，将全部取消。已经挂出的标识，正式开通前都会更改过来。花2700万竞得冠名权的7家企业，部分已接到通知，周黑鸭很淡定。网友建议，冠名应该听听市民的意见。武汉晚报"));
                 // Console.WriteLine(participle.Split("Hello World!"));

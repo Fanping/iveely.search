@@ -38,56 +38,56 @@ namespace log4net.Core
 	/// levels:
 	/// </para>
 	/// <list type="definition">
-	///   <item>
-	///     <term>DEBUG</term>
-	///     <description>
-	///     The <see cref="Debug(object)"/> and <see cref="DebugFormat(string, object[])"/> methods log messages
-	///     at the <c>DEBUG</c> level. That is the level with that name defined in the
-	///     repositories <see cref="ILoggerRepository.LevelMap"/>. The default value
-	///     for this level is <see cref="Level.Debug"/>. The <see cref="IsDebugEnabled"/>
-	///     property tests if this level is enabled for logging.
-	///     </description>
-	///   </item>
-	///   <item>
-	///     <term>INFO</term>
-	///     <description>
-	///     The <see cref="Info(object)"/> and <see cref="InfoFormat(string, object[])"/> methods log messages
-	///     at the <c>INFO</c> level. That is the level with that name defined in the
-	///     repositories <see cref="ILoggerRepository.LevelMap"/>. The default value
-	///     for this level is <see cref="Level.Info"/>. The <see cref="IsInfoEnabled"/>
-	///     property tests if this level is enabled for logging.
-	///     </description>
-	///   </item>
-	///   <item>
-	///     <term>WARN</term>
-	///     <description>
-	///     The <see cref="Warn(object)"/> and <see cref="WarnFormat(string, object[])"/> methods log messages
-	///     at the <c>WARN</c> level. That is the level with that name defined in the
-	///     repositories <see cref="ILoggerRepository.LevelMap"/>. The default value
-	///     for this level is <see cref="Level.Warn"/>. The <see cref="IsWarnEnabled"/>
-	///     property tests if this level is enabled for logging.
-	///     </description>
-	///   </item>
-	///   <item>
-	///     <term>ERROR</term>
-	///     <description>
-	///     The <see cref="Error(object)"/> and <see cref="ErrorFormat(string, object[])"/> methods log messages
-	///     at the <c>ERROR</c> level. That is the level with that name defined in the
-	///     repositories <see cref="ILoggerRepository.LevelMap"/>. The default value
-	///     for this level is <see cref="Level.Error"/>. The <see cref="IsErrorEnabled"/>
-	///     property tests if this level is enabled for logging.
-	///     </description>
-	///   </item>
-	///   <item>
-	///     <term>FATAL</term>
-	///     <description>
-	///     The <see cref="Fatal(object)"/> and <see cref="FatalFormat(string, object[])"/> methods log messages
-	///     at the <c>FATAL</c> level. That is the level with that name defined in the
-	///     repositories <see cref="ILoggerRepository.LevelMap"/>. The default value
-	///     for this level is <see cref="Level.Fatal"/>. The <see cref="IsFatalEnabled"/>
-	///     property tests if this level is enabled for logging.
-	///     </description>
-	///   </item>
+	/// <item>
+	///  <term>DEBUG</term>
+	///  <description>
+	///  The <see cref="Debug(object)"/> and <see cref="DebugFormat(string, object[])"/> methods log messages
+	///  at the <c>DEBUG</c> level. That is the level with that name defined in the
+	///  repositories <see cref="ILoggerRepository.LevelMap"/>. The default value
+	///  for this level is <see cref="Level.Debug"/>. The <see cref="IsDebugEnabled"/>
+	///  property tests if this level is enabled for logging.
+	///  </description>
+	/// </item>
+	/// <item>
+	///  <term>INFO</term>
+	///  <description>
+	///  The <see cref="Info(object)"/> and <see cref="InfoFormat(string, object[])"/> methods log messages
+	///  at the <c>INFO</c> level. That is the level with that name defined in the
+	///  repositories <see cref="ILoggerRepository.LevelMap"/>. The default value
+	///  for this level is <see cref="Level.Info"/>. The <see cref="IsInfoEnabled"/>
+	///  property tests if this level is enabled for logging.
+	///  </description>
+	/// </item>
+	/// <item>
+	///  <term>WARN</term>
+	///  <description>
+	///  The <see cref="Warn(object)"/> and <see cref="WarnFormat(string, object[])"/> methods log messages
+	///  at the <c>WARN</c> level. That is the level with that name defined in the
+	///  repositories <see cref="ILoggerRepository.LevelMap"/>. The default value
+	///  for this level is <see cref="Level.Warn"/>. The <see cref="IsWarnEnabled"/>
+	///  property tests if this level is enabled for logging.
+	///  </description>
+	/// </item>
+	/// <item>
+	///  <term>ERROR</term>
+	///  <description>
+	///  The <see cref="Error(object)"/> and <see cref="ErrorFormat(string, object[])"/> methods log messages
+	///  at the <c>ERROR</c> level. That is the level with that name defined in the
+	///  repositories <see cref="ILoggerRepository.LevelMap"/>. The default value
+	///  for this level is <see cref="Level.Error"/>. The <see cref="IsErrorEnabled"/>
+	///  property tests if this level is enabled for logging.
+	///  </description>
+	/// </item>
+	/// <item>
+	///  <term>FATAL</term>
+	///  <description>
+	///  The <see cref="Fatal(object)"/> and <see cref="FatalFormat(string, object[])"/> methods log messages
+	///  at the <c>FATAL</c> level. That is the level with that name defined in the
+	///  repositories <see cref="ILoggerRepository.LevelMap"/>. The default value
+	///  for this level is <see cref="Level.Fatal"/>. The <see cref="IsFatalEnabled"/>
+	///  property tests if this level is enabled for logging.
+	///  </description>
+	/// </item>
 	/// </list>
 	/// <para>
 	/// The values for these levels and their semantic meanings can be changed by 
@@ -1161,7 +1161,7 @@ namespace log4net.Core
 		/// <code lang="C#">
 		/// if (log.IsDebugEnabled())
 		/// { 
-		///	 log.Debug("This is entry number: " + i );
+		/// 	 log.Debug("This is entry number: " + i );
 		/// }
 		/// </code>
 		/// <para>

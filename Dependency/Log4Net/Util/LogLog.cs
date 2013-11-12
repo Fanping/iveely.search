@@ -212,9 +212,9 @@ namespace log4net.Util
 		/// </para>
 		/// <code lang="XML" escaped="true">
 		/// <configuration>
-		///		<appSettings>
-		///			<add key="log4net.Internal.Debug" value="true" />
-		///		</appSettings>
+		/// 		<appSettings>
+		/// 			<add key="log4net.Internal.Debug" value="true" />
+		/// 		</appSettings>
 		/// </configuration>
 		/// </code>
 		/// </example>
@@ -252,9 +252,9 @@ namespace log4net.Util
 		/// application configuration file :
 		/// <code lang="XML" escaped="true">
 		/// <configuration>
-		///		<appSettings>
-		///			<add key="log4net.Internal.Quiet" value="true" />
-		///		</appSettings>
+		/// 		<appSettings>
+		/// 			<add key="log4net.Internal.Quiet" value="true" />
+		/// 		</appSettings>
 		/// </configuration>
 		/// </code>
 		/// </example>
@@ -316,8 +316,8 @@ namespace log4net.Util
 		/// <param name="message">The message to log.</param>
 		/// <remarks>
 		/// <para>
-		///	All internal debug messages are prepended with 
-		///	the string "log4net: ".
+		/// 	All internal debug messages are prepended with 
+		/// 	the string "log4net: ".
 		/// </para>
 		/// </remarks>
 		public static void Debug(Type source, string message) 
@@ -342,8 +342,8 @@ namespace log4net.Util
 		/// <param name="exception">An exception to log.</param>
 		/// <remarks>
 		/// <para>
-		///	All internal debug messages are prepended with 
-		///	the string "log4net: ".
+		/// 	All internal debug messages are prepended with 
+		/// 	the string "log4net: ".
 		/// </para>
 		/// </remarks>
 		public static void Debug(Type source, string message, Exception exception) 
@@ -387,8 +387,8 @@ namespace log4net.Util
 		/// <param name="message">The message to log.</param>
 		/// <remarks>
 		/// <para>
-		///	All internal warning messages are prepended with 
-		///	the string "log4net:WARN ".
+		/// 	All internal warning messages are prepended with 
+		/// 	the string "log4net:WARN ".
 		/// </para>
 		/// </remarks>
 		public static void Warn(Type source, string message) 
@@ -413,8 +413,8 @@ namespace log4net.Util
 		/// <param name="exception">An exception to log.</param>
 		/// <remarks>
 		/// <para>
-		///	All internal warning messages are prepended with 
-		///	the string "log4net:WARN ".
+		/// 	All internal warning messages are prepended with 
+		/// 	the string "log4net:WARN ".
 		/// </para>
 		/// </remarks>
 		public static void Warn(Type source, string message, Exception exception) 
@@ -458,8 +458,8 @@ namespace log4net.Util
 		/// <param name="message">The message to log.</param>
 		/// <remarks>
 		/// <para>
-		///	All internal error messages are prepended with 
-		///	the string "log4net:ERROR ".
+		/// 	All internal error messages are prepended with 
+		/// 	the string "log4net:ERROR ".
 		/// </para>
 		/// </remarks>
 		public static void Error(Type source, string message) 
@@ -484,8 +484,8 @@ namespace log4net.Util
 		/// <param name="exception">An exception to log.</param>
 		/// <remarks>
 		/// <para>
-		///	All internal debug messages are prepended with 
-		///	the string "log4net:ERROR ".
+		/// 	All internal debug messages are prepended with 
+		/// 	the string "log4net:ERROR ".
 		/// </para>
 		/// </remarks>
 		public static void Error(Type source, string message, Exception exception) 

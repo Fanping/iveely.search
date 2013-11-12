@@ -46,9 +46,9 @@ namespace log4net.Layout
 	/// &lt;?xml version="1.0" ?&gt;
 	/// 
 	/// &lt;!DOCTYPE log4net:events SYSTEM "log4net-events.dtd" [&lt;!ENTITY data SYSTEM "abc"&gt;]&gt;
-	///
+	/// 
 	/// &lt;log4net:events version="1.2" xmlns:log4net="http://logging.apache.org/log4net/schemas/log4net-events-1.2&gt;
-	///     &amp;data;
+	///  &amp;data;
 	/// &lt;/log4net:events&gt;
 	/// </code>
 	/// <para>

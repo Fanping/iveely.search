@@ -14,7 +14,7 @@ namespace Iveely.Framework.Algorithm
     public class BinarySearch
     {
         /// <summary>
-        ///   二分查找算法
+        /// 二分查找算法
         /// </summary>
         /// <param name="min"> 起始位置 </param>
         /// <param name="max"> 结束位置 </param>

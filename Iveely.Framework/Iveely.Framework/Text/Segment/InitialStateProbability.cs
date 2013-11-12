@@ -22,13 +22,13 @@ using Iveely.Framework.DataStructure;
 namespace Iveely.Framework.Text.Segment
 {
     /// <summary>
-    ///   初试状态概率
+    /// 初试状态概率
     /// </summary>
     [Serializable]
     public class InitialStateProbability
     {
         /// <summary>
-        ///   初始状态概率表
+        /// 初始状态概率表
         /// </summary>
         public IntTable<string, double> table;
 

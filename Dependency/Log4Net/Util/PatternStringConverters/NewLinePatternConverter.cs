@@ -31,18 +31,18 @@ namespace log4net.Util.PatternStringConverters
 	/// This behavior can be overridden by setting the <see cref="PatternConverter.Option"/>:
 	/// </para>
 	/// <list type="definition">
-	///   <listheader>
-	///     <term>Option Value</term>
-	///     <description>Output</description>
-	///   </listheader>
-	///   <item>
-	///     <term>DOS</term>
-	///     <description>DOS or Windows line terminator <c>"\r\n"</c></description>
-	///   </item>
-	///   <item>
-	///     <term>UNIX</term>
-	///     <description>UNIX line terminator <c>"\n"</c></description>
-	///   </item>
+	/// <listheader>
+	///  <term>Option Value</term>
+	///  <description>Output</description>
+	/// </listheader>
+	/// <item>
+	///  <term>DOS</term>
+	///  <description>DOS or Windows line terminator <c>"\r\n"</c></description>
+	/// </item>
+	/// <item>
+	///  <term>UNIX</term>
+	///  <description>UNIX line terminator <c>"\n"</c></description>
+	/// </item>
 	/// </list>
 	/// </remarks>
 	/// <author>Nicko Cadell</author>

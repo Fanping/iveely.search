@@ -14,7 +14,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace Iveely.Framework.DataStructure
 {
     /// <summary>
-    ///   二维表
+    /// 二维表
     /// </summary>
     /// <typeparam name="TValue"> </typeparam>
     /// <typeparam name="TRow"> </typeparam>
@@ -29,7 +29,7 @@ namespace Iveely.Framework.DataStructure
         #region 属性或字段
 
         /// <summary>
-        ///   列集合
+        /// 列集合
         /// </summary>
         private readonly Hashtable _cloumns = new Hashtable();
 
@@ -38,18 +38,18 @@ namespace Iveely.Framework.DataStructure
         #region 内部类
 
         /// <summary>
-        ///   列
+        /// 列
         /// </summary>
         [Serializable]
         public class Cloumn<T2>
         {
             /// <summary>
-            ///   列存储器
+            /// 列存储器
             /// </summary>
             private readonly ListTable<T2> _table = new ListTable<T2>();
 
             /// <summary>
-            ///   索引器
+            /// 索引器
             /// </summary>
             /// <param name="index"> </param>
             /// <returns> </returns>
@@ -67,8 +67,8 @@ namespace Iveely.Framework.DataStructure
             }
 
             /// <summary>
-            ///   获取所有的列集合
-            ///   (将一列的所有提取出来)
+            /// 获取所有的列集合
+            /// (将一列的所有提取出来)
             /// </summary>
             /// <returns> </returns>
             public SortedList<TValue> GetAllValue()
@@ -82,10 +82,10 @@ namespace Iveely.Framework.DataStructure
             }
 
             /// <summary>
-            ///   获取所有的列集合
-            ///   (将一列的所有提取出来以及文档编号)
-            ///   小数部分是文档编号
-            ///   整数部分是次数
+            /// 获取所有的列集合
+            /// (将一列的所有提取出来以及文档编号)
+            /// 小数部分是文档编号
+            /// 整数部分是次数
             /// </summary>
             /// <returns> </returns>
             public SortedList<TValue> GetAllKeyValue()
@@ -102,7 +102,7 @@ namespace Iveely.Framework.DataStructure
             #region 私有方法
 
             /// <summary>
-            ///   泛型数据类型转换
+            /// 泛型数据类型转换
             /// </summary>
             /// <param name="value"> 传入需要转换的值 </param>
             /// <returns> </returns>
@@ -119,7 +119,7 @@ namespace Iveely.Framework.DataStructure
         #region 公有方法
 
         /// <summary>
-        ///   列访问索引器
+        /// 列访问索引器
         /// </summary>
         /// <param name="index"> </param>
         /// <returns> </returns>
@@ -137,9 +137,9 @@ namespace Iveely.Framework.DataStructure
         }
 
         /// <summary>
-        ///   根据行名字，获取整行数据
-        ///   类似于我们选中某行，我们将选中某行的数据
-        ///   以列表的形式取出
+        /// 根据行名字，获取整行数据
+        /// 类似于我们选中某行，我们将选中某行的数据
+        /// 以列表的形式取出
         /// </summary>
         /// <param name="name"> The name. </param>
         /// <returns> </returns>
@@ -153,9 +153,9 @@ namespace Iveely.Framework.DataStructure
         }
 
         /// <summary>
-        ///   根据行名字，获取整行数据
-        ///   类似于我们选中某行，我们将选中某行的数据
-        ///   以列表的形式取出
+        /// 根据行名字，获取整行数据
+        /// 类似于我们选中某行，我们将选中某行的数据
+        /// 以列表的形式取出
         /// </summary>
         /// <returns> </returns>
         public SortedList<TValue> GetKeyValueByName(TRow name)
@@ -168,7 +168,7 @@ namespace Iveely.Framework.DataStructure
         }
 
         /// <summary>
-        ///   获取第一列集合
+        /// 获取第一列集合
         /// </summary>
         /// <returns> </returns>
         public List<TRow> GetFirstCloumns()
@@ -183,7 +183,7 @@ namespace Iveely.Framework.DataStructure
         }
 
         /// <summary>
-        ///   根据列的名字清楚列数据(不建议常用，效率较低，会去读取每一行然后去删除该列)
+        /// 根据列的名字清楚列数据(不建议常用，效率较低，会去读取每一行然后去删除该列)
         /// </summary>
         /// <param name="name"> </param>
         public void CleanByColumnName(TRow name)

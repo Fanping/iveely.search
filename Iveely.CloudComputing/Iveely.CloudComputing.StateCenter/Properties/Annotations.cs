@@ -17,8 +17,8 @@ namespace Iveely.CloudComputing.StateCenter.Annotations
   /// <example><code>
   /// [CanBeNull] public object Test() { return null; }
   /// public void UseTest() {
-  ///   var p = Test();
-  ///   var s = p.ToString(); // Warning: Possible 'System.NullReferenceException'
+  /// var p = Test();
+  /// var s = p.ToString(); // Warning: Possible 'System.NullReferenceException'
   /// }
   /// </code></example>
   [AttributeUsage(
@@ -32,7 +32,7 @@ namespace Iveely.CloudComputing.StateCenter.Annotations
   /// </summary>
   /// <example><code>
   /// [NotNull] public object Foo() {
-  ///   return null; // Warning: Possible 'null' assignment
+  /// return null; // Warning: Possible 'null' assignment
   /// }
   /// </code></example>
   [AttributeUsage(
@@ -50,7 +50,7 @@ namespace Iveely.CloudComputing.StateCenter.Annotations
   /// [StringFormatMethod("message")]
   /// public void ShowError(string message, params object[] args) { /* do something */ }
   /// public void Foo() {
-  ///   ShowError("Failed: {0}"); // Warning: Non-existing argument in format string
+  /// ShowError("Failed: {0}"); // Warning: Non-existing argument in format string
   /// }
   /// </code></example>
   [AttributeUsage(
@@ -76,8 +76,8 @@ namespace Iveely.CloudComputing.StateCenter.Annotations
   /// </summary>
   /// <example><code>
   /// public void Foo(string param) {
-  ///   if (param == null)
-  ///     throw new ArgumentNullException("par"); // Warning: Cannot resolve symbol
+  /// if (param == null)
+  ///  throw new ArgumentNullException("par"); // Warning: Cannot resolve symbol
   /// }
   /// </code></example>
   [AttributeUsage(AttributeTargets.Parameter, AllowMultiple = false, Inherited = true)]
@@ -100,15 +100,15 @@ namespace Iveely.CloudComputing.StateCenter.Annotations
   /// </remarks>
   /// <example><code>
   /// public class Foo : INotifyPropertyChanged {
-  ///   public event PropertyChangedEventHandler PropertyChanged;
-  ///   [NotifyPropertyChangedInvocator]
-  ///   protected virtual void NotifyChanged(string propertyName) { ... }
-  ///
-  ///   private string _name;
-  ///   public string Name {
-  ///     get { return _name; }
-  ///     set { _name = value; NotifyChanged("LastName"); /* Warning */ }
-  ///   }
+  /// public event PropertyChangedEventHandler PropertyChanged;
+  /// [NotifyPropertyChangedInvocator]
+  /// protected virtual void NotifyChanged(string propertyName) { ... }
+  /// 
+  /// private string _name;
+  /// public string Name {
+  ///  get { return _name; }
+  ///  set { _name = value; NotifyChanged("LastName"); /* Warning */ }
+  /// }
   /// }
   /// </code>
   /// Examples of generated notifications:
@@ -195,7 +195,7 @@ namespace Iveely.CloudComputing.StateCenter.Annotations
   /// <example><code>
   /// [LocalizationRequiredAttribute(true)]
   /// public class Foo {
-  ///   private string str = "my string"; // Warning: Localizable string
+  /// private string str = "my string"; // Warning: Localizable string
   /// }
   /// </code></example>
   [AttributeUsage(AttributeTargets.All, AllowMultiple = false, Inherited = true)]
@@ -220,13 +220,13 @@ namespace Iveely.CloudComputing.StateCenter.Annotations
   /// [CannotApplyEqualityOperator]
   /// class NoEquality { }
   /// class UsesNoEquality {
-  ///   public void Test() {
-  ///     var ca1 = new NoEquality();
-  ///     var ca2 = new NoEquality();
-  ///     if (ca1 != null) { // OK
-  ///       bool condition = ca1 == ca2; // Warning
-  ///     }
-  ///   }
+  /// public void Test() {
+  ///  var ca1 = new NoEquality();
+  ///  var ca2 = new NoEquality();
+  ///  if (ca1 != null) { // OK
+  ///    bool condition = ca1 == ca2; // Warning
+  ///  }
+  /// }
   /// }
   /// </code></example>
   [AttributeUsage(
@@ -378,8 +378,8 @@ namespace Iveely.CloudComputing.StateCenter.Annotations
   /// <example><code>
   /// [Pure] private int Multiply(int x, int y) { return x * y; }
   /// public void Foo() {
-  ///   const int a = 2, b = 2;
-  ///   Multiply(a, b); // Waring: Return value of pure method is not used
+  /// const int a = 2, b = 2;
+  /// Multiply(a, b); // Waring: Return value of pure method is not used
   /// }
   /// </code></example>
   [AttributeUsage(AttributeTargets.Method, Inherited = true)]
@@ -531,8 +531,8 @@ namespace Iveely.CloudComputing.StateCenter.Annotations
   /// <example><code>
   /// [ActionName("Foo")]
   /// public ActionResult Login(string returnUrl) {
-  ///   ViewBag.ReturnUrl = Url.Action("Foo"); // OK
-  ///   return RedirectToAction("Bar"); // Error: Cannot resolve action
+  /// ViewBag.ReturnUrl = Url.Action("Foo"); // OK
+  /// return RedirectToAction("Bar"); // Error: Cannot resolve action
   /// }
   /// </code></example>
   [AttributeUsage(AttributeTargets.Parameter | AttributeTargets.Property)]

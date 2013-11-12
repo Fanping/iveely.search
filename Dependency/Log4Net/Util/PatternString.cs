@@ -45,21 +45,21 @@ namespace log4net.Util
 	/// The recognized conversion pattern names are:
 	/// </para>
 	/// <list type="table">
-	///     <listheader>
-	///         <term>Conversion Pattern Name</term>
-	///         <description>Effect</description>
-	///     </listheader>
-	///     <item>
-	///         <term>appdomain</term>
-	///         <description>
-	///             <para>
-	///             Used to output the friendly name of the current AppDomain.
-	///             </para>
-	///         </description>
-	///     </item>
-	///     <item>
-	///         <term>date</term>
-	///         <description>
+	///  <listheader>
+	///      <term>Conversion Pattern Name</term>
+	///      <description>Effect</description>
+	///  </listheader>
+	///  <item>
+	///      <term>appdomain</term>
+	///      <description>
+	///          <para>
+	///          Used to output the friendly name of the current AppDomain.
+	///          </para>
+	///      </description>
+	///  </item>
+	///  <item>
+	///      <term>date</term>
+	///      <description>
 	/// 			<para>
 	/// 			Used to output the current date and time in the local time zone. 
 	/// 			To output the date in universal time use the <c>%utcdate</c> pattern.
@@ -87,34 +87,34 @@ namespace log4net.Util
 	/// 			These dedicated date formatters perform significantly
 	/// 			better than <see cref="DateTime.ToString(string)"/>.
 	/// 			</para>
-	///         </description>
-	///     </item>
-	///     <item>
-	///         <term>env</term>
-	///         <description>
-	///             <para>
+	///      </description>
+	///  </item>
+	///  <item>
+	///      <term>env</term>
+	///      <description>
+	///          <para>
 	/// 			Used to output the a specific environment variable. The key to 
 	/// 			lookup must be specified within braces and directly following the
 	/// 			pattern specifier, e.g. <b>%env{COMPUTERNAME}</b> would include the value
 	/// 			of the <c>COMPUTERNAME</c> environment variable.
-	///             </para>
-	///             <para>
-	///             The <c>env</c> pattern is not supported on the .NET Compact Framework.
-	///             </para>
-	///         </description>
-	///     </item>
-	///     <item>
-	///         <term>identity</term>
-	///         <description>
-	///				<para>
-	///				Used to output the user name for the currently active user
-	///				(Principal.Identity.Name).
-	///				</para>
-	///         </description>
-	///     </item>
-	///     <item>
-	///         <term>newline</term>
-	///         <description>
+	///          </para>
+	///          <para>
+	///          The <c>env</c> pattern is not supported on the .NET Compact Framework.
+	///          </para>
+	///      </description>
+	///  </item>
+	///  <item>
+	///      <term>identity</term>
+	///      <description>
+	/// 				<para>
+	/// 				Used to output the user name for the currently active user
+	/// 				(Principal.Identity.Name).
+	/// 				</para>
+	///      </description>
+	///  </item>
+	///  <item>
+	///      <term>newline</term>
+	///      <description>
 	/// 			<para>
 	/// 			Outputs the platform dependent line separator character or
 	/// 			characters.
@@ -124,19 +124,19 @@ namespace log4net.Util
 	/// 			non-portable line separator strings such as	"\n", or "\r\n". 
 	/// 			Thus, it is the preferred way of specifying a line separator.
 	/// 			</para> 
-	///         </description>
-	///     </item>
-	///     <item>
-	///         <term>processid</term>
-	///         <description>
-	///             <para>
-	///				Used to output the system process ID for the current process.
-	///             </para>
-	///         </description>
-	///     </item>
-	///     <item>
-	///         <term>property</term>
-	///         <description>
+	///      </description>
+	///  </item>
+	///  <item>
+	///      <term>processid</term>
+	///      <description>
+	///          <para>
+	/// 				Used to output the system process ID for the current process.
+	///          </para>
+	///      </description>
+	///  </item>
+	///  <item>
+	///      <term>property</term>
+	///      <description>
 	/// 			<para>
 	/// 			Used to output a specific context property. The key to 
 	/// 			lookup must be specified within braces and directly following the
@@ -171,31 +171,31 @@ namespace log4net.Util
 	/// 					</description>
 	/// 				</item>
 	/// 			</list>
-	///         </description>
-	///     </item>
-	///     <item>
-	///         <term>random</term>
-	///         <description>
-	///             <para>
-	///             Used to output a random string of characters. The string is made up of
-	///             uppercase letters and numbers. By default the string is 4 characters long.
-	///             The length of the string can be specified within braces directly following the
+	///      </description>
+	///  </item>
+	///  <item>
+	///      <term>random</term>
+	///      <description>
+	///          <para>
+	///          Used to output a random string of characters. The string is made up of
+	///          uppercase letters and numbers. By default the string is 4 characters long.
+	///          The length of the string can be specified within braces directly following the
 	/// 			pattern specifier, e.g. <b>%random{8}</b> would output an 8 character string.
-	///             </para>
-	///         </description>
-	///     </item>
-	///     <item>
-	///         <term>username</term>
-	///         <description>
-	///				<para>
-	///				Used to output the WindowsIdentity for the currently
-	///				active user.
-	///				</para>
-	///         </description>
-	///     </item>
-	///     <item>
-	///         <term>utcdate</term>
-	///         <description>
+	///          </para>
+	///      </description>
+	///  </item>
+	///  <item>
+	///      <term>username</term>
+	///      <description>
+	/// 				<para>
+	/// 				Used to output the WindowsIdentity for the currently
+	/// 				active user.
+	/// 				</para>
+	///      </description>
+	///  </item>
+	///  <item>
+	///      <term>utcdate</term>
+	///      <description>
 	/// 			<para>
 	/// 			Used to output the date of the logging event in universal time. 
 	/// 			The date conversion 
@@ -222,16 +222,16 @@ namespace log4net.Util
 	/// 			These dedicated date formatters perform significantly
 	/// 			better than <see cref="DateTime.ToString(string)"/>.
 	/// 			</para>
-	///         </description>
-	///     </item>
-	///		<item>
-	///			<term>%</term>
-	///			<description>
+	///      </description>
+	///  </item>
+	/// 		<item>
+	/// 			<term>%</term>
+	/// 			<description>
 	/// 			<para>
 	/// 			The sequence %% outputs a single percent sign.
 	/// 			</para>
-	///			</description>
-	///		</item>
+	/// 			</description>
+	/// 		</item>
 	/// </list>
 	/// <para>
 	/// Additional pattern converters may be registered with a specific <see cref="PatternString"/>

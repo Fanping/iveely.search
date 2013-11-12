@@ -60,62 +60,62 @@ namespace log4net.Appender
 	/// </para>
 	/// <para>
 	/// <list type="table">
-	///     <listheader>
-	///         <term>Action</term>
-	///         <description>Property Value(s)</description>
-	///     </listheader>
-	///     <item>
-	///         <term>Send a message to a user account on the local machine</term>
-	///         <description>
-	///             <para>
-	///             <see cref="NetSendAppender.Server"/> = &lt;name of the local machine&gt;
-	///             </para>
-	///             <para>
-	///             <see cref="NetSendAppender.Recipient"/> = &lt;user name&gt;
-	///             </para>
-	///         </description>
-	///     </item>
-	///     <item>
-	///         <term>Send a message to a user account on a remote machine</term>
-	///         <description>
-	///             <para>
-	///             <see cref="NetSendAppender.Server"/> = &lt;name of the remote machine&gt;
-	///             </para>
-	///             <para>
-	///             <see cref="NetSendAppender.Recipient"/> = &lt;user name&gt;
-	///             </para>
-	///         </description>
-	///     </item>
-	///     <item>
-	///         <term>Send a message to a domain user account</term>
-	///         <description>
-	///             <para>
-	///             <see cref="NetSendAppender.Server"/> = &lt;name of a domain controller | uninitialized&gt;
-	///             </para>
-	///             <para>
-	///             <see cref="NetSendAppender.Recipient"/> = &lt;user name&gt;
-	///             </para>
-	///         </description>
-	///     </item>
-	///     <item>
-	///         <term>Send a message to all the names in a workgroup or domain</term>
-	///         <description>
-	///             <para>
-	///             <see cref="NetSendAppender.Recipient"/> = &lt;workgroup name | domain name&gt;*
-	///             </para>
-	///         </description>
-	///     </item>
-	///     <item>
-	///         <term>Send a message from the local machine to a remote machine</term>
-	///         <description>
-	///             <para>
-	///             <see cref="NetSendAppender.Server"/> = &lt;name of the local machine | uninitialized&gt;
-	///             </para>
-	///             <para>
-	///             <see cref="NetSendAppender.Recipient"/> = &lt;name of the remote machine&gt;
-	///             </para>
-	///         </description>
-	///     </item>
+	///  <listheader>
+	///      <term>Action</term>
+	///      <description>Property Value(s)</description>
+	///  </listheader>
+	///  <item>
+	///      <term>Send a message to a user account on the local machine</term>
+	///      <description>
+	///          <para>
+	///          <see cref="NetSendAppender.Server"/> = &lt;name of the local machine&gt;
+	///          </para>
+	///          <para>
+	///          <see cref="NetSendAppender.Recipient"/> = &lt;user name&gt;
+	///          </para>
+	///      </description>
+	///  </item>
+	///  <item>
+	///      <term>Send a message to a user account on a remote machine</term>
+	///      <description>
+	///          <para>
+	///          <see cref="NetSendAppender.Server"/> = &lt;name of the remote machine&gt;
+	///          </para>
+	///          <para>
+	///          <see cref="NetSendAppender.Recipient"/> = &lt;user name&gt;
+	///          </para>
+	///      </description>
+	///  </item>
+	///  <item>
+	///      <term>Send a message to a domain user account</term>
+	///      <description>
+	///          <para>
+	///          <see cref="NetSendAppender.Server"/> = &lt;name of a domain controller | uninitialized&gt;
+	///          </para>
+	///          <para>
+	///          <see cref="NetSendAppender.Recipient"/> = &lt;user name&gt;
+	///          </para>
+	///      </description>
+	///  </item>
+	///  <item>
+	///      <term>Send a message to all the names in a workgroup or domain</term>
+	///      <description>
+	///          <para>
+	///          <see cref="NetSendAppender.Recipient"/> = &lt;workgroup name | domain name&gt;*
+	///          </para>
+	///      </description>
+	///  </item>
+	///  <item>
+	///      <term>Send a message from the local machine to a remote machine</term>
+	///      <description>
+	///          <para>
+	///          <see cref="NetSendAppender.Server"/> = &lt;name of the local machine | uninitialized&gt;
+	///          </para>
+	///          <para>
+	///          <see cref="NetSendAppender.Recipient"/> = &lt;name of the remote machine&gt;
+	///          </para>
+	///      </description>
+	///  </item>
 	/// </list>
 	/// </para>
 	/// <para>
@@ -132,9 +132,9 @@ namespace log4net.Appender
 	/// </para>
 	/// <code lang="XML" escaped="true">
 	/// <appender name="NetSendAppender_Operator" type="log4net.Appender.NetSendAppender">
-	///     <server value="LOCAL_PC" />
-	///     <recipient value="OPERATOR_PC" />
-	///     <layout type="log4net.Layout.PatternLayout" value="%-5p %c [%x] - %m%n" />
+	///  <server value="LOCAL_PC" />
+	///  <recipient value="OPERATOR_PC" />
+	///  <layout type="log4net.Layout.PatternLayout" value="%-5p %c [%x] - %m%n" />
 	/// </appender>
 	/// </code>
 	/// </example>
@@ -367,35 +367,35 @@ namespace log4net.Appender
 		/// </para>
 		/// <para>
 		/// <list type="table">
-		///     <listheader>
-		///         <term>Platform</term>
-		///         <description>Requirements</description>
-		///     </listheader>
-		///     <item>
-		///         <term>Windows NT</term>
-		///         <description>
-		///             <para>
-		///             No special group membership is required to send a network message.
-		///             </para>
-		///             <para>
-		///             Admin, Accounts, Print, or Server Operator group membership is required to 
-		///             successfully send a network message on a remote server.
-		///             </para>
-		///         </description>
-		///     </item>
-		///     <item>
-		///         <term>Windows 2000 or later</term>
-		///         <description>
-		///             <para>
-		///             If you send a message on a domain controller that is running Active Directory, 
-		///             access is allowed or denied based on the access control list (ACL) for the securable 
-		///             object. The default ACL permits only Domain Admins and Account Operators to send a network message. 
-		///             </para>
-		///             <para>
-		///             On a member server or workstation, only Administrators and Server Operators can send a network message. 
-		///             </para>
-		///         </description>
-		///     </item>
+		///  <listheader>
+		///      <term>Platform</term>
+		///      <description>Requirements</description>
+		///  </listheader>
+		///  <item>
+		///      <term>Windows NT</term>
+		///      <description>
+		///          <para>
+		///          No special group membership is required to send a network message.
+		///          </para>
+		///          <para>
+		///          Admin, Accounts, Print, or Server Operator group membership is required to 
+		///          successfully send a network message on a remote server.
+		///          </para>
+		///      </description>
+		///  </item>
+		///  <item>
+		///      <term>Windows 2000 or later</term>
+		///      <description>
+		///          <para>
+		///          If you send a message on a domain controller that is running Active Directory, 
+		///          access is allowed or denied based on the access control list (ACL) for the securable 
+		///          object. The default ACL permits only Domain Admins and Account Operators to send a network message. 
+		///          </para>
+		///          <para>
+		///          On a member server or workstation, only Administrators and Server Operators can send a network message. 
+		///          </para>
+		///      </description>
+		///  </item>
 		/// </list>
 		/// </para>
 		/// <para>

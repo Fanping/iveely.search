@@ -21,7 +21,7 @@ using System;
 namespace Iveely.Framework.Text.Segment
 {
     /// <summary>
-    ///   观察序列
+    /// 观察序列
     /// </summary>
     [Serializable]
     public class Observed : Sequence

@@ -27,9 +27,9 @@ namespace HtmlAgilityPack
 
         #region Properties
 
-        ///<summary>
+        /// <summary>
         /// Gets the Document
-        ///</summary>
+        /// </summary>
         public MixedCodeDocument Doc
         {
             get { return _doc; }

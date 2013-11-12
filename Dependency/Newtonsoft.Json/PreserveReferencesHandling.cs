@@ -34,7 +34,7 @@ namespace Newtonsoft.Json
   /// Note that references cannot be preserved when a value is set via a non-default constructor such as types that implement ISerializable.
   /// </summary>
   /// <example>
-  ///   <code lang="cs" source="..\Src\Newtonsoft.Json.Tests\Documentation\SerializationTests.cs" region="PreservingObjectReferencesOn" title="Preserve Object References" />       
+  /// <code lang="cs" source="..\Src\Newtonsoft.Json.Tests\Documentation\SerializationTests.cs" region="PreservingObjectReferencesOn" title="Preserve Object References" />       
   /// </example>
   [Flags]
   public enum PreserveReferencesHandling

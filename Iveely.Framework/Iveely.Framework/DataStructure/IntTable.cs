@@ -17,8 +17,8 @@ using System.Threading.Tasks;
 namespace Iveely.Framework.DataStructure
 {
     /// <summary>
-    ///   Int类型哈希表
-    ///   主要用于Key存储关键字，对值有累加操作的哈希表
+    /// Int类型哈希表
+    /// 主要用于Key存储关键字，对值有累加操作的哈希表
     /// </summary>
     [Serializable]
     public class IntTable<TKey, TValue> : Hashtable
@@ -35,7 +35,7 @@ namespace Iveely.Framework.DataStructure
         }
 
         /// <summary>
-        ///   添加关键字
+        /// 添加关键字
         /// </summary>
         /// <param name="key"> 关键字 </param>
         /// <param name="value"> 值（遇到重复值，则累加） </param>
@@ -52,9 +52,9 @@ namespace Iveely.Framework.DataStructure
         }
 
         /// <summary>
-        ///   批量插入值
+        /// 批量插入值
         /// </summary>
-        ///// <param name="keys">关键字数组</param>
+        /// // <param name="keys">关键字数组</param>
         public void Add(TKey[] keys)
         {
             foreach (TKey key in keys)
@@ -68,7 +68,7 @@ namespace Iveely.Framework.DataStructure
         #region 私有方法
 
         /// <summary>
-        ///   泛型数据类型转换
+        /// 泛型数据类型转换
         /// </summary>
         /// <param name="value"> 传入需要转换的值 </param>
         /// <param name="defaultValue"> 默认值 </param>
@@ -79,7 +79,7 @@ namespace Iveely.Framework.DataStructure
         }
 
         /// <summary>
-        ///   泛型相加
+        /// 泛型相加
         /// </summary>
         /// <param name="num1"> </param>
         /// <param name="num2"> </param>

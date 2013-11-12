@@ -70,12 +70,12 @@ namespace log4net.Appender
 	/// An example of a SQL Server table that could be logged to:
 	/// <code lang="SQL">
 	/// CREATE TABLE [dbo].[Log] ( 
-	///   [ID] [int] IDENTITY (1, 1) NOT NULL ,
-	///   [Date] [datetime] NOT NULL ,
-	///   [Thread] [varchar] (255) NOT NULL ,
-	///   [Level] [varchar] (20) NOT NULL ,
-	///   [Logger] [varchar] (255) NOT NULL ,
-	///   [Message] [varchar] (4000) NOT NULL 
+	/// [ID] [int] IDENTITY (1, 1) NOT NULL ,
+	/// [Date] [datetime] NOT NULL ,
+	/// [Thread] [varchar] (255) NOT NULL ,
+	/// [Level] [varchar] (20) NOT NULL ,
+	/// [Logger] [varchar] (255) NOT NULL ,
+	/// [Message] [varchar] (4000) NOT NULL 
 	/// ) ON [PRIMARY]
 	/// </code>
 	/// </example>
@@ -83,38 +83,38 @@ namespace log4net.Appender
 	/// An example configuration to log to the above table:
 	/// <code lang="XML" escaped="true">
 	/// <appender name="AdoNetAppender_SqlServer" type="log4net.Appender.AdoNetAppender" >
-	///   <connectionType value="System.Data.SqlClient.SqlConnection, System.Data, Version=1.0.3300.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-	///   <connectionString value="data source=SQLSVR;initial catalog=test_log4net;integrated security=false;persist security info=True;User ID=sa;Password=sa" />
-	///   <commandText value="INSERT INTO Log ([Date],[Thread],[Level],[Logger],[Message]) VALUES (@log_date, @thread, @log_level, @logger, @message)" />
-	///   <parameter>
-	///     <parameterName value="@log_date" />
-	///     <dbType value="DateTime" />
-	///     <layout type="log4net.Layout.PatternLayout" value="%date{yyyy'-'MM'-'dd HH':'mm':'ss'.'fff}" />
-	///   </parameter>
-	///   <parameter>
-	///     <parameterName value="@thread" />
-	///     <dbType value="String" />
-	///     <size value="255" />
-	///     <layout type="log4net.Layout.PatternLayout" value="%thread" />
-	///   </parameter>
-	///   <parameter>
-	///     <parameterName value="@log_level" />
-	///     <dbType value="String" />
-	///     <size value="50" />
-	///     <layout type="log4net.Layout.PatternLayout" value="%level" />
-	///   </parameter>
-	///   <parameter>
-	///     <parameterName value="@logger" />
-	///     <dbType value="String" />
-	///     <size value="255" />
-	///     <layout type="log4net.Layout.PatternLayout" value="%logger" />
-	///   </parameter>
-	///   <parameter>
-	///     <parameterName value="@message" />
-	///     <dbType value="String" />
-	///     <size value="4000" />
-	///     <layout type="log4net.Layout.PatternLayout" value="%message" />
-	///   </parameter>
+	/// <connectionType value="System.Data.SqlClient.SqlConnection, System.Data, Version=1.0.3300.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+	/// <connectionString value="data source=SQLSVR;initial catalog=test_log4net;integrated security=false;persist security info=True;User ID=sa;Password=sa" />
+	/// <commandText value="INSERT INTO Log ([Date],[Thread],[Level],[Logger],[Message]) VALUES (@log_date, @thread, @log_level, @logger, @message)" />
+	/// <parameter>
+	///  <parameterName value="@log_date" />
+	///  <dbType value="DateTime" />
+	///  <layout type="log4net.Layout.PatternLayout" value="%date{yyyy'-'MM'-'dd HH':'mm':'ss'.'fff}" />
+	/// </parameter>
+	/// <parameter>
+	///  <parameterName value="@thread" />
+	///  <dbType value="String" />
+	///  <size value="255" />
+	///  <layout type="log4net.Layout.PatternLayout" value="%thread" />
+	/// </parameter>
+	/// <parameter>
+	///  <parameterName value="@log_level" />
+	///  <dbType value="String" />
+	///  <size value="50" />
+	///  <layout type="log4net.Layout.PatternLayout" value="%level" />
+	/// </parameter>
+	/// <parameter>
+	///  <parameterName value="@logger" />
+	///  <dbType value="String" />
+	///  <size value="255" />
+	///  <layout type="log4net.Layout.PatternLayout" value="%logger" />
+	/// </parameter>
+	/// <parameter>
+	///  <parameterName value="@message" />
+	///  <dbType value="String" />
+	///  <size value="4000" />
+	///  <layout type="log4net.Layout.PatternLayout" value="%message" />
+	/// </parameter>
 	/// </appender>
 	/// </code>
 	/// </example>

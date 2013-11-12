@@ -21,7 +21,7 @@ using System;
 namespace Iveely.Framework.Text.Segment
 {
     /// <summary>
-    ///   混淆矩阵
+    /// 混淆矩阵
     /// </summary>
     [Serializable]
     public class Complex : Matrix

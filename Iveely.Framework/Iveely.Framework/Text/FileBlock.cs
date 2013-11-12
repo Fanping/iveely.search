@@ -18,12 +18,13 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Iveely.Framework.Text
 {
-#if DEBUG
-    [TestClass]
-#endif
+
     /// <summary>
     /// 文件块操作
     /// </summary>
+#if DEBUG
+    [TestClass]
+#endif
     public class FileBlock
     {
         /// <summary>
@@ -109,7 +110,11 @@ namespace Iveely.Framework.Text
             }
         }
 
-
+        /// <summary>
+        /// 合并数据
+        /// </summary>
+        /// <param name="folder">数据存放的目录</param>
+        /// <param name="fileName">合并后的文件名</param>
         public static void Merge(string folder, string fileName)
         {
             string[] fileArray = Directory.GetFiles(folder);

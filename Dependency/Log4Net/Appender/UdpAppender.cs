@@ -57,18 +57,18 @@ namespace log4net.Appender
 	/// 
 	/// try 
 	/// {
-	///     udpClient = new UdpClient(8080);
-	///     
-	///     while(true) 
-	///     {
-	///         buffer = udpClient.Receive(ref remoteEndPoint);
-	///         loggingEvent = System.Text.Encoding.Unicode.GetString(buffer);
-	///         Console.WriteLine(loggingEvent);
-	///     }
+	///  udpClient = new UdpClient(8080);
+	///  
+	///  while(true) 
+	///  {
+	///      buffer = udpClient.Receive(ref remoteEndPoint);
+	///      loggingEvent = System.Text.Encoding.Unicode.GetString(buffer);
+	///      Console.WriteLine(loggingEvent);
+	///  }
 	/// } 
 	/// catch(Exception e) 
 	/// {
-	///     Console.WriteLine(e.ToString());
+	///  Console.WriteLine(e.ToString());
 	/// }
 	/// </code>
 	/// <code lang="Visual Basic">
@@ -78,16 +78,16 @@ namespace log4net.Appender
 	/// Dim loggingEvent as String
 	/// 
 	/// Try 
-	///     remoteEndPoint = new IPEndPoint(IPAddress.Any, 0)
-	///     udpClient = new UdpClient(8080)
-	///
-	///     While True
-	///         buffer = udpClient.Receive(ByRef remoteEndPoint)
-	///         loggingEvent = System.Text.Encoding.Unicode.GetString(buffer)
-	///         Console.WriteLine(loggingEvent)
-	///     Wend
+	///  remoteEndPoint = new IPEndPoint(IPAddress.Any, 0)
+	///  udpClient = new UdpClient(8080)
+	/// 
+	///  While True
+	///      buffer = udpClient.Receive(ByRef remoteEndPoint)
+	///      loggingEvent = System.Text.Encoding.Unicode.GetString(buffer)
+	///      Console.WriteLine(loggingEvent)
+	///  Wend
 	/// Catch e As Exception
-	///     Console.WriteLine(e.ToString())
+	///  Console.WriteLine(e.ToString())
 	/// End Try
 	/// </code>
 	/// <para>
@@ -96,9 +96,9 @@ namespace log4net.Appender
 	/// </para>
 	/// <code lang="XML" escaped="true">
 	/// <appender name="UdpAppender" type="log4net.Appender.UdpAppender">
-	///     <remoteAddress value="224.0.0.1" />
-	///     <remotePort value="8080" />
-	///     <layout type="log4net.Layout.PatternLayout" value="%-5level %logger [%ndc] - %message%newline" />
+	///  <remoteAddress value="224.0.0.1" />
+	///  <remotePort value="8080" />
+	///  <layout type="log4net.Layout.PatternLayout" value="%-5level %logger [%ndc] - %message%newline" />
 	/// </appender>
 	/// </code>
 	/// </example>
@@ -148,34 +148,34 @@ namespace log4net.Appender
 		/// </para>
 		/// <para>
 		/// <list type="table">
-		///     <listheader>
-		///         <term>IP Address</term>
-		///         <description>Description</description>
-		///     </listheader>
-		///     <item>
-		///         <term>224.0.0.1</term>
-		///         <description>
-		///             <para>
-		///             Sends a message to all system on the subnet.
-		///             </para>
-		///         </description>
-		///     </item>
-		///     <item>
-		///         <term>224.0.0.2</term>
-		///         <description>
-		///             <para>
-		///             Sends a message to all routers on the subnet.
-		///             </para>
-		///         </description>
-		///     </item>
-		///     <item>
-		///         <term>224.0.0.12</term>
-		///         <description>
-		///             <para>
-		///             The DHCP server answers messages on the IP address 224.0.0.12, but only on a subnet.
-		///             </para>
-		///         </description>
-		///     </item>
+		///  <listheader>
+		///      <term>IP Address</term>
+		///      <description>Description</description>
+		///  </listheader>
+		///  <item>
+		///      <term>224.0.0.1</term>
+		///      <description>
+		///          <para>
+		///          Sends a message to all system on the subnet.
+		///          </para>
+		///      </description>
+		///  </item>
+		///  <item>
+		///      <term>224.0.0.2</term>
+		///      <description>
+		///          <para>
+		///          Sends a message to all routers on the subnet.
+		///          </para>
+		///      </description>
+		///  </item>
+		///  <item>
+		///      <term>224.0.0.12</term>
+		///      <description>
+		///          <para>
+		///          The DHCP server answers messages on the IP address 224.0.0.12, but only on a subnet.
+		///          </para>
+		///      </description>
+		///  </item>
 		/// </list>
 		/// </para>
 		/// <para>

@@ -19,7 +19,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace Iveely.Framework.Algorithm
 {
     /// <summary>
-    ///   倒排索引建立
+    /// 倒排索引建立
     /// </summary>
 
 #if DEBUG

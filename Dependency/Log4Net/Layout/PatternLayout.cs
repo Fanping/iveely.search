@@ -88,84 +88,84 @@ namespace log4net.Layout
 	/// The recognized conversion pattern names are:
 	/// </para>
 	/// <list type="table">
-	///     <listheader>
-	///         <term>Conversion Pattern Name</term>
-	///         <description>Effect</description>
-	///     </listheader>
-	///     <item>
-	///         <term>a</term>
-	///         <description>Equivalent to <b>appdomain</b></description>
-	///     </item>
-	///     <item>
-	///         <term>appdomain</term>
-	///         <description>
-	///				Used to output the friendly name of the AppDomain where the 
-	///				logging event was generated. 
-	///         </description>
-	///     </item>
-	///     <item>
-	///         <term>aspnet-cache</term>
-	///         <description>
-    ///             <para>
-    ///             Used to output all cache items in the case of <b>%aspnet-cache</b> or just one named item if used as <b>%aspnet-cache{key}</b>
-    ///             </para>
-    ///             <para>
-    ///             This pattern is not available for Compact Framework or Client Profile assemblies.
-    ///             </para>
-	///         </description>
-	///     </item>
-	///     <item>
-	///         <term>aspnet-context</term>
-	///         <description>
-    ///             <para>
-    ///             Used to output all context items in the case of <b>%aspnet-context</b> or just one named item if used as <b>%aspnet-context{key}</b>
-    ///             </para>
-    ///             <para>
-    ///             This pattern is not available for Compact Framework or Client Profile assemblies.
-    ///             </para>
-    ///         </description>
-	///     </item>
-	///     <item>
-	///         <term>aspnet-request</term>
-	///         <description>
-    ///             <para>
-    ///             Used to output all request parameters in the case of <b>%aspnet-request</b> or just one named param if used as <b>%aspnet-request{key}</b>
-    ///             </para>
-    ///             <para>
-    ///             This pattern is not available for Compact Framework or Client Profile assemblies.
-    ///             </para>
-    ///         </description>
-	///     </item>
-	///     <item>
-	///         <term>aspnet-session</term>
-	///         <description>
-    ///             <para>
-    ///             Used to output all session items in the case of <b>%aspnet-session</b> or just one named item if used as <b>%aspnet-session{key}</b>
-    ///             </para>
-    ///             <para>
-    ///             This pattern is not available for Compact Framework or Client Profile assemblies.
-    ///             </para>
-    ///         </description>
-	///     </item>
-	///     <item>
-	///         <term>c</term>
-	///         <description>Equivalent to <b>logger</b></description>
-	///     </item>
-	///     <item>
-	///         <term>C</term>
-	///         <description>Equivalent to <b>type</b></description>
-	///     </item>
-	///     <item>
-	///         <term>class</term>
-	///         <description>Equivalent to <b>type</b></description>
-	///     </item>
-	///     <item>
-	///         <term>d</term>
-	///         <description>Equivalent to <b>date</b></description>
-	///     </item>
-	///     <item>
-	///			<term>date</term> 
-	///			<description>
+	///  <listheader>
+	///      <term>Conversion Pattern Name</term>
+	///      <description>Effect</description>
+	///  </listheader>
+	///  <item>
+	///      <term>a</term>
+	///      <description>Equivalent to <b>appdomain</b></description>
+	///  </item>
+	///  <item>
+	///      <term>appdomain</term>
+	///      <description>
+	/// 				Used to output the friendly name of the AppDomain where the 
+	/// 				logging event was generated. 
+	///      </description>
+	///  </item>
+	///  <item>
+	///      <term>aspnet-cache</term>
+	///      <description>
+    ///          <para>
+    ///          Used to output all cache items in the case of <b>%aspnet-cache</b> or just one named item if used as <b>%aspnet-cache{key}</b>
+    ///          </para>
+    ///          <para>
+    ///          This pattern is not available for Compact Framework or Client Profile assemblies.
+    ///          </para>
+	///      </description>
+	///  </item>
+	///  <item>
+	///      <term>aspnet-context</term>
+	///      <description>
+    ///          <para>
+    ///          Used to output all context items in the case of <b>%aspnet-context</b> or just one named item if used as <b>%aspnet-context{key}</b>
+    ///          </para>
+    ///          <para>
+    ///          This pattern is not available for Compact Framework or Client Profile assemblies.
+    ///          </para>
+    ///      </description>
+	///  </item>
+	///  <item>
+	///      <term>aspnet-request</term>
+	///      <description>
+    ///          <para>
+    ///          Used to output all request parameters in the case of <b>%aspnet-request</b> or just one named param if used as <b>%aspnet-request{key}</b>
+    ///          </para>
+    ///          <para>
+    ///          This pattern is not available for Compact Framework or Client Profile assemblies.
+    ///          </para>
+    ///      </description>
+	///  </item>
+	///  <item>
+	///      <term>aspnet-session</term>
+	///      <description>
+    ///          <para>
+    ///          Used to output all session items in the case of <b>%aspnet-session</b> or just one named item if used as <b>%aspnet-session{key}</b>
+    ///          </para>
+    ///          <para>
+    ///          This pattern is not available for Compact Framework or Client Profile assemblies.
+    ///          </para>
+    ///      </description>
+	///  </item>
+	///  <item>
+	///      <term>c</term>
+	///      <description>Equivalent to <b>logger</b></description>
+	///  </item>
+	///  <item>
+	///      <term>C</term>
+	///      <description>Equivalent to <b>type</b></description>
+	///  </item>
+	///  <item>
+	///      <term>class</term>
+	///      <description>Equivalent to <b>type</b></description>
+	///  </item>
+	///  <item>
+	///      <term>d</term>
+	///      <description>Equivalent to <b>date</b></description>
+	///  </item>
+	///  <item>
+	/// 			<term>date</term> 
+	/// 			<description>
 	/// 			<para>
 	/// 			Used to output the date of the logging event in the local time zone. 
 	/// 			To output the date in universal time use the <c>%utcdate</c> pattern.
@@ -193,15 +193,15 @@ namespace log4net.Layout
 	/// 			These dedicated date formatters perform significantly
 	/// 			better than <see cref="DateTime.ToString(string)"/>.
 	/// 			</para>
-	///			</description>
-	///		</item>
-	///		<item>
-	///			<term>exception</term>
-	///			<description>
-	///				<para>
-	///				Used to output the exception passed in with the log message.
-	///				</para>
-	///				<para>
+	/// 			</description>
+	/// 		</item>
+	/// 		<item>
+	/// 			<term>exception</term>
+	/// 			<description>
+	/// 				<para>
+	/// 				Used to output the exception passed in with the log message.
+	/// 				</para>
+	/// 				<para>
 	/// 			If an exception object is stored in the logging event
 	/// 			it will be rendered into the pattern output with a
 	/// 			trailing newline.
@@ -209,55 +209,55 @@ namespace log4net.Layout
 	/// 			and no trailing newline will be appended.
 	/// 			It is typical to put a newline before the exception
 	/// 			and to have the exception as the last data in the pattern.
-	///				</para>
-	///			</description>
-	///		</item>
-	///     <item>
-	///         <term>F</term>
-	///         <description>Equivalent to <b>file</b></description>
-	///     </item>
-	///		<item>
-	///			<term>file</term>
-	///			<description>
-	///				<para>
-	///				Used to output the file name where the logging request was
-	///				issued.
-	///				</para>
-	///				<para>
-	///				<b>WARNING</b> Generating caller location information is
-	///				extremely slow. Its use should be avoided unless execution speed
-	///				is not an issue.
-	///				</para>
+	/// 				</para>
+	/// 			</description>
+	/// 		</item>
+	///  <item>
+	///      <term>F</term>
+	///      <description>Equivalent to <b>file</b></description>
+	///  </item>
+	/// 		<item>
+	/// 			<term>file</term>
+	/// 			<description>
+	/// 				<para>
+	/// 				Used to output the file name where the logging request was
+	/// 				issued.
+	/// 				</para>
+	/// 				<para>
+	/// 				<b>WARNING</b> Generating caller location information is
+	/// 				extremely slow. Its use should be avoided unless execution speed
+	/// 				is not an issue.
+	/// 				</para>
 	/// 			<para>
 	/// 			See the note below on the availability of caller location information.
 	/// 			</para>
-	///			</description>
-	///		</item>
-	///		<item>
-	///			<term>identity</term>
-	///			<description>
-	///				<para>
-	///				Used to output the user name for the currently active user
-	///				(Principal.Identity.Name).
-	///				</para>
-	///				<para>
-	///				<b>WARNING</b> Generating caller information is
-	///				extremely slow. Its use should be avoided unless execution speed
-	///				is not an issue.
-	///				</para>
-	///			</description>
-	///		</item>
-	///     <item>
-	///         <term>l</term>
-	///         <description>Equivalent to <b>location</b></description>
-	///     </item>
-	///     <item>
-	///         <term>L</term>
-	///         <description>Equivalent to <b>line</b></description>
-	///     </item>
-	///		<item>
-	///			<term>location</term>
-	///			<description>
+	/// 			</description>
+	/// 		</item>
+	/// 		<item>
+	/// 			<term>identity</term>
+	/// 			<description>
+	/// 				<para>
+	/// 				Used to output the user name for the currently active user
+	/// 				(Principal.Identity.Name).
+	/// 				</para>
+	/// 				<para>
+	/// 				<b>WARNING</b> Generating caller information is
+	/// 				extremely slow. Its use should be avoided unless execution speed
+	/// 				is not an issue.
+	/// 				</para>
+	/// 			</description>
+	/// 		</item>
+	///  <item>
+	///      <term>l</term>
+	///      <description>Equivalent to <b>location</b></description>
+	///  </item>
+	///  <item>
+	///      <term>L</term>
+	///      <description>Equivalent to <b>line</b></description>
+	///  </item>
+	/// 		<item>
+	/// 			<term>location</term>
+	/// 			<description>
 	/// 			<para>
 	/// 			Used to output location information of the caller which generated
 	/// 			the logging event.
@@ -276,42 +276,42 @@ namespace log4net.Layout
 	/// 			<para>
 	/// 			See the note below on the availability of caller location information.
 	/// 			</para>
-	///			</description>
-	///		</item>
-	///		<item>
-	///			<term>level</term>
-	///			<description>
+	/// 			</description>
+	/// 		</item>
+	/// 		<item>
+	/// 			<term>level</term>
+	/// 			<description>
 	/// 			<para>
 	/// 			Used to output the level of the logging event.
 	/// 			</para>
-	///			</description>
-	///		</item>
-	///		<item>
-	///			<term>line</term>
-	///			<description>
-	///				<para>
-	///				Used to output the line number from where the logging request
-	///				was issued.
-	///				</para>
-	///				<para>
-	///				<b>WARNING</b> Generating caller location information is
-	///				extremely slow. Its use should be avoided unless execution speed
-	///				is not an issue.
-	///				</para>
+	/// 			</description>
+	/// 		</item>
+	/// 		<item>
+	/// 			<term>line</term>
+	/// 			<description>
+	/// 				<para>
+	/// 				Used to output the line number from where the logging request
+	/// 				was issued.
+	/// 				</para>
+	/// 				<para>
+	/// 				<b>WARNING</b> Generating caller location information is
+	/// 				extremely slow. Its use should be avoided unless execution speed
+	/// 				is not an issue.
+	/// 				</para>
 	/// 			<para>
 	/// 			See the note below on the availability of caller location information.
 	/// 			</para>
-	///			</description>
-	///		</item>
-	///     <item>
-	///         <term>logger</term>
-	///         <description>
-	///             <para>
-	///				Used to output the logger of the logging event. The
+	/// 			</description>
+	/// 		</item>
+	///  <item>
+	///      <term>logger</term>
+	///      <description>
+	///          <para>
+	/// 				Used to output the logger of the logging event. The
 	/// 			logger conversion specifier can be optionally followed by
 	/// 			<i>precision specifier</i>, that is a decimal constant in
 	/// 			brackets.
-	///             </para>
+	///          </para>
 	/// 			<para>
 	/// 			If a precision specifier is given, then only the corresponding
 	/// 			number of right most components of the logger name will be
@@ -321,59 +321,59 @@ namespace log4net.Layout
 	/// 			For example, for the logger name "a.b.c" the pattern
 	/// 			<b>%logger{2}</b> will output "b.c".
 	/// 			</para>
-	///         </description>
-	///     </item>
-	///     <item>
-	///         <term>m</term>
-	///         <description>Equivalent to <b>message</b></description>
-	///     </item>
-	///     <item>
-	///         <term>M</term>
-	///         <description>Equivalent to <b>method</b></description>
-	///     </item>
-	///		<item>
-	///			<term>message</term>
-	///			<description>
+	///      </description>
+	///  </item>
+	///  <item>
+	///      <term>m</term>
+	///      <description>Equivalent to <b>message</b></description>
+	///  </item>
+	///  <item>
+	///      <term>M</term>
+	///      <description>Equivalent to <b>method</b></description>
+	///  </item>
+	/// 		<item>
+	/// 			<term>message</term>
+	/// 			<description>
 	/// 			<para>
 	/// 			Used to output the application supplied message associated with 
 	/// 			the logging event.
 	/// 			</para>
-	///			</description>
-	///		</item>
-	///		<item>
-	///			<term>mdc</term>
-	///			<description>
+	/// 			</description>
+	/// 		</item>
+	/// 		<item>
+	/// 			<term>mdc</term>
+	/// 			<description>
 	/// 			<para>
 	/// 			The MDC (old name for the ThreadContext.Properties) is now part of the
 	/// 			combined event properties. This pattern is supported for compatibility
 	/// 			but is equivalent to <b>property</b>.
 	/// 			</para>
-	///			</description>
-	///		</item>
-	///		<item>
-	///			<term>method</term>
-	///			<description>
-	///				<para>
-	///				Used to output the method name where the logging request was
-	///				issued.
-	///				</para>
-	///				<para>
-	///				<b>WARNING</b> Generating caller location information is
-	///				extremely slow. Its use should be avoided unless execution speed
-	///				is not an issue.
-	///				</para>
+	/// 			</description>
+	/// 		</item>
+	/// 		<item>
+	/// 			<term>method</term>
+	/// 			<description>
+	/// 				<para>
+	/// 				Used to output the method name where the logging request was
+	/// 				issued.
+	/// 				</para>
+	/// 				<para>
+	/// 				<b>WARNING</b> Generating caller location information is
+	/// 				extremely slow. Its use should be avoided unless execution speed
+	/// 				is not an issue.
+	/// 				</para>
 	/// 			<para>
 	/// 			See the note below on the availability of caller location information.
 	/// 			</para>
-	///			</description>
-	///		</item>
-	///     <item>
-	///         <term>n</term>
-	///         <description>Equivalent to <b>newline</b></description>
-	///     </item>
-	///		<item>
-	///			<term>newline</term>
-	///			<description>
+	/// 			</description>
+	/// 		</item>
+	///  <item>
+	///      <term>n</term>
+	///      <description>Equivalent to <b>newline</b></description>
+	///  </item>
+	/// 		<item>
+	/// 			<term>newline</term>
+	/// 			<description>
 	/// 			<para>
 	/// 			Outputs the platform dependent line separator character or
 	/// 			characters.
@@ -383,32 +383,32 @@ namespace log4net.Layout
 	/// 			non-portable line separator strings such as	"\n", or "\r\n". 
 	/// 			Thus, it is the preferred way of specifying a line separator.
 	/// 			</para> 
-	///			</description>
-	///		</item>
-	///		<item>
-	///			<term>ndc</term>
-	///			<description>
+	/// 			</description>
+	/// 		</item>
+	/// 		<item>
+	/// 			<term>ndc</term>
+	/// 			<description>
 	/// 			<para>
 	/// 			Used to output the NDC (nested diagnostic context) associated
 	/// 			with the thread that generated the logging event.
 	/// 			</para>
-	///			</description>
-	///		</item>
-	///     <item>
-	///         <term>p</term>
-	///         <description>Equivalent to <b>level</b></description>
-	///     </item>
-	///     <item>
-	///         <term>P</term>
-	///         <description>Equivalent to <b>property</b></description>
-	///     </item>
-	///     <item>
-	///         <term>properties</term>
-	///         <description>Equivalent to <b>property</b></description>
-	///     </item>
-	///		<item>
-	///			<term>property</term>
-	///			<description>
+	/// 			</description>
+	/// 		</item>
+	///  <item>
+	///      <term>p</term>
+	///      <description>Equivalent to <b>level</b></description>
+	///  </item>
+	///  <item>
+	///      <term>P</term>
+	///      <description>Equivalent to <b>property</b></description>
+	///  </item>
+	///  <item>
+	///      <term>properties</term>
+	///      <description>Equivalent to <b>property</b></description>
+	///  </item>
+	/// 		<item>
+	/// 			<term>property</term>
+	/// 			<description>
 	/// 			<para>
 	/// 			Used to output the an event specific property. The key to 
 	/// 			lookup must be specified within braces and directly following the
@@ -451,15 +451,15 @@ namespace log4net.Layout
 	/// 				</item>
 	/// 			</list>
 	/// 			
-	///			</description>
-	///		</item>
-	///     <item>
-	///         <term>r</term>
-	///         <description>Equivalent to <b>timestamp</b></description>
-	///     </item>
+	/// 			</description>
+	/// 		</item>
+	///  <item>
+	///      <term>r</term>
+	///      <description>Equivalent to <b>timestamp</b></description>
+	///  </item>
 	/// 	<item>
-	///			<term>stacktrace</term> 
-	///			<description>
+	/// 			<term>stacktrace</term> 
+	/// 			<description>
 	/// 			<para>
 	/// 			Used to output the stack trace of the logging event
 	/// 			The stack trace level specifier may be enclosed 
@@ -470,14 +470,14 @@ namespace log4net.Layout
     /// 			Output uses the format:
     /// 			type3.MethodCall3 > type2.MethodCall2 > type1.MethodCall1
     /// 			</para>
-    ///             <para>
-    ///             This pattern is not available for Compact Framework assemblies.
-    ///             </para>
-    ///			</description>
-	///		</item>
+    ///          <para>
+    ///          This pattern is not available for Compact Framework assemblies.
+    ///          </para>
+    /// 			</description>
+	/// 		</item>
     /// 	<item>
-    ///			<term>stacktracedetail</term> 
-    ///			<description>
+    /// 			<term>stacktracedetail</term> 
+    /// 			<description>
     /// 			<para>
     /// 			Used to output the stack trace of the logging event
     /// 			The stack trace level specifier may be enclosed 
@@ -486,38 +486,38 @@ namespace log4net.Layout
     /// 			</para>
     /// 			<para>
     /// 			Output uses the format:
-    ///             type3.MethodCall3(type param,...) > type2.MethodCall2(type param,...) > type1.MethodCall1(type param,...)
+    ///          type3.MethodCall3(type param,...) > type2.MethodCall2(type param,...) > type1.MethodCall1(type param,...)
     /// 			</para>
-    ///             <para>
-    ///             This pattern is not available for Compact Framework assemblies.
-    ///             </para>
-    ///			</description>
-    ///		</item>
-    ///     <item>
-	///         <term>t</term>
-	///         <description>Equivalent to <b>thread</b></description>
-	///     </item>
-	///		<item>
-	///			<term>timestamp</term>
-	///			<description>
+    ///          <para>
+    ///          This pattern is not available for Compact Framework assemblies.
+    ///          </para>
+    /// 			</description>
+    /// 		</item>
+    ///  <item>
+	///      <term>t</term>
+	///      <description>Equivalent to <b>thread</b></description>
+	///  </item>
+	/// 		<item>
+	/// 			<term>timestamp</term>
+	/// 			<description>
 	/// 			<para>
 	/// 			Used to output the number of milliseconds elapsed since the start
 	/// 			of the application until the creation of the logging event.
 	/// 			</para>
-	///			</description>
-	///		</item>
-	///		<item>
-	///			<term>thread</term>
-	///			<description>
+	/// 			</description>
+	/// 		</item>
+	/// 		<item>
+	/// 			<term>thread</term>
+	/// 			<description>
 	/// 			<para>
 	/// 			Used to output the name of the thread that generated the
 	/// 			logging event. Uses the thread number if no name is available.
 	/// 			</para>
-	///			</description>
-	///		</item>
-	///     <item>
-	///			<term>type</term> 
-	///			<description>
+	/// 			</description>
+	/// 		</item>
+	///  <item>
+	/// 			<term>type</term> 
+	/// 			<description>
 	/// 			<para>
 	/// 			Used to output the fully qualified type name of the caller
 	/// 			issuing the logging request. This conversion specifier
@@ -541,29 +541,29 @@ namespace log4net.Layout
 	/// 			<para>
 	/// 			See the note below on the availability of caller location information.
 	/// 			</para>
-	///			</description>
-	///     </item>
-	///     <item>
-	///         <term>u</term>
-	///         <description>Equivalent to <b>identity</b></description>
-	///     </item>
-	///		<item>
-	///			<term>username</term>
-	///			<description>
-	///				<para>
-	///				Used to output the WindowsIdentity for the currently
-	///				active user.
-	///				</para>
-	///				<para>
-	///				<b>WARNING</b> Generating caller WindowsIdentity information is
-	///				extremely slow. Its use should be avoided unless execution speed
-	///				is not an issue.
-	///				</para>
-	///			</description>
-	///		</item>
-	///     <item>
-	///			<term>utcdate</term> 
-	///			<description>
+	/// 			</description>
+	///  </item>
+	///  <item>
+	///      <term>u</term>
+	///      <description>Equivalent to <b>identity</b></description>
+	///  </item>
+	/// 		<item>
+	/// 			<term>username</term>
+	/// 			<description>
+	/// 				<para>
+	/// 				Used to output the WindowsIdentity for the currently
+	/// 				active user.
+	/// 				</para>
+	/// 				<para>
+	/// 				<b>WARNING</b> Generating caller WindowsIdentity information is
+	/// 				extremely slow. Its use should be avoided unless execution speed
+	/// 				is not an issue.
+	/// 				</para>
+	/// 			</description>
+	/// 		</item>
+	///  <item>
+	/// 			<term>utcdate</term> 
+	/// 			<description>
 	/// 			<para>
 	/// 			Used to output the date of the logging event in universal time. 
 	/// 			The date conversion 
@@ -590,28 +590,28 @@ namespace log4net.Layout
 	/// 			These dedicated date formatters perform significantly
 	/// 			better than <see cref="DateTime.ToString(string)"/>.
 	/// 			</para>
-	///			</description>
-	///		</item>
-	///     <item>
-	///         <term>w</term>
-	///         <description>Equivalent to <b>username</b></description>
-	///     </item>
-	///     <item>
-	///         <term>x</term>
-	///         <description>Equivalent to <b>ndc</b></description>
-	///     </item>
-	///     <item>
-	///         <term>X</term>
-	///         <description>Equivalent to <b>mdc</b></description>
-	///     </item>
-	///		<item>
-	///			<term>%</term>
-	///			<description>
+	/// 			</description>
+	/// 		</item>
+	///  <item>
+	///      <term>w</term>
+	///      <description>Equivalent to <b>username</b></description>
+	///  </item>
+	///  <item>
+	///      <term>x</term>
+	///      <description>Equivalent to <b>ndc</b></description>
+	///  </item>
+	///  <item>
+	///      <term>X</term>
+	///      <description>Equivalent to <b>mdc</b></description>
+	///  </item>
+	/// 		<item>
+	/// 			<term>%</term>
+	/// 			<description>
 	/// 			<para>
 	/// 			The sequence %% outputs a single percent sign.
 	/// 			</para>
-	///			</description>
-	///		</item>
+	/// 			</description>
+	/// 		</item>
 	/// </list>
 	/// <para>
 	/// The single letter patterns are deprecated in favor of the 
@@ -655,82 +655,82 @@ namespace log4net.Layout
 	/// conversion specifier.
 	/// </para>
 	/// <div class="tablediv">
-	///		<table class="dtTABLE" cellspacing="0">
-	///			<tr>
-	///				<th>Format modifier</th>
-	///				<th>left justify</th>
-	///				<th>minimum width</th>
-	///				<th>maximum width</th>
-	///				<th>comment</th>
-	///			</tr>
-	///			<tr>
-	///				<td align="center">%20logger</td>
-	///				<td align="center">false</td>
-	///				<td align="center">20</td>
-	///				<td align="center">none</td>
-	///				<td>
-	///					<para>
-	///					Left pad with spaces if the logger name is less than 20
-	///					characters long.
-	///					</para>
-	///				</td>
-	///			</tr>
-	///			<tr>
-	///				<td align="center">%-20logger</td>
-	///				<td align="center">true</td>
-	///				<td align="center">20</td>
-	///				<td align="center">none</td>
-	///				<td>
-	///					<para>
-	///					Right pad with spaces if the logger 
-	///					name is less than 20 characters long.
-	///					</para>
-	///				</td>
-	///			</tr>
-	///			<tr>
-	///				<td align="center">%.30logger</td>
-	///				<td align="center">NA</td>
-	///				<td align="center">none</td>
-	///				<td align="center">30</td>
-	///				<td>
-	///					<para>
-	///					Truncate from the beginning if the logger 
-	///					name is longer than 30 characters.
-	///					</para>
-	///				</td>
-	///			</tr>
-	///			<tr>
-	///				<td align="center"><nobr>%20.30logger</nobr></td>
-	///				<td align="center">false</td>
-	///				<td align="center">20</td>
-	///				<td align="center">30</td>
-	///				<td>
-	///					<para>
-	///					Left pad with spaces if the logger name is shorter than 20
-	///					characters. However, if logger name is longer than 30 characters,
-	///					then truncate from the beginning.
-	///					</para>
-	///				</td>
-	///			</tr>
-	///			<tr>
-	///				<td align="center">%-20.30logger</td>
-	///				<td align="center">true</td>
-	///				<td align="center">20</td>
-	///				<td align="center">30</td>
-	///				<td>
-	///					<para>
-	///					Right pad with spaces if the logger name is shorter than 20
-	///					characters. However, if logger name is longer than 30 characters,
-	///					then truncate from the beginning.
-	///					</para>
-	///				</td>
-	///			</tr>
-	///		</table>
-	///	</div>
-	///	<para>
-	///	<b>Note about caller location information.</b><br />
-	///	The following patterns <c>%type %file %line %method %location %class %C %F %L %l %M</c> 
-	///	all generate caller location information.
+	/// 		<table class="dtTABLE" cellspacing="0">
+	/// 			<tr>
+	/// 				<th>Format modifier</th>
+	/// 				<th>left justify</th>
+	/// 				<th>minimum width</th>
+	/// 				<th>maximum width</th>
+	/// 				<th>comment</th>
+	/// 			</tr>
+	/// 			<tr>
+	/// 				<td align="center">%20logger</td>
+	/// 				<td align="center">false</td>
+	/// 				<td align="center">20</td>
+	/// 				<td align="center">none</td>
+	/// 				<td>
+	/// 					<para>
+	/// 					Left pad with spaces if the logger name is less than 20
+	/// 					characters long.
+	/// 					</para>
+	/// 				</td>
+	/// 			</tr>
+	/// 			<tr>
+	/// 				<td align="center">%-20logger</td>
+	/// 				<td align="center">true</td>
+	/// 				<td align="center">20</td>
+	/// 				<td align="center">none</td>
+	/// 				<td>
+	/// 					<para>
+	/// 					Right pad with spaces if the logger 
+	/// 					name is less than 20 characters long.
+	/// 					</para>
+	/// 				</td>
+	/// 			</tr>
+	/// 			<tr>
+	/// 				<td align="center">%.30logger</td>
+	/// 				<td align="center">NA</td>
+	/// 				<td align="center">none</td>
+	/// 				<td align="center">30</td>
+	/// 				<td>
+	/// 					<para>
+	/// 					Truncate from the beginning if the logger 
+	/// 					name is longer than 30 characters.
+	/// 					</para>
+	/// 				</td>
+	/// 			</tr>
+	/// 			<tr>
+	/// 				<td align="center"><nobr>%20.30logger</nobr></td>
+	/// 				<td align="center">false</td>
+	/// 				<td align="center">20</td>
+	/// 				<td align="center">30</td>
+	/// 				<td>
+	/// 					<para>
+	/// 					Left pad with spaces if the logger name is shorter than 20
+	/// 					characters. However, if logger name is longer than 30 characters,
+	/// 					then truncate from the beginning.
+	/// 					</para>
+	/// 				</td>
+	/// 			</tr>
+	/// 			<tr>
+	/// 				<td align="center">%-20.30logger</td>
+	/// 				<td align="center">true</td>
+	/// 				<td align="center">20</td>
+	/// 				<td align="center">30</td>
+	/// 				<td>
+	/// 					<para>
+	/// 					Right pad with spaces if the logger name is shorter than 20
+	/// 					characters. However, if logger name is longer than 30 characters,
+	/// 					then truncate from the beginning.
+	/// 					</para>
+	/// 				</td>
+	/// 			</tr>
+	/// 		</table>
+	/// 	</div>
+	/// 	<para>
+	/// 	<b>Note about caller location information.</b><br />
+	/// 	The following patterns <c>%type %file %line %method %location %class %C %F %L %l %M</c> 
+	/// 	all generate caller location information.
 	/// Location information uses the <c>System.Diagnostics.StackTrace</c> class to generate
 	/// a call stack. The caller's information is then extracted from this stack.
 	/// </para>

@@ -277,8 +277,8 @@ namespace log4net.Config
 		/// complain. Set the type for the section handler to <see cref="System.Configuration.IgnoreSectionHandler"/>, for example:
 		/// <code lang="XML" escaped="true">
 		/// <configSections>
-		///		<section name="log4net" type="System.Configuration.IgnoreSectionHandler" />
-		///	</configSections>
+		/// 		<section name="log4net" type="System.Configuration.IgnoreSectionHandler" />
+		/// 	</configSections>
 		/// </code>
 		/// </para>
 		/// <example>
@@ -299,10 +299,10 @@ namespace log4net.Config
 		/// </para>
 		/// <code lang="XML" escaped="true">
 		/// <configuration>
-		///		<appSettings>
-		///			<add key="log4net-config-file" value="log.config"/>
-		///		</appSettings>
-		///	</configuration>
+		/// 		<appSettings>
+		/// 			<add key="log4net-config-file" value="log.config"/>
+		/// 		</appSettings>
+		/// 	</configuration>
 		/// </code>
 		/// </remarks>
 #else
@@ -334,10 +334,10 @@ namespace log4net.Config
 		/// </para>
 		/// <code lang="XML" escaped="true">
 		/// <configuration>
-		///		<appSettings>
-		///			<add key="log4net-config-file" value="log.config"/>
-		///		</appSettings>
-		///	</configuration>
+		/// 		<appSettings>
+		/// 			<add key="log4net-config-file" value="log.config"/>
+		/// 		</appSettings>
+		/// 	</configuration>
 		/// </code>
 		/// </remarks>
 #endif
@@ -439,8 +439,8 @@ namespace log4net.Config
         /// complain. Set the type for the section handler to <see cref="System.Configuration.IgnoreSectionHandler"/>, for example:
         /// <code lang="XML" escaped="true">
         /// <configSections>
-        ///		<section name="log4net" type="System.Configuration.IgnoreSectionHandler" />
-        ///	</configSections>
+        /// 		<section name="log4net" type="System.Configuration.IgnoreSectionHandler" />
+        /// 	</configSections>
         /// </code>
         /// </para>
         /// <example>
@@ -461,10 +461,10 @@ namespace log4net.Config
         /// </para>
         /// <code lang="XML" escaped="true">
         /// <configuration>
-        ///		<appSettings>
-        ///			<add key="log4net-config-file" value="log.config"/>
-        ///		</appSettings>
-        ///	</configuration>
+        /// 		<appSettings>
+        /// 			<add key="log4net-config-file" value="log.config"/>
+        /// 		</appSettings>
+        /// 	</configuration>
         /// </code>
         /// </remarks>
 #else
@@ -498,10 +498,10 @@ namespace log4net.Config
 		/// </para>
 		/// <code lang="XML" escaped="true">
 		/// <configuration>
-		///		<appSettings>
-		///			<add key="log4net-config-file" value="log.config"/>
-		///		</appSettings>
-		///	</configuration>
+		/// 		<appSettings>
+		/// 			<add key="log4net-config-file" value="log.config"/>
+		/// 		</appSettings>
+		/// 	</configuration>
 		/// </code>
 		/// </remarks>
 #endif

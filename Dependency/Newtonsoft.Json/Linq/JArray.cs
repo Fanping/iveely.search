@@ -35,7 +35,7 @@ namespace Newtonsoft.Json.Linq
   /// Represents a JSON array.
   /// </summary>
   /// <example>
-  ///   <code lang="cs" source="..\Src\Newtonsoft.Json.Tests\Documentation\LinqToJsonTests.cs" region="LinqToJsonCreateParseArray" title="Parsing a JSON Array from Text" />
+  /// <code lang="cs" source="..\Src\Newtonsoft.Json.Tests\Documentation\LinqToJsonTests.cs" region="LinqToJsonCreateParseArray" title="Parsing a JSON Array from Text" />
   /// </example>
   public class JArray : JContainer, IList<JToken>
   {
@@ -139,7 +139,7 @@ namespace Newtonsoft.Json.Linq
     /// <param name="json">A <see cref="String"/> that contains JSON.</param>
     /// <returns>A <see cref="JArray"/> populated from the string that contains JSON.</returns>
     /// <example>
-    ///   <code lang="cs" source="..\Src\Newtonsoft.Json.Tests\Documentation\LinqToJsonTests.cs" region="LinqToJsonCreateParseArray" title="Parsing a JSON Array from Text" />
+    /// <code lang="cs" source="..\Src\Newtonsoft.Json.Tests\Documentation\LinqToJsonTests.cs" region="LinqToJsonCreateParseArray" title="Parsing a JSON Array from Text" />
     /// </example>
     public static new JArray Parse(string json)
     {

@@ -806,18 +806,18 @@ namespace log4net.Core
 		/// Timing for these operations:
 		/// </para>
 		/// <list type="table">
-		///   <listheader>
-		///     <term>Method</term>
-		///     <description>Results</description>
-		///   </listheader>
-		///   <item>
-		///	    <term><c>WindowsIdentity.GetCurrent()</c></term>
-		///	    <description>10000 loops, 00:00:00.2031250 seconds</description>
-		///   </item>
-		///   <item>
-		///	    <term><c>WindowsIdentity.GetCurrent().Name</c></term>
-		///	    <description>10000 loops, 00:00:08.0468750 seconds</description>
-		///   </item>
+		/// <listheader>
+		///  <term>Method</term>
+		///  <description>Results</description>
+		/// </listheader>
+		/// <item>
+		/// 	    <term><c>WindowsIdentity.GetCurrent()</c></term>
+		/// 	    <description>10000 loops, 00:00:00.2031250 seconds</description>
+		/// </item>
+		/// <item>
+		/// 	    <term><c>WindowsIdentity.GetCurrent().Name</c></term>
+		/// 	    <description>10000 loops, 00:00:08.0468750 seconds</description>
+		/// </item>
 		/// </list>
 		/// <para>
 		/// This means we could speed things up almost 40 times by caching the 
@@ -1383,7 +1383,7 @@ namespace log4net.Core
 		/// This event has composite properties that combine together properties from
 		/// several different contexts in the following order:
 		/// <list type="definition">
-		///		<item>
+		/// 		<item>
 		/// 		<term>this events properties</term>
 		/// 		<description>
 		/// 		This event has <see cref="Properties"/> that can be set. These 

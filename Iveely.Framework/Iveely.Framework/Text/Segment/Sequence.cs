@@ -25,7 +25,7 @@ namespace Iveely.Framework.Text.Segment
     public class Sequence
     {
         /// <summary>
-        ///   序列
+        /// 序列
         /// </summary>
         public List<string> array { get; private set; }
 

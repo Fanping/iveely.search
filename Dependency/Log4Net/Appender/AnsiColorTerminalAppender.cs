@@ -61,7 +61,7 @@ namespace log4net.Appender
 	/// 	<level value="ERROR" />
 	/// 	<foreColor value="White" />
 	/// 	<backColor value="Red" />
-	///     <attributes value="Bright,Underscore" />
+	///  <attributes value="Bright,Underscore" />
 	/// </mapping>
 	/// <mapping>
 	/// 	<level value="DEBUG" />

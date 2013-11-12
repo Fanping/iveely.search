@@ -15,13 +15,13 @@ namespace Iveely.CloudComputing.Client
         /// <summary>
         /// 供提交客户端应用程序
         /// 格式：submit filepath namespace.classname appname
-        ///       split filepath remotepath(ex. split test.txt system/test.txt)
-        ///       split filepath remotepath splitstring key1 key2 key3...
-        ///       download remotepath filepath
-        ///       delete remotepath
-        ///       rename filepath newfileName
-        ///       list /folder
-        ///       exit
+        ///    split filepath remotepath(ex. split test.txt system/test.txt)
+        ///    split filepath remotepath splitstring key1 key2 key3...
+        ///    download remotepath filepath
+        ///    delete remotepath
+        ///    rename filepath newfileName
+        ///    list /folder
+        ///    exit
         /// </summary>
         /// <param name="args"></param>
         static void Main(string[] args)

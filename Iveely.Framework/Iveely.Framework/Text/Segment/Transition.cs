@@ -21,7 +21,7 @@ using System;
 namespace Iveely.Framework.Text.Segment
 {
     /// <summary>
-    ///   状态转移矩阵
+    /// 状态转移矩阵
     /// </summary>
     [Serializable]
     public class Transition : Matrix
