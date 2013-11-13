@@ -47,6 +47,7 @@
   <ItemGroup>
     <Compile Include="Application.cs" />
     <Compile Include="CodePacket.cs" />
+    <Compile Include="Example_Data_Sort.cs" />
     <Compile Include="Example_TestDeploy.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>

@@ -17,6 +17,7 @@ namespace Iveely.CloudComputing.MergerCommon
             Distinct,
             CombineTable,
             CombineList,
+            CombineSort,
             TopN
         }
 

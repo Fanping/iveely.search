@@ -50,7 +50,7 @@ namespace Iveely.CloudComputing.Example
 
             //3.归并所有结点处理结果
             WriteToConsole("local word frequency count:" + table.Keys.Count);
-            table = Mathematics.CombineTable(table, args);
+            table = Mathematics.CombineTable(table);
             WriteToConsole("global word frequency count:" + table.Keys.Count);
 
             //4.写入文件
