@@ -20,16 +20,15 @@ namespace Iveely.Framework.Algorithm
     /// </summary>
     public class QuickSort<T> where T : IComparable
     {
-        private readonly T[] _array;
+        private T[] _array;
 
-        public QuickSort(T[] array)
+        public T[] GetResult(T[] array)
         {
+            if (array == null)
+            {
+                return null;
+            }
             this._array = array;
-
-        }
-
-        public T[] GetResult()
-        {
             return Sort(this._array, 0, _array.Length - 1);
         }
 

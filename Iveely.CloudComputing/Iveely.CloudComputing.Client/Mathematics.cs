@@ -101,8 +101,8 @@ namespace Iveely.CloudComputing.Client
             Type type = typeof(T);
             if (type.Name == "int" || type.Name == "double" || type.Name == "float")
             {
-                QuickSort<T> quickSort = new QuickSort<T>(objects);
-                objects = quickSort.GetResult();
+                QuickSort<T> quickSort = new QuickSort<T>();
+                objects = quickSort.GetResult(objects);
                 MergePacket packet = new MergePacket(Serializer.SerializeToBytes(objects), MergePacket.MergeType.CombineSort,
                 Application.Parameters[4].ToString(), Application.Parameters[5].ToString());
                 packet.WaiteCallBack = true;
@@ -154,11 +154,14 @@ namespace Iveely.CloudComputing.Client
         public void Test_QuickSort()
         {
             int[] array = new[] { 3, 2, 4, -1 };
-            QuickSort<int> quickSort = new QuickSort<int>(array);
-            array = quickSort.GetResult();
+            QuickSort<int> quickSort = new QuickSort<int>();
+            array = quickSort.GetResult(array);
             Assert.AreEqual(array[1], 2);
             Assert.AreEqual(array[2], 3);
             Assert.AreEqual(array[3], 4);
+
+            array = quickSort.GetResult(null);
+            Assert.IsNull(array);
         }
 
 
@@ -167,8 +170,8 @@ namespace Iveely.CloudComputing.Client
         {
             int[] arrayA = new[] { 1, 2 };
             int[] arrayB = new[] { 3, 4 };
-            CombineSort<int> combineSort = new CombineSort<int>(arrayA, arrayB);
-            int[] array = combineSort.GetResult();
+            CombineSort<int> combineSort = new CombineSort<int>();
+            int[] array = combineSort.GetResult(arrayA, arrayB);
             for (int i = 1; i < 5; i++)
             {
                 Assert.AreEqual(array[i - 1], i);
@@ -176,13 +179,30 @@ namespace Iveely.CloudComputing.Client
 
             arrayA = new[] { 1, 3 };
             arrayB = new[] { 2, 4 };
-            combineSort = new CombineSort<int>(arrayA, arrayB);
-            array = combineSort.GetResult();
+            combineSort = new CombineSort<int>();
+            array = combineSort.GetResult(arrayA, arrayB);
             for (int i = 1; i < 5; i++)
             {
                 Assert.AreEqual(array[i - 1], i);
             }
 
+            arrayA = null;
+            arrayB = new[] { 2, 4 };
+            combineSort = new CombineSort<int>();
+            array = combineSort.GetResult(arrayA, arrayB);
+            Assert.AreEqual(arrayB, array);
+
+            arrayA = new[] { 2, 4 };
+            arrayB = null;
+            combineSort = new CombineSort<int>();
+            array = combineSort.GetResult(arrayA, arrayB);
+            Assert.AreEqual(arrayA, array);
+
+            arrayA = null;
+            arrayB = null;
+            combineSort = new CombineSort<int>();
+            array = combineSort.GetResult(arrayA, arrayB);
+            Assert.AreEqual(null, array);
         }
 
 #endif

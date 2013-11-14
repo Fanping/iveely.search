@@ -17,30 +17,34 @@ namespace Iveely.Framework.Algorithm
     /// <summary>
     /// 归并排序
     /// </summary>
-    public class CombineSort<T> where T : IComparable
+    public class CombineSort<T>
     {
-        private readonly List<T> _arrayA;
+        private List<double> _arrayA;
 
-        private readonly List<T> _arrayB;
+        private List<double> _arrayB;
 
-        public CombineSort(T[] arrayA, T[] arrayB)
+        public T[] GetResult(T[] arrayA, T[] arrayB)
         {
-            if (arrayA == null || arrayB == null)
+            if (arrayA == null)
             {
-                throw new ArgumentNullException();
+                return arrayB;
             }
-            this._arrayA = new List<T>(arrayA);
-            this._arrayB = new List<T>(arrayB);
+            else if (arrayB == null)
+            {
+                return arrayA;
+            }
+            else
+            {
+
+                this._arrayA = new List<double>(Array.ConvertAll<T, double>(arrayA, delegate(T n) { return int.Parse(n.ToString()); }));
+                this._arrayB = new List<double>(Array.ConvertAll<T, double>(arrayB, delegate(T n) { return int.Parse(n.ToString()); }));
+                return Sort();
+            }
         }
 
-        public T[] GetResult()
+        private T[] Sort()
         {
-            return Sort();
-        }
-
-        public T[] Sort()
-        {
-            List<T> temp = new List<T>();
+            List<double> temp = new List<double>();
             while (_arrayA.Count > 0 && _arrayB.Count > 0)
             {
                 if (_arrayA[0].CompareTo(_arrayB[0]) <= 0)
@@ -68,7 +72,8 @@ namespace Iveely.Framework.Algorithm
                     temp.Add(_arrayB[i]);
                 }
             }
-            return temp.ToArray();
+            return Array.ConvertAll<double, T>(temp.ToArray(),
+                delegate(double n) { return (T)Convert.ChangeType(n, typeof(T)); });
         }
     }
 }

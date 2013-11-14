@@ -9,8 +9,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Remoting.Messaging;
 using System.Text;
 using System.Threading.Tasks;
+using Iveely.Framework.Algorithm;
 
 namespace Iveely.CloudComputing.Merger
 {
@@ -28,7 +30,12 @@ namespace Iveely.CloudComputing.Merger
             flag = OperateType + "_" + appTimeStamp + "_" + appName;
         }
 
-        public override T Compute<T>(T val)
+        //public override T Compute<T>(T val)
+        //{
+        //    return default(T);
+        //}
+
+        public T[] ArrayCompute<T>(T[] val)
         {
             lock (Table)
             {
@@ -39,9 +46,9 @@ namespace Iveely.CloudComputing.Merger
                 }
                 else
                 {
-                    List<object> list = (List<object>)Table[flag];
-                    list.AddRange((List<object>)(object)val);
-
+                    double[] list = (double[])Table[flag];
+                    CombineSort<double> combine = new CombineSort<double>();
+                    list = combine.GetResult(list, (double[])Convert.ChangeType(val, typeof(double[])));
                     Table[flag] = list;
                     int count = int.Parse(CountTable[flag].ToString());
                     CountTable[flag] = count + 1;
@@ -49,11 +56,18 @@ namespace Iveely.CloudComputing.Merger
             }
             if (Waite(flag))
             {
-                T t = (T)Convert.ChangeType(Table[flag], typeof(T));
-                return t;
+                return Array.ConvertAll<double, T>((double[])Table[flag],
+                    delegate(double n) { return (T)Convert.ChangeType(n, typeof(T)); });
             }
             throw new TimeoutException();
         }
+
+        public override T Compute<T>(T val)
+        {
+            throw new NotImplementedException();
+        }
     }
+
+
 
 }

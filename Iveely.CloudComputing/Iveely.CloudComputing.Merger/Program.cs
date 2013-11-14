@@ -84,6 +84,15 @@ namespace Iveely.CloudComputing.Merger
                     Logger.Info(flag + ", combine list.");
                     return Serializer.SerializeToBytes(objects);
                 }
+
+                if (client.Type == MergePacket.MergeType.CombineSort)
+                {
+                    CombineSort combineSort = new CombineSort(client.TimeStamp, client.AppName);
+                    object[] objects = combineSort.ArrayCompute(Serializer.DeserializeFromBytes<object[]>(client.Data));
+                    string flag = "combine_sort_" + client.TimeStamp + "_" + client.AppName;
+                    Logger.Info(flag + ", combine sort.");
+                    return Serializer.SerializeToBytes(objects);
+                }
             }
             catch (Exception exception)
             {

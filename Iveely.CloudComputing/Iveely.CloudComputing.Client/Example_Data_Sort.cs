@@ -30,10 +30,15 @@ namespace Iveely.CloudComputing.Example
                 Random random = new Random(i);
                 array[i] = random.Next(0, 10000);
             }
+            WriteToConsole("Data prepared.");
 
             //3. 开始排序
-            Mathematics.CombineSort(array);
+            List<int> result = new List<int>(Mathematics.CombineSort(array));
+            WriteToConsole("sort has been finished.");
 
+            //4. 写入文件
+            string content = string.Join("\r\n", result.ToArray());
+            WriteText(content, "Data.sort", true);
         }
     }
 }
