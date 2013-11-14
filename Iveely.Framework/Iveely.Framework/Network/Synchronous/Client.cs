@@ -30,7 +30,7 @@ namespace Iveely.Framework.Network.Synchronous
         /// <summary>
         /// 网络传输最大容量
         /// </summary>
-        private int _maxTransferSize = 1024 * 1024 * 10;
+        private int _maxTransferSize = 1024 * 1024 * 10 * 10;
 
         /// <summary>
         /// 构造方法
