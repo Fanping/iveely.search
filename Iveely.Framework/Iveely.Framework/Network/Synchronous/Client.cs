@@ -77,7 +77,6 @@ namespace Iveely.Framework.Network.Synchronous
                     if (packet.WaiteCallBack)
                     {
                         netStream.Read(reciveBytes, 0, _maxTransferSize);
-                        //Packet returnPacket = Serializer.DeserializeFromBytes<Packet>(reciveBytes);
                         result = Serializer.DeserializeFromBytes<T>(reciveBytes);
                     }
                 }

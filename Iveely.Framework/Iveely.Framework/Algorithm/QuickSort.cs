@@ -29,52 +29,40 @@ namespace Iveely.Framework.Algorithm
                 return null;
             }
             this._array = array;
-            return Sort(this._array, 0, _array.Length - 1);
+            Sort(this._array, 0, _array.Length - 1);
+            return _array;
         }
 
-        private T[] Sort(T[] ar, int low, int high)
+        private void Sort(T[] numbers, int left, int right)
         {
-            int left = low;
-            int right = high;
-            T baseValue = ar[low];
-            while (left < right)
+            if (left < right)
             {
-                while (left < right && ar[right].CompareTo(baseValue) >= 0)
+                T middle = numbers[(left + right) / 2];
+                int i = left - 1;
+                int j = right + 1;
+                while (true)
                 {
-                    right--;
-                }
-                if (left < right)
-                {
-                    ar[left] = ar[right];
-                    left++;
+                    while (numbers[++i].CompareTo(middle) < 0) ;
+
+                    while (numbers[--j].CompareTo(middle) > 0) ;
+
+                    if (i >= j)
+                        break;
+
+                    Swap(numbers, i, j);
                 }
 
-                while (left < right && ar[left].CompareTo(baseValue) < 0)
-                {
-                    left++;
-                }
-                if (left < right)
-                {
-                    ar[right] = ar[left];
-                    right--;
-                }
+                Sort(numbers, left, i - 1);
+                Sort(numbers, j + 1, right);
             }
-
-            ar[left] = baseValue;
-            if (left < high && left >= low)
-            {
-                Sort(ar, 0, left);
-                Sort(ar, left + 1, high);
-            }
-            return ar;
         }
 
-        //private int CompareTo(object obj)
-        //{
-        //    double thisValue = (double)Convert.ChangeType(this, typeof(double));
-        //    double compareValue = (double)Convert.ChangeType(obj, typeof(double));
-        //    return (int)((int)thisValue - compareValue);
-        //}
+        private void Swap(T[] numbers, int i, int j)
+        {
+            T number = numbers[i];
+            numbers[i] = numbers[j];
+            numbers[j] = number;
+        }
 
 
     }

@@ -24,17 +24,17 @@ namespace Iveely.CloudComputing.Example
             this.Init(args);
 
             //2. 准备数据
-            int[] array = new int[10000];
-            for (int i = 0; i < 10000; i++)
+            int[] array = new int[100];
+            for (int i = 0; i < 100; i++)
             {
                 Random random = new Random(i);
-                array[i] = random.Next(0, 10000);
+                array[i] = random.Next(0, 100);
             }
-            WriteToConsole("Data prepared.");
+             WriteToConsole("Data prepared.");
 
             //3. 开始排序
             List<int> result = new List<int>(Mathematics.CombineSort(array));
-            WriteToConsole("sort has been finished.");
+             WriteToConsole("sort has been finished.");
 
             //4. 写入文件
             string content = string.Join("\r\n", result.ToArray());

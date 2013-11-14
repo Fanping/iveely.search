@@ -7,6 +7,7 @@
  *========================================*/
 
 using System;
+using Iveely.CloudComputing.Example;
 
 namespace Iveely.CloudComputing.Client
 {
@@ -113,6 +114,21 @@ namespace Iveely.CloudComputing.Client
             }
             else
             {
+                //Example_Data_Sort dataSort = new Example_Data_Sort();
+                ////                Args[0] 数据回写IP
+                ////Args[1] 数据回写端口
+                ////Args[2] 当前进程远程执行worker的IP
+                ////Args[3] 当进程远程执行worker的端口号
+                ////Args[4] 应用程序运行提交的时间戳
+                ////Args[5 ] 应用程序的名称 
+                //object[] array = new object[6];
+                //array[0] = "127.0.0.1";
+                //array[1] = "8800";
+                //array[2] = "127.0.0.1";
+                //array[3] = "8001";
+                //array[4] = "111111";
+                //array[5] = "example";
+                //dataSort.Run(array);
                 RemoteCommand.UnknowCommand();
             }
             return false;

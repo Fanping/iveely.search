@@ -7,16 +7,22 @@
  *========================================*/
 
 using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Xml.Serialization;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Iveely.Framework.Text
 {
     /// <summary>
     /// 数据序列化
     /// </summary>
+#if DEBUG
+    [TestClass]
+#endif
     public class Serializer
     {
         /// <summary>
@@ -74,12 +80,26 @@ namespace Iveely.Framework.Text
         /// <returns>反序列化还原后的对象</returns>
         public static T DeserializeFromBytes<T>(byte[] bytes)
         {
-            
             using (MemoryStream stream = new MemoryStream(bytes))
             {
                 BinaryFormatter binaryFormatter = new BinaryFormatter();
                 object obj = binaryFormatter.Deserialize(stream);
                 return (T)obj;
+            }
+        }
+
+        public static object[] DeserializeFromBytes(byte[] bytes)
+        {
+            using (MemoryStream stream = new MemoryStream(bytes))
+            {
+                BinaryFormatter binaryFormatter = new BinaryFormatter();
+                object obj = binaryFormatter.Deserialize(stream);
+                List<object> list = null;
+                if (obj is Array)
+                {
+                    list = new List<object>(((Array)obj).Cast<object>());
+                }
+                return list.ToArray();
             }
         }
 
@@ -116,6 +136,28 @@ namespace Iveely.Framework.Text
         }
 
 
+#if DEBUG
+        [TestMethod]
+        public void Test_Serializer()
+        {
+            string info = "hello world!";
+            byte[] infoBytes = SerializeToBytes(info);
+            Assert.AreEqual(info, DeserializeFromBytes<string>(infoBytes));
 
+            int[] array = new[] { 1, 2, 3 };
+            byte[] arrayBytes = SerializeToBytes(array);
+            int[] newInts = DeserializeFromBytes<int[]>(arrayBytes);
+            Assert.IsTrue(array[1] == newInts[1]);
+
+            object[] objects = DeserializeFromBytes(arrayBytes);
+            Assert.IsTrue(objects.Length == 3);
+
+            object[] myObjects = { 1, 2, 3, 4 };
+            byte[] objBytes = SerializeToBytes(myObjects);
+            int[] ints = DeserializeFromBytes<object[]>(objBytes).Cast<int>().ToArray();
+            Assert.IsTrue(ints.Length == 4);
+        }
+
+#endif
     }
 }

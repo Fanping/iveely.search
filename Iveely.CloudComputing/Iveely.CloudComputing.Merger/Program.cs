@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using Iveely.CloudComputing.MergerCommon;
 using Iveely.Framework.Log;
@@ -70,27 +71,35 @@ namespace Iveely.CloudComputing.Merger
                 if (client.Type == MergePacket.MergeType.CombineTable)
                 {
                     CombineTable combineTable = new CombineTable(client.TimeStamp, client.AppName);
-                    Hashtable objects = combineTable.Compute(Serializer.DeserializeFromBytes<Hashtable>(client.Data));
                     string flag = "combine_table_" + client.TimeStamp + "_" + client.AppName;
                     Logger.Info(flag + ", combine table.");
+                    Hashtable objects = combineTable.Compute(Serializer.DeserializeFromBytes<Hashtable>(client.Data));
                     return Serializer.SerializeToBytes(objects);
                 }
 
                 if (client.Type == MergePacket.MergeType.CombineList)
                 {
                     CombineList combineList = new CombineList(client.TimeStamp, client.AppName);
-                    List<object> objects = combineList.Compute(Serializer.DeserializeFromBytes<List<object>>(client.Data));
                     string flag = "combine_list_" + client.TimeStamp + "_" + client.AppName;
                     Logger.Info(flag + ", combine list.");
+                    List<object> objects = combineList.Compute(Serializer.DeserializeFromBytes<List<object>>(client.Data));
                     return Serializer.SerializeToBytes(objects);
                 }
 
                 if (client.Type == MergePacket.MergeType.CombineSort)
                 {
                     CombineSort combineSort = new CombineSort(client.TimeStamp, client.AppName);
-                    object[] objects = combineSort.ArrayCompute(Serializer.DeserializeFromBytes<object[]>(client.Data));
                     string flag = "combine_sort_" + client.TimeStamp + "_" + client.AppName;
                     Logger.Info(flag + ", combine sort.");
+                    object[] objects = combineSort.ArrayCompute(Serializer.DeserializeFromBytes(client.Data));
+                    if (objects == null)
+                    {
+                        Logger.Warn("Result is null.");
+                    }
+                    else
+                    {
+                        Logger.Info("Result count is " + objects.Count());
+                    }
                     return Serializer.SerializeToBytes(objects);
                 }
             }

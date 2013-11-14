@@ -41,14 +41,14 @@ namespace Iveely.CloudComputing.Merger
             {
                 if (Table[flag] == null)
                 {
-                    Table.Add(flag, val);
+                    Table.Add(flag, ChangeType(val));
                     CountTable.Add(flag, 1);
                 }
                 else
                 {
                     double[] list = (double[])Table[flag];
                     CombineSort<double> combine = new CombineSort<double>();
-                    list = combine.GetResult(list, (double[])Convert.ChangeType(val, typeof(double[])));
+                    list = combine.GetResult(list, ChangeType(val));
                     Table[flag] = list;
                     int count = int.Parse(CountTable[flag].ToString());
                     CountTable[flag] = count + 1;
@@ -65,6 +65,11 @@ namespace Iveely.CloudComputing.Merger
         public override T Compute<T>(T val)
         {
             throw new NotImplementedException();
+        }
+
+        private double[] ChangeType<T>(T[] val)
+        {
+            return Array.ConvertAll<T, double>(val, delegate(T n) { return double.Parse(n.ToString()); });
         }
     }
 

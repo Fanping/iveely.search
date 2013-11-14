@@ -98,18 +98,17 @@ namespace Iveely.CloudComputing.Client
         /// <returns>排序列表（全局）</returns>
         public static T[] CombineSort<T>(T[] objects) where T : IComparable
         {
-            Type type = typeof(T);
-            if (type.Name == "int" || type.Name == "double" || type.Name == "float")
-            {
-                QuickSort<T> quickSort = new QuickSort<T>();
-                objects = quickSort.GetResult(objects);
-                MergePacket packet = new MergePacket(Serializer.SerializeToBytes(objects), MergePacket.MergeType.CombineSort,
-                Application.Parameters[4].ToString(), Application.Parameters[5].ToString());
-                packet.WaiteCallBack = true;
-                Logger.Info(Application.Parameters[2] + "," + Application.Parameters[3] + " send combine sort commond.");
-                return _client.Send<T[]>(packet);
-            }
-            return objects;
+            Init();
+            Logger.Info("Start local sort.");
+            QuickSort<T> quickSort = new QuickSort<T>();
+            objects = quickSort.GetResult(objects);
+            Logger.Info("Local sort has finied,now send to Merger to combine.");
+            MergePacket packet = new MergePacket(Serializer.SerializeToBytes(objects), MergePacket.MergeType.CombineSort,
+            Application.Parameters[4].ToString(), Application.Parameters[5].ToString());
+            packet.WaiteCallBack = true;
+            Logger.Info(Application.Parameters[2] + "," + Application.Parameters[3] + " send combine sort commond.");
+            object[] results = _client.Send<object[]>(packet);
+            return Array.ConvertAll<object, T>(results, delegate(object n) { return (T)Convert.ChangeType(n, typeof(T)); });
         }
 
         /// <summary>
@@ -153,12 +152,15 @@ namespace Iveely.CloudComputing.Client
         [TestMethod]
         public void Test_QuickSort()
         {
-            int[] array = new[] { 3, 2, 4, -1 };
+            int[] array = new int[10000];
+            for (int i = 0; i < 10000; i++)
+            {
+                Random random = new Random(i);
+                array[i] = random.Next(0, 10000);
+            }
             QuickSort<int> quickSort = new QuickSort<int>();
             array = quickSort.GetResult(array);
-            Assert.AreEqual(array[1], 2);
-            Assert.AreEqual(array[2], 3);
-            Assert.AreEqual(array[3], 4);
+            Assert.IsTrue(array[10] <= array[100]);
 
             array = quickSort.GetResult(null);
             Assert.IsNull(array);
@@ -203,6 +205,8 @@ namespace Iveely.CloudComputing.Client
             combineSort = new CombineSort<int>();
             array = combineSort.GetResult(arrayA, arrayB);
             Assert.AreEqual(null, array);
+
+
         }
 
 #endif
