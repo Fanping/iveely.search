@@ -50,6 +50,7 @@ namespace Iveely.CloudComputing.Client
             if (args.Length < 3 || args.Length == 4)
             {
                 UnknowCommand();
+                return;
             }
             //2.1 将文件切分成块
             List<string> workers = new List<string>(StateHelper.GetChildren("ISE://system/state/worker"));
@@ -145,6 +146,7 @@ namespace Iveely.CloudComputing.Client
             if (args.Length != 4)
             {
                 UnknowCommand();
+                return;
             }
             //1.1 编译应用程序
             Logger.Info("Start Compile your code...");
@@ -356,6 +358,7 @@ namespace Iveely.CloudComputing.Client
             if (args.Length != 2)
             {
                 UnknowCommand();
+                return;
             }
             List<string> workers = new List<string>(StateHelper.GetChildren("ISE://system/state/worker"));
             string filePath = args[1];
@@ -389,6 +392,7 @@ namespace Iveely.CloudComputing.Client
             if (args.Length != 3)
             {
                 UnknowCommand();
+                return;
             }
             List<string> workers = new List<string>(StateHelper.GetChildren("ISE://system/state/worker"));
             string filePath = args[1];
@@ -423,6 +427,7 @@ namespace Iveely.CloudComputing.Client
             if (args.Length > 2)
             {
                 UnknowCommand();
+                return;
             }
             string path = string.Empty;
             if (args.Length != 1)

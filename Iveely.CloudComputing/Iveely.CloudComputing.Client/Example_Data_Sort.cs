@@ -24,11 +24,11 @@ namespace Iveely.CloudComputing.Example
             this.Init(args);
 
             //2. 准备数据
-            int[] array = new int[1000000];
-            for (int i = 0; i < 1000000; i++)
+            int[] array = new int[10000];
+            for (int i = 0; i < 10000; i++)
             {
                 Random random = new Random(i);
-                array[i] = random.Next(0, 1000000);
+                array[i] = random.Next(0, 10000);
             }
             WriteToConsole("Data prepared.");
 
