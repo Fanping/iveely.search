@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading;
 using Iveely.CloudComputing.CacheCommon;
 
 namespace Iveely.CloudComputing.CacheAPI
@@ -23,7 +24,14 @@ namespace Iveely.CloudComputing.CacheAPI
         /// </summary>
         public static object Get(object key)
         {
-            return Selector.GetItem(key);
+            int maxRetryCount = 3;
+            object obj = Selector.GetItem(key);
+            while (obj == null && maxRetryCount > 0)
+            {
+                maxRetryCount--;
+                obj = Selector.GetItem(key);
+            }
+            return obj;
         }
 
         /// <summary>
@@ -31,7 +39,16 @@ namespace Iveely.CloudComputing.CacheAPI
         /// </summary>
         public static object[] GetKeysByValue(object expression, int topN, object changeValue = null)
         {
-            return Selector.GetKeyByValue(expression, topN, changeValue);
+            int maxRetryCount = 3;
+            object[] objects = Selector.GetKeyByValue(expression, topN, changeValue);
+            while (objects == null && maxRetryCount > 0)
+            {
+                maxRetryCount--;
+                Thread.Sleep(1000);
+                objects = Selector.GetKeyByValue(expression, topN, changeValue);
+            }
+            return objects;
+
         }
 
         /// <summary>

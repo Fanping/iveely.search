@@ -49,6 +49,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Dependency\NDatabase\NDatabase.csproj">
+      <Project>{4b6993d5-995d-4aaa-bbce-423d1b5451f6}</Project>
+      <Name>NDatabase</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Iveely.CloudComputing\Iveely.CloudComputing.Client\Iveely.CloudComputing.Client.csproj">
       <Project>{3aecfeef-5e6e-484e-8b64-cb89d9339284}</Project>
       <Name>Iveely.CloudComputing.Client</Name>

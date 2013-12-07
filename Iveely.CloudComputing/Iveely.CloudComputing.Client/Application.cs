@@ -46,7 +46,7 @@ namespace Iveely.CloudComputing.Client
 
         public void GetHtml(string url, ref string title, ref string content, ref List<string> childrenLink)
         {
-            if (childrenLink == null) throw new ArgumentNullException("childrenLink");
+            //if (childrenLink == null) throw new ArgumentNullException("childrenLink");
             Html html = Html.CreatHtml(new Uri(url));
             if (html != null)
             {

@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using NDatabase;
 
 namespace Iveely.SearchEngine
 {
@@ -20,8 +21,13 @@ namespace Iveely.SearchEngine
 
         public static void Main()
         {
-            Collector collector = new Collector();
-            collector.Run(new object[] { 0, 0, 0, 0, 0, 0 });
+            //Collector collector = new Collector();
+            //collector.Run(new object[] { 0, 0, 0, 0, 0, 0 });
+            using (var ndb = OdbFactory.Open("test.ndb"))
+            {
+                ndb.Store(new Searcher());
+            }
+
         }
     }
 }

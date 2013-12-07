@@ -57,12 +57,12 @@ namespace Iveely.SearchEngine
         /// <summary>
         /// 索引片段向量
         /// </summary>
-        public static InvertFragment Fragment = new InvertFragment();
+        //public static InvertFragment Fragment = new InvertFragment();
 
         /// <summary>
         /// 爬虫爬行的跟站点
         /// </summary>
-        private string Host = "www.cnblogs.com";
+        private string Host = "zh.wikipedia.org";
 
         /// <summary>
         /// 搜索服务器
@@ -76,8 +76,8 @@ namespace Iveely.SearchEngine
         public override void Run(object[] args)
         {
             //1. 初始化
-            Init(args);
-            Urls.Add("http://www.cnblogs.com");
+            //Init(args);
+            Urls.Add("http://zh.wikipedia.org");
 
             //2. 循环数据采集
             while (Urls.Count > 0)
@@ -88,7 +88,7 @@ namespace Iveely.SearchEngine
                 Crawler(ref pages);
 
                 //2.2 索引器开始运行
-                Indexer(ref pages);
+                //Indexer(ref pages);
 
                 //2.3 休眠ns
                 Thread.Sleep(1000 * (new Random().Next(0, 10)));
@@ -142,13 +142,13 @@ namespace Iveely.SearchEngine
 
             //2. 存储数据
             DateTime dateTime = DateTime.UtcNow;
-            string fileName = string.Format("{0}{1}{2}{3}", dateTime.Year, dateTime.Month, dateTime.Day, dateTime.Hour);
+            string fileName = string.Format("{0}{1}{2}{3}.wiki.data", dateTime.Year, dateTime.Month, dateTime.Day, dateTime.Hour);
             StringBuilder data = new StringBuilder();
             foreach (Page page in pages)
             {
                 data.AppendLine(page.ToString());
             }
-            //WriteText(data.ToString(), fileName, false);
+            WriteText(data.ToString(), fileName, false);
 
             //3. 新的url标识为未爬行过，并存放于缓存中
             SetListIntoCache(newUrls.ToArray(), false);
@@ -158,33 +158,33 @@ namespace Iveely.SearchEngine
             Urls.AddRange(GetKeysByValueFromCache(false, 10, true));
         }
 
-        /// <summary>
-        /// 索引程序入口
-        /// </summary>
-        /// <param name="pages">网页信息集合</param>
-        public void Indexer(ref List<Page> pages)
-        {
-            string serializedFile = "InvertFragment.global";
-            if (File.Exists(serializedFile))
-            {
-                Fragment = Serializer.DeserializeFromFile<InvertFragment>(serializedFile);
-            }
-            foreach (Page page in pages)
-            {
-                Fragment.AddDocument(page.Url, page.Content + page.Title);
-            }
-            pages.Clear();
-            Serializer.SerializeToFile(Fragment, serializedFile);
-            //SendToSearcher(Fragment);
-        }
+        ///// <summary>
+        ///// 索引程序入口
+        ///// </summary>
+        ///// <param name="pages">网页信息集合</param>
+        //public void Indexer(ref List<Page> pages)
+        //{
+        //    string serializedFile = "InvertFragment.global";
+        //    if (File.Exists(serializedFile))
+        //    {
+        //        Fragment = Serializer.DeserializeFromFile<InvertFragment>(serializedFile);
+        //    }
+        //    foreach (Page page in pages)
+        //    {
+        //        Fragment.AddDocument(page.Url, page.Content + page.Title);
+        //    }
+        //    pages.Clear();
+        //    Serializer.SerializeToFile(Fragment, serializedFile);
+        //    //SendToSearcher(Fragment);
+        //}
 
-        private void SendToSearcher(InvertFragment fragment)
-        {
-            Client client = new Client(SearchServer, 8100);
-            byte[] bytes = Serializer.SerializeToBytes(fragment);
-            Packet packet = new Packet(bytes);
-            packet.WaiteCallBack = false;
-            client.Send<object>(packet);
-        }
+        //private void SendToSearcher(InvertFragment fragment)
+        //{
+        //    Client client = new Client(SearchServer, 8100);
+        //    byte[] bytes = Serializer.SerializeToBytes(fragment);
+        //    Packet packet = new Packet(bytes);
+        //    packet.WaiteCallBack = false;
+        //    client.Send<object>(packet);
+        //}
     }
 }
