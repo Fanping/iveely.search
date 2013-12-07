@@ -62,6 +62,7 @@
     <Compile Include="Process\RunningState.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Text\CodeCompiler.cs" />
+    <Compile Include="Text\Database.cs" />
     <Compile Include="Text\FileBlock.cs" />
     <Compile Include="Text\Html.cs" />
     <Compile Include="Text\Segment\Complex.cs" />
@@ -87,6 +88,10 @@
     <ProjectReference Include="..\..\Dependency\Log4Net\log4net.csproj">
       <Project>{181fe707-e161-4722-9f38-6aaab6faa106}</Project>
       <Name>log4net</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Dependency\NDatabase\NDatabase.csproj">
+      <Project>{4b6993d5-995d-4aaa-bbce-423d1b5451f6}</Project>
+      <Name>NDatabase</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Dependency\Newtonsoft.Json\Newtonsoft.Json.csproj">
       <Project>{eeea67f9-9089-481d-a4dc-0966dec9fd7d}</Project>

@@ -252,7 +252,6 @@ namespace Iveely.CloudComputing.Client
                 List<string> references = new List<string>();
                 references.Add("Iveely.CloudComputing.Client.exe");
                 references.Add("Iveely.Framework.dll");
-                references.Add("NDatabase3.dll");
                 return CodeCompiler.Compile(File.ReadAllLines(fileName), references);
             }
             throw new FileNotFoundException(fileName + " is not found!");

@@ -16,20 +16,20 @@
     <DebugSymbols>True</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>False</Optimize>
-    <OutputPath>..\Debug\</OutputPath>
+    <OutputPath>..\..\Iveely.CloudComputing\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>..\Debug\NDatabase3.xml</DocumentationFile>
+    <DocumentationFile>..\..\Iveely.CloudComputing\Debug\NDatabase3.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>True</Optimize>
-    <OutputPath>..\Release\</OutputPath>
+    <OutputPath>..\..\Iveely.CloudComputing\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>..\Release\NDatabase3.XML</DocumentationFile>
+    <DocumentationFile>..\..\Iveely.CloudComputing\Release\NDatabase3.XML</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup>
     <SignAssembly>true</SignAssembly>

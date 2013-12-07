@@ -9,7 +9,7 @@ using Iveely.Framework.Network;
 using Iveely.Framework.Network.Synchronous;
 using Iveely.Framework.Text;
 using System.Threading;
-using NDatabase;
+
 
 namespace Iveely.SearchEngine
 {
@@ -104,7 +104,7 @@ namespace Iveely.SearchEngine
         {
             //1. 遍历url集合
             HashSet<string> newUrls = new HashSet<string>();
-            using (var database = OdbFactory.Open("Iveely.Search.Data"))
+            using (var database = Database.Open("Iveely.Search.Data"))
             {
                 for (int i = 0; i < Urls.Count; i++)
                 {
