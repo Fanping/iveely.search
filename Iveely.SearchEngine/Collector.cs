@@ -9,6 +9,7 @@ using Iveely.Framework.Network;
 using Iveely.Framework.Network.Synchronous;
 using Iveely.Framework.Text;
 using System.Threading;
+using NDatabase;
 
 namespace Iveely.SearchEngine
 {
@@ -62,7 +63,7 @@ namespace Iveely.SearchEngine
         /// <summary>
         /// 爬虫爬行的跟站点
         /// </summary>
-        private string Host = "zh.wikipedia.org";
+        private string Host = "zhidao.baidu.com";
 
         /// <summary>
         /// 搜索服务器
@@ -76,8 +77,8 @@ namespace Iveely.SearchEngine
         public override void Run(object[] args)
         {
             //1. 初始化
-            //Init(args);
-            Urls.Add("http://zh.wikipedia.org");
+            Init(args);
+            Urls.Add("http://zhidao.baidu.com");
 
             //2. 循环数据采集
             while (Urls.Count > 0)
@@ -103,52 +104,56 @@ namespace Iveely.SearchEngine
         {
             //1. 遍历url集合
             HashSet<string> newUrls = new HashSet<string>();
-            for (int i = 0; i < Urls.Count; i++)
+            using (var database = OdbFactory.Open("Iveely.Search.Data"))
             {
-                try
+                for (int i = 0; i < Urls.Count; i++)
                 {
-                    //1.1 获取标题，网页正文，子链接集
-                    //WriteToConsole("Processing " + Urls[i]);
-                    string title = string.Empty;
-                    string content = string.Empty;
-                    List<string> childrenLink = null;
-                    GetHtml(Urls[i], ref title, ref content, ref childrenLink);
-
-                    //1.2 过滤子链接集
-                    foreach (string link in childrenLink)
+                    try
                     {
-                        if (!newUrls.Contains(link) && (new Uri(link)).Host == Host)
+                        //1.1 获取标题，网页正文，子链接集
+                        //WriteToConsole("Processing " + Urls[i]);
+                        string title = string.Empty;
+                        string content = string.Empty;
+                        List<string> childrenLink = null;
+                        GetHtml(Urls[i], ref title, ref content, ref childrenLink);
+
+                        //1.2 过滤子链接集
+                        foreach (string link in childrenLink)
                         {
-                            newUrls.Add(link);
+                            if (!newUrls.Contains(link) && (new Uri(link)).Host == Host)
+                            {
+                                newUrls.Add(link);
+                            }
+                        }
+
+                        //1.3 记录数据
+                        if (title != string.Empty)
+                        {
+                            Page page = new Page();
+                            page.Url = Urls[i];
+                            page.Title = title;
+                            page.Date = DateTime.Now.ToShortDateString();
+                            page.Content = content;
+                            pages.Add(page);
+                            database.Store(page);
                         }
                     }
-
-                    //1.3 记录数据
-                    if (title != string.Empty)
+                    catch (Exception exception)
                     {
-                        Page page = new Page();
-                        page.Url = Urls[i];
-                        page.Title = title;
-                        page.Date = DateTime.Now.ToShortDateString();
-                        page.Content = content;
-                        pages.Add(page);
+                        // WriteToConsole(exception.ToString());
                     }
                 }
-                catch (Exception exception)
-                {
-                    // WriteToConsole(exception.ToString());
-                }
             }
 
-            //2. 存储数据
-            DateTime dateTime = DateTime.UtcNow;
-            string fileName = string.Format("{0}{1}{2}{3}.wiki.data", dateTime.Year, dateTime.Month, dateTime.Day, dateTime.Hour);
-            StringBuilder data = new StringBuilder();
-            foreach (Page page in pages)
-            {
-                data.AppendLine(page.ToString());
-            }
-            WriteText(data.ToString(), fileName, false);
+            ////2. 存储数据
+            //DateTime dateTime = DateTime.UtcNow;
+            //string fileName = string.Format("{0}{1}{2}{3}.wiki.data", dateTime.Year, dateTime.Month, dateTime.Day, dateTime.Hour);
+            //StringBuilder data = new StringBuilder();
+            //foreach (Page page in pages)
+            //{
+            //    data.AppendLine(page.ToString());
+            //}
+            //WriteText(data.ToString(), fileName, false);
 
             //3. 新的url标识为未爬行过，并存放于缓存中
             SetListIntoCache(newUrls.ToArray(), false);

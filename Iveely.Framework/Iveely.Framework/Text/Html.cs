@@ -285,10 +285,11 @@ namespace Iveely.Framework.Text
             {
                 Html = new HtmlDocument();
                 Encoding en = webResponse.CharacterSet.Contains("ISO")
-                                  ? Encoding.UTF8
+                                  ? Encoding.Default
                                   : Encoding.GetEncoding(webResponse.CharacterSet);
-                //Html.Load(Stream, AutoDetectEncoding);
                 Html.Load(Stream, en);
+                //AutoDetectEncoding = true;
+                //Html.Load(Stream, AutoDetectEncoding);
             }
 
             public static bool AutoDetectEncoding { get; set; }
@@ -695,6 +696,8 @@ namespace Iveely.Framework.Text
                 }
 
                 var request = CreateRequest(uri);
+                request.UserAgent =
+                    "[Iveely Computing]-Create By LiuFanping@iveely.com, Share in Open Source Community!";
                 //request.Credentials = new NetworkCredential("spidertest", "iveely123456");
                 //获取响应
                 using (var response = (HttpWebResponse)request.GetResponse())

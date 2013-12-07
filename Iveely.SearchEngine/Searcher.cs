@@ -21,13 +21,8 @@ namespace Iveely.SearchEngine
 
         public static void Main()
         {
-            //Collector collector = new Collector();
-            //collector.Run(new object[] { 0, 0, 0, 0, 0, 0 });
-            using (var ndb = OdbFactory.Open("test.ndb"))
-            {
-                ndb.Store(new Searcher());
-            }
-
+            Collector collector = new Collector();
+            collector.Run(new object[] { 0, 0, 0, 0, 0, 0 });
         }
     }
 }

@@ -66,6 +66,7 @@ namespace Iveely.CloudComputing.Worker
                     List<string> references = new List<string>();
                     references.Add("Iveely.CloudComputing.Client.exe");
                     references.Add("Iveely.Framework.dll");
+                    references.Add("NDatabase3.dll");
                     references.Add("System.Xml.dll");
                     references.Add("System.Xml.Linq.dll");
                     CodeCompiler.Execode(sourceCode, packet.ClassName, references,
