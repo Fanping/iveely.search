@@ -269,13 +269,15 @@ namespace Iveely.CloudComputing.Client
 
         #endregion
 
-        #region 其它私有方法
 
-        private string GetRootFolder()
+
+        public string GetRootFolder()
         {
             string rootFolder = Parameters[3].ToString();
             return rootFolder;
         }
+
+        #region 其它私有方法
 
         private string GetFilePath(string fileName, bool globalFile)
         {

@@ -104,7 +104,7 @@ namespace Iveely.SearchEngine
         {
             //1. 遍历url集合
             HashSet<string> newUrls = new HashSet<string>();
-            using (var database = Database.Open("Iveely.Search.Data"))
+            using (var database = Database.Open(GetRootFolder() + "\\Iveely.Search.Data"))
             {
                 for (int i = 0; i < Urls.Count; i++)
                 {

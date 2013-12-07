@@ -68,6 +68,7 @@ namespace Iveely.CloudComputing.Worker
                     references.Add("Iveely.Framework.dll");
                     references.Add("System.Xml.dll");
                     references.Add("System.Xml.Linq.dll");
+                    references.Add("NDatabase3.dll");
                     CodeCompiler.Execode(sourceCode, packet.ClassName, references,
                         new object[] { packet.ReturnIp, packet.Port, _machineName, _servicePort, packet.TimeStamp, packet.AppName });
                     StateHelper.Put(runningPath, "Finished with success!");
