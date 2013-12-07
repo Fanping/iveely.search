@@ -116,6 +116,7 @@ namespace Iveely.Framework.Network.Synchronous
                             //用线程解决高并发问题，此处很重要
                             Thread thread = new Thread(ProcessClient);
                             thread.Start(client);
+                            //ProcessClient(client);
                         }
                         else
                         {
@@ -164,8 +165,7 @@ namespace Iveely.Framework.Network.Synchronous
         {
 
             TcpClient client = (TcpClient)objClient;
-            //if (client.Available > 0)
-            //{
+        
             //字节数组容器
             var reciveBytes = new byte[_maxTransferSize];
             var sendBytes = new byte[_maxTransferSize];
@@ -186,7 +186,7 @@ namespace Iveely.Framework.Network.Synchronous
                     netStream.Flush();
                 }
             }
-            //}
+            
             currentThreadCount--;
         }
     }

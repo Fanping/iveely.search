@@ -99,6 +99,7 @@ namespace Iveely.CloudComputing.Client
                 ExcutePacket codePacket = new ExcutePacket(Encoding.UTF8.GetBytes(remotePath), string.Empty, string.Empty, string.Empty,
                     ExcutePacket.Type.FileFragment);
                 codePacket.SetReturnAddress(Dns.GetHostName(), 8800);
+                //1207
                 codePacket.WaiteCallBack = false;
                 transfer.Send<bool>(codePacket);
                 Logger.Info(ip[0] + "," + ip[1] + " has been noticed to receive the file.");
@@ -184,6 +185,7 @@ namespace Iveely.CloudComputing.Client
                 ExcutePacket codePacket = new ExcutePacket(bytes, className, appName, timeStamp,
                     ExcutePacket.Type.Code);
                 codePacket.SetReturnAddress(Dns.GetHostName(), 8800);
+                //1207
                 codePacket.WaiteCallBack = false;
                 transfer.Send<object>(codePacket);
             }
@@ -314,6 +316,7 @@ namespace Iveely.CloudComputing.Client
                         string.Empty, string.Empty,
                         ExcutePacket.Type.Download);
                     codePacket.SetReturnAddress(Dns.GetHostName(), 8800);
+                    //1207
                     codePacket.WaiteCallBack = false;
                     transfer.Send<bool>(codePacket);
                     Logger.Info(ip[0] + "," + ip[1] + " has been noticed to send file " + fileName);
@@ -340,6 +343,7 @@ namespace Iveely.CloudComputing.Client
                     string.Empty, string.Empty,
                     ExcutePacket.Type.Download);
                 codePacket.SetReturnAddress(Dns.GetHostName(), 8800);
+                //1207
                 codePacket.WaiteCallBack = false;
                 transfer.Send<bool>(codePacket);
                 Logger.Info(ip[0] + "," + ip[1] + " has been noticed to send file " + fileName);
@@ -376,6 +380,7 @@ namespace Iveely.CloudComputing.Client
                     string.Empty, string.Empty,
                     ExcutePacket.Type.Delete);
                 codePacket.SetReturnAddress(Dns.GetHostName(), 8800);
+                //1207
                 codePacket.WaiteCallBack = false;
                 transfer.Send<bool>(codePacket);
                 StateAPI.StateHelper.Delete("ISE://File/" + filePath);
@@ -411,6 +416,7 @@ namespace Iveely.CloudComputing.Client
                     string.Empty, string.Empty,
                     ExcutePacket.Type.Rename);
                 codePacket.SetReturnAddress(Dns.GetHostName(), 8800);
+                //1207
                 codePacket.WaiteCallBack = false;
                 transfer.Send<bool>(codePacket);
                 StateHelper.Rename("ISE://File/" + filePath, fileNewName);

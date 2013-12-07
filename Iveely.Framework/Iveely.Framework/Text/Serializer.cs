@@ -25,6 +25,11 @@ namespace Iveely.Framework.Text
 #endif
     public class Serializer
     {
+
+        private static object lockDeserObject = -1;
+
+        private static object lockSerObject = -1;
+
         /// <summary>
         /// 将数据以二进制方式序列化到byte数组
         /// </summary>
@@ -32,12 +37,16 @@ namespace Iveely.Framework.Text
         /// <returns>序列化后的byte数组</returns>
         public static byte[] SerializeToBytes(Object obj)
         {
-            using (MemoryStream stream = new MemoryStream())
+            lock (lockSerObject)
             {
-                BinaryFormatter binaryFormatter = new BinaryFormatter();
-                binaryFormatter.Serialize(stream, obj);
-                byte[] bytes = stream.ToArray();
-                return bytes;
+                using (MemoryStream stream = new MemoryStream())
+                {
+                    BinaryFormatter binaryFormatter = new BinaryFormatter();
+                    binaryFormatter.TypeFormat = System.Runtime.Serialization.Formatters.FormatterTypeStyle.TypesAlways;
+                    binaryFormatter.Serialize(stream, obj);
+                    byte[] bytes = stream.ToArray();
+                    return bytes;
+                }
             }
         }
 
@@ -48,11 +57,14 @@ namespace Iveely.Framework.Text
         /// <returns>序列化后的字符串</returns>
         public static string SerializeToString<T>(T t)
         {
-            using (StringWriter stringWriter = new StringWriter())
+            lock (lockSerObject)
             {
-                XmlSerializer xmlSerializer = new XmlSerializer(t.GetType());
-                xmlSerializer.Serialize(stringWriter, t);
-                return stringWriter.ToString();
+                using (StringWriter stringWriter = new StringWriter())
+                {
+                    XmlSerializer xmlSerializer = new XmlSerializer(t.GetType());
+                    xmlSerializer.Serialize(stringWriter, t);
+                    return stringWriter.ToString();
+                }
             }
         }
 
@@ -64,12 +76,15 @@ namespace Iveely.Framework.Text
         /// <param name="fileName">文件（路径）名</param>
         public static void SerializeToFile<T>(T t, string fileName)
         {
-            if (File.Exists(fileName))
+            lock (lockSerObject)
             {
-                File.Delete(fileName);
+                if (File.Exists(fileName))
+                {
+                    File.Delete(fileName);
+                }
+                byte[] content = SerializeToBytes(t);
+                File.WriteAllBytes(fileName, content);
             }
-            byte[] content = SerializeToBytes(t);
-            File.WriteAllBytes(fileName, content);
         }
 
         /// <summary>
@@ -80,26 +95,36 @@ namespace Iveely.Framework.Text
         /// <returns>反序列化还原后的对象</returns>
         public static T DeserializeFromBytes<T>(byte[] bytes)
         {
-            using (MemoryStream stream = new MemoryStream(bytes))
+            lock (lockDeserObject)
             {
-                BinaryFormatter binaryFormatter = new BinaryFormatter();
-                object obj = binaryFormatter.Deserialize(stream);
-                return (T)obj;
+                using (MemoryStream stream = new MemoryStream(bytes))
+                {
+                    stream.Position = 0;
+                    BinaryFormatter binaryFormatter = new BinaryFormatter();
+                    binaryFormatter.TypeFormat = System.Runtime.Serialization.Formatters.FormatterTypeStyle.TypesAlways;
+                    object obj = binaryFormatter.Deserialize(stream);
+                    return (T)obj;
+                }
             }
+
         }
 
         public static object[] DeserializeFromBytes(byte[] bytes)
         {
-            using (MemoryStream stream = new MemoryStream(bytes))
+            lock (lockDeserObject)
             {
-                BinaryFormatter binaryFormatter = new BinaryFormatter();
-                object obj = binaryFormatter.Deserialize(stream);
-                List<object> list = null;
-                if (obj is Array)
+                using (MemoryStream stream = new MemoryStream(bytes))
                 {
-                    list = new List<object>(((Array)obj).Cast<object>());
+                    BinaryFormatter binaryFormatter = new BinaryFormatter();
+                    binaryFormatter.TypeFormat = System.Runtime.Serialization.Formatters.FormatterTypeStyle.TypesAlways;
+                    object obj = binaryFormatter.Deserialize(stream);
+                    List<object> list = null;
+                    if (obj is Array)
+                    {
+                        list = new List<object>(((Array)obj).Cast<object>());
+                    }
+                    return list.ToArray();
                 }
-                return list.ToArray();
             }
         }
 
@@ -111,11 +136,14 @@ namespace Iveely.Framework.Text
         /// <returns>反序列化还原后的对象</returns>
         public static T DeserializeFromString<T>(string content)
         {
-            using (StringReader stringReader = new StringReader(content))
+            lock (lockDeserObject)
             {
-                XmlSerializer xmlSerializer = new XmlSerializer(typeof(T));
-                object obj = xmlSerializer.Deserialize(stringReader);
-                return (T)obj;
+                using (StringReader stringReader = new StringReader(content))
+                {
+                    XmlSerializer xmlSerializer = new XmlSerializer(typeof(T));
+                    object obj = xmlSerializer.Deserialize(stringReader);
+                    return (T)obj;
+                }
             }
         }
 
@@ -127,12 +155,15 @@ namespace Iveely.Framework.Text
         /// <returns></returns>
         public static T DeserializeFromFile<T>(string fileName)
         {
-            if (!File.Exists(fileName))
+            lock (lockDeserObject)
             {
-                throw new FileNotFoundException(fileName);
+                if (!File.Exists(fileName))
+                {
+                    throw new FileNotFoundException(fileName);
+                }
+                byte[] content = File.ReadAllBytes(fileName);
+                return DeserializeFromBytes<T>(content);
             }
-            byte[] content = File.ReadAllBytes(fileName);
-            return DeserializeFromBytes<T>(content);
         }
 
 
@@ -156,6 +187,16 @@ namespace Iveely.Framework.Text
             byte[] objBytes = SerializeToBytes(myObjects);
             int[] ints = DeserializeFromBytes<object[]>(objBytes).Cast<int>().ToArray();
             Assert.IsTrue(ints.Length == 4);
+        }
+
+        [TestMethod]
+        public void Test_BinaryError()
+        {
+            string str = "CHINA";
+            byte[] bytes = SerializeToBytes(str);
+            List<byte> newBytes = new List<byte>(bytes);
+            newBytes.RemoveAt(0);
+            str = DeserializeFromBytes<string>(newBytes.ToArray());
         }
 
 #endif

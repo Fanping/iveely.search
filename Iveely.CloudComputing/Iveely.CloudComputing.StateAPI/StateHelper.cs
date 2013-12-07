@@ -81,6 +81,7 @@ namespace Iveely.CloudComputing.StateAPI
             CheckConnect();
             StatePacket packet = new StatePacket(path, StatePacket.Type.Rename,
                 System.Text.Encoding.UTF8.GetBytes(nodeName));
+            //1207
             packet.WaiteCallBack = false;
             _clients[0].Send<bool>(packet);
         }

@@ -39,7 +39,7 @@ namespace Iveely.CloudComputing.Client
                 Sender = new Framework.Network.Synchronous.Client(fromIp, int.Parse(port));
             }
             Packet packet = new Packet(Serializer.SerializeToBytes("[result from:" + Parameters[2] + ",+" + Parameters[3] + "] " + information));
-            //无需等待反馈
+            //无需等待反馈1207
             packet.WaiteCallBack = false;
             Sender.Send<Packet>(packet);
         }
