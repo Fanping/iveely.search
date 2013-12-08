@@ -11,6 +11,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Iveely.CloudComputing.StateAPI;
+using Iveely.Framework.Network;
+using Iveely.Framework.Network.Synchronous;
 
 
 namespace Iveely.SearchEngine
@@ -21,8 +24,14 @@ namespace Iveely.SearchEngine
 
         public static void Main()
         {
+            //StateHelper.Put("ISE://a/path", "data");
             Collector collector = new Collector();
             collector.Run(new object[] { 0, 0, 0, 0, 0, 0 });
+            //Client client = new Client("Fanping-pc", 6778);
+            //byte[] bytes = new byte[10];
+            //Packet packet = new Packet();
+            //packet.Data = bytes;
+            //client.Send<byte[]>(packet);
         }
     }
 }

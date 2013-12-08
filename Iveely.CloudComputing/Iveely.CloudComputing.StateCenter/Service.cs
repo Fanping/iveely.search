@@ -1,4 +1,5 @@
-﻿using Iveely.CloudComputing.StateCenter.Annotations;
+﻿using System.Threading;
+using Iveely.CloudComputing.StateCenter.Annotations;
 using Iveely.CloudComputing.StateCommon;
 using Iveely.Framework.Log;
 using Iveely.Framework.Text;
@@ -75,11 +76,10 @@ namespace Iveely.CloudComputing.StateCenter
                 {
                     //等待客户端链接
                     TcpClient client = Listener.AcceptTcpClient();
-                    //提示信息
-                    // Common.Printf.WriteInfo("处理客户端:"+client.Client.RemoteEndPoint.ToString());
-                    //处理客户端程序
-                    //Log.Logger.Info(string.Format("Get client connect to server."));
-                    ProcessClient(client);
+
+                    Thread thread = new Thread(ProcessClient);
+                    thread.Start(client);
+                    //ProcessClient(client);
                 }
             }
             catch (Exception ex)
@@ -115,20 +115,31 @@ namespace Iveely.CloudComputing.StateCenter
         /// 处理客户端的连接
         /// </summary>
         /// <param name="client">客户端</param>
-        private void ProcessClient(TcpClient client)
+        private void ProcessClient(object clientObj)
         {
+            TcpClient client = (TcpClient)clientObj;
             try
             {
                 //字节数组容器
-                var bytes = new byte[MaxReciveSize];
+                //var bytes = new byte[MaxReciveSize];
                 //读取网络流
                 using (NetworkStream netStream = client.GetStream())
                 {
                     //设定读超时
                     netStream.ReadTimeout = 600000;
-                    netStream.Read(bytes, 0, bytes.Length);
+
+                    byte[] bytesLength = new byte[4];
+                    netStream.Read(bytesLength, 0, 4);
+                    int dataLength = BitConverter.ToInt32(bytesLength, 0);
+                    byte[] reciveBytes = new byte[dataLength];
+                    netStream.Read(reciveBytes, 0, dataLength);
+
+                    //netStream.Read(bytes, 0, bytes.Length);
                     //转换为字节数组
-                    bytes = OnReceive(bytes);
+                    var bytes = OnReceive(reciveBytes);
+                    byte[] sendBytesLength = BitConverter.GetBytes(bytes.Length);
+
+                    netStream.Write(sendBytesLength, 0, 4);
                     //执行回复
                     netStream.Write(bytes, 0, bytes.Length);
 

@@ -7,6 +7,7 @@
  *========================================*/
 
 using System;
+using System.Collections.Generic;
 using System.Net.Sockets;
 using Iveely.Framework.Text;
 
@@ -63,21 +64,33 @@ namespace Iveely.Framework.Network.Synchronous
                 client.Connect(_server, _port);
 
                 //将即将发送的消息转换为字节数组
-                byte[] sendBytes = Serializer.SerializeToBytes(packet);
-                byte[] reciveBytes = new byte[_maxTransferSize];
+                byte[] sendDataBytes = Serializer.SerializeToBytes(packet);
+                byte[] sendBytesLength = BitConverter.GetBytes(sendDataBytes.Length);
+                List<byte> sendList = new List<byte>();
+                sendList.AddRange(sendBytesLength);
+                sendList.AddRange(sendDataBytes);
+
+
 
                 // 获取和服务端会话的流
                 using (NetworkStream netStream = client.GetStream())
                 {
                     //发送消息
-                    netStream.Write(sendBytes, 0, sendBytes.Length);
+                    netStream.Write(sendList.ToArray(), 0, sendList.Count);
                     netStream.Flush();
 
                     //确认是否响应消息
                     if (packet.WaiteCallBack)
                     {
-                        netStream.Read(reciveBytes, 0, _maxTransferSize);
-                        result = Serializer.DeserializeFromBytes<T>(reciveBytes);
+                        byte[] reciveDataLength = new byte[4];
+                        netStream.Read(reciveDataLength, 0, 4);
+                        int reciveLength = BitConverter.ToInt32(reciveDataLength, 0);
+                        if (reciveLength != 0)
+                        {
+                            byte[] reciveBytes = new byte[reciveLength];
+                            netStream.Read(reciveBytes, 0, reciveLength);
+                            result = Serializer.DeserializeFromBytes<T>(reciveBytes);
+                        }
                     }
                 }
             }
