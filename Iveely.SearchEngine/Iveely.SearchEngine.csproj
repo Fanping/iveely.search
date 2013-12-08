@@ -57,10 +57,6 @@
       <Project>{3aecfeef-5e6e-484e-8b64-cb89d9339284}</Project>
       <Name>Iveely.CloudComputing.Client</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Iveely.CloudComputing\Iveely.CloudComputing.StateAPI\Iveely.CloudComputing.StateAPI.csproj">
-      <Project>{394ece63-79bf-4758-992f-bc23975fe10a}</Project>
-      <Name>Iveely.CloudComputing.StateAPI</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Iveely.Framework\Iveely.Framework\Iveely.Framework.csproj">
       <Project>{aa439dcd-106a-4c8f-8277-8130e902c779}</Project>
       <Name>Iveely.Framework</Name>

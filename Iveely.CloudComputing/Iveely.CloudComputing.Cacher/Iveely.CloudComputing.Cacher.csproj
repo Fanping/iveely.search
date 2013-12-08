@@ -4,15 +4,16 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{A153F408-FFA3-45BE-9886-15E0D4BC06E7}</ProjectGuid>
-    <OutputType>Library</OutputType>
+    <ProjectGuid>{35D11049-986E-4DFC-9445-61C87DFAE923}</ProjectGuid>
+    <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Iveely.CloudComputing.CacheAPI</RootNamespace>
-    <AssemblyName>Iveely.CloudComputing.CacheAPI</AssemblyName>
+    <RootNamespace>Iveely.CloudComputing.Cacher</RootNamespace>
+    <AssemblyName>Iveely.CloudComputing.Cacher</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -22,6 +23,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>..\Release\</OutputPath>
@@ -30,6 +32,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -39,13 +42,27 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Memory.cs" />
+    <Compile Include="CyclingBuffer.cs" />
+    <Compile Include="CyclingHash.cs" />
+    <Compile Include="Executor.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Iveely.Framework\Iveely.Framework\Iveely.Framework.csproj">
+      <Project>{aa439dcd-106a-4c8f-8277-8130e902c779}</Project>
+      <Name>Iveely.Framework</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Iveely.CloudComputing.CacheCommon\Iveely.CloudComputing.CacheCommon.csproj">
       <Project>{e375ff72-f36b-4ebf-aba0-691944e1119a}</Project>
       <Name>Iveely.CloudComputing.CacheCommon</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Iveely.CloudComputing.Configuration\Iveely.CloudComputing.Configuration.csproj">
+      <Project>{b063a687-75ba-46fd-b64e-44a3db24f54f}</Project>
+      <Name>Iveely.CloudComputing.Configuration</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

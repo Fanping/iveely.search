@@ -189,8 +189,8 @@ namespace Iveely.Framework.Network.Synchronous
                     sendList.AddRange(sendBytesLength);
                     sendList.AddRange(sendBytes);
                     netStream.Write(sendList.ToArray(), 0, sendBytes.Length);
-                    netStream.Flush();
                 }
+                netStream.Flush();
             }
 
             currentThreadCount--;

@@ -77,7 +77,7 @@ namespace Iveely.Framework.Network.Synchronous
                 {
                     //发送消息
                     netStream.Write(sendList.ToArray(), 0, sendList.Count);
-                    netStream.Flush();
+                    //netStream.Flush();
 
                     //确认是否响应消息
                     if (packet.WaiteCallBack)
@@ -92,6 +92,7 @@ namespace Iveely.Framework.Network.Synchronous
                             result = Serializer.DeserializeFromBytes<T>(reciveBytes);
                         }
                     }
+                    netStream.Flush();
                 }
             }
             finally

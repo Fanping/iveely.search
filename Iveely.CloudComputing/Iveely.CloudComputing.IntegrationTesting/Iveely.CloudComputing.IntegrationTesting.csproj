@@ -60,9 +60,9 @@
       <Project>{e375ff72-f36b-4ebf-aba0-691944e1119a}</Project>
       <Name>Iveely.CloudComputing.CacheCommon</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Iveely.CloudComputing.Cache\Iveely.CloudComputing.Cache.csproj">
-      <Project>{4e3b627f-42f8-4dc1-a15e-243926a4331f}</Project>
-      <Name>Iveely.CloudComputing.Cache</Name>
+    <ProjectReference Include="..\Iveely.CloudComputing.Cacher\Iveely.CloudComputing.Cacher.csproj">
+      <Project>{35d11049-986e-4dfc-9445-61c87dfae923}</Project>
+      <Name>Iveely.CloudComputing.Cacher</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

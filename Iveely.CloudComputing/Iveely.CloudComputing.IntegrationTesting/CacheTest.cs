@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using Iveely.CloudComputing.Cache;
+using Iveely.CloudComputing.Cacher;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Iveely.CloudComputing.IntegrationTesting
@@ -15,7 +15,7 @@ namespace Iveely.CloudComputing.IntegrationTesting
     [TestClass]
     public class CacheTest
     {
-        private Cache.Executor executor;
+        private Cacher.Executor executor;
 
         [TestMethod]
         public void IT_CacheEndToEnd()
