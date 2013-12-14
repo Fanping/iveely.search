@@ -97,6 +97,10 @@
       <Project>{eeea67f9-9089-481d-a4dc-0966dec9fd7d}</Project>
       <Name>Newtonsoft.Json</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\Dependency\SharpSerializer\SharpSerializer.Library.csproj">
+      <Project>{88ab738f-7a36-4c93-b808-b6ce2d3444b2}</Project>
+      <Name>SharpSerializer.Library</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

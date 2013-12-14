@@ -20,6 +20,7 @@ namespace Iveely.CloudComputing.CacheCommon
         /// <summary>
         /// 缓存消息执行类型
         /// </summary>
+        [Serializable]
         public enum CommandType
         {
             /// <summary>

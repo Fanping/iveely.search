@@ -13,6 +13,8 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Iveely.CloudComputing.Client;
+using Iveely.CloudComputing.StateAPI;
+using Iveely.Framework.Text;
 
 
 namespace Iveely.SearchEngine
@@ -37,9 +39,11 @@ namespace Iveely.SearchEngine
 
         public static void Main()
         {
-            Test test = new Test();
-            test.Run(new object[] { 0, 0, 0, 0, 0, 0 });
-            //StateHelper.Put("ISE://a/path", "data");
+            byte[] bytes = Serializer.SerializeToBytes("CHINA");
+            string str = Serializer.DeserializeFromBytes<string>(bytes);
+            Console.WriteLine(str);
+            //Test test = new Test();
+            //test.Run(new object[] { 0, 0, 0, 0, 0, 0 });
             //Collector collector = new Collector();
             //collector.Run(new object[] { 0, 0, 0, 0, 0, 0 });
             //Client client = new Client("Fanping-pc", 6778);
