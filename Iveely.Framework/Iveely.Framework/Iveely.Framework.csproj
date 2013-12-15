@@ -41,6 +41,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Algorithm\AI\Analyse.cs" />
+    <Compile Include="Algorithm\AI\Bot.cs" />
+    <Compile Include="Algorithm\AI\Category.cs" />
+    <Compile Include="Algorithm\AI\Formate.cs" />
+    <Compile Include="Algorithm\AI\Fucntion.cs" />
+    <Compile Include="Algorithm\AI\Input.cs" />
+    <Compile Include="Algorithm\AI\Library\CodeCompiler.cs" />
+    <Compile Include="Algorithm\AI\Library\Sys.cs" />
+    <Compile Include="Algorithm\AI\Memory.cs" />
+    <Compile Include="Algorithm\AI\Pattern.cs" />
+    <Compile Include="Algorithm\AI\Rand.cs" />
+    <Compile Include="Algorithm\AI\Star.cs" />
+    <Compile Include="Algorithm\AI\Template.cs" />
+    <Compile Include="Algorithm\AI\User.cs" />
     <Compile Include="Algorithm\BinarySearch.cs" />
     <Compile Include="Algorithm\CombineSort.cs" />
     <Compile Include="Algorithm\Invert.cs" />

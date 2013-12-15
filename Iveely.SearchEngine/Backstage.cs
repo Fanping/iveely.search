@@ -16,7 +16,7 @@ namespace Iveely.SearchEngine
     /// <summary>
     /// 搜索引擎
     /// </summary>
-    public class Collector : Application
+    public class Backstage : Application
     {
         /// <summary>
         /// 网页信息
