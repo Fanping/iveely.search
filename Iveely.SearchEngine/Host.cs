@@ -14,6 +14,7 @@ using System.Net;
 using System.Threading;
 using Iveely.CloudComputing.Client;
 using Iveely.Framework.DataStructure;
+using Iveely.Framework.Network;
 using Iveely.Framework.Network.Synchronous;
 
 namespace Iveely.SearchEngine
@@ -43,7 +44,29 @@ namespace Iveely.SearchEngine
                         string timestamp = DateTime.UtcNow.ToLongDateString();
                         SetGlobalCache("CurrentQueryIndex", timestamp);
                         SetGlobalCache(timestamp, query);
-                        Thread.Sleep(100);
+                        int sendIndex = 1;
+                        string lastIp = string.Empty;
+                        foreach (string worker in workers)
+                        {
+                            string[] workerInfo = worker.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+                            int endFlagIndex = workerInfo[0].LastIndexOf("/") + 1;
+                            string ip = workerInfo[0].Substring(endFlagIndex, workerInfo[0].Length - endFlagIndex);
+                            if (lastIp == ip)
+                            {
+                                sendIndex++;
+                            }
+                            else
+                            {
+                                sendIndex = 1;
+                                lastIp = ip;
+                            }
+                            Client client = new Client(ip, 9000 + sendIndex);
+                            Packet dataPacket = new Packet(new byte[1]);
+                            dataPacket.WaiteCallBack = false;
+                            client.Send<string>(dataPacket);
+                           
+                        }
+
                         foreach (string worker in workers)
                         {
                             result += GetGlobalCache<string>(worker + ":" + query);

@@ -228,14 +228,37 @@ namespace Iveely.SearchEngine
             Serializer.SerializeToFile(Fragment, indexFile);
         }
 
-
-        private void StartSearcher()
+        public void StartSearcher()
         {
-            string lastCurrentQueryIndex = string.Empty;
             if (File.Exists(indexFile))
             {
                 Fragment = Serializer.DeserializeFromFile<InvertFragment>(indexFile);
             }
+            int port = 9000;
+            int tryCount = 1;
+            while (tryCount < 101)
+            {
+                try
+                {
+                    Server server = new Server(Dns.GetHostName(), port + tryCount, processQuery);
+                    server.Listen();
+                }
+                catch (Exception exception)
+                {
+                    tryCount++;
+                    if (tryCount == 100)
+                    {
+                        WriteToConsole("Start Server Error." + exception);
+                    }
+                }
+            }
+
+        }
+
+
+        private byte[] processQuery(byte[] bytes)
+        {
+            string lastCurrentQueryIndex = string.Empty;
             while (true)
             {
                 string currentQueryIndex = GetGlobalCache<string>("CurrentQueryIndex");
@@ -243,7 +266,7 @@ namespace Iveely.SearchEngine
                 {
                     lastCurrentQueryIndex = currentQueryIndex;
                     string query = GetGlobalCache<string>(currentQueryIndex);
-                    // WriteToConsole("Get Query:" + query);
+                    //WriteToConsole("Get Query:" + query);
                     string[] keywords = Spliter.Split(query).Split(new[] { '/' }, StringSplitOptions.RemoveEmptyEntries);
                     List<string> docs = Fragment.FindCommonDocumentByKeys(keywords);
                     List<Template.Question> result = new List<Template.Question>();
