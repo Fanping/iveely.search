@@ -28,8 +28,10 @@ namespace Iveely.SearchEngine
         {
             //Test test = new Test();
             //test.Run(new object[] { 0, 0, 0, 0, 0, 0 });
-            Backstage collector = new Backstage();
-            collector.Run(new object[] { 0, 0, 0, 0, 0, 0 });
+            //Backstage collector = new Backstage();
+            //collector.Run(new object[] { 0, 0, 0, 0, 0, 0 });
+            Framework.Text.Segment.Participle.Test();
+            Framework.Text.Segment.Participle.Test();
             ////Client client = new Client("Fanping-pc", 6778);
             ////byte[] bytes = new byte[10];
             ////Packet packet = new Packet();

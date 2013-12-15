@@ -88,8 +88,13 @@ namespace Iveely.Framework.Text
                 {
                     File.Delete(fileName);
                 }
-                byte[] content = SerializeToBytes(t);
-                File.WriteAllBytes(fileName, content);
+                //文件流创建
+                FileStream fileStream = new FileStream(fileName, FileMode.OpenOrCreate);
+                //二进制对象
+                var binaryFormatter = new BinaryFormatter();
+                //执行序列化
+                binaryFormatter.Serialize(fileStream, t);
+                fileStream.Close();
             }
         }
 
@@ -150,8 +155,16 @@ namespace Iveely.Framework.Text
                 {
                     throw new FileNotFoundException(fileName);
                 }
-                byte[] content = File.ReadAllBytes(fileName);
-                return DeserializeFromBytes<T>(content);
+                //文件流
+                var fileStream = new FileStream(fileName, FileMode.Open);
+                //fs.Seek(0, SeekOrigin.Begin);
+                //二进制对象
+                var binaryFormatter = new BinaryFormatter();
+                //执行序列化
+                Object obj = binaryFormatter.Deserialize(fileStream);
+                //关闭流，这个很重要
+                fileStream.Close();
+                return (T) obj;
             }
         }
 

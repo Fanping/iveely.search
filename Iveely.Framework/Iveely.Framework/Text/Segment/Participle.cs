@@ -48,10 +48,6 @@ namespace Iveely.Framework.Text.Segment
         /// </summary>
         private string Result;
 
-
-        /// <summary>
-        /// 构造方法
-        /// </summary>
         private Participle()
         {
             this.SetState(states);
