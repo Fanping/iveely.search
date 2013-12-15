@@ -14,41 +14,30 @@ using System.Threading;
 using System.Threading.Tasks;
 using Iveely.CloudComputing.Client;
 using Iveely.CloudComputing.StateAPI;
+using Iveely.Framework.Algorithm.AI;
 using Iveely.Framework.Text;
 
 
 namespace Iveely.SearchEngine
 {
-    public class Test : Application
-    {
-        public override void Run(object[] args)
-        {
-            Init(args);
-            SetCache("1", false);
-            SetCache("2", false);
-            Thread.Sleep(1000);
-            Console.WriteLine(GetCache<bool>("1"));
-            string[] results = GetKeysByValueFromCache(false, 10, true);
-            Console.WriteLine(results.Count());
-        }
-    }
-
     public class Searcher
     {
         //private 
 
         public static void Main()
         {
-            Test test = new Test();
-            test.Run(new object[] { 0, 0, 0, 0, 0, 0 });
-            //Collector collector = new Collector();
-            //collector.Run(new object[] { 0, 0, 0, 0, 0, 0 });
-            //Client client = new Client("Fanping-pc", 6778);
-            //byte[] bytes = new byte[10];
-            //Packet packet = new Packet();
-            //packet.Data = bytes;
-            //client.Send<byte[]>(packet);
-
+            //Test test = new Test();
+            //test.Run(new object[] { 0, 0, 0, 0, 0, 0 });
+            ////Collector collector = new Collector();
+            ////collector.Run(new object[] { 0, 0, 0, 0, 0, 0 });
+            ////Client client = new Client("Fanping-pc", 6778);
+            ////byte[] bytes = new byte[10];
+            ////Packet packet = new Packet();
+            ////packet.Data = bytes;
+            ////client.Send<byte[]>(packet);
+            List<Template.Question> questions = Framework.Algorithm.AI.Bot.GetInstance().BuildQuestion("撒贝宁，男，回族，湖北武汉人，", "123");
+            Console.WriteLine(questions.Count);
+            Console.ReadKey();
         }
     }
 }

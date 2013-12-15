@@ -212,7 +212,7 @@ namespace Iveely.Framework.Algorithm.AI
                                                     if (text.Length == 2)
                                                     {
                                                         Template.Question question = new Template.Question();
-                                                        question.Doubt = text[0];
+                                                        question.Description = text[0];
                                                         question.Answer = text[1];
                                                         template.AddQuestion(question);
                                                     }
@@ -281,7 +281,7 @@ namespace Iveely.Framework.Algorithm.AI
                                         questions[n].Answer =
                                             patterns[j].Template.Questions[n].Answer.Replace(
                                                 "[" + valueTemplate[0] + "]", valueTemplate[k + 1]);
-                                        questions[n].Doubt = patterns[j].Template.Questions[n].Doubt.Replace(
+                                        questions[n].Description = patterns[j].Template.Questions[n].Description.Replace(
                                                 "[" + valueTemplate[0] + "]", valueTemplate[k + 1]);
                                     }
                                     template.Questions.AddRange(questions);
@@ -306,7 +306,7 @@ namespace Iveely.Framework.Algorithm.AI
                                         for (int m = 0; m < questions.Count; m++)
                                         {
                                             Template.Question myQuestion = new Template.Question();
-                                            myQuestion.Doubt = questions[m].Doubt.Replace(
+                                            myQuestion.Description = questions[m].Description.Replace(
                                                 "[" + valueTemplate[0] + "]", valueTemplate[n + 1]);
                                             myQuestion.Answer = questions[m].Answer.Replace(
                                                 "[" + valueTemplate[0] + "]", valueTemplate[n + 1]);
@@ -370,7 +370,7 @@ namespace Iveely.Framework.Algorithm.AI
             return string.Empty;
         }
 
-        public string BuildQuestion(string input)
+        public List<Template.Question> BuildQuestion(string input,string reference)
         {
             foreach (Category cate in this.Categorys)
             {
@@ -378,12 +378,11 @@ namespace Iveely.Framework.Algorithm.AI
                 {
                     if (Analyse.Match(pat.Value, input))
                     {
-                        string replyInfo = pat.Template.BuildQuestion();
-                        return replyInfo;
+                        return pat.Template.BuildQuestion(reference);
                     }
                 }
             }
-            return string.Empty;
+            return null;
         }
     }
 }

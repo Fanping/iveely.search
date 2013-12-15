@@ -29,12 +29,17 @@ namespace Iveely.Framework.Algorithm.AI
             /// <summary>
             /// 问题描述
             /// </summary>
-            public string Doubt { get; set; }
+            public string Description { get; internal set; }
 
             /// <summary>
-            /// 答案
+            /// 问题答案
             /// </summary>
-            public string Answer { get; set; }
+            public string Answer { get; internal set; }
+
+            /// <summary>
+            /// 参考信息
+            /// </summary>
+            public string Reference { get; internal set; }
         }
 
         /// <summary>
@@ -176,13 +181,13 @@ namespace Iveely.Framework.Algorithm.AI
             this.Questions.Add(question);
         }
 
-        public string BuildQuestion()
+        public List<Question> BuildQuestion(string reference)
         {
+            List<Question> formalQuestions = new List<Question>();
             string[] values = AI.Star.List;
-            StringBuilder builder = new StringBuilder();
             foreach (var question in Questions)
             {
-                string doubt = question.Doubt;
+                string doubt = question.Description;
                 string answer = question.Answer;
                 for (int i = 0; i < values.Count(); i++)
                 {
@@ -192,11 +197,13 @@ namespace Iveely.Framework.Algorithm.AI
 
                 //doubt = ReplaceStar(doubt, values);
                 answer = ReplaceStar(answer, values);
-
-                builder.Append(doubt + "?->System Answer:" + answer);
-                builder.AppendLine();
+                Question formalQuestion = new Question();
+                formalQuestion.Answer = answer;
+                formalQuestion.Description = doubt;
+                formalQuestion.Reference = reference;
+                formalQuestions.Add(formalQuestion);
             }
-            return builder.ToString();
+            return formalQuestions;
         }
 
         private string ReplaceStar(string text, string[] values)
