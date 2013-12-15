@@ -10,37 +10,49 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
+using System.Net;
 using System.Threading;
-using System.Threading.Tasks;
 using Iveely.CloudComputing.Client;
-using Iveely.CloudComputing.StateAPI;
-using Iveely.Framework.Algorithm.AI;
-using Iveely.Framework.Text;
-using Iveely.Framework.Text.Segment;
+using Iveely.Framework.DataStructure;
+using Iveely.Framework.Network.Synchronous;
 
 namespace Iveely.SearchEngine
 {
-    public class Host
+    public class Host : Application
     {
-
         public static void Main()
         {
-            //Test test = new Test();
-            //test.Run(new object[] { 0, 0, 0, 0, 0, 0 });
-            Backstage collector = new Backstage();
-            collector.Run(new object[] { 0, 0, 0, 0, 0, 0 });
-            //Framework.Text.Segment.Participle.Test();
-            //Framework.Text.Segment.Participle.Test();
-            ////Client client = new Client("Fanping-pc", 6778);
-            ////byte[] bytes = new byte[10];
-            ////Packet packet = new Packet();
-            ////packet.Data = bytes;
-            ////client.Send<byte[]>(packet);
-
-            Console.ReadKey();
+            Host host = new Host();
+            host.Run(null);
         }
 
-        
+        public override void Run(object[] args)
+        {
+            //long timestamp = DateTime.UtcNow.ToFileTimeUtc();
+            IEnumerable<string> workers = GetAllWorkers();
+            int i = 0;
+            if (workers != null)
+            {
+                while (true)
+                {
+                    Console.Write("Enter your query:");
+                    string query = Console.ReadLine();
+                    string result = GetGlobalCache<string>(query);
+                    if (string.IsNullOrEmpty(result))
+                    {
+                        string timestamp = DateTime.UtcNow.ToLongDateString();
+                        SetGlobalCache("CurrentQueryIndex", timestamp);
+                        SetGlobalCache(timestamp, query);
+                        Thread.Sleep(100);
+                        foreach (string worker in workers)
+                        {
+                            result += GetGlobalCache<string>(worker + ":" + query);
+                        }
+                    }
+                    Console.WriteLine(result);
+                }
+            }
+            Console.WriteLine("Not found any workers!");
+        }
     }
 }

@@ -81,6 +81,16 @@ namespace Iveely.Framework.DataStructure
                 return result;
             }
 
+            public SortedList<TValue> GetAllKeys()
+            {
+                var result = new SortedList<TValue>();
+                foreach (DictionaryEntry row in _table)
+                {
+                    result.Add((TValue)row.Key);
+                }
+                return result;
+            }
+
             /// <summary>
             /// 获取所有的列集合
             /// (将一列的所有提取出来以及文档编号)
@@ -164,7 +174,7 @@ namespace Iveely.Framework.DataStructure
             {
                 return null;
             }
-            return ((Cloumn<TRow>)_cloumns[name]).GetAllKeyValue();
+            return ((Cloumn<TRow>)_cloumns[name]).GetAllValue();
         }
 
         /// <summary>

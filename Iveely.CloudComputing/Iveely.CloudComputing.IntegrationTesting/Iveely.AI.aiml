@@ -1,18 +1,25 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <aiml>
     <topic name="房产">
-	<category>
-    		<pattern>*[地名:北京|上海|天津|-ns]*将*[行为:开盘|发布会]</pattern>
-    		<template>
-       			<function name="Normal" para="1,2,3,4"></function>
-				<question>[0]什么地方[1]将[2][行为]？[地名]</question>
-    		</template>
-	</category>
-	<category>
-    		<pattern>*[性别:男|女]*族*人*</pattern>
-    		<template>
-       			<function name="Normal" para="1,2,3"></function>
-				<question>[0]是哪儿人？[2];[0]是什么名族?[1]</question>
+  <category>
+        <pattern>*[地名:北京|上海|天津|-ns]*将*[行为:开盘|发布会]</pattern>
+        <template>
+          <function name="Normal" para="1,2,3,4"></function>
+        <question>[0]什么地方[1]将[2][行为]？[地名]</question>
+        </template>
+  </category>
+      <category>
+        <pattern>*是*</pattern>
+        <template>
+          <function name="Normal" para="1,2"></function>
+          <question>[0]是什么？[1]</question>
+        </template>
+      </category>
+  <category>
+        <pattern>*[性别:男|女]*族*人*</pattern>
+        <template>
+          <function name="Normal" para="1,2,3"></function>
+        <question>[0]是哪儿人？[2];[0]是什么名族?[1]</question>
     		</template>
 	</category>
 	<category>

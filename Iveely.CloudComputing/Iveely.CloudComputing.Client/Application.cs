@@ -132,6 +132,11 @@ namespace Iveely.CloudComputing.Client
             WriteText(builder.ToString(), fileName, globalFile);
         }
 
+        public IEnumerable<string> GetAllWorkers()
+        {
+            IEnumerable<string> workers = StateAPI.StateHelper.GetChildren("ISE://system/state/worker");
+            return workers;
+        }
 
         public string ReadText(string fileName, bool globalFile)
         {
@@ -175,7 +180,7 @@ namespace Iveely.CloudComputing.Client
         /// </summary>
         /// <param name="key">缓存的key</param>
         /// <param name="value">缓存的value</param>
-        public void SetCache(string key, object value)
+        public void SetAppCache(string key, object value)
         {
             if (string.IsNullOrEmpty(key))
             {
@@ -191,13 +196,33 @@ namespace Iveely.CloudComputing.Client
         /// <typeparam name="T">缓存返回值类型</typeparam>
         /// <param name="key">缓存的key</param>
         /// <returns>返回值</returns>
-        public T GetCache<T>(string key)
+        public T GetAppCache<T>(string key)
         {
             if (string.IsNullOrEmpty(key))
             {
                 throw new NullReferenceException("Key can not be null.");
             }
             key = Parameters[2].ToString() + Parameters[3] + Parameters[4] + Parameters[5] + ":" + key;
+            return GetGlobalCache<T>(key);
+        }
+
+        public void SetWorkerCache(string key, object value)
+        {
+            if (string.IsNullOrEmpty(key))
+            {
+                throw new NullReferenceException("Key can not be null.");
+            }
+            key = Parameters[3] + "," + Parameters[4] + ":" + key;
+            Memory.Set(key, value);
+        }
+
+        public T GetWorkerCache<T>(string key)
+        {
+            if (string.IsNullOrEmpty(key))
+            {
+                throw new NullReferenceException("Key can not be null.");
+            }
+            key = Parameters[3] + "," + Parameters[4] + ":" + key;
             return GetGlobalCache<T>(key);
         }
 

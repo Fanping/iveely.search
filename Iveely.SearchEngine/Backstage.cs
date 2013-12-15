@@ -72,7 +72,12 @@ namespace Iveely.SearchEngine
         /// <summary>
         /// 爬虫爬行的跟站点
         /// </summary>
-        private string Host = "baike.baidu.com";
+        private string Host = "www.cnblogs.com";
+
+        /// <summary>
+        /// 索引文件
+        /// </summary>
+        private string indexFile;
 
         /// <summary>
         /// 主程序入口
@@ -82,13 +87,15 @@ namespace Iveely.SearchEngine
         {
             //1. 初始化
             Init(args);
-            Urls.Add("http://baike.baidu.com");
+            Urls.Add("http://www.cnblogs.com");
+            indexFile = GetRootFolder() + "\\InvertFragment.global";
 
             //1. 随机休眠
-            Thread.Sleep(1000 * (new Random().Next(0, 10)));
+            //Thread.Sleep(1000 * (new Random().Next(0, 10)));
 
             Thread searchThread = new Thread(StartSearcher);
             searchThread.Start();
+            //StartSearcher();
 
             //2. 循环数据采集
             while (Urls.Count > 0)
@@ -197,10 +204,10 @@ namespace Iveely.SearchEngine
 
             //对表达的语义建议索引
             // WriteToConsole(string.Format("对表达的语义建议索引，共{0}条记录。", questions.Count));
-            string serializedFile = GetRootFolder() + "\\InvertFragment.global";
-            if (File.Exists(serializedFile))
+
+            if (File.Exists(indexFile))
             {
-                Fragment = Serializer.DeserializeFromFile<InvertFragment>(serializedFile);
+                Fragment = Serializer.DeserializeFromFile<InvertFragment>(indexFile);
             }
 
             using (var database = Database.Open(GetRootFolder() + "\\Iveely.Search.Question"))
@@ -218,53 +225,44 @@ namespace Iveely.SearchEngine
             }
             questions.Clear();
 
-            Serializer.SerializeToFile(Fragment, serializedFile);
+            Serializer.SerializeToFile(Fragment, indexFile);
         }
 
 
         private void StartSearcher()
         {
-            int port = 9000;
-            int i = 0;
-            while (i < 100)
+            string lastCurrentQueryIndex = string.Empty;
+            if (File.Exists(indexFile))
             {
-                try
+                Fragment = Serializer.DeserializeFromFile<InvertFragment>(indexFile);
+            }
+            while (true)
+            {
+                string currentQueryIndex = GetGlobalCache<string>("CurrentQueryIndex");
+                if (!string.IsNullOrEmpty(currentQueryIndex) && lastCurrentQueryIndex != currentQueryIndex)
                 {
-                    Server server = new Server(Dns.GetHostName(), port + i, ProcessSearch);
-                    server.Listen();
-                }
-                catch (Exception exception)
-                {
-                    i++;
-                    if (i == 99)
+                    lastCurrentQueryIndex = currentQueryIndex;
+                    string query = GetGlobalCache<string>(currentQueryIndex);
+                    // WriteToConsole("Get Query:" + query);
+                    string[] keywords = Spliter.Split(query).Split(new[] { '/' }, StringSplitOptions.RemoveEmptyEntries);
+                    List<string> docs = Fragment.FindCommonDocumentByKeys(keywords);
+                    List<Template.Question> result = new List<Template.Question>();
+                    using (var database = Database.Open(GetRootFolder() + "\\Iveely.Search.Question"))
                     {
-                        WriteToConsole("Searcher start failure with " + exception);
+                        var wordsQuey = database.Query<Template.Question>();
+                        foreach (string doc in docs)
+                        {
+                            wordsQuey.Descend("Id").Constrain(int.Parse(doc)).Equal();
+                            var questions = wordsQuey.Execute<Template.Question>();
+                            if (questions != null && questions.Count > 0)
+                            {
+                                result.AddRange(questions);
+                            }
+                        }
                     }
+                    SetWorkerCache(query, Encoding.UTF8.GetBytes(string.Join("\r\n", result)));
                 }
             }
-        }
-
-        private byte[] ProcessSearch(byte[] bytes)
-        {
-            string query = System.Text.Encoding.UTF8.GetString(bytes);
-            WriteToConsole("Get Query:" + query);
-            string[] keywords = Spliter.Split(query).Split(new[] { '/' });
-            List<string> docs = Fragment.FindCommonDocumentByKeys(keywords);
-            List<Template.Question> result = new List<Template.Question>();
-            using (var database = Database.Open(GetRootFolder() + "\\Iveely.Search.Question"))
-            {
-                var wordsQuey = database.Query<Template.Question>();
-                foreach (string doc in docs)
-                {
-                    wordsQuey.Descend("Id").Equals(doc);
-                    var questions = wordsQuey.Execute<Template.Question>();
-                    if (questions != null && questions.Count > 0)
-                    {
-                        result.AddRange(questions);
-                    }
-                }
-            }
-            return Encoding.UTF8.GetBytes(string.Join("\r\n", result));
         }
     }
 }

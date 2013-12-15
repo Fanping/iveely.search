@@ -86,8 +86,13 @@ namespace Iveely.Framework.Algorithm
         /// <returns> 返回按照频率的集合 </returns>
         public List<T> FindDocumentByKey(string key, bool asc)
         {
-            return this.table.GetKeyValueByName(key);
+            return this.table[key].GetAllKeys();
         }
+
+        //public List<T> FindDocIdByKey(string key, bool asc)
+        //{
+        //    return this.table.GetValueByName(key);
+        //}
 
         public List<T> FindValueByKey(string[] keys)
         {

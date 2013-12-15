@@ -34,8 +34,8 @@ namespace Iveely.CloudComputing.Example
             WriteToConsole("Workers' Total Sum:" + workersTotalSum);
 
             //4. 测试缓存
-            SetCache("Workers Total Sum", workersTotalSum);
-            double cacheTotalSum = GetCache<double>("Workers Total Sum");
+            SetAppCache("Workers Total Sum", workersTotalSum);
+            double cacheTotalSum = GetAppCache<double>("Workers Total Sum");
             WriteToConsole("From Cache,Workers' Total Sum:" + cacheTotalSum);
 
             WriteToConsole("Test Finished.");
