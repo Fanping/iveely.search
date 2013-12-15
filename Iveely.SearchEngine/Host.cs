@@ -7,6 +7,7 @@
  *========================================*/
 
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,22 +17,21 @@ using Iveely.CloudComputing.Client;
 using Iveely.CloudComputing.StateAPI;
 using Iveely.Framework.Algorithm.AI;
 using Iveely.Framework.Text;
-
+using Iveely.Framework.Text.Segment;
 
 namespace Iveely.SearchEngine
 {
-    public class Searcher
+    public class Host
     {
-        //private 
 
         public static void Main()
         {
             //Test test = new Test();
             //test.Run(new object[] { 0, 0, 0, 0, 0, 0 });
-            //Backstage collector = new Backstage();
-            //collector.Run(new object[] { 0, 0, 0, 0, 0, 0 });
-            Framework.Text.Segment.Participle.Test();
-            Framework.Text.Segment.Participle.Test();
+            Backstage collector = new Backstage();
+            collector.Run(new object[] { 0, 0, 0, 0, 0, 0 });
+            //Framework.Text.Segment.Participle.Test();
+            //Framework.Text.Segment.Participle.Test();
             ////Client client = new Client("Fanping-pc", 6778);
             ////byte[] bytes = new byte[10];
             ////Packet packet = new Packet();
@@ -40,5 +40,7 @@ namespace Iveely.SearchEngine
 
             Console.ReadKey();
         }
+
+        
     }
 }

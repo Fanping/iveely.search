@@ -42,7 +42,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Searcher.cs" />
+    <Compile Include="Host.cs" />
     <Compile Include="Backstage.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>

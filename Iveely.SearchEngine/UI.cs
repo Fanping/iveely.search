@@ -16,6 +16,6 @@ namespace Iveely.SearchEngine
 {
     public class UI
     {
-
+        
     }
 }

@@ -44,7 +44,12 @@ namespace Iveely.Framework.Algorithm.AI
             /// <summary>
             /// ฑ๊สถ
             /// </summary>
-            public int Id { get;  set; }
+            public int Id { get; set; }
+
+            public override string ToString()
+            {
+                return string.Format("{0}\t{1}\t{2}", Description, Answer, Reference);
+            }
         }
 
         /// <summary>
