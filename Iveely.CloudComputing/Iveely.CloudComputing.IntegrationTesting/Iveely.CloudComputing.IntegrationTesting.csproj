@@ -50,6 +50,9 @@
     <None Include="Stop-Local-Environment.bat">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="Iveely.AI.aiml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Iveely.CloudComputing.CacheAPI\Iveely.CloudComputing.CacheAPI.csproj">

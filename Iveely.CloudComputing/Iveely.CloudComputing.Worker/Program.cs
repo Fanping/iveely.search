@@ -31,9 +31,10 @@ namespace Iveely.CloudComputing.Worker
             }
             _machineName = Dns.GetHostName();
             _servicePort = port;
-            if (!Directory.Exists(_servicePort.ToString(CultureInfo.InvariantCulture)))
+            string processFolder = _servicePort.ToString(CultureInfo.InvariantCulture);
+            if (!Directory.Exists(processFolder))
             {
-                Directory.CreateDirectory(_servicePort.ToString(CultureInfo.InvariantCulture));
+                Directory.CreateDirectory(processFolder);
             }
 
             //2. 向State Center发送上线消息

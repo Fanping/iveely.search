@@ -73,7 +73,7 @@ namespace Iveely.Framework.Algorithm.AI
                 //xml文档对象
                 var xmlDoc = new XmlDocument();
                 //加载对应的智能文件
-                xmlDoc.Load("strai.aiml");
+                xmlDoc.Load("Iveely.AI.aiml");
                 //子节点集合
                 XmlNodeList nodeList = xmlDoc.SelectSingleNode("aiml").ChildNodes;
                 //当前结点
