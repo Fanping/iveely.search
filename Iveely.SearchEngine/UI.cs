@@ -14,7 +14,8 @@ using System.Threading.Tasks;
 
 namespace Iveely.SearchEngine
 {
-    class UI
+    public class UI
     {
+
     }
 }

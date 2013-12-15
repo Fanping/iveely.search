@@ -28,8 +28,8 @@ namespace Iveely.SearchEngine
         {
             //Test test = new Test();
             //test.Run(new object[] { 0, 0, 0, 0, 0, 0 });
-            ////Collector collector = new Collector();
-            ////collector.Run(new object[] { 0, 0, 0, 0, 0, 0 });
+            Backstage collector = new Backstage();
+            collector.Run(new object[] { 0, 0, 0, 0, 0, 0 });
             ////Client client = new Client("Fanping-pc", 6778);
             ////byte[] bytes = new byte[10];
             ////Packet packet = new Packet();

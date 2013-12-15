@@ -64,7 +64,7 @@ namespace Iveely.SearchEngine
         /// <summary>
         /// 爬虫爬行的跟站点
         /// </summary>
-        private string Host = "zhidao.baidu.com";
+        private string Host = "baike.baidu.com";
 
         /// <summary>
         /// 搜索服务器
@@ -79,7 +79,7 @@ namespace Iveely.SearchEngine
         {
             //1. 初始化
             Init(args);
-            Urls.Add("http://zhidao.baidu.com");
+            Urls.Add("http://baike.baidu.com");
 
             //2. 循环数据采集
             while (Urls.Count > 0)
@@ -90,8 +90,10 @@ namespace Iveely.SearchEngine
                 Crawler(ref pages);
 
                 //2.2 索引器开始运行
-                Indexer(ref pages);
-
+                if (pages != null && pages.Count > 0)
+                {
+                    Indexer(ref pages);
+                }
                 //2.3 休眠ns
                 Thread.Sleep(1000 * (new Random().Next(0, 10)));
             }
@@ -161,24 +163,33 @@ namespace Iveely.SearchEngine
         public void Indexer(ref List<Page> pages)
         {
             //自动分析网页表达的含义
-            WriteToConsole(string.Format("开始自动分析网页表达的含义，共{0}条记录。", pages.Count));
+            //  WriteToConsole(string.Format("开始自动分析网页表达的含义，共{0}条记录。", pages.Count));
             List<Template.Question> questions = new List<Template.Question>();
             const string delimiter = ".?。！\t？…●|\r\n])!";
             foreach (Page page in pages)
             {
-                questions.AddRange(Bot.GetInstance().BuildQuestion(page.Title, page.Url));
+                List<Template.Question> titleResult = Bot.GetInstance().BuildQuestion(page.Title, page.Url);
+                if (titleResult != null && titleResult.Count > 0)
+                {
+                    questions.AddRange(titleResult);
+                }
                 string[] sentences = page.Content.Split(delimiter.ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
                 foreach (string sentence in sentences)
                 {
                     if (sentence.Length >= 5)
                     {
-                        questions.AddRange(Bot.GetInstance().BuildQuestion(sentence, page.Url));
+                        List<Template.Question> result = Bot.GetInstance().BuildQuestion(sentence, page.Url);
+                        if (result != null && result.Count > 0)
+                        {
+                            questions.AddRange(result);
+                        }
                     }
                 }
             }
             pages.Clear();
 
             //对表达的语义建议索引
+            // WriteToConsole(string.Format("对表达的语义建议索引，共{0}条记录。", questions.Count));
             Console.WriteLine(questions.Count);
             string serializedFile = "InvertFragment.global";
             InvertFragment fragment = new InvertFragment();
@@ -186,14 +197,18 @@ namespace Iveely.SearchEngine
             {
                 fragment = Serializer.DeserializeFromFile<InvertFragment>(serializedFile);
             }
+     
             using (var database = Database.Open(GetRootFolder() + "\\Iveely.Search.Question"))
             {
-                for (int i = 0; i < questions.Count; i++)
+                if (questions.Any())
                 {
-                    int id = questions[i].Answer.GetHashCode();
-                    fragment.AddDocument(id, questions[i].Description);
-                    questions[i].Id = id;
-                    database.Store(questions[i]);
+                    for (int i = 0; i < questions.Count; i++)
+                    {
+                        int id = questions[i].Answer.GetHashCode();
+                        fragment.AddDocument(id, questions[i].Description);
+                        questions[i].Id = id;
+                        database.Store(questions[i]);
+                    }
                 }
             }
             questions.Clear();

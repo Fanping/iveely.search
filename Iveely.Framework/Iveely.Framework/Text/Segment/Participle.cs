@@ -56,7 +56,7 @@ namespace Iveely.Framework.Text.Segment
         {
             this.SetState(states);
             Delimiter = ".*?([，。,；！？…：●—－\r\n]+) ><=!@#%^&*";
-            this.Train(File.ReadAllText("Participle_Train.txt", Encoding.UTF8));
+            this.Train(File.ReadAllText("msr_train.txt", Encoding.UTF8));
             Result = "";
         }
 
