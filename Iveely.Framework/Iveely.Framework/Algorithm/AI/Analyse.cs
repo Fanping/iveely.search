@@ -11,6 +11,7 @@
 
 using System.Linq;
 using System.Collections;
+using Iveely.Framework.Text.Segment;
 
 namespace Iveely.Framework.Algorithm.AI
 {
@@ -108,7 +109,10 @@ namespace Iveely.Framework.Algorithm.AI
                             else if (start > j)
                             {
                                 //出栈
-                                stack.Pop();
+                                if (stack.Count != 0)
+                                {
+                                    stack.Pop();
+                                }
                                 //把起始位移动到当前
                                 start = j;
                             }

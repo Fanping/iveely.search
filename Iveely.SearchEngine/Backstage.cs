@@ -190,14 +190,13 @@ namespace Iveely.SearchEngine
 
             //对表达的语义建议索引
             // WriteToConsole(string.Format("对表达的语义建议索引，共{0}条记录。", questions.Count));
-            Console.WriteLine(questions.Count);
-            string serializedFile = "InvertFragment.global";
+            string serializedFile = GetRootFolder() + "\\InvertFragment.global";
             InvertFragment fragment = new InvertFragment();
             if (File.Exists(serializedFile))
             {
                 fragment = Serializer.DeserializeFromFile<InvertFragment>(serializedFile);
             }
-     
+
             using (var database = Database.Open(GetRootFolder() + "\\Iveely.Search.Question"))
             {
                 if (questions.Any())
