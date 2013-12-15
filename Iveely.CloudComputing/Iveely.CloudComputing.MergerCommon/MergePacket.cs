@@ -40,5 +40,8 @@ namespace Iveely.CloudComputing.MergerCommon
             this.Data = data;
             this.Type = type;
         }
+
+        public MergePacket()
+        {}
     }
 }
