@@ -80,6 +80,9 @@ public class ExcutePacket : Packet
         this.ExcuteType = excuteType;
     }
 
+    public ExcutePacket()
+    {}
+
     public void SetReturnAddress(string ip, int port)
     {
         this.ReturnIp = ip;

@@ -14,6 +14,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Xml.Serialization;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Polenter.Serialization;
 
 namespace Iveely.Framework.Text
 {
@@ -39,34 +40,39 @@ namespace Iveely.Framework.Text
         {
             lock (lockSerObject)
             {
-                using (MemoryStream stream = new MemoryStream())
-                {
-                    BinaryFormatter binaryFormatter = new BinaryFormatter();
-                    binaryFormatter.TypeFormat = System.Runtime.Serialization.Formatters.FormatterTypeStyle.TypesAlways;
-                    binaryFormatter.Serialize(stream, obj);
-                    byte[] bytes = stream.ToArray();
-                    return bytes;
-                }
+                //using (MemoryStream stream = new MemoryStream())
+                //{
+                //    BinaryFormatter binaryFormatter = new BinaryFormatter();
+                //    binaryFormatter.TypeFormat = System.Runtime.Serialization.Formatters.FormatterTypeStyle.TypesAlways;
+                //    binaryFormatter.Serialize(stream, obj);
+                //    byte[] bytes = stream.ToArray();
+                //    return bytes;
+                //}
+                var stream = new MemoryStream();
+                var settings = new SharpSerializerBinarySettings(BinarySerializationMode.SizeOptimized);
+                var serializer = new SharpSerializer(settings);
+                serializer.Serialize(obj, stream);
+                return stream.GetBuffer();
             }
         }
 
-        /// <summary>
-        /// 将数据以XML序列化方式到字符串
-        /// </summary>
-        /// <param name="t">被序列化的对象</param>
-        /// <returns>序列化后的字符串</returns>
-        public static string SerializeToString<T>(T t)
-        {
-            lock (lockSerObject)
-            {
-                using (StringWriter stringWriter = new StringWriter())
-                {
-                    XmlSerializer xmlSerializer = new XmlSerializer(t.GetType());
-                    xmlSerializer.Serialize(stringWriter, t);
-                    return stringWriter.ToString();
-                }
-            }
-        }
+        ///// <summary>
+        ///// 将数据以XML序列化方式到字符串
+        ///// </summary>
+        ///// <param name="t">被序列化的对象</param>
+        ///// <returns>序列化后的字符串</returns>
+        //public static string SerializeToString<T>(T t)
+        //{
+        //    lock (lockSerObject)
+        //    {
+        //        using (StringWriter stringWriter = new StringWriter())
+        //        {
+        //            XmlSerializer xmlSerializer = new XmlSerializer(t.GetType());
+        //            xmlSerializer.Serialize(stringWriter, t);
+        //            return stringWriter.ToString();
+        //        }
+        //    }
+        //}
 
         /// <summary>
         /// 序列化对象到文件
@@ -97,14 +103,18 @@ namespace Iveely.Framework.Text
         {
             lock (lockDeserObject)
             {
-                using (MemoryStream stream = new MemoryStream(bytes))
-                {
-                    stream.Position = 0;
-                    BinaryFormatter binaryFormatter = new BinaryFormatter();
-                    binaryFormatter.TypeFormat = System.Runtime.Serialization.Formatters.FormatterTypeStyle.TypesAlways;
-                    object obj = binaryFormatter.Deserialize(stream);
-                    return (T)obj;
-                }
+                //using (MemoryStream stream = new MemoryStream(bytes))
+                //{
+                //    stream.Position = 0;
+                //    BinaryFormatter binaryFormatter = new BinaryFormatter();
+                //    binaryFormatter.TypeFormat = System.Runtime.Serialization.Formatters.FormatterTypeStyle.TypesAlways;
+                //    object obj = binaryFormatter.Deserialize(stream);
+                //    return (T)obj;
+                //}
+                var stream = new MemoryStream(bytes);
+                var settings = new SharpSerializerBinarySettings(BinarySerializationMode.SizeOptimized);
+                var serializer = new SharpSerializer(settings);
+                return (T)serializer.Deserialize(stream);
             }
 
         }
@@ -113,39 +123,44 @@ namespace Iveely.Framework.Text
         {
             lock (lockDeserObject)
             {
-                using (MemoryStream stream = new MemoryStream(bytes))
+                var stream = new MemoryStream(bytes);
+                var settings = new SharpSerializerBinarySettings(BinarySerializationMode.SizeOptimized);
+                var serializer = new SharpSerializer(settings);
+                object obj = serializer.Deserialize(stream);
+                List<object> list = null;
+                //using (MemoryStream stream = new MemoryStream(bytes))
+                //{
+                //    BinaryFormatter binaryFormatter = new BinaryFormatter();
+                //    binaryFormatter.TypeFormat = System.Runtime.Serialization.Formatters.FormatterTypeStyle.TypesAlways;
+                //    object obj = binaryFormatter.Deserialize(stream);
+                //    List<object> list = null;
+                if (obj is Array)
                 {
-                    BinaryFormatter binaryFormatter = new BinaryFormatter();
-                    binaryFormatter.TypeFormat = System.Runtime.Serialization.Formatters.FormatterTypeStyle.TypesAlways;
-                    object obj = binaryFormatter.Deserialize(stream);
-                    List<object> list = null;
-                    if (obj is Array)
-                    {
-                        list = new List<object>(((Array)obj).Cast<object>());
-                    }
-                    return list.ToArray();
+                    list = new List<object>(((Array)obj).Cast<object>());
                 }
+                return list.ToArray();
+                // }
             }
         }
 
-        /// <summary>
-        /// 将XML文档反序列化为对象
-        /// </summary>
-        /// <typeparam name="T">对象类型</typeparam>
-        /// <param name="content">XML序列化内容</param>
-        /// <returns>反序列化还原后的对象</returns>
-        public static T DeserializeFromString<T>(string content)
-        {
-            lock (lockDeserObject)
-            {
-                using (StringReader stringReader = new StringReader(content))
-                {
-                    XmlSerializer xmlSerializer = new XmlSerializer(typeof(T));
-                    object obj = xmlSerializer.Deserialize(stringReader);
-                    return (T)obj;
-                }
-            }
-        }
+        ///// <summary>
+        ///// 将XML文档反序列化为对象
+        ///// </summary>
+        ///// <typeparam name="T">对象类型</typeparam>
+        ///// <param name="content">XML序列化内容</param>
+        ///// <returns>反序列化还原后的对象</returns>
+        //public static T DeserializeFromString<T>(string content)
+        //{
+        //    lock (lockDeserObject)
+        //    {
+        //        using (StringReader stringReader = new StringReader(content))
+        //        {
+        //            XmlSerializer xmlSerializer = new XmlSerializer(typeof(T));
+        //            object obj = xmlSerializer.Deserialize(stringReader);
+        //            return (T)obj;
+        //        }
+        //    }
+        //}
 
         /// <summary>
         /// 从文件中反序列化对象

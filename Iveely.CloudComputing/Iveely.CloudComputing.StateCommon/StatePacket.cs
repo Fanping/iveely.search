@@ -92,5 +92,10 @@ namespace Iveely.CloudComputing.StateCommon
             WaiteCallBack = waiteCallBack;
             Name = name;
         }
+
+        public StatePacket()
+        {
+
+        }
     }
 }

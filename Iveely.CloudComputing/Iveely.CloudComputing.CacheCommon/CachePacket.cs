@@ -22,5 +22,10 @@ namespace Iveely.CloudComputing.CacheCommon
         {
 
         }
+
+        public CachePacket()
+        {
+
+        }
     }
 }
