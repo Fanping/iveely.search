@@ -213,6 +213,7 @@ namespace Iveely.CloudComputing.Client
                 throw new NullReferenceException("Key can not be null.");
             }
             key = Parameters[3] + "," + Parameters[4] + ":" + key;
+            WriteToConsole("Set worker cache:" + key);
             Memory.Set(key, value);
         }
 

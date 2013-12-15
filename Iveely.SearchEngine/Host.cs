@@ -46,6 +46,7 @@ namespace Iveely.SearchEngine
                         SetGlobalCache(timestamp, query);
                         int sendIndex = 1;
                         string lastIp = string.Empty;
+                        List<string> cacheStore = new List<string>();
                         foreach (string worker in workers)
                         {
                             string[] workerInfo = worker.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
@@ -60,16 +61,23 @@ namespace Iveely.SearchEngine
                                 sendIndex = 1;
                                 lastIp = ip;
                             }
-                            Client client = new Client(ip, 9000 + sendIndex);
-                            Packet dataPacket = new Packet(new byte[1]);
-                            dataPacket.WaiteCallBack = false;
-                            client.Send<string>(dataPacket);
-                           
+                            try
+                            {
+                                Client client = new Client(ip, 9000 + sendIndex);
+                                Packet dataPacket = new Packet(new byte[1]);
+                                dataPacket.WaiteCallBack = false;
+                                client.Send<string>(dataPacket);
+                                cacheStore.Add(ip + "," + 9000 + sendIndex);
+                            }
+                            catch (Exception exception)
+                            {
+                                Console.WriteLine(exception);
+                            }
                         }
 
-                        foreach (string worker in workers)
+                        foreach (string ca in cacheStore)
                         {
-                            result += GetGlobalCache<string>(worker + ":" + query);
+                            result += GetGlobalCache<string>(ca + query);
                         }
                     }
                     Console.WriteLine(result);

@@ -80,6 +80,11 @@ namespace Iveely.SearchEngine
         private string indexFile;
 
         /// <summary>
+        /// 搜索端口
+        /// </summary>
+        private int searchPort = 9000;
+
+        /// <summary>
         /// 主程序入口
         /// </summary>
         /// <param name="args"></param>
@@ -91,26 +96,26 @@ namespace Iveely.SearchEngine
             indexFile = GetRootFolder() + "\\InvertFragment.global";
 
             //1. 随机休眠
-            //Thread.Sleep(1000 * (new Random().Next(0, 10)));
+            Thread.Sleep(1000 * (new Random().Next(0, 10)));
 
-            Thread searchThread = new Thread(StartSearcher);
-            searchThread.Start();
-            //StartSearcher();
+            // Thread searchThread = new Thread(StartSearcher);
+            // searchThread.Start();
+            StartSearcher();
 
-            //2. 循环数据采集
-            while (Urls.Count > 0)
-            {
-                List<Page> pages = new List<Page>();
+            ////2. 循环数据采集
+            //while (Urls.Count > 0)
+            //{
+            //    List<Page> pages = new List<Page>();
 
-                //2.1 爬虫开始运行
-                Crawler(ref pages);
+            //    //2.1 爬虫开始运行
+            //    Crawler(ref pages);
 
-                //2.2 索引器开始运行
-                if (pages != null && pages.Count > 0)
-                {
-                    Indexer(ref pages);
-                }
-            }
+            //    //2.2 索引器开始运行
+            //    if (pages != null && pages.Count > 0)
+            //    {
+            //        Indexer(ref pages);
+            //    }
+            //}
         }
 
         /// <summary>
@@ -234,13 +239,13 @@ namespace Iveely.SearchEngine
             {
                 Fragment = Serializer.DeserializeFromFile<InvertFragment>(indexFile);
             }
-            int port = 9000;
             int tryCount = 1;
             while (tryCount < 101)
             {
                 try
                 {
-                    Server server = new Server(Dns.GetHostName(), port + tryCount, processQuery);
+                    searchPort += tryCount;
+                    Server server = new Server(Dns.GetHostName(), searchPort, processQuery);
                     server.Listen();
                 }
                 catch (Exception exception)
@@ -258,34 +263,30 @@ namespace Iveely.SearchEngine
 
         private byte[] processQuery(byte[] bytes)
         {
-            string lastCurrentQueryIndex = string.Empty;
-            while (true)
+            string currentQueryIndex = GetGlobalCache<string>("CurrentQueryIndex");
+            if (!string.IsNullOrEmpty(currentQueryIndex))
             {
-                string currentQueryIndex = GetGlobalCache<string>("CurrentQueryIndex");
-                if (!string.IsNullOrEmpty(currentQueryIndex) && lastCurrentQueryIndex != currentQueryIndex)
+                string query = GetGlobalCache<string>(currentQueryIndex);
+                WriteToConsole("Get Query:" + query);
+                string[] keywords = Spliter.Split(query).Split(new[] { '/' }, StringSplitOptions.RemoveEmptyEntries);
+                List<string> docs = Fragment.FindCommonDocumentByKeys(keywords);
+                List<Template.Question> result = new List<Template.Question>();
+                using (var database = Database.Open(GetRootFolder() + "\\Iveely.Search.Question"))
                 {
-                    lastCurrentQueryIndex = currentQueryIndex;
-                    string query = GetGlobalCache<string>(currentQueryIndex);
-                    //WriteToConsole("Get Query:" + query);
-                    string[] keywords = Spliter.Split(query).Split(new[] { '/' }, StringSplitOptions.RemoveEmptyEntries);
-                    List<string> docs = Fragment.FindCommonDocumentByKeys(keywords);
-                    List<Template.Question> result = new List<Template.Question>();
-                    using (var database = Database.Open(GetRootFolder() + "\\Iveely.Search.Question"))
+                    var wordsQuey = database.Query<Template.Question>();
+                    foreach (string doc in docs)
                     {
-                        var wordsQuey = database.Query<Template.Question>();
-                        foreach (string doc in docs)
+                        wordsQuey.Descend("Id").Constrain(int.Parse(doc)).Equal();
+                        var questions = wordsQuey.Execute<Template.Question>();
+                        if (questions != null && questions.Count > 0)
                         {
-                            wordsQuey.Descend("Id").Constrain(int.Parse(doc)).Equal();
-                            var questions = wordsQuey.Execute<Template.Question>();
-                            if (questions != null && questions.Count > 0)
-                            {
-                                result.AddRange(questions);
-                            }
+                            result.AddRange(questions);
                         }
                     }
-                    SetWorkerCache(query, Encoding.UTF8.GetBytes(string.Join("\r\n", result)));
                 }
+                SetGlobalCache(Dns.GetHostName() + "," + searchPort + query, string.Join("\r\n", result));
             }
+            return bytes;
         }
     }
 }
