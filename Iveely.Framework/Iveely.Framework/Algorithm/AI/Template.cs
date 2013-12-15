@@ -40,6 +40,11 @@ namespace Iveely.Framework.Algorithm.AI
             /// 参考信息
             /// </summary>
             public string Reference { get; internal set; }
+
+            /// <summary>
+            /// 标识
+            /// </summary>
+            public int Id { get;  set; }
         }
 
         /// <summary>

@@ -63,7 +63,7 @@ namespace Iveely.Framework.DataStructure
                 Children = new List<Node>();
             }
 
-            private Node()
+            public Node()
             {
             }
 

@@ -22,7 +22,7 @@ namespace Iveely.CloudComputing.StateCenter
             Framework.Process.RunningState.StandAlone();
 
             // 2. 启动还原
-            //State.Restore();
+            State.Restore();
 
             // 5. 启动记录状态服务
             Logger.Info("State Center is start listening...");

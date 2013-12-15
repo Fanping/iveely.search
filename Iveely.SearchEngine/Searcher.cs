@@ -35,8 +35,7 @@ namespace Iveely.SearchEngine
             ////Packet packet = new Packet();
             ////packet.Data = bytes;
             ////client.Send<byte[]>(packet);
-            List<Template.Question> questions = Framework.Algorithm.AI.Bot.GetInstance().BuildQuestion("撒贝宁，男，回族，湖北武汉人，", "123");
-            Console.WriteLine(questions.Count);
+
             Console.ReadKey();
         }
     }

@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using Iveely.CloudComputing.Client;
 using Iveely.Framework.Algorithm;
+using Iveely.Framework.Algorithm.AI;
 using Iveely.Framework.Network;
 using Iveely.Framework.Network.Synchronous;
 using Iveely.Framework.Text;
@@ -89,7 +90,7 @@ namespace Iveely.SearchEngine
                 Crawler(ref pages);
 
                 //2.2 索引器开始运行
-                //Indexer(ref pages);
+                Indexer(ref pages);
 
                 //2.3 休眠ns
                 Thread.Sleep(1000 * (new Random().Next(0, 10)));
@@ -145,16 +146,6 @@ namespace Iveely.SearchEngine
                 }
             }
 
-            ////2. 存储数据
-            //DateTime dateTime = DateTime.UtcNow;
-            //string fileName = string.Format("{0}{1}{2}{3}.wiki.data", dateTime.Year, dateTime.Month, dateTime.Day, dateTime.Hour);
-            //StringBuilder data = new StringBuilder();
-            //foreach (Page page in pages)
-            //{
-            //    data.AppendLine(page.ToString());
-            //}
-            //WriteText(data.ToString(), fileName, false);
-
             //3. 新的url标识为未爬行过，并存放于缓存中
             SetListIntoCache(newUrls.ToArray(), false);
 
@@ -163,25 +154,53 @@ namespace Iveely.SearchEngine
             Urls.AddRange(GetKeysByValueFromCache(false, 10, true));
         }
 
-        ///// <summary>
-        ///// 索引程序入口
-        ///// </summary>
-        ///// <param name="pages">网页信息集合</param>
-        //public void Indexer(ref List<Page> pages)
-        //{
-        //    string serializedFile = "InvertFragment.global";
-        //    if (File.Exists(serializedFile))
-        //    {
-        //        Fragment = Serializer.DeserializeFromFile<InvertFragment>(serializedFile);
-        //    }
-        //    foreach (Page page in pages)
-        //    {
-        //        Fragment.AddDocument(page.Url, page.Content + page.Title);
-        //    }
-        //    pages.Clear();
-        //    Serializer.SerializeToFile(Fragment, serializedFile);
-        //    //SendToSearcher(Fragment);
-        //}
+        /// <summary>
+        /// 索引程序入口
+        /// </summary>
+        /// <param name="pages">网页信息集合</param>
+        public void Indexer(ref List<Page> pages)
+        {
+            //自动分析网页表达的含义
+            WriteToConsole(string.Format("开始自动分析网页表达的含义，共{0}条记录。", pages.Count));
+            List<Template.Question> questions = new List<Template.Question>();
+            const string delimiter = ".?。！\t？…●|\r\n])!";
+            foreach (Page page in pages)
+            {
+                questions.AddRange(Bot.GetInstance().BuildQuestion(page.Title, page.Url));
+                string[] sentences = page.Content.Split(delimiter.ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
+                foreach (string sentence in sentences)
+                {
+                    if (sentence.Length >= 5)
+                    {
+                        questions.AddRange(Bot.GetInstance().BuildQuestion(sentence, page.Url));
+                    }
+                }
+            }
+            pages.Clear();
+
+            //对表达的语义建议索引
+            Console.WriteLine(questions.Count);
+            string serializedFile = "InvertFragment.global";
+            InvertFragment fragment = new InvertFragment();
+            if (File.Exists(serializedFile))
+            {
+                fragment = Serializer.DeserializeFromFile<InvertFragment>(serializedFile);
+            }
+            using (var database = Database.Open(GetRootFolder() + "\\Iveely.Search.Question"))
+            {
+                for (int i = 0; i < questions.Count; i++)
+                {
+                    int id = questions[i].Answer.GetHashCode();
+                    fragment.AddDocument(id, questions[i].Description);
+                    questions[i].Id = id;
+                    database.Store(questions[i]);
+                }
+            }
+            questions.Clear();
+
+            Serializer.SerializeToFile(fragment, serializedFile);
+            //SendToSearcher(Fragment);
+        }
 
         //private void SendToSearcher(InvertFragment fragment)
         //{
