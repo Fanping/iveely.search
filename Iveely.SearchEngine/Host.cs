@@ -25,12 +25,16 @@ namespace Iveely.SearchEngine
         {
             Host host = new Host();
             host.Run(null);
+            //Backstage backstage = new Backstage();
+            //backstage.Run(new object[] { 8001, 8001, 8001, 8001, 8001 });
         }
 
         public override void Run(object[] args)
         {
             //long timestamp = DateTime.UtcNow.ToFileTimeUtc();
             IEnumerable<string> workers = GetAllWorkers();
+
+            Console.WriteLine("Get Worker count:" + workers.Count());
             int i = 0;
             if (workers != null)
             {
@@ -39,6 +43,7 @@ namespace Iveely.SearchEngine
                     Console.Write("Enter your query:");
                     string query = Console.ReadLine();
                     string result = GetGlobalCache<string>(query);
+                    Console.WriteLine(string.Format("query:[{0}] in cache is {1}", query, result));
                     if (string.IsNullOrEmpty(result))
                     {
                         string timestamp = DateTime.UtcNow.ToLongDateString();
@@ -67,7 +72,7 @@ namespace Iveely.SearchEngine
                                 Packet dataPacket = new Packet(new byte[1]);
                                 dataPacket.WaiteCallBack = false;
                                 client.Send<string>(dataPacket);
-                                cacheStore.Add(ip + "," + 9000 + sendIndex);
+                                cacheStore.Add(ip + "," + (9000 + sendIndex));
                             }
                             catch (Exception exception)
                             {
@@ -77,10 +82,12 @@ namespace Iveely.SearchEngine
 
                         foreach (string ca in cacheStore)
                         {
-                            result += GetGlobalCache<string>(ca + query);
+                            string outputResult = ca + query;
+                            Console.WriteLine(outputResult);
+                            result += GetGlobalCache<string>(outputResult);
                         }
                     }
-                    Console.WriteLine(result);
+                    Console.WriteLine("Finnal result :" + result);
                 }
             }
             Console.WriteLine("Not found any workers!");

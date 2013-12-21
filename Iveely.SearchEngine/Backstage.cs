@@ -96,9 +96,11 @@ namespace Iveely.SearchEngine
             indexFile = GetRootFolder() + "\\InvertFragment.global";
 
             //1. 随机休眠
-            Thread.Sleep(1000 * (new Random().Next(0, 10)));
+            //Thread.Sleep(1000 * (new Random().Next(0, 10)));
 
             // Thread searchThread = new Thread(StartSearcher);
+
+         
             // searchThread.Start();
             StartSearcher();
 
@@ -246,6 +248,7 @@ namespace Iveely.SearchEngine
                 {
                     searchPort += tryCount;
                     Server server = new Server(Dns.GetHostName(), searchPort, processQuery);
+                    WriteToConsole(searchPort+" is start search service.");
                     server.Listen();
                 }
                 catch (Exception exception)
@@ -261,7 +264,7 @@ namespace Iveely.SearchEngine
         }
 
 
-        private byte[] processQuery(byte[] bytes)
+        public byte[] processQuery(byte[] bytes)
         {
             string currentQueryIndex = GetGlobalCache<string>("CurrentQueryIndex");
             if (!string.IsNullOrEmpty(currentQueryIndex))
@@ -284,7 +287,9 @@ namespace Iveely.SearchEngine
                         }
                     }
                 }
-                SetGlobalCache(Dns.GetHostName() + "," + searchPort + query, string.Join("\r\n", result));
+                string inputResultKey = Dns.GetHostName() + "," + searchPort + query;
+                WriteToConsole("Result write into cache key="+inputResultKey);
+                SetGlobalCache(inputResultKey, string.Join("\r\n", result));
             }
             return bytes;
         }

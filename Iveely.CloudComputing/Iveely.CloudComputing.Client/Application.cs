@@ -31,17 +31,26 @@ namespace Iveely.CloudComputing.Client
 
         public void WriteToConsole(string information)
         {
-            if (Sender == null)
+            Console.WriteLine(information);
+            try
             {
-                //BUG:传递parameter这个参数，非常不友好
-                string fromIp = Parameters[0].ToString();
-                string port = Parameters[1].ToString();
-                Sender = new Framework.Network.Synchronous.Client(fromIp, int.Parse(port));
+                  if (Sender == null)
+                {
+                    //BUG:传递parameter这个参数，非常不友好
+                    string fromIp = Parameters[0].ToString();
+                    string port = Parameters[1].ToString();
+                    Sender = new Framework.Network.Synchronous.Client(fromIp, int.Parse(port));
+                }
+                Packet packet = new Packet(Serializer.SerializeToBytes("[result from:" + Parameters[2] + ",+" + Parameters[3] + "] " + information));
+                //无需等待反馈1207
+                packet.WaiteCallBack = false;
+                Sender.Send<Packet>(packet);
             }
-            Packet packet = new Packet(Serializer.SerializeToBytes("[result from:" + Parameters[2] + ",+" + Parameters[3] + "] " + information));
-            //无需等待反馈1207
-            packet.WaiteCallBack = false;
-            Sender.Send<Packet>(packet);
+            catch (Exception)
+            {
+
+                
+            }
         }
 
         public void GetHtml(string url, ref string title, ref string content, ref List<string> childrenLink)
