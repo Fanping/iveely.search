@@ -22,8 +22,10 @@ namespace Iveely.Framework.Algorithm
     [Serializable]
     public class InvertFragment : Invert<string>
     {
-        public InvertFragment()
-        {}
+        public InvertFragment(string folder="")
+        {
+          
+        }
 
         public override void ProcessWords(string[] words, object docId)
         {

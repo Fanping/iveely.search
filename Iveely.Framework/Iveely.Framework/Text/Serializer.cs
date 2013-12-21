@@ -156,7 +156,7 @@ namespace Iveely.Framework.Text
                     throw new FileNotFoundException(fileName);
                 }
                 //文件流
-                var fileStream = new FileStream(fileName, FileMode.Open);
+                var fileStream = new FileStream(fileName, FileMode.Open,FileAccess.Read);
                 //fs.Seek(0, SeekOrigin.Begin);
                 //二进制对象
                 var binaryFormatter = new BinaryFormatter();

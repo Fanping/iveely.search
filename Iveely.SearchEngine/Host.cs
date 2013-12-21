@@ -49,30 +49,23 @@ namespace Iveely.SearchEngine
                         string timestamp = DateTime.UtcNow.ToLongDateString();
                         SetGlobalCache("CurrentQueryIndex", timestamp);
                         SetGlobalCache(timestamp, query);
-                        int sendIndex = 1;
-                        string lastIp = string.Empty;
+                        int sendIndex = 9000;
                         List<string> cacheStore = new List<string>();
                         foreach (string worker in workers)
                         {
                             string[] workerInfo = worker.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
                             int endFlagIndex = workerInfo[0].LastIndexOf("/") + 1;
                             string ip = workerInfo[0].Substring(endFlagIndex, workerInfo[0].Length - endFlagIndex);
-                            if (lastIp == ip)
-                            {
-                                sendIndex++;
-                            }
-                            else
-                            {
-                                sendIndex = 1;
-                                lastIp = ip;
-                            }
+
                             try
                             {
-                                Client client = new Client(ip, 9000 + sendIndex);
+                                sendIndex += (int.Parse(workerInfo[1]) % 100);
+                                Client client = new Client(ip, sendIndex);
                                 Packet dataPacket = new Packet(new byte[1]);
                                 dataPacket.WaiteCallBack = false;
                                 client.Send<string>(dataPacket);
-                                cacheStore.Add(ip + "," + (9000 + sendIndex));
+                                cacheStore.Add(ip + "," + sendIndex);
+                                sendIndex = 9000;
                             }
                             catch (Exception exception)
                             {

@@ -8,6 +8,7 @@
 
 using System;
 using Iveely.CloudComputing.Example;
+using log4net;
 
 namespace Iveely.CloudComputing.Client
 {
@@ -30,24 +31,32 @@ namespace Iveely.CloudComputing.Client
             Console.Title = "Iveely Cloud Computting Platform";
             while (true)
             {
-                //0. 检查传递参数
-                if (args == null || args.Length == 0)
+                try
                 {
-                    ConsoleColor color = Console.ForegroundColor;
-                    Console.ForegroundColor = ConsoleColor.DarkGreen;
-                    Console.Write("Cmd Input:");
-                    Console.ForegroundColor = color;
-                    string readLine = Console.ReadLine();
-                    if (!string.IsNullOrEmpty(readLine))
-                        args = readLine.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
-                    else
-                        continue;
+                    //0. 检查传递参数
+                    if (args == null || args.Length == 0)
+                    {
+                        ConsoleColor color = Console.ForegroundColor;
+                        Console.ForegroundColor = ConsoleColor.DarkGreen;
+                        Console.Write("Cmd Input:");
+                        Console.ForegroundColor = color;
+                        string readLine = Console.ReadLine();
+                        if (!string.IsNullOrEmpty(readLine))
+                            args = readLine.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+                        else
+                            continue;
+                    }
+                    if (ProcessCommand(args))
+                    {
+                        break;
+                    }
+                    args = null;
                 }
-                if (ProcessCommand(args))
+                catch (Exception exception)
                 {
-                    break;
+                    LogHelper.Error(exception);
+                    return;
                 }
-                args = null;
             }
             Console.WriteLine("Command line has been finished,press anykey to exit.");
             Console.ReadLine();

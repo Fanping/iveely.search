@@ -62,12 +62,7 @@ namespace Iveely.SearchEngine
         /// <summary>
         /// 索引片段向量
         /// </summary>
-        public static InvertFragment Fragment = new InvertFragment();
-
-        /// <summary>
-        /// 分词器
-        /// </summary>
-        public static Participle Spliter = Participle.GetInstance();
+        public static InvertFragment Fragment;
 
         /// <summary>
         /// 爬虫爬行的跟站点
@@ -92,32 +87,27 @@ namespace Iveely.SearchEngine
         {
             //1. 初始化
             Init(args);
+            Fragment = new InvertFragment(GetRootFolder());
             Urls.Add("http://www.cnblogs.com");
             indexFile = GetRootFolder() + "\\InvertFragment.global";
 
-            //1. 随机休眠
-            //Thread.Sleep(1000 * (new Random().Next(0, 10)));
+            Thread searchThread = new Thread(StartSearcher);
+            searchThread.Start();
 
-            // Thread searchThread = new Thread(StartSearcher);
+            //2. 循环数据采集
+            while (Urls.Count > 0)
+            {
+                List<Page> pages = new List<Page>();
 
-         
-            // searchThread.Start();
-            StartSearcher();
+                //2.1 爬虫开始运行
+                Crawler(ref pages);
 
-            ////2. 循环数据采集
-            //while (Urls.Count > 0)
-            //{
-            //    List<Page> pages = new List<Page>();
-
-            //    //2.1 爬虫开始运行
-            //    Crawler(ref pages);
-
-            //    //2.2 索引器开始运行
-            //    if (pages != null && pages.Count > 0)
-            //    {
-            //        Indexer(ref pages);
-            //    }
-            //}
+                //2.2 索引器开始运行
+                if (pages != null && pages.Count > 0)
+                {
+                    Indexer(ref pages);
+                }
+            }
         }
 
         /// <summary>
@@ -174,7 +164,7 @@ namespace Iveely.SearchEngine
 
             //4. 重新获取新的url
             Urls.Clear();
-            Urls.AddRange(GetKeysByValueFromCache(false, 10, true));
+            Urls.AddRange(GetKeysByValueFromCache(false, 100, true));
         }
 
         /// <summary>
@@ -184,7 +174,7 @@ namespace Iveely.SearchEngine
         public void Indexer(ref List<Page> pages)
         {
             //自动分析网页表达的含义
-            //  WriteToConsole(string.Format("开始自动分析网页表达的含义，共{0}条记录。", pages.Count));
+             WriteToConsole(string.Format("开始自动分析网页表达的含义，共{0}条记录。", pages.Count));
             List<Template.Question> questions = new List<Template.Question>();
             const string delimiter = ".?。！\t？…●|\r\n])!";
             foreach (Page page in pages)
@@ -210,7 +200,7 @@ namespace Iveely.SearchEngine
             pages.Clear();
 
             //对表达的语义建议索引
-            // WriteToConsole(string.Format("对表达的语义建议索引，共{0}条记录。", questions.Count));
+            WriteToConsole(string.Format("对表达的语义建议索引，共{0}条记录。", questions.Count));
 
             if (File.Exists(indexFile))
             {
@@ -224,7 +214,7 @@ namespace Iveely.SearchEngine
                     for (int i = 0; i < questions.Count; i++)
                     {
                         int id = questions[i].Answer.GetHashCode();
-                        Fragment.AddDocument(id, questions[i].Description);
+                        Fragment.AddDocument(id, NGram.GetGram(questions[i].Description));
                         questions[i].Id = id;
                         database.Store(questions[i]);
                     }
@@ -241,26 +231,19 @@ namespace Iveely.SearchEngine
             {
                 Fragment = Serializer.DeserializeFromFile<InvertFragment>(indexFile);
             }
-            int tryCount = 1;
-            while (tryCount < 101)
-            {
-                try
-                {
-                    searchPort += tryCount;
-                    Server server = new Server(Dns.GetHostName(), searchPort, processQuery);
-                    WriteToConsole(searchPort+" is start search service.");
-                    server.Listen();
-                }
-                catch (Exception exception)
-                {
-                    tryCount++;
-                    if (tryCount == 100)
-                    {
-                        WriteToConsole("Start Server Error." + exception);
-                    }
-                }
-            }
+            int servicePort = int.Parse(GetRootFolder()) % 100;
 
+            try
+            {
+                searchPort += servicePort;
+                Server server = new Server(Dns.GetHostName(), searchPort, processQuery);
+                WriteToConsole(searchPort + " is start search service.");
+                server.Listen();
+            }
+            catch (Exception exception)
+            {
+                WriteToConsole("Start Server Error." + exception);
+            }
         }
 
 
@@ -271,7 +254,7 @@ namespace Iveely.SearchEngine
             {
                 string query = GetGlobalCache<string>(currentQueryIndex);
                 WriteToConsole("Get Query:" + query);
-                string[] keywords = Spliter.Split(query).Split(new[] { '/' }, StringSplitOptions.RemoveEmptyEntries);
+                string[] keywords = NGram.GetGram(query);
                 List<string> docs = Fragment.FindCommonDocumentByKeys(keywords);
                 List<Template.Question> result = new List<Template.Question>();
                 using (var database = Database.Open(GetRootFolder() + "\\Iveely.Search.Question"))
@@ -288,7 +271,7 @@ namespace Iveely.SearchEngine
                     }
                 }
                 string inputResultKey = Dns.GetHostName() + "," + searchPort + query;
-                WriteToConsole("Result write into cache key="+inputResultKey);
+                WriteToConsole("Result write into cache key=" + inputResultKey);
                 SetGlobalCache(inputResultKey, string.Join("\r\n", result));
             }
             return bytes;

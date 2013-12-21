@@ -716,7 +716,7 @@ namespace Iveely.Framework.Text
             }
             catch (Exception exception)
             {
-                Logger.Error(exception);
+                Logger.Error(uri+"->"+exception);
                 return null;
             }
         }

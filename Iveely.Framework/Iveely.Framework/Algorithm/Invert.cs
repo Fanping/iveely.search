@@ -40,10 +40,10 @@ namespace Iveely.Framework.Algorithm
         /// <summary>
         /// 构造方法
         /// </summary>
-        public Invert()
+        public Invert(string folder="")
         {
             this.table = new DimensionTable<string, string, T>();
-            participle = Participle.GetInstance();
+            participle = Participle.GetInstance(folder);
         }
 
         /// <summary>
@@ -67,6 +67,11 @@ namespace Iveely.Framework.Algorithm
                 words = participle.Split(doc).Split('/');
             }
             ProcessWords(words, id);
+        }
+
+        public void AddDocument(object id, string[] arrayInDoc)
+        {
+            ProcessWords(arrayInDoc, id);
         }
 
 

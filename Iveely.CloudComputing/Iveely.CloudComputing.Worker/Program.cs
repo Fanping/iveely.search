@@ -35,6 +35,7 @@ namespace Iveely.CloudComputing.Worker
             if (!Directory.Exists(processFolder))
             {
                 Directory.CreateDirectory(processFolder);
+                CopyInitFolder();
             }
 
             //2. 向State Center发送上线消息
@@ -154,6 +155,15 @@ namespace Iveely.CloudComputing.Worker
                 }
             }
             return null;
+        }
+
+        private static void CopyInitFolder()
+        {
+            string[] files = Directory.GetFiles("Init");
+            foreach (string file in files)
+            {
+                File.Copy(file, _servicePort + "\\" + new FileInfo(file).Name);
+            }
         }
 
 #if DEBUG

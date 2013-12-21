@@ -101,9 +101,9 @@ namespace Iveely.Framework.Text.Segment
         /// 获取实例
         /// </summary>
         /// <returns> </returns>
-        public static Participle GetInstance()
+        public static Participle GetInstance(string dir = "")
         {
-            string serializedFile = "participle.Ser.global";
+            string serializedFile = dir + "participle.Ser.global";
             if (participle == null && File.Exists(serializedFile))
             {
                 participle = Serializer.DeserializeFromFile<Participle>(serializedFile);
