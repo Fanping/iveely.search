@@ -83,12 +83,17 @@ namespace Iveely.CloudComputing.Worker
 
         public void Kill()
         {
-            if (_thread.IsAlive)
+            try
             {
-                _thread.Abort();
-                StateHelper.Put(_runningPath, "Killed by user.");
-                Program.SetStatus(Status.Packet.AppName, "Killed by user");
+               _thread.Abort();
+               _thread.Interrupt();
             }
+            catch (Exception)
+            {
+                
+            }
+            Program.SetStatus(Status.Packet.AppName, "Killed by user");
+           
         }
 
         public string GetStatus()

@@ -79,7 +79,7 @@ namespace Iveely.CloudComputing.Worker
                 _statusCenter.Add(appName, status);
                 _runner.Add(appName, runner);
                 Backup();
-                return Encoding.UTF8.GetBytes("Submit Success.");
+                return Serializer.SerializeToBytes("Submit Success.");
             }
 
             if (packet.ExcuteType == ExcutePacket.Type.Kill)
@@ -90,7 +90,7 @@ namespace Iveely.CloudComputing.Worker
                 {
                     if (_runner.ContainsKey(appName))
                     {
-                        Runner runner = (Runner) _runner[appName];
+                        Runner runner = (Runner)_runner[appName];
                         _runner.Remove(appName);
                         runner.Kill();
                     }
@@ -216,6 +216,7 @@ namespace Iveely.CloudComputing.Worker
                     if (status.Description == "Running")
                     {
                         Runner runner = new Runner(ref status);
+                        _runner.Add(status.Packet.AppName, runner);
                         runner.StartRun(_machineName, _servicePort);
                     }
                 }
@@ -224,8 +225,11 @@ namespace Iveely.CloudComputing.Worker
 
         public static void SetStatus(string key, string status)
         {
-            ((RunningStatus)_statusCenter[key]).Description = status;
-            Backup();
+            if (_statusCenter[key] != null)
+            {
+                ((RunningStatus) _statusCenter[key]).Description = status;
+                Backup();
+            }
         }
 
         private static void Backup()
