@@ -19,6 +19,7 @@ public class ExcutePacket : Packet
     public enum Type
     {
         Code,
+        Kill,
         FileFragment,
         Download,
         Delete,

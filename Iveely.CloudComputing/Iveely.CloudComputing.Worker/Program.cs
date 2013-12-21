@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Net;
 using System.Text;
+using System.Threading;
 using Iveely.CloudComputing.StateAPI;
 using Iveely.Framework.Log;
 using Iveely.Framework.Network;
@@ -16,6 +18,8 @@ namespace Iveely.CloudComputing.Worker
     public class Program
     {
         private static Server _taskSuperviser;
+
+        private static Hashtable _runners;
 
         private static string _machineName;
 
@@ -37,6 +41,7 @@ namespace Iveely.CloudComputing.Worker
                 Directory.CreateDirectory(processFolder);
                 CopyInitFolder();
             }
+            CheckCrash();
 
             //2. 向State Center发送上线消息
             StateHelper.Put("ISE://system/state/worker/" + _machineName + "," + _servicePort, _machineName + ":" + _servicePort + " is ready online!");
@@ -58,29 +63,52 @@ namespace Iveely.CloudComputing.Worker
             //如果是执行代码
             if (packet.ExcuteType == ExcutePacket.Type.Code)
             {
-                byte[] dataBytes = packet.Data;
-                string sourceCode = Encoding.UTF8.GetString(dataBytes);
-                string runningPath = "ISE://application/" + packet.TimeStamp + "/" + packet.AppName + "/" +
-                                     _machineName + "," + _servicePort;
-                Logger.Info("Running path " + runningPath);
-                try
+                string appName = packet.AppName;
+                if (!_runners.ContainsKey(appName))
                 {
-                    List<string> references = new List<string>();
-                    references.Add("Iveely.CloudComputing.Client.exe");
-                    references.Add("Iveely.Framework.dll");
-                    references.Add("System.Xml.dll");
-                    references.Add("System.Xml.Linq.dll");
-                    references.Add("NDatabase3.dll");
-                    CodeCompiler.Execode(sourceCode, packet.ClassName, references,
-                        new object[] { packet.ReturnIp, packet.Port, _machineName, _servicePort, packet.TimeStamp, packet.AppName });
-                    StateHelper.Put(runningPath, "Finished with success!");
+                    Runner runner = new Runner();
+                    runner.StartRun(packet, _machineName, _servicePort);
+                    _runners.Add(appName, runner);
+                    Backup();
+                    return Encoding.UTF8.GetBytes("Submit Success.");
                 }
-                catch (Exception exception)
+                else
                 {
-                    Logger.Error(exception);
-                    StateHelper.Put(runningPath, "Finished with " + exception);
+                    return Encoding.UTF8.GetBytes("A same app is running,so your app not submit successful.");
                 }
-                return bytes;
+            }
+
+            if (packet.ExcuteType == ExcutePacket.Type.Kill)
+            {
+                string appName = packet.AppName;
+                if (_runners.ContainsKey(appName))
+                {
+                    Runner runner = (Runner)_runners[appName];
+                    runner.Kill();
+                    _runners.Remove(appName);
+                    Backup();
+                    return Encoding.UTF8.GetBytes("Kill Success.");
+                }
+                else
+                {
+                    return Encoding.UTF8.GetBytes("Not found your application");
+                }
+
+            }
+
+            if (packet.ExcuteType == ExcutePacket.Type.List)
+            {
+                List<string> runningApps = new List<string>();
+                if (_runners.Count > 0)
+                {
+                    foreach (DictionaryEntry dictionaryEntry in _runners)
+                    {
+                        string key = dictionaryEntry.Key.ToString();
+                        string status = ((Runner)dictionaryEntry.Value).GetStatus();
+                        runningApps.Add(key + " -> " + status);
+                    }
+                }
+                return Serializer.SerializeToBytes(runningApps);
             }
 
             //如果是文件片
@@ -164,6 +192,33 @@ namespace Iveely.CloudComputing.Worker
             {
                 File.Copy(file, _servicePort + "\\" + new FileInfo(file).Name);
             }
+        }
+
+        private static void CheckCrash()
+        {
+            string runnerFile = _servicePort + "\\sys.ruuners";
+            if (File.Exists(runnerFile))
+            {
+                _runners = Serializer.DeserializeFromFile<Hashtable>(runnerFile);
+                foreach (DictionaryEntry dictionaryEntry in _runners)
+                {
+                    Runner runner = (Runner) dictionaryEntry.Value;
+                    if (runner.GetStatus() == "Running")
+                    {
+                        runner.Recover();
+                    }
+                }
+            }
+        }
+
+        private static void Backup()
+        {
+            string runnerFile = _servicePort + "\\sys.ruuners";
+            if (File.Exists(runnerFile))
+            {
+                File.Delete(runnerFile);
+            }
+            Serializer.SerializeToFile(_runners, runnerFile);
         }
 
 #if DEBUG
