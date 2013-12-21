@@ -85,18 +85,22 @@ namespace Iveely.CloudComputing.Worker
             if (packet.ExcuteType == ExcutePacket.Type.Kill)
             {
                 string appName = packet.AppName;
+                string flag = "[" + _machineName + "," + _servicePort + "] :";
                 if (_statusCenter.ContainsKey(appName))
                 {
-                    Runner runner = (Runner)_runner[appName];
-                    runner.Kill();
+                    if (_runner.ContainsKey(appName))
+                    {
+                        Runner runner = (Runner) _runner[appName];
+                        _runner.Remove(appName);
+                        runner.Kill();
+                    }
                     _statusCenter.Remove(appName);
-                    _runner.Remove(appName);
                     Backup();
-                    return Encoding.UTF8.GetBytes("Kill Success.");
+                    return Serializer.SerializeToBytes(flag + "Kill Success.");
                 }
                 else
                 {
-                    return Encoding.UTF8.GetBytes("Not found your application");
+                    return Serializer.SerializeToBytes(flag + "Not found your application");
                 }
 
             }

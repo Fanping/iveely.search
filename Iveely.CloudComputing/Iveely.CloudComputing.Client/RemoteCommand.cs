@@ -29,13 +29,15 @@ namespace Iveely.CloudComputing.Client
         public static void UnknowCommand()
         {
             Console.WriteLine("         Unknow command,you should type as follow format:");
-            Console.WriteLine("             submit filepath namespace.classname appname");
-            Console.WriteLine("             split filepath remotepath");
-            Console.WriteLine("             split filepath remotepath splitstring key1 key2 key3...");
-            Console.WriteLine("             download remotepath filepath");
-            Console.WriteLine("             delete remotepath");
-            Console.WriteLine("             rename filepath newfileName");
-            Console.WriteLine("             list /folder");
+            Console.WriteLine("             submit [filepath] [namespace.classname] [appname] [Optional:true]");
+            Console.WriteLine("             split [filepath] [remotepath]");
+            Console.WriteLine("             split [filepath] [remotepath] splitstring key1 key2 key3...");
+            Console.WriteLine("             download [remotepath] [filepath]");
+            Console.WriteLine("             delete [remotepath]");
+            Console.WriteLine("             rename [filepath] [newfileName]");
+            Console.WriteLine("             list [/folder]");
+            Console.WriteLine("             task");
+            Console.WriteLine("             kill [app name]");
             Console.WriteLine("             exit");
         }
     }
@@ -142,9 +144,23 @@ namespace Iveely.CloudComputing.Client
     {
         private static Server _server;
 
+        private static bool showMsgFromRemote;
+
         public override void ProcessCmd(string[] args)
         {
-            if (args.Length != 4)
+            if (args.Length == 5)
+            {
+                if (args[4] == "true")
+                {
+                    showMsgFromRemote = true;
+                }
+                else
+                {
+                    showMsgFromRemote = false;
+                }
+            }
+
+            if (args.Length != 4 && !showMsgFromRemote)
             {
                 UnknowCommand();
                 return;
@@ -264,10 +280,13 @@ namespace Iveely.CloudComputing.Client
         {
             try
             {
-                Packet packet = Serializer.DeserializeFromBytes<Packet>(bytes);
-                byte[] dataBytes = packet.Data;
-                string information = Serializer.DeserializeFromBytes<string>(dataBytes);
-                Console.WriteLine(string.Format("[Response {0}] {1}", DateTime.UtcNow.ToString(), information));
+                if (showMsgFromRemote)
+                {
+                    Packet packet = Serializer.DeserializeFromBytes<Packet>(bytes);
+                    byte[] dataBytes = packet.Data;
+                    string information = Serializer.DeserializeFromBytes<string>(dataBytes);
+                    Console.WriteLine(string.Format("[Response {0}] {1}", DateTime.UtcNow.ToString(), information));
+                }
             }
             catch (Exception exception)
             {
@@ -477,7 +496,7 @@ namespace Iveely.CloudComputing.Client
                     int.Parse(ip[1]));
                 string appName = args[1];
                 ExcutePacket codePacket = new ExcutePacket(Encoding.UTF8.GetBytes(appName), string.Empty,
-                    string.Empty, string.Empty,
+                   appName, string.Empty,
                     ExcutePacket.Type.Kill);
                 codePacket.SetReturnAddress(Dns.GetHostName(), 8800);
                 codePacket.WaiteCallBack = true;
@@ -513,7 +532,7 @@ namespace Iveely.CloudComputing.Client
                 List<string> result = transfer.Send<List<string>>(codePacket);
                 foreach (string s in result)
                 {
-                    Console.WriteLine("    "+s);
+                    Console.WriteLine("    " + s);
                 }
             }
 
