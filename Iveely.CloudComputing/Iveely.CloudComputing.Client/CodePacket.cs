@@ -20,6 +20,7 @@ public class ExcutePacket : Packet
     {
         Code,
         Kill,
+        Task,
         FileFragment,
         Download,
         Delete,

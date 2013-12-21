@@ -19,7 +19,9 @@ namespace Iveely.CloudComputing.Worker
     {
         private static Server _taskSuperviser;
 
-        private static Hashtable _runners;
+        private static Hashtable _statusCenter;
+
+        private static Hashtable _runner;
 
         private static string _machineName;
 
@@ -35,6 +37,8 @@ namespace Iveely.CloudComputing.Worker
             }
             _machineName = Dns.GetHostName();
             _servicePort = port;
+            _statusCenter = new Hashtable();
+            _runner = new Hashtable();
             string processFolder = _servicePort.ToString(CultureInfo.InvariantCulture);
             if (!Directory.Exists(processFolder))
             {
@@ -64,28 +68,29 @@ namespace Iveely.CloudComputing.Worker
             if (packet.ExcuteType == ExcutePacket.Type.Code)
             {
                 string appName = packet.AppName;
-                if (!_runners.ContainsKey(appName))
+                if (_statusCenter.ContainsKey(appName))
                 {
-                    Runner runner = new Runner();
-                    runner.StartRun(packet, _machineName, _servicePort);
-                    _runners.Add(appName, runner);
-                    Backup();
-                    return Encoding.UTF8.GetBytes("Submit Success.");
+                    _statusCenter.Remove(appName);
+                    _runner.Remove(appName);
                 }
-                else
-                {
-                    return Encoding.UTF8.GetBytes("A same app is running,so your app not submit successful.");
-                }
+                RunningStatus status = new RunningStatus(packet, "Running");
+                Runner runner = new Runner(ref status);
+                runner.StartRun(_machineName, _servicePort);
+                _statusCenter.Add(appName, status);
+                _runner.Add(appName, runner);
+                Backup();
+                return Encoding.UTF8.GetBytes("Submit Success.");
             }
 
             if (packet.ExcuteType == ExcutePacket.Type.Kill)
             {
                 string appName = packet.AppName;
-                if (_runners.ContainsKey(appName))
+                if (_statusCenter.ContainsKey(appName))
                 {
-                    Runner runner = (Runner)_runners[appName];
+                    Runner runner = (Runner)_runner[appName];
                     runner.Kill();
-                    _runners.Remove(appName);
+                    _statusCenter.Remove(appName);
+                    _runner.Remove(appName);
                     Backup();
                     return Encoding.UTF8.GetBytes("Kill Success.");
                 }
@@ -96,16 +101,16 @@ namespace Iveely.CloudComputing.Worker
 
             }
 
-            if (packet.ExcuteType == ExcutePacket.Type.List)
+            if (packet.ExcuteType == ExcutePacket.Type.Task)
             {
                 List<string> runningApps = new List<string>();
-                if (_runners.Count > 0)
+                if (_statusCenter.Count > 0)
                 {
-                    foreach (DictionaryEntry dictionaryEntry in _runners)
+                    foreach (DictionaryEntry dictionaryEntry in _statusCenter)
                     {
                         string key = dictionaryEntry.Key.ToString();
-                        string status = ((Runner)dictionaryEntry.Value).GetStatus();
-                        runningApps.Add(key + " -> " + status);
+                        string status = ((RunningStatus)dictionaryEntry.Value).Description;
+                        runningApps.Add("[" + _machineName + "," + _servicePort + "] :" + key + " -> " + status);
                     }
                 }
                 return Serializer.SerializeToBytes(runningApps);
@@ -199,16 +204,24 @@ namespace Iveely.CloudComputing.Worker
             string runnerFile = _servicePort + "\\sys.ruuners";
             if (File.Exists(runnerFile))
             {
-                _runners = Serializer.DeserializeFromFile<Hashtable>(runnerFile);
-                foreach (DictionaryEntry dictionaryEntry in _runners)
+                _statusCenter = Serializer.DeserializeFromFile<Hashtable>(runnerFile);
+                foreach (DictionaryEntry dictionaryEntry in _statusCenter)
                 {
-                    Runner runner = (Runner) dictionaryEntry.Value;
-                    if (runner.GetStatus() == "Running")
+                    RunningStatus status = (RunningStatus)dictionaryEntry.Value;
+                    //Runner runner = (Runner)dictionaryEntry.Value;
+                    if (status.Description == "Running")
                     {
-                        runner.Recover();
+                        Runner runner = new Runner(ref status);
+                        runner.StartRun(_machineName, _servicePort);
                     }
                 }
             }
+        }
+
+        public static void SetStatus(string key, string status)
+        {
+            ((RunningStatus)_statusCenter[key]).Description = status;
+            Backup();
         }
 
         private static void Backup()
@@ -218,7 +231,10 @@ namespace Iveely.CloudComputing.Worker
             {
                 File.Delete(runnerFile);
             }
-            Serializer.SerializeToFile(_runners, runnerFile);
+            if (_statusCenter.Count > 0)
+            {
+                Serializer.SerializeToFile(_statusCenter, runnerFile);
+            }
         }
 
 #if DEBUG

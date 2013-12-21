@@ -14,6 +14,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Iveely.CloudComputing.StateAPI;
 using Iveely.Framework.Log;
+using Iveely.Framework.Network;
 using Iveely.Framework.Text;
 
 namespace Iveely.CloudComputing.Worker
@@ -22,12 +23,12 @@ namespace Iveely.CloudComputing.Worker
     /// 监控器
     /// (用于处理客户端发来的请求)
     /// </summary>
+    [Serializable]
     public class Runner
     {
-
         private Thread _thread;
 
-        private ExcutePacket _packet;
+        public RunningStatus Status;
 
         private string _machineName;
 
@@ -35,30 +36,31 @@ namespace Iveely.CloudComputing.Worker
 
         private string _runningPath;
 
-        private string _status;
+        //private string _status;
 
-        public void StartRun(ExcutePacket packet, string machineName, int servicePort)
+        public Runner(ref RunningStatus status)
         {
-            _packet = packet;
-            byte[] dataBytes = packet.Data;
+            Status = status;
+        }
+
+        public void StartRun(string machineName, int servicePort)
+        {
+            _machineName = machineName;
+            _servicePort = servicePort;
+            byte[] dataBytes = Status.Packet.Data;
             string sourceCode = Encoding.UTF8.GetString(dataBytes);
-            _runningPath = "ISE://application/" + packet.TimeStamp + "/" + packet.AppName + "/" +
+            _runningPath = "ISE://application/" + Status.Packet.TimeStamp + "/" + Status.Packet.AppName + "/" +
                                  _machineName + "," + _servicePort;
             Logger.Info("Running path " + _runningPath);
             _thread = new Thread(Excute);
             _thread.Start(sourceCode);
         }
 
-        public void Recover()
-        {
-            StartRun(_packet, _machineName, _servicePort);
-        }
-
         private void Excute(object obj)
         {
             try
             {
-                _status = "Running";
+                Status.Description = "Running";
                 StateHelper.Put(_runningPath, "Start runing...");
                 List<string> references = new List<string>();
                 references.Add("Iveely.CloudComputing.Client.exe");
@@ -66,16 +68,16 @@ namespace Iveely.CloudComputing.Worker
                 references.Add("System.Xml.dll");
                 references.Add("System.Xml.Linq.dll");
                 references.Add("NDatabase3.dll");
-                CodeCompiler.Execode(obj.ToString(), _packet.ClassName, references,
-                    new object[] { _packet.ReturnIp, _packet.Port, _machineName, _servicePort, _packet.TimeStamp, _packet.AppName });
+                CodeCompiler.Execode(obj.ToString(), Status.Packet.ClassName, references,
+                    new object[] { Status.Packet.ReturnIp, Status.Packet.Port, _machineName, _servicePort, Status.Packet.TimeStamp, Status.Packet.AppName });
                 StateHelper.Put(_runningPath, "Finished with success!");
-                _status = "Success";
+                Program.SetStatus(Status.Packet.AppName, "Success");
             }
             catch (Exception exception)
             {
                 Logger.Error(exception);
                 StateHelper.Put(_runningPath, "Finished with " + exception);
-                _status = "Fisnihed with " + exception;
+                Program.SetStatus(Status.Packet.AppName, "Fisnihed with " + exception);
             }
         }
 
@@ -85,13 +87,13 @@ namespace Iveely.CloudComputing.Worker
             {
                 _thread.Abort();
                 StateHelper.Put(_runningPath, "Killed by user.");
-                _status = "Killed by user";
+                Program.SetStatus(Status.Packet.AppName, "Killed by user");
             }
         }
 
         public string GetStatus()
         {
-            return _status;
+            return Status.Description;
         }
     }
 }

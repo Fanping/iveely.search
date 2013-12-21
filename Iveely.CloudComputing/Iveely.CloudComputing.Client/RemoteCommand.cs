@@ -454,6 +454,68 @@ namespace Iveely.CloudComputing.Client
             {
                 Console.WriteLine("Not found any files or folders.");
             }
+        }
+    }
+
+    public class KillCmd : RemoteCommand
+    {
+        public override void ProcessCmd(string[] args)
+        {
+            if (args.Length != 2)
+            {
+                UnknowCommand();
+                return;
+            }
+            List<string> workers = new List<string>(StateHelper.GetChildren("ISE://system/state/worker"));
+            for (int i = 0; i < workers.Count; i++)
+            {
+                string[] ip =
+                    workers[i].Substring(workers[i].LastIndexOf('/') + 1,
+                        workers[i].Length - workers[i].LastIndexOf('/') - 1)
+                        .Split(',');
+                Framework.Network.Synchronous.Client transfer = new Framework.Network.Synchronous.Client(ip[0],
+                    int.Parse(ip[1]));
+                string appName = args[1];
+                ExcutePacket codePacket = new ExcutePacket(Encoding.UTF8.GetBytes(appName), string.Empty,
+                    string.Empty, string.Empty,
+                    ExcutePacket.Type.Kill);
+                codePacket.SetReturnAddress(Dns.GetHostName(), 8800);
+                codePacket.WaiteCallBack = true;
+                string result = transfer.Send<string>(codePacket);
+                Console.WriteLine(result);
+            }
+        }
+    }
+
+    public class TaskCmd : RemoteCommand
+    {
+        public override void ProcessCmd(string[] args)
+        {
+            if (args.Length != 1)
+            {
+                UnknowCommand();
+                return;
+            }
+            List<string> workers = new List<string>(StateHelper.GetChildren("ISE://system/state/worker"));
+            for (int i = 0; i < workers.Count; i++)
+            {
+                string[] ip =
+                    workers[i].Substring(workers[i].LastIndexOf('/') + 1,
+                        workers[i].Length - workers[i].LastIndexOf('/') - 1)
+                        .Split(',');
+                Framework.Network.Synchronous.Client transfer = new Framework.Network.Synchronous.Client(ip[0],
+                    int.Parse(ip[1]));
+                ExcutePacket codePacket = new ExcutePacket(Encoding.UTF8.GetBytes("Get task list"), string.Empty,
+                    string.Empty, string.Empty,
+                    ExcutePacket.Type.Task);
+                codePacket.SetReturnAddress(Dns.GetHostName(), 8800);
+                codePacket.WaiteCallBack = true;
+                List<string> result = transfer.Send<List<string>>(codePacket);
+                foreach (string s in result)
+                {
+                    Console.WriteLine("    "+s);
+                }
+            }
 
         }
     }

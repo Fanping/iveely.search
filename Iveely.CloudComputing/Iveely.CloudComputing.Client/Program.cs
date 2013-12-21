@@ -121,6 +121,21 @@ namespace Iveely.CloudComputing.Client
             {
                 return true;
             }
+
+            //8. 如果是停止任务命令
+            else if(cmd=="kill")
+            {
+                command =new KillCmd();
+                command.ProcessCmd(args);
+            }
+
+            //9. 如果是显示所有任务命令
+            else if (cmd == "task")
+            {
+                command=new TaskCmd();
+                command.ProcessCmd(args);
+            }
+
             else
             {
                 //Example_Data_Sort dataSort = new Example_Data_Sort();
