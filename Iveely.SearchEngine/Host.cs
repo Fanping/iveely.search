@@ -26,7 +26,7 @@ namespace Iveely.SearchEngine
             Host host = new Host();
             host.Run(null);
             //Backstage backstage = new Backstage();
-            //backstage.Run(new object[] { 8001, 8001, 8001, 8001, 8001 });
+            //backstage.Run(new object[] { 8001, 8001, 8001, 8001, 8001 ,8001,8001});
         }
 
         public override void Run(object[] args)
@@ -35,7 +35,6 @@ namespace Iveely.SearchEngine
             IEnumerable<string> workers = GetAllWorkers();
 
             Console.WriteLine("Get Worker count:" + workers.Count());
-            int i = 0;
             if (workers != null)
             {
                 while (true)
@@ -75,9 +74,17 @@ namespace Iveely.SearchEngine
 
                         foreach (string ca in cacheStore)
                         {
-                            string outputResult = ca + query;
-                            Console.WriteLine(outputResult);
-                            result += GetGlobalCache<string>(outputResult);
+                            try
+                            {
+                                string outputResult = ca + query;
+                                Console.WriteLine(outputResult);
+                                result += GetGlobalCache<string>(outputResult);
+                            }
+                            catch (Exception)
+                            {
+                                
+                            }
+                          
                         }
                     }
                     Console.WriteLine("Finnal result :" + result);

@@ -65,7 +65,37 @@ namespace Iveely.Framework.Text.Segment
                 return new string[0];
             }
 
-            string[] uniGrams = text.ToLower().Split(Delimiter, StringSplitOptions.RemoveEmptyEntries);
+            List<string> arrayString = new List<string>();
+            bool endFlag = false;
+            string temp = string.Empty;
+            foreach (char c in text)
+            {
+                //连续的字母和数字应该在一起
+                if (!char.IsWhiteSpace(c))
+                {
+                    if (c < 128)
+                    {
+                        temp += c;
+                    }
+                    else
+                    {
+                        arrayString.Add(c.ToString());
+                        if (temp != string.Empty)
+                        {
+                            arrayString.Add(temp);
+                            temp = string.Empty;
+                        }
+                    }
+
+
+
+                }
+                else
+                {
+                    temp = string.Empty;
+                }
+            }
+            string[] uniGrams = arrayString.ToArray();//(string[])Convert.ChangeType(text.ToCharArray(),typeof(string[]));//text.ToLower().ToCharArray().Cast<string>().ToArray();//.Split(Delimiter, StringSplitOptions.RemoveEmptyEntries);
 
             //如果需要的是一元组
             if (getGramType == Type.UnitGram)

@@ -164,7 +164,7 @@ namespace Iveely.SearchEngine
 
             //4. 重新获取新的url
             Urls.Clear();
-            Urls.AddRange(GetKeysByValueFromCache(false, 100, true));
+            Urls.AddRange(GetKeysByValueFromCache(false, 10, true));
         }
 
         /// <summary>
