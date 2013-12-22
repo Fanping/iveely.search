@@ -8,33 +8,29 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using Iveely.CloudComputing.StateAPI;
 using Iveely.Framework.Log;
-using Iveely.Framework.Network;
 using Iveely.Framework.Text;
+using log4net;
 
 namespace Iveely.CloudComputing.Worker
 {
     /// <summary>
-    /// 监控器
-    /// (用于处理客户端发来的请求)
+    ///     监控器
+    ///     (用于处理客户端发来的请求)
     /// </summary>
     [Serializable]
     public class Runner
     {
-        private Thread _thread;
-
         public RunningStatus Status;
 
         private string _machineName;
 
-        private int _servicePort;
-
         private string _runningPath;
+        private int _servicePort;
+        private Thread _thread;
 
         //private string _status;
 
@@ -50,7 +46,7 @@ namespace Iveely.CloudComputing.Worker
             byte[] dataBytes = Status.Packet.Data;
             string sourceCode = Encoding.UTF8.GetString(dataBytes);
             _runningPath = "ISE://application/" + Status.Packet.TimeStamp + "/" + Status.Packet.AppName + "/" +
-                                 _machineName + "," + _servicePort;
+                           _machineName + "," + _servicePort;
             Logger.Info("Running path " + _runningPath);
             _thread = new Thread(Excute);
             _thread.Start(sourceCode);
@@ -62,14 +58,20 @@ namespace Iveely.CloudComputing.Worker
             {
                 Status.Description = "Running";
                 StateHelper.Put(_runningPath, "Start runing...");
-                List<string> references = new List<string>();
-                references.Add("Iveely.CloudComputing.Client.exe");
-                references.Add("Iveely.Framework.dll");
-                references.Add("System.Xml.dll");
-                references.Add("System.Xml.Linq.dll");
-                references.Add("NDatabase3.dll");
+                var references = new List<string>
+                {
+                    "Iveely.CloudComputing.Client.exe",
+                    "Iveely.Framework.dll",
+                    "System.Xml.dll",
+                    "System.Xml.Linq.dll",
+                    "NDatabase3.dll"
+                };
                 CodeCompiler.Execode(obj.ToString(), Status.Packet.ClassName, references,
-                    new object[] { Status.Packet.ReturnIp, Status.Packet.Port, _machineName, _servicePort, Status.Packet.TimeStamp, Status.Packet.AppName });
+                    new object[]
+                    {
+                        Status.Packet.ReturnIp, Status.Packet.Port, _machineName, _servicePort, Status.Packet.TimeStamp,
+                        Status.Packet.AppName
+                    });
                 StateHelper.Put(_runningPath, "Finished with success!");
                 Program.SetStatus(Status.Packet.AppName, "Success");
             }
@@ -85,15 +87,14 @@ namespace Iveely.CloudComputing.Worker
         {
             try
             {
-               _thread.Abort();
-               _thread.Interrupt();
+                _thread.Abort();
+                _thread.Interrupt();
             }
-            catch (Exception)
+            catch (Exception exception)
             {
-                
+                LogHelper.Warn(exception);
             }
             Program.SetStatus(Status.Packet.AppName, "Killed by user");
-           
         }
 
         public string GetStatus()

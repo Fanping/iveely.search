@@ -8,9 +8,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Iveely.Framework.Algorithm
 {
@@ -29,17 +26,13 @@ namespace Iveely.Framework.Algorithm
             {
                 return arrayB;
             }
-            else if (arrayB == null)
+            if (arrayB == null)
             {
                 return arrayA;
             }
-            else
-            {
-
-                this._arrayA = new List<double>(Array.ConvertAll<T, double>(arrayA, delegate(T n) { return int.Parse(n.ToString()); }));
-                this._arrayB = new List<double>(Array.ConvertAll<T, double>(arrayB, delegate(T n) { return int.Parse(n.ToString()); }));
-                return Sort();
-            }
+            _arrayA = new List<double>(Array.ConvertAll<T, double>(arrayA, n => int.Parse(n.ToString())));
+            _arrayB = new List<double>(Array.ConvertAll<T, double>(arrayB, n => int.Parse(n.ToString())));
+            return Sort();
         }
 
         private T[] Sort()
@@ -60,20 +53,14 @@ namespace Iveely.Framework.Algorithm
             }
             if (_arrayA.Count > 0)
             {
-                for (int i = 0; i < _arrayA.Count; i++)
-                {
-                    temp.Add(_arrayA[i]);
-                }
+                temp.AddRange(_arrayA);
             }
             if (_arrayB.Count > 0)
             {
-                for (int i = 0; i < _arrayB.Count; i++)
-                {
-                    temp.Add(_arrayB[i]);
-                }
+                temp.AddRange(_arrayB);
             }
-            return Array.ConvertAll<double, T>(temp.ToArray(),
-                delegate(double n) { return (T)Convert.ChangeType(n, typeof(T)); });
+            return Array.ConvertAll(temp.ToArray(),
+                n => (T) Convert.ChangeType(n, typeof (T)));
         }
     }
 }

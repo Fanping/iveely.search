@@ -17,25 +17,25 @@ namespace Iveely.CloudComputing.CacheCommon
         /// <summary>
         /// The list of ketama node
         /// </summary>
-        private SortedList<long, string> ketamaNodes;
+        private readonly SortedList<long, string> _ketamaNodes;
 
         /// <summary>
         /// Build ketama node locator
         /// </summary>
         /// <param name="nodes"></param>
         /// <param name="nodeCopies"></param>
-        public KetamaNodeLocator(List<string> nodes, int nodeCopies)
+        public KetamaNodeLocator(IEnumerable<string> nodes, int nodeCopies)
         {
-            ketamaNodes = new SortedList<long, string>();
+            _ketamaNodes = new SortedList<long, string>();
             foreach (string node in nodes)
             {
                 for (int i = 0; i < nodeCopies / 4; ++i)
                 {
-                    byte[] digest = computeMd5(node + i);
+                    byte[] digest = ComputeMd5(node + i);
                     for (int h = 0; h < 4; ++h)
                     {
-                        long m = hash(digest, h);
-                        ketamaNodes[m] = node;
+                        long m = Hash(digest, h);
+                        _ketamaNodes[m] = node;
                     }
                 }
             }
@@ -43,7 +43,7 @@ namespace Iveely.CloudComputing.CacheCommon
 
         public int GetLocatorCount()
         {
-            return ketamaNodes.Count;
+            return _ketamaNodes.Count;
         }
 
         /// <summary>
@@ -53,12 +53,11 @@ namespace Iveely.CloudComputing.CacheCommon
         /// <returns></returns>
         public string GetNodeForKey(int hash)
         {
-            string rv;
             long key = hash;
-            if (!ketamaNodes.ContainsKey(key))
+            if (!_ketamaNodes.ContainsKey(key))
             {
-                IList<long> keys = ketamaNodes.Keys;
-                foreach (int item in keys)
+                IList<long> keys = _ketamaNodes.Keys;
+                foreach (long item in keys)
                 {
                     if (item > hash)
                     {
@@ -71,7 +70,7 @@ namespace Iveely.CloudComputing.CacheCommon
                     key = keys[0];
                 }
             }
-            rv = ketamaNodes[key];
+            string rv = _ketamaNodes[key];
             return rv;
         }
 
@@ -81,7 +80,7 @@ namespace Iveely.CloudComputing.CacheCommon
         /// <param name="digest"></param>
         /// <param name="nTime"></param>
         /// <returns></returns>
-        private long hash(byte[] digest, int nTime)
+        private static long Hash(byte[] digest, int nTime)
         {
             long rv = ((long)(digest[3 + nTime * 4] & 0xFF) << 24)
                     | ((long)(digest[2 + nTime * 4] & 0xFF) << 16)
@@ -93,7 +92,7 @@ namespace Iveely.CloudComputing.CacheCommon
         /// <summary>
         /// Get MD5
         /// </summary>
-        private byte[] computeMd5(string k)
+        private static byte[] ComputeMd5(string k)
         {
             MD5 md5 = new MD5CryptoServiceProvider();
             byte[] keyBytes = md5.ComputeHash(Encoding.UTF8.GetBytes(k));

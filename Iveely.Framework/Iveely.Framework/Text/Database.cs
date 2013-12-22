@@ -6,23 +6,8 @@
  *Iveely=I void everything,except love you!
  *========================================*/
 
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 using NDatabase;
 using NDatabase.Api;
-using NDatabase.Container;
-using NDatabase.Core;
-using NDatabase.Core.Engine;
-using NDatabase.Core.Query;
-using NDatabase.Core.Session;
-using NDatabase.Meta;
-using NDatabase.Services;
-using NDatabase.Transaction;
 
 namespace Iveely.Framework.Text
 {

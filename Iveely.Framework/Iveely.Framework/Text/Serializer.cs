@@ -11,8 +11,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.Serialization.Formatters.Binary;
-using System.Text;
-using System.Xml.Serialization;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Polenter.Serialization;
 
@@ -27,9 +25,9 @@ namespace Iveely.Framework.Text
     public class Serializer
     {
 
-        private static object lockDeserObject = -1;
+        private static readonly object LockDeserObject = -1;
 
-        private static object lockSerObject = -1;
+        private static readonly object LockSerObject = -1;
 
         /// <summary>
         /// 将数据以二进制方式序列化到byte数组
@@ -42,7 +40,7 @@ namespace Iveely.Framework.Text
             {
                 return null;
             }
-            lock (lockSerObject)
+            lock (LockSerObject)
             {
                 var stream = new MemoryStream();
                 var settings = new SharpSerializerBinarySettings(BinarySerializationMode.SizeOptimized);
@@ -82,7 +80,7 @@ namespace Iveely.Framework.Text
             {
                 return;
             }
-            lock (lockSerObject)
+            lock (LockSerObject)
             {
                 if (File.Exists(fileName))
                 {
@@ -110,7 +108,7 @@ namespace Iveely.Framework.Text
             {
                 return default(T);
             }
-            lock (lockDeserObject)
+            lock (LockDeserObject)
             {
                 var stream = new MemoryStream(bytes);
                 var settings = new SharpSerializerBinarySettings(BinarySerializationMode.SizeOptimized);
@@ -126,7 +124,7 @@ namespace Iveely.Framework.Text
             {
                 return null;
             }
-            lock (lockDeserObject)
+            lock (LockDeserObject)
             {
                 var stream = new MemoryStream(bytes);
                 var settings = new SharpSerializerBinarySettings(BinarySerializationMode.SizeOptimized);
@@ -149,7 +147,7 @@ namespace Iveely.Framework.Text
         /// <returns></returns>
         public static T DeserializeFromFile<T>(string fileName)
         {
-            lock (lockDeserObject)
+            lock (LockDeserObject)
             {
                 if (!File.Exists(fileName))
                 {
@@ -173,11 +171,11 @@ namespace Iveely.Framework.Text
         [TestMethod]
         public void Test_Serializer()
         {
-            string info = "hello world!";
+            const string info = "hello world!";
             byte[] infoBytes = SerializeToBytes(info);
             Assert.AreEqual(info, DeserializeFromBytes<string>(infoBytes));
 
-            int[] array = new[] { 1, 2, 3 };
+            int[] array = { 1, 2, 3 };
             byte[] arrayBytes = SerializeToBytes(array);
             int[] newInts = DeserializeFromBytes<int[]>(arrayBytes);
             Assert.IsTrue(array[1] == newInts[1]);

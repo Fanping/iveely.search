@@ -85,8 +85,7 @@ namespace Iveely.CloudComputing.StateCenter
         public void AddNotes(string notes)
         {
             string filename = IniFileName;
-            string path;
-            path = Directory.GetParent(filename).ToString();
+            string path = Directory.GetParent(filename).ToString();
             NewDirectory(path);
             FileStream fs = new FileStream(filename, FileMode.OpenOrCreate, FileAccess.Write);
             StreamWriter sw = new StreamWriter(fs);
@@ -105,8 +104,7 @@ namespace Iveely.CloudComputing.StateCenter
         public void AddText(string text)
         {
             string filename = IniFileName;
-            string path;
-            path = Directory.GetParent(filename).ToString();
+            string path = Directory.GetParent(filename).ToString();
             NewDirectory(path);
             FileStream fs = new FileStream(filename, FileMode.OpenOrCreate, FileAccess.Write);
             StreamWriter sw = new StreamWriter(fs);

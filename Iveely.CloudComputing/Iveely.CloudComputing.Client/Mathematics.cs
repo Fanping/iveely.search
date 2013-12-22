@@ -21,7 +21,7 @@ namespace Iveely.CloudComputing.Client
 {
     /// <summary>
     /// 数学方法（全局）
-    /// </summary
+    /// </summary>
 #if DEBUG
     [TestClass]
 #endif
@@ -38,8 +38,10 @@ namespace Iveely.CloudComputing.Client
         public static T Sum<T>(double val)
         {
             Init();
-            MergePacket packet = new MergePacket(Serializer.SerializeToBytes(val), MergePacket.MergeType.Sum, Application.Parameters[4].ToString(), Application.Parameters[5].ToString());
-            packet.WaiteCallBack = true;
+            MergePacket packet = new MergePacket(Serializer.SerializeToBytes(val), MergePacket.MergeType.Sum, Application.Parameters[4].ToString(), Application.Parameters[5].ToString())
+            {
+                WaiteCallBack = true
+            };
             Logger.Info(Application.Parameters[2] + "," + Application.Parameters[3] + " send sum commond,value is " + val);
             return (T)Convert.ChangeType(_client.Send<object>(packet), typeof(T));
         }
@@ -53,8 +55,7 @@ namespace Iveely.CloudComputing.Client
         {
             Init();
             MergePacket packet = new MergePacket(Serializer.SerializeToBytes(val), MergePacket.MergeType.Average,
-                Application.Parameters[4].ToString(), Application.Parameters[5].ToString());
-            packet.WaiteCallBack = true;
+                Application.Parameters[4].ToString(), Application.Parameters[5].ToString()) {WaiteCallBack = true};
             Logger.Info(Application.Parameters[2] + "," + Application.Parameters[3] + " send average commond,value is " + val);
             return _client.Send<double>(packet);
         }
@@ -69,8 +70,7 @@ namespace Iveely.CloudComputing.Client
         {
             Init();
             MergePacket packet = new MergePacket(Serializer.SerializeToBytes(objects), MergePacket.MergeType.CombineList,
-                Application.Parameters[4].ToString(), Application.Parameters[5].ToString());
-            packet.WaiteCallBack = true;
+                Application.Parameters[4].ToString(), Application.Parameters[5].ToString()) {WaiteCallBack = true};
             Logger.Info(Application.Parameters[2] + "," + Application.Parameters[3] + " send combine list commond.");
             return _client.Send<List<T>>(packet);
         }
@@ -84,8 +84,7 @@ namespace Iveely.CloudComputing.Client
         {
             Init();
             MergePacket packet = new MergePacket(Serializer.SerializeToBytes(table), MergePacket.MergeType.CombineTable,
-                Application.Parameters[4].ToString(), Application.Parameters[5].ToString());
-            packet.WaiteCallBack = true;
+                Application.Parameters[4].ToString(), Application.Parameters[5].ToString()) {WaiteCallBack = true};
             Logger.Info(Application.Parameters[2] + "," + Application.Parameters[3] + " send combine table commond.");
             return _client.Send<Hashtable>(packet);
         }
@@ -104,11 +103,10 @@ namespace Iveely.CloudComputing.Client
             objects = quickSort.GetResult(objects);
             Logger.Info("Local sort has finied,now send to Merger to combine.");
             MergePacket packet = new MergePacket(Serializer.SerializeToBytes(objects), MergePacket.MergeType.CombineSort,
-            Application.Parameters[4].ToString(), Application.Parameters[5].ToString());
-            packet.WaiteCallBack = true;
+            Application.Parameters[4].ToString(), Application.Parameters[5].ToString()) {WaiteCallBack = true};
             Logger.Info(Application.Parameters[2] + "," + Application.Parameters[3] + " send combine sort commond.");
             object[] results = _client.Send<object[]>(packet);
-            return Array.ConvertAll<object, T>(results, delegate(object n) { return (T)Convert.ChangeType(n, typeof(T)); });
+            return Array.ConvertAll(results, n => (T) Convert.ChangeType(n, typeof (T)));
         }
 
         /// <summary>
@@ -122,16 +120,10 @@ namespace Iveely.CloudComputing.Client
             Init();
             objects = (List<T>)objects.Distinct();
             MergePacket packet = new MergePacket(Serializer.SerializeToBytes(objects), MergePacket.MergeType.Distinct,
-                 Application.Parameters[4].ToString(), Application.Parameters[5].ToString());
-            packet.WaiteCallBack = true;
+                 Application.Parameters[4].ToString(), Application.Parameters[5].ToString()) {WaiteCallBack = true};
             Logger.Info(Application.Parameters[2] + "," + Application.Parameters[3] + " send distinct commond. ");
             List<object> results = _client.Send<List<object>>(packet);
-            List<T> list = new List<T>();
-            foreach (var result in results)
-            {
-                list.Add((T)result);
-            }
-            return list;
+            return results.Select(result => (T) result).ToList();
         }
 
         /// <summary>
@@ -142,7 +134,7 @@ namespace Iveely.CloudComputing.Client
             if (_client == null)
             {
                 string remoteServer = SettingItem.GetInstance().MergeServerIP;
-                int remotePort = 8801;
+                const int remotePort = 8801;
                 _client = new Framework.Network.Synchronous.Client(remoteServer, remotePort);
             }
         }
@@ -170,8 +162,8 @@ namespace Iveely.CloudComputing.Client
         [TestMethod]
         public void Test_CombineSort()
         {
-            int[] arrayA = new[] { 1, 2 };
-            int[] arrayB = new[] { 3, 4 };
+            int[] arrayA = { 1, 2 };
+            int[] arrayB = { 3, 4 };
             CombineSort<int> combineSort = new CombineSort<int>();
             int[] array = combineSort.GetResult(arrayA, arrayB);
             for (int i = 1; i < 5; i++)
@@ -188,22 +180,18 @@ namespace Iveely.CloudComputing.Client
                 Assert.AreEqual(array[i - 1], i);
             }
 
-            arrayA = null;
             arrayB = new[] { 2, 4 };
             combineSort = new CombineSort<int>();
-            array = combineSort.GetResult(arrayA, arrayB);
+            array = combineSort.GetResult(null, arrayB);
             Assert.AreEqual(arrayB, array);
 
             arrayA = new[] { 2, 4 };
-            arrayB = null;
             combineSort = new CombineSort<int>();
-            array = combineSort.GetResult(arrayA, arrayB);
+            array = combineSort.GetResult(arrayA, null);
             Assert.AreEqual(arrayA, array);
 
-            arrayA = null;
-            arrayB = null;
             combineSort = new CombineSort<int>();
-            array = combineSort.GetResult(arrayA, arrayB);
+            array = combineSort.GetResult(null, null);
             Assert.AreEqual(null, array);
 
 

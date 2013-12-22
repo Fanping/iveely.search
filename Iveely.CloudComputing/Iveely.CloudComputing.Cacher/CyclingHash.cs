@@ -27,7 +27,7 @@ namespace Iveely.CloudComputing.Cacher
         /// <summary>
         /// 环形哈希空间容量(默认1亿)
         /// </summary>
-        private int Capacity = SettingItem.GetInstance().CacheSize;
+        private readonly int _capacity = SettingItem.GetInstance().CacheSize;
 
         /// <summary>
         /// 最后更新的索引位置
@@ -49,7 +49,7 @@ namespace Iveely.CloudComputing.Cacher
         /// </summary>
         public CyclingHash()
         {
-            _keys = new object[Capacity];
+            _keys = new object[_capacity];
             _hashSet = new Hashtable();
         }
 
@@ -58,8 +58,8 @@ namespace Iveely.CloudComputing.Cacher
         /// </summary>
         public void Add(object key, object value)
         {
-            object tempKey = _keys[_latestIndex % Capacity];
-            _keys[_latestIndex % Capacity] = key;
+            object tempKey = _keys[_latestIndex % _capacity];
+            _keys[_latestIndex % _capacity] = key;
             if (ContainsKey(key))
             {
                 ((CyclingBuffer)_hashSet[key]).Update(value);
@@ -67,7 +67,7 @@ namespace Iveely.CloudComputing.Cacher
             else
             {
                 Count++;
-                if (Count > Capacity)
+                if (Count > _capacity)
                 {
                     _hashSet.Remove(tempKey);
                     Count--;
@@ -77,7 +77,7 @@ namespace Iveely.CloudComputing.Cacher
                 _hashSet.Add(key, buffer);
             }
             _latestIndex++;
-            _latestIndex %= Capacity;
+            _latestIndex %= _capacity;
         }
 
         /// <summary>
@@ -86,15 +86,7 @@ namespace Iveely.CloudComputing.Cacher
         /// <returns></returns>
         public object GetCurrentData()
         {
-            object value;
-            if (_latestIndex > 0)
-            {
-                value = _keys[(_latestIndex - 1) % Capacity];
-            }
-            else
-            {
-                value = _keys[Capacity - 1];
-            }
+            object value = _latestIndex > 0 ? _keys[(_latestIndex - 1) % _capacity] : _keys[_capacity - 1];
             return value;
         }
 
@@ -119,11 +111,11 @@ namespace Iveely.CloudComputing.Cacher
         public object[] Read()
         {
             List<object> avaiableData = new List<object>();
-            for (int i = _latestIndex % Capacity; i > -1; i--)
+            for (int i = _latestIndex % _capacity; i > -1; i--)
             {
                 avaiableData.Add(_keys[i]);
             }
-            for (int i = Capacity - 1; i > _latestIndex % Capacity; i--)
+            for (int i = _capacity - 1; i > _latestIndex % _capacity; i--)
             {
                 avaiableData.Add(_keys[i]);
             }
@@ -136,7 +128,7 @@ namespace Iveely.CloudComputing.Cacher
         public object[] ReadByValue(object value, object changeValue, int topN)
         {
             List<object> avaiableKeys = new List<object>();
-            for (int i = _latestIndex % Capacity; i >= 1 && topN > avaiableKeys.Count && _keys[i - 1] != null; i--)
+            for (int i = _latestIndex % _capacity; i >= 1 && topN > avaiableKeys.Count && _keys[i - 1] != null; i--)
             {
                 object val = ((CyclingBuffer)_hashSet[_keys[i - 1]]).GetCurrentData();
                 if (Equals(value, val))
@@ -148,7 +140,7 @@ namespace Iveely.CloudComputing.Cacher
                     avaiableKeys.Add(_keys[i - 1]);
                 }
             }
-            for (int i = Capacity - 1; i > _latestIndex % Capacity && topN > avaiableKeys.Count && _keys[i] != null; i--)
+            for (int i = _capacity - 1; i > _latestIndex % _capacity && topN > avaiableKeys.Count && _keys[i] != null; i--)
             {
                 //TODO: abstract to a method
                 object key = _hashSet[_keys[i]];

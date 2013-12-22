@@ -113,14 +113,7 @@ namespace Iveely.Framework.DataStructure
             /// <returns>返回被找到的结点，未找到则为null</returns>
             public Node FindChild(string name)
             {
-                foreach (Node node in Children)
-                {
-                    if (node.Name.Equals(name))
-                    {
-                        return node;
-                    }
-                }
-                return null;
+                return Children.FirstOrDefault(node => node.Name.Equals(name));
             }
 
             /// <summary>
@@ -170,13 +163,7 @@ namespace Iveely.Framework.DataStructure
         public Node GetNodeByPath(string path)
         {
             string[] catelogs = path.Split(new[] { '/' }, StringSplitOptions.RemoveEmptyEntries);
-            Node node = Root;
-            foreach (string catelog in catelogs)
-            {
-                string relativePath = catelog;
-                node = FindNode(node, relativePath);
-            }
-            return node;
+            return catelogs.Aggregate(Root, (current, relativePath) => FindNode(current, relativePath));
         }
 
         /// <summary>

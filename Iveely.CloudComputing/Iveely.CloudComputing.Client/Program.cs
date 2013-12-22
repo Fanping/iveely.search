@@ -7,7 +7,6 @@
  *========================================*/
 
 using System;
-using Iveely.CloudComputing.Example;
 using log4net;
 
 namespace Iveely.CloudComputing.Client

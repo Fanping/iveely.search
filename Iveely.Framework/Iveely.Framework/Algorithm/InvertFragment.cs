@@ -9,9 +9,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Iveely.Framework.DataStructure;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Iveely.Framework.Algorithm
@@ -46,7 +43,7 @@ namespace Iveely.Framework.Algorithm
                         }
                     }
                 }
-                this.table[words[i]][docId.ToString()] = temp;
+                Table[words[i]][docId.ToString()] = temp;
             }
         }
 

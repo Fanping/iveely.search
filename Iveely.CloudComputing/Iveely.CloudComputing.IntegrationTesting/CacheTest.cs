@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Linq;
 using System.Threading;
-using System.Threading.Tasks;
 using Iveely.CloudComputing.Cacher;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -15,7 +11,7 @@ namespace Iveely.CloudComputing.IntegrationTesting
     [TestClass]
     public class CacheTest
     {
-        private Cacher.Executor executor;
+        private Executor _executor;
 
         [TestMethod]
         public void IT_CacheEndToEnd()
@@ -42,7 +38,7 @@ namespace Iveely.CloudComputing.IntegrationTesting
 
             //2. 测试获取集合
             object[] keys = { '1', '2' };
-            CacheAPI.Memory.SetList(keys, 0, false);
+            CacheAPI.Memory.SetList(keys, 0);
 
             object[] myKeys = CacheAPI.Memory.GetKeysByValue(0, 10, 1);
             Assert.IsTrue(myKeys.Count() == 2);
@@ -52,18 +48,18 @@ namespace Iveely.CloudComputing.IntegrationTesting
 
         private void StartCache()
         {
-            if (executor == null)
+            if (_executor == null)
             {
-                executor = new Executor();
+                _executor = new Executor();
             }
-            executor.Start();
+            _executor.Start();
         }
 
         private void CloseCache()
         {
-            if (executor != null)
+            if (_executor != null)
             {
-                executor.Stop();
+                _executor.Stop();
             }
         }
 

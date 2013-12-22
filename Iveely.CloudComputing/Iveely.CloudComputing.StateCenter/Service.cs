@@ -1,5 +1,4 @@
 ﻿using System.Threading;
-using Iveely.CloudComputing.StateCenter.Annotations;
 using Iveely.CloudComputing.StateCommon;
 using Iveely.Framework.Log;
 using Iveely.Framework.Text;
@@ -11,13 +10,6 @@ namespace Iveely.CloudComputing.StateCenter
 {
     public class Service
     {
-        /// <summary>
-        /// deal with memery data
-        /// </summary>
-        //public static MemoryMappedFileCommunicator MemoryDataProccess;
-
-        private const int MaxReciveSize = 1024 * 1024 * 10;
-
         private static readonly object SyncRoot = new object();
 
         /// <summary>
@@ -48,7 +40,7 @@ namespace Iveely.CloudComputing.StateCenter
         /// <summary>
         /// IP地址
         /// </summary>
-        private String Address { [UsedImplicitly] get; set; }
+        private String Address { get; set; }
 
         /// <summary>
         /// IP端口
@@ -114,7 +106,6 @@ namespace Iveely.CloudComputing.StateCenter
         /// <summary>
         /// 处理客户端的连接
         /// </summary>
-        /// <param name="client">客户端</param>
         private void ProcessClient(object clientObj)
         {
             TcpClient client = (TcpClient)clientObj;

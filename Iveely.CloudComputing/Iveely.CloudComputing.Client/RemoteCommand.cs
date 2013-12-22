@@ -71,7 +71,7 @@ namespace Iveely.CloudComputing.Client
                     List<int> keys = new List<int>();
                     for (int i = 4; i < args.Length; i++)
                     {
-                        int index = 0;
+                        int index;
                         if (!int.TryParse(args[i], out index))
                         {
                             Logger.Error("index should be an int.");
@@ -144,23 +144,16 @@ namespace Iveely.CloudComputing.Client
     {
         private static Server _server;
 
-        private static bool showMsgFromRemote;
+        private static bool _showMsgFromRemote;
 
         public override void ProcessCmd(string[] args)
         {
             if (args.Length == 5)
             {
-                if (args[4] == "true")
-                {
-                    showMsgFromRemote = true;
-                }
-                else
-                {
-                    showMsgFromRemote = false;
-                }
+                _showMsgFromRemote = args[4] == "true";
             }
 
-            if (args.Length != 4 && !showMsgFromRemote)
+            if (args.Length != 4 && !_showMsgFromRemote)
             {
                 UnknowCommand();
                 return;
@@ -191,7 +184,8 @@ namespace Iveely.CloudComputing.Client
                 Dns.GetHostName());
 
             IEnumerable<string> ipPathes = StateHelper.GetChildren("ISE://system/state/worker");
-            foreach (var ipPath in ipPathes)
+            var ipPaths = ipPathes as string[] ?? ipPathes.ToArray();
+            foreach (var ipPath in ipPaths)
             {
                 Logger.Info("Current worker ip path:" + ipPath);
                 string[] ip =
@@ -211,7 +205,7 @@ namespace Iveely.CloudComputing.Client
             DateTime submitTime = DateTime.UtcNow;
             while (!IsDelay(submitTime, 60))
             {
-                if (CheckApplicationExit(timeStamp, appName, ipPathes.Count()))
+                if (CheckApplicationExit(timeStamp, appName, ipPaths.Count()))
                 {
                     Console.WriteLine("Application has submitted, you can user [task] command to see the status.");
                     return;
@@ -252,9 +246,10 @@ namespace Iveely.CloudComputing.Client
         private static bool CheckApplicationExit(string timeStamp, string appName, int workerCount)
         {
             IEnumerable<string> finishedStates = StateHelper.GetChildren("ISE://application/" + timeStamp + "/" + appName);
-            if (finishedStates.Any() && finishedStates.Count() == workerCount)
+            var enumerable = finishedStates as string[] ?? finishedStates.ToArray();
+            if (enumerable.Any() && enumerable.Count() == workerCount)
             {
-                foreach (var finishedState in finishedStates)
+                foreach (var finishedState in enumerable)
                 {
                     Logger.Info(finishedState + ":" + StateHelper.Get<string>(finishedState));
                 }
@@ -268,10 +263,12 @@ namespace Iveely.CloudComputing.Client
             if (File.Exists(fileName))
             {
                 //Framework.Text.CodeCompiler compiler = new CodeCompiler();
-                List<string> references = new List<string>();
-                references.Add("Iveely.CloudComputing.Client.exe");
-                references.Add("Iveely.Framework.dll");
-                references.Add("NDatabase3.dll");
+                List<string> references = new List<string>
+                {
+                    "Iveely.CloudComputing.Client.exe",
+                    "Iveely.Framework.dll",
+                    "NDatabase3.dll"
+                };
                 return CodeCompiler.Compile(File.ReadAllLines(fileName), references);
             }
             throw new FileNotFoundException(fileName + " is not found!");
@@ -281,12 +278,12 @@ namespace Iveely.CloudComputing.Client
         {
             try
             {
-                if (showMsgFromRemote)
+                if (_showMsgFromRemote)
                 {
                     Packet packet = Serializer.DeserializeFromBytes<Packet>(bytes);
                     byte[] dataBytes = packet.Data;
                     string information = Serializer.DeserializeFromBytes<string>(dataBytes);
-                    Console.WriteLine(string.Format("[Response {0}] {1}", DateTime.UtcNow.ToString(), information));
+                    Console.WriteLine("[Response {0}] {1}", DateTime.UtcNow, information);
                 }
             }
             catch (Exception exception)
@@ -387,12 +384,12 @@ namespace Iveely.CloudComputing.Client
             }
             List<string> workers = new List<string>(StateHelper.GetChildren("ISE://system/state/worker"));
             string filePath = args[1];
-            for (int i = 0; i < workers.Count; i++)
+            foreach (string t in workers)
             {
-                //3.2 通知下载文件
+//3.2 通知下载文件
                 string[] ip =
-                    workers[i].Substring(workers[i].LastIndexOf('/') + 1,
-                        workers[i].Length - workers[i].LastIndexOf('/') - 1)
+                    t.Substring(t.LastIndexOf('/') + 1,
+                        t.Length - t.LastIndexOf('/') - 1)
                         .Split(',');
                 Framework.Network.Synchronous.Client transfer = new Framework.Network.Synchronous.Client(ip[0],
                     int.Parse(ip[1]));
@@ -403,7 +400,7 @@ namespace Iveely.CloudComputing.Client
                 //1207
                 codePacket.WaiteCallBack = false;
                 transfer.Send<bool>(codePacket);
-                StateAPI.StateHelper.Delete("ISE://File/" + filePath);
+                StateHelper.Delete("ISE://File/" + filePath);
             }
         }
     }
@@ -423,11 +420,11 @@ namespace Iveely.CloudComputing.Client
             List<string> workers = new List<string>(StateHelper.GetChildren("ISE://system/state/worker"));
             string filePath = args[1];
             string fileNewName = args[2];
-            for (int i = 0; i < workers.Count; i++)
+            foreach (string t in workers)
             {
                 string[] ip =
-                    workers[i].Substring(workers[i].LastIndexOf('/') + 1,
-                        workers[i].Length - workers[i].LastIndexOf('/') - 1)
+                    t.Substring(t.LastIndexOf('/') + 1,
+                        t.Length - t.LastIndexOf('/') - 1)
                         .Split(',');
                 Framework.Network.Synchronous.Client transfer = new Framework.Network.Synchronous.Client(ip[0],
                     int.Parse(ip[1]));
@@ -487,17 +484,17 @@ namespace Iveely.CloudComputing.Client
                 return;
             }
             List<string> workers = new List<string>(StateHelper.GetChildren("ISE://system/state/worker"));
-            for (int i = 0; i < workers.Count; i++)
+            foreach (string t in workers)
             {
                 string[] ip =
-                    workers[i].Substring(workers[i].LastIndexOf('/') + 1,
-                        workers[i].Length - workers[i].LastIndexOf('/') - 1)
+                    t.Substring(t.LastIndexOf('/') + 1,
+                        t.Length - t.LastIndexOf('/') - 1)
                         .Split(',');
                 Framework.Network.Synchronous.Client transfer = new Framework.Network.Synchronous.Client(ip[0],
                     int.Parse(ip[1]));
                 string appName = args[1];
                 ExcutePacket codePacket = new ExcutePacket(Encoding.UTF8.GetBytes(appName), string.Empty,
-                   appName, string.Empty,
+                    appName, string.Empty,
                     ExcutePacket.Type.Kill);
                 codePacket.SetReturnAddress(Dns.GetHostName(), 8800);
                 codePacket.WaiteCallBack = true;
@@ -517,11 +514,11 @@ namespace Iveely.CloudComputing.Client
                 return;
             }
             List<string> workers = new List<string>(StateHelper.GetChildren("ISE://system/state/worker"));
-            for (int i = 0; i < workers.Count; i++)
+            foreach (string t in workers)
             {
                 string[] ip =
-                    workers[i].Substring(workers[i].LastIndexOf('/') + 1,
-                        workers[i].Length - workers[i].LastIndexOf('/') - 1)
+                    t.Substring(t.LastIndexOf('/') + 1,
+                        t.Length - t.LastIndexOf('/') - 1)
                         .Split(',');
                 Framework.Network.Synchronous.Client transfer = new Framework.Network.Synchronous.Client(ip[0],
                     int.Parse(ip[1]));

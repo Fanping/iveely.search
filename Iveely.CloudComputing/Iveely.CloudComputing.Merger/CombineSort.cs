@@ -7,11 +7,6 @@
  *========================================*/
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.Remoting.Messaging;
-using System.Text;
-using System.Threading.Tasks;
 using Iveely.Framework.Algorithm;
 
 namespace Iveely.CloudComputing.Merger
@@ -20,14 +15,14 @@ namespace Iveely.CloudComputing.Merger
     {
         private const string OperateType = "combine_sort";
 
-        private string flag;
+        private readonly string _flag;
 
         public CombineSort(string appTimeStamp, string appName)
             : base(appTimeStamp, appName)
         {
             this.AppName = appName;
             this.AppTimeStamp = appTimeStamp;
-            flag = OperateType + "_" + appTimeStamp + "_" + appName;
+            _flag = OperateType + "_" + appTimeStamp + "_" + appName;
         }
 
         //public override T Compute<T>(T val)
@@ -39,25 +34,25 @@ namespace Iveely.CloudComputing.Merger
         {
             lock (Table)
             {
-                if (Table[flag] == null)
+                if (Table[_flag] == null)
                 {
-                    Table.Add(flag, ChangeType(val));
-                    CountTable.Add(flag, 1);
+                    Table.Add(_flag, ChangeType(val));
+                    CountTable.Add(_flag, 1);
                 }
                 else
                 {
-                    double[] list = (double[])Table[flag];
+                    double[] list = (double[])Table[_flag];
                     CombineSort<double> combine = new CombineSort<double>();
                     list = combine.GetResult(list, ChangeType(val));
-                    Table[flag] = list;
-                    int count = int.Parse(CountTable[flag].ToString());
-                    CountTable[flag] = count + 1;
+                    Table[_flag] = list;
+                    int count = int.Parse(CountTable[_flag].ToString());
+                    CountTable[_flag] = count + 1;
                 }
             }
-            if (Waite(flag))
+            if (Waite(_flag))
             {
-                return Array.ConvertAll<double, T>((double[])Table[flag],
-                    delegate(double n) { return (T)Convert.ChangeType(n, typeof(T)); });
+                return Array.ConvertAll((double[])Table[_flag],
+                    n => (T) Convert.ChangeType(n, typeof (T)));
             }
             throw new TimeoutException();
         }
@@ -69,7 +64,7 @@ namespace Iveely.CloudComputing.Merger
 
         private double[] ChangeType<T>(T[] val)
         {
-            return Array.ConvertAll<T, double>(val, delegate(T n) { return double.Parse(n.ToString()); });
+            return Array.ConvertAll(val, n => double.Parse(n.ToString()));
         }
     }
 

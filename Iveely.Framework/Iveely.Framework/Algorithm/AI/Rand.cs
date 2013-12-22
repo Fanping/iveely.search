@@ -1,14 +1,13 @@
 /////////////////////////////////////////////////
-///文件名:Rand
-///描  述:
-///创建者:刘凡平(Iveely Liu)
-///邮  箱:liufanping@iveely.com
-///组  织:Iveely
-///年  份:2012/3/28 10:15:01
+//文件名:Rand
+//描  述:
+//创建者:刘凡平(Iveely Liu)
+//邮  箱:liufanping@iveely.com
+//组  织:Iveely
+//年  份:2012/3/28 10:15:01
 ///////////////////////////////////////////////
 
 
-using System.Collections.Generic;
 using Iveely.Framework.DataStructure;
 
 

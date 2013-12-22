@@ -7,88 +7,87 @@
  *========================================*/
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Iveely.Framework.Network;
 
-[Serializable]
-public class ExcutePacket : Packet
+namespace Iveely.CloudComputing.Client
 {
-    public enum Type
+    [Serializable]
+    public class ExcutePacket : Packet
     {
-        Code,
-        Kill,
-        Task,
-        FileFragment,
-        Download,
-        Delete,
-        Rename,
-        List
-    }
+        public enum Type
+        {
+            Code,
+            Kill,
+            Task,
+            FileFragment,
+            Download,
+            Delete,
+            Rename,
+            List
+        }
 
-    public string ClassName
-    {
-        get;
-        private set;
-    }
+        public string ClassName
+        {
+            get;
+            private set;
+        }
 
-    public string AppName
-    {
-        get;
-        private set;
-    }
+        public string AppName
+        {
+            get;
+            private set;
+        }
 
-    public string TimeStamp
-    {
-        get;
-        private set;
-    }
+        public string TimeStamp
+        {
+            get;
+            private set;
+        }
 
-    /// <summary>
-    /// 信息返回IP
-    /// </summary>
-    public string ReturnIp
-    {
-        get;
-        private set;
-    }
+        /// <summary>
+        /// 信息返回IP
+        /// </summary>
+        public string ReturnIp
+        {
+            get;
+            private set;
+        }
 
-    /// <summary>
-    /// 信息返回接收端口
-    /// </summary>
-    public int Port
-    {
-        get;
-        private set;
-    }
+        /// <summary>
+        /// 信息返回接收端口
+        /// </summary>
+        public int Port
+        {
+            get;
+            private set;
+        }
 
-    /// <summary>
-    /// 执行类型
-    /// </summary>
-    public Type ExcuteType
-    {
-        get;
-        private set;
-    }
+        /// <summary>
+        /// 执行类型
+        /// </summary>
+        public Type ExcuteType
+        {
+            get;
+            private set;
+        }
 
-    public ExcutePacket(byte[] codeBytes, string className, string appName, string timeStamp, Type excuteType)
-    {
-        this.Data = codeBytes;
-        this.ClassName = className;
-        this.AppName = appName;
-        this.TimeStamp = timeStamp;
-        this.ExcuteType = excuteType;
-    }
+        public ExcutePacket(byte[] codeBytes, string className, string appName, string timeStamp, Type excuteType)
+        {
+            this.Data = codeBytes;
+            this.ClassName = className;
+            this.AppName = appName;
+            this.TimeStamp = timeStamp;
+            this.ExcuteType = excuteType;
+        }
 
-    public ExcutePacket()
-    {}
+        public ExcutePacket()
+        {}
 
-    public void SetReturnAddress(string ip, int port)
-    {
-        this.ReturnIp = ip;
-        this.Port = port;
+        public void SetReturnAddress(string ip, int port)
+        {
+            this.ReturnIp = ip;
+            this.Port = port;
+        }
     }
 }
 

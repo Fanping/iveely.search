@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Iveely.Framework.DataStructure
@@ -56,7 +53,7 @@ namespace Iveely.Framework.DataStructure
         /// <returns>是否修改成功</returns>
         public bool Modify(T item, int index)
         {
-            if (index < this.Count && index >= 0)
+            if (index < Count && index >= 0)
             {
                 RemoveAt(index);
                 Add(item);
@@ -71,10 +68,7 @@ namespace Iveely.Framework.DataStructure
         [TestMethod]
         public void Test_SortedList()
         {
-            SortedList<int> sortedList = new SortedList<int>();
-            sortedList.Add(2);
-            sortedList.Add(1);
-            sortedList.Add(3);
+            SortedList<int> sortedList = new SortedList<int> {2, 1, 3};
             for (int i = 1; i < 4; i++)
             {
                 Assert.AreEqual(sortedList[i], i);

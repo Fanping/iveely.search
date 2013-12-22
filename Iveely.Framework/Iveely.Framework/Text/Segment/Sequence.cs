@@ -27,18 +27,18 @@ namespace Iveely.Framework.Text.Segment
         /// <summary>
         /// 序列
         /// </summary>
-        public List<string> array { get; private set; }
+        public List<string> Array { get; private set; }
 
         public Sequence()
         {
-            array = new List<string>();
+            Array = new List<string>();
         }
 
         public void Add(string value)
         {
-            if(!array.Contains(value))
+            if(!Array.Contains(value))
             {
-                this.array.Add(value);
+                Array.Add(value);
             }
         }
     }

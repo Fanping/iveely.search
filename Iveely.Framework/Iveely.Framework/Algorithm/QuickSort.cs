@@ -7,11 +7,6 @@
  *========================================*/
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Iveely.Framework.Algorithm
 {
@@ -28,8 +23,8 @@ namespace Iveely.Framework.Algorithm
             {
                 return null;
             }
-            this._array = array;
-            Sort(this._array, 0, _array.Length - 1);
+            _array = array;
+            Sort(_array, 0, _array.Length - 1);
             return _array;
         }
 
@@ -42,9 +37,13 @@ namespace Iveely.Framework.Algorithm
                 int j = right + 1;
                 while (true)
                 {
-                    while (numbers[++i].CompareTo(middle) < 0) ;
+                    while (numbers[++i].CompareTo(middle) < 0)
+                    {
+                    }
 
-                    while (numbers[--j].CompareTo(middle) > 0) ;
+                    while (numbers[--j].CompareTo(middle) > 0)
+                    {
+                    }
 
                     if (i >= j)
                         break;

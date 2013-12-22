@@ -9,10 +9,8 @@
 using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
 using System.Text;
-using System.Threading.Tasks;
 using Microsoft.CSharp;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -31,6 +29,7 @@ namespace Iveely.Framework.Text
         /// 编译源码
         /// </summary>
         /// <param name="sourceCode">源码</param>
+        /// <param name="references"></param>
         /// <returns>返回错误集合</returns>
         public static string Compile(string[] sourceCode, List<string> references)
         {
@@ -67,10 +66,12 @@ namespace Iveely.Framework.Text
 
         public static object Execode(string code, string className, List<string> libraries, object[] parameters)
         {
-            string functionName = "Run";
-            CompilerParameters compilerParameters = new CompilerParameters();
-            compilerParameters.GenerateExecutable = false;
-            compilerParameters.GenerateInMemory = true;
+            const string functionName = "Run";
+            CompilerParameters compilerParameters = new CompilerParameters
+            {
+                GenerateExecutable = false,
+                GenerateInMemory = true
+            };
             compilerParameters.ReferencedAssemblies.Add("System.dll");
             compilerParameters.ReferencedAssemblies.Add("System.Core.dll");
             if (libraries != null)
@@ -87,7 +88,7 @@ namespace Iveely.Framework.Text
             if (instance != null)
             {
                 MethodInfo method = instance.GetType().GetMethod(functionName);
-                return method.Invoke(instance, new[] { parameters });
+                return method.Invoke(instance, new object[] { parameters });
             }
             throw new NullReferenceException("Instance can not be null.");
         }
@@ -97,7 +98,7 @@ namespace Iveely.Framework.Text
         /// </summary>
         /// <param name="sourceCode"></param>
         /// <returns></returns>
-        private static string GenerateCode(string[] sourceCode)
+        private static string GenerateCode(IEnumerable<string> sourceCode)
         {
             StringBuilder builder = new StringBuilder();
             foreach (var code in sourceCode)
@@ -111,15 +112,17 @@ namespace Iveely.Framework.Text
         [TestMethod]
         public void TestCompiler()
         {
-            List<string> wrongCode = new List<string>();
-            wrongCode.Add("using System;");
-            wrongCode.Add("public class Program");
-            wrongCode.Add("{");
-            wrongCode.Add("public static void Main(string[] args)");
-            wrongCode.Add("{");
-            wrongCode.Add("Console.WriteLine()");
-            wrongCode.Add("}");
-            wrongCode.Add("}");
+            List<string> wrongCode = new List<string>
+            {
+                "using System;",
+                "public class Program",
+                "{",
+                "public static void Main(string[] args)",
+                "{",
+                "Console.WriteLine()",
+                "}",
+                "}"
+            };
             string[] wrongCodes = wrongCode.ToArray();
             Assert.IsFalse(Compile(wrongCodes, null) == string.Empty);
 

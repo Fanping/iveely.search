@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections;
 using System.Text;
-using Iveely.CloudComputing.Client;
 
-
-namespace Iveely.CloudComputing.Example
+namespace Iveely.CloudComputing.Client
 {
     public sealed class WordCount : Application
     {

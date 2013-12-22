@@ -1,10 +1,6 @@
-﻿using System;
-using System.Threading;
-using System.Diagnostics;
-using System.Net;
+﻿using System.Net;
 using Iveely.CloudComputing.Configuration;
 using Iveely.Framework.Log;
-using log4net;
 
 namespace Iveely.CloudComputing.StateCenter
 {

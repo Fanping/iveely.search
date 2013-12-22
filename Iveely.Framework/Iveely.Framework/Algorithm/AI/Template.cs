@@ -1,16 +1,16 @@
 /////////////////////////////////////////////////
-///文件名:Template
-///描  述:
-///创建者:刘凡平(Iveely Liu)
-///邮  箱:liufanping@iveely.com
-///组  织:Iveely
-///年  份:2012/3/27 20:45:04
+//文件名:Template
+//描  述:
+//创建者:刘凡平(Iveely Liu)
+//邮  箱:liufanping@iveely.com
+//组  织:Iveely
+//年  份:2012/3/27 20:45:04
 ///////////////////////////////////////////////
 
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
+using Iveely.Framework.Algorithm.AI.Library;
 using Iveely.Framework.DataStructure;
 
 
@@ -164,7 +164,7 @@ namespace Iveely.Framework.Algorithm.AI
                     parm.AddRange(va.Select(a => AI.Star.List[a - 1]));
                 }
                 //执行，依然要把参数传递过去
-                return Library.CodeCompiler.Execute(Function.Name, parm.ToArray());
+                return CodeCompiler.Execute(Function.Name, parm.ToArray());
             }
             //获取存储的变量值
             if (GetVariable.Name != null)
@@ -193,7 +193,7 @@ namespace Iveely.Framework.Algorithm.AI
 
         public void AddQuestion(Question question)
         {
-            this.Questions.Add(question);
+            Questions.Add(question);
         }
 
         public List<Question> BuildQuestion(params string[] references)
@@ -212,11 +212,13 @@ namespace Iveely.Framework.Algorithm.AI
 
                 //doubt = ReplaceStar(doubt, values);
                 answer = ReplaceStar(answer, values);
-                Question formalQuestion = new Question();
-                formalQuestion.Answer = answer;
-                formalQuestion.Description = doubt;
-                formalQuestion.FromTitle= references[1];
-                formalQuestion.Reference = references[0];
+                Question formalQuestion = new Question
+                {
+                    Answer = answer,
+                    Description = doubt,
+                    FromTitle = references[1],
+                    Reference = references[0]
+                };
                 formalQuestions.Add(formalQuestion);
             }
             return formalQuestions;
@@ -224,7 +226,7 @@ namespace Iveely.Framework.Algorithm.AI
 
         private string ReplaceStar(string text, string[] values)
         {
-            int indexStar = text.IndexOf("*", System.StringComparison.Ordinal);
+            int indexStar = text.IndexOf("*", StringComparison.Ordinal);
             while (indexStar > -1)
             {
                 int numberLeftIndex = text.IndexOf("{", StringComparison.Ordinal);
@@ -240,7 +242,7 @@ namespace Iveely.Framework.Algorithm.AI
                 while (end >= start)
                 {
                     text = text.Remove(indexStar, 1).Insert(indexStar, values[start]);
-                    indexStar = text.IndexOf("*", System.StringComparison.Ordinal);
+                    indexStar = text.IndexOf("*", StringComparison.Ordinal);
                     start++;
                 }
 

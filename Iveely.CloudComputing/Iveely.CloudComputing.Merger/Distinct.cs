@@ -9,8 +9,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Iveely.CloudComputing.Merger
 {
@@ -18,40 +16,40 @@ namespace Iveely.CloudComputing.Merger
     {
         private const string OperateType = "distinct";
 
-        private string flag;
+        private readonly string _flag;
 
         public Distinct(string appTimeStamp, string appName)
             : base(appTimeStamp, appName)
         {
             this.AppName = appName;
             this.AppTimeStamp = appTimeStamp;
-            flag = OperateType + "_" + appTimeStamp + "_" + appName;
+            _flag = OperateType + "_" + appTimeStamp + "_" + appName;
         }
 
         public override T Compute<T>(T val)
         {
             lock (Table)
             {
-                if (Table[flag] == null)
+                if (Table[_flag] == null)
                 {
-                    Table.Add(flag, val);
-                    CountTable.Add(flag, 1);
+                    Table.Add(_flag, val);
+                    CountTable.Add(_flag, 1);
                 }
                 else
                 {
-                    List<object> objects = (List<object>) Table[flag];
+                    List<object> objects = (List<object>) Table[_flag];
                     List<object> newObjects = (List<object>) Convert.ChangeType(val, typeof (List<object>));
                     objects.AddRange(newObjects);
                     List<object> distinctObjects = new List<object>(objects.Distinct());
-                    Table[flag] = distinctObjects;
+                    Table[_flag] = distinctObjects;
 
-                    int count = int.Parse(CountTable[flag].ToString());
-                    CountTable[flag] = count + 1;
+                    int count = int.Parse(CountTable[_flag].ToString());
+                    CountTable[_flag] = count + 1;
                 }
             }
-            if (Waite(flag))
+            if (Waite(_flag))
             {
-                T t = (T)Convert.ChangeType(Table[flag], typeof(T));
+                T t = (T)Convert.ChangeType(Table[_flag], typeof(T));
                 return t;
             }
             throw new TimeoutException();

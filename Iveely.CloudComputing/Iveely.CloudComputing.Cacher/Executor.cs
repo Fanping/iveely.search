@@ -8,6 +8,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using Iveely.CloudComputing.CacheCommon;
 using Iveely.CloudComputing.Configuration;
@@ -147,7 +148,7 @@ namespace Iveely.CloudComputing.Cacher
         /// <param name="changeValue"></param>
         /// <param name="topN"></param>
         /// <returns></returns>
-        private object[] GetKeyByValue(object value, object changeValue, int topN)
+        private IEnumerable<object> GetKeyByValue(object value, object changeValue, int topN)
         {
             return _table.ReadByValue(value, changeValue, topN);
         }
@@ -176,10 +177,11 @@ namespace Iveely.CloudComputing.Cacher
             }
 
             //读取出来之后，会按照插入的逆序进行输出
-            object[] objects = GetKeyByValue(1, -1, 10);
+            IEnumerable<object> objects = GetKeyByValue(1, -1, 10);
+            var enumerable = objects as object[] ?? objects.ToArray();
             for (int i = 0; i < 10; i++)
             {
-                Assert.AreEqual(objects[i], (9 - i) + "Key");
+                Assert.AreEqual(enumerable[i], (9 - i) + "Key");
             }
 
             Assert.AreEqual(GetItem(6 + "Key"), -1);

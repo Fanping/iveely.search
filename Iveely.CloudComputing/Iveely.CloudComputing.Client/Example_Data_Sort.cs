@@ -8,15 +8,10 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Iveely.CloudComputing.Client;
-using Iveely.Framework.Algorithm;
 
-namespace Iveely.CloudComputing.Example
+namespace Iveely.CloudComputing.Client
 {
-    public class Example_Data_Sort : Application
+    public class ExampleDataSort : Application
     {
         public override void Run(object[] args)
         {

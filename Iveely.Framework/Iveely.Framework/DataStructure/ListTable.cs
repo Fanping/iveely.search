@@ -9,10 +9,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using System.Runtime.Serialization;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Iveely.Framework.DataStructure
 {
@@ -41,7 +38,7 @@ namespace Iveely.Framework.DataStructure
         /// <param name="value"> 值（出现重复值，会累加） </param>
         public void Add(object key, T value)
         {
-            if (this.ContainsKey(key))
+            if (ContainsKey(key))
             {
                 var list = (SortedList<T>)this[key];
                 list.Add(value);
@@ -49,9 +46,8 @@ namespace Iveely.Framework.DataStructure
             }
             else
             {
-                var list = new SortedList<T>();
-                list.Add(value);
-                this.Add(key, list);
+                var list = new SortedList<T> {value};
+                Add(key, list);
             }
         }
 
@@ -72,7 +68,7 @@ namespace Iveely.Framework.DataStructure
         /// <returns> 降序值序列 </returns>
         public List<T> GetValuesByDesc(object key)
         {
-            List<T> list = this.GetValuesByAsc(key);
+            List<T> list = GetValuesByAsc(key);
             list.Reverse();
             return list;
         }
@@ -83,13 +79,7 @@ namespace Iveely.Framework.DataStructure
 
         public static void Test()
         {
-            var table = new ListTable<double>();
-            table.Add("a", 2.0);
-            table.Add("b", 6.0);
-            table.Add("a", 3.6);
-            table.Add("b", 2.2);
-            table.Add("a", 6.3);
-            table.Add("b", 3.8);
+            var table = new ListTable<double> {{"a", 2.0}, {"b", 6.0}, {"a", 3.6}, {"b", 2.2}, {"a", 6.3}, {"b", 3.8}};
 
             List<double> list = table.GetValuesByAsc("a");
             foreach (double va in list)

@@ -235,17 +235,17 @@ namespace Iveely.CloudComputing.StateCenter
         public void TestPutGet()
         {
             CleanAll();
-            string path = "ISE://mypath/app1";
-            string data = "this is my application named 'app1'.";
+            const string path = "ISE://mypath/app1";
+            const string data = "this is my application named 'app1'.";
             Put(path, data);
             Assert.AreEqual(data, Get<string>(path));
 
-            string repeatePathData = "this is repeate data";
+            const string repeatePathData = "this is repeate data";
             Put(path, repeatePathData);
             Assert.AreEqual(repeatePathData, Get<string>(path));
 
             CleanAll();
-            string bytePath = "ISE://mypath/app1";
+            const string bytePath = "ISE://mypath/app1";
             byte[] bytes = { 1, 2 };
             Put(path, bytes);
             Assert.AreEqual(bytes, Get<byte[]>(bytePath));
@@ -255,8 +255,8 @@ namespace Iveely.CloudComputing.StateCenter
         public void TestIsExist()
         {
             CleanAll();
-            string pathA = "ISE://mypath/pathA";
-            string pathB = "ISE://mypath/pathB";
+            const string pathA = "ISE://mypath/pathA";
+            const string pathB = "ISE://mypath/pathB";
             Put(pathA, "A");
             Put(pathB, "B");
             Assert.IsTrue(IsExist(pathA));
@@ -270,9 +270,9 @@ namespace Iveely.CloudComputing.StateCenter
         public void TestGetChildren()
         {
             CleanAll();
-            string pathA = "ISE://mypath/pathA";
-            string pathB = "ISE://mypath/pathB";
-            string pathC = "ISE://yourpath/pathc";
+            const string pathA = "ISE://mypath/pathA";
+            const string pathB = "ISE://mypath/pathB";
+            const string pathC = "ISE://yourpath/pathc";
             Put(pathA, "A");
             Put(pathB, "B");
             Put(pathC, "C");
@@ -305,8 +305,8 @@ namespace Iveely.CloudComputing.StateCenter
         public void Test_State_Rename()
         {
             CleanAll();
-            string path = "ISE://mypath/pathA";
-            string newPathName = "PA";
+            const string path = "ISE://mypath/pathA";
+            const string newPathName = "PA";
             Put(path, "A");
             Rename(path, newPathName);
             Assert.IsTrue(IsExist("ISE://mypath/PA"));

@@ -7,11 +7,7 @@
  *========================================*/
 
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Iveely.Framework.DataStructure;
 using Iveely.Framework.Text.Segment;
 
@@ -25,13 +21,13 @@ namespace Iveely.Framework.Algorithm
         /// <summary>
         /// 分词组件
         /// </summary>
-        protected readonly Participle participle;
+        protected readonly Participle Participle;
 
         /// <summary>
         /// 倒排表
         /// </summary>
         //private ListTable<double> table;
-        public readonly DimensionTable<string, string, T> table;
+        public readonly DimensionTable<string, string, T> Table;
 
         #endregion
 
@@ -40,10 +36,10 @@ namespace Iveely.Framework.Algorithm
         /// <summary>
         /// 构造方法
         /// </summary>
-        public Invert(string folder="")
+        protected Invert(string folder="")
         {
-            this.table = new DimensionTable<string, string, T>();
-            participle = Participle.GetInstance(folder);
+            Table = new DimensionTable<string, string, T>();
+            Participle = Participle.GetInstance(folder);
         }
 
         /// <summary>
@@ -54,18 +50,11 @@ namespace Iveely.Framework.Algorithm
         /// </summary>
         /// <param name="id"> 文档编号 </param>
         /// <param name="doc"> 文档内容 </param>
+        /// <param name="split"></param>
         public void AddDocument(object id, string doc, bool split = false)
         {
-            /// / 获取此文档的词频集合
-            string[] words;
-            if (split)
-            {
-                words = doc.Split(' ');
-            }
-            else
-            {
-                words = participle.Split(doc).Split('/');
-            }
+            // 获取此文档的词频集合
+            string[] words = split ? doc.Split(' ') : Participle.Split(doc).Split('/');
             ProcessWords(words, id);
         }
 
@@ -91,7 +80,7 @@ namespace Iveely.Framework.Algorithm
         /// <returns> 返回按照频率的集合 </returns>
         public List<T> FindDocumentByKey(string key, bool asc)
         {
-            return this.table[key].GetAllKeys();
+            return Table[key].GetAllKeys();
         }
 
         //public List<T> FindDocIdByKey(string key, bool asc)
@@ -104,11 +93,8 @@ namespace Iveely.Framework.Algorithm
             List<T> result = new List<T>();
             foreach (string key in keys)
             {
-                List<T> temp = this.table.GetValueByName(key);
-                if (result != null)
-                {
-                    result.AddRange(temp);
-                }
+                List<T> temp = Table.GetValueByName(key);
+                result.AddRange(temp);
             }
             return result;
         }
@@ -126,7 +112,7 @@ namespace Iveely.Framework.Algorithm
             List<T> result = new List<T>();
             foreach (string key in keys)
             {
-                List<T> temp = this.FindDocumentByKey(key, false);
+                List<T> temp = FindDocumentByKey(key, false);
                 if (temp != null)
                 {
                     result.AddRange(temp);
@@ -137,11 +123,11 @@ namespace Iveely.Framework.Algorithm
         }
 
 
-
         /// <summary>
         /// 获取文档中关键字的频率
         /// </summary>
         /// <param name="words"> </param>
+        /// <param name="docId"></param>
         /// <returns> </returns>
         public abstract void ProcessWords(string[] words, object docId);
 

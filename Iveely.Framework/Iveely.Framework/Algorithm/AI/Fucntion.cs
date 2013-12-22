@@ -1,13 +1,12 @@
 /////////////////////////////////////////////////
-///文件名:Fucntion
-///描  述:
-///创建者:刘凡平(Iveely Liu)
-///邮  箱:liufanping@iveely.com
-///组  织:Iveely
-///年  份:2012/3/28 16:53:27
+//文件名:Fucntion
+//描  述:
+//创建者:刘凡平(Iveely Liu)
+//邮  箱:liufanping@iveely.com
+//组  织:Iveely
+//年  份:2012/3/28 16:53:27
 /////////////////////////////////////////////
 
-using System.Collections.Generic;
 using Iveely.Framework.DataStructure;
 
 

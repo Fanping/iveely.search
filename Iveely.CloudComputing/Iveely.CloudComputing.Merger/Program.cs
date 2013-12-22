@@ -5,18 +5,16 @@ using System.Linq;
 using System.Net;
 using Iveely.CloudComputing.MergerCommon;
 using Iveely.Framework.Log;
-using Iveely.Framework.Network;
 using Iveely.Framework.Network.Synchronous;
 using Iveely.Framework.Text;
-using log4net;
 
 namespace Iveely.CloudComputing.Merger
 {
     internal class Program
     {
-        private static Framework.Network.Synchronous.Server MergerSupervisor;
+        private static Server _mergerSupervisor;
 
-        private static void Main(string[] args)
+        private static void Main()
         {
             //1. 单进程模式运行
             Framework.Process.RunningState.StandAlone();
@@ -25,10 +23,10 @@ namespace Iveely.CloudComputing.Merger
             StateAPI.StateHelper.Put("ISE://system/state/merger/" + Dns.GetHostName(), "merger start running...");
 
             //3. 启动监听
-            if (MergerSupervisor == null)
+            if (_mergerSupervisor == null)
             {
-                MergerSupervisor = new Server(Dns.GetHostName(), 8801, ProcessMergerClient, 5);
-                MergerSupervisor.Listen();
+                _mergerSupervisor = new Server(Dns.GetHostName(), 8801, ProcessMergerClient, 5);
+                _mergerSupervisor.Listen();
             }
         }
 

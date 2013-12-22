@@ -7,12 +7,9 @@
  *========================================*/
 
 using System;
-using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using Iveely.Framework.Log;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -150,7 +147,7 @@ namespace Iveely.Framework.Text
             StringBuilder builder = new StringBuilder();
             for (int i = 0; i < 10000; i++)
             {
-                builder.AppendLine(i.ToString());
+                builder.AppendLine(i.ToString(CultureInfo.InvariantCulture));
             }
             File.WriteAllText("temp.txt", builder.ToString());
 

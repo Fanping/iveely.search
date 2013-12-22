@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Iveely.Framework.DataStructure;
+﻿using Iveely.Framework.DataStructure;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Iveely.Framework.Algorithm

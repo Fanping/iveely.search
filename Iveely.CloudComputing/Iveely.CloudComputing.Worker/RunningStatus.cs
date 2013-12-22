@@ -7,26 +7,20 @@
  *========================================*/
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Iveely.CloudComputing.Client;
 
 namespace Iveely.CloudComputing.Worker
 {
     [Serializable]
     public class RunningStatus
     {
-        public ExcutePacket Packet;
-
-
-
         public string Description;
+        public ExcutePacket Packet;
 
         public RunningStatus(ExcutePacket packet, string status)
         {
-            this.Packet = packet;
-            this.Description = status;
+            Packet = packet;
+            Description = status;
         }
     }
 }

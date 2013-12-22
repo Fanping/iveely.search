@@ -1,17 +1,15 @@
 /////////////////////////////////////////////////
-///文件名:Bot
-///描  述:
-///创建者:刘凡平(Iveely Liu)
-///邮  箱:liufanping@iveely.com
-///组  织:Iveely
-///年  份:2012/3/27 20:51:37
+//文件名:Bot
+//描  述:
+//创建者:刘凡平(Iveely Liu)
+//邮  箱:liufanping@iveely.com
+//组  织:Iveely
+//年  份:2012/3/27 20:51:37
 ///////////////////////////////////////////////
 
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text.RegularExpressions;
 using System.Xml;
 using Iveely.Framework.DataStructure;
 
@@ -35,19 +33,14 @@ namespace Iveely.Framework.Algorithm.AI
         /// <summary>
         /// 唯一实例
         /// </summary>
-        private static Bot bot;// = new Bot();
+        private static Bot _bot;// = new Bot();
 
         /// <summary>
         /// 获取实例
         /// </summary>
         public static Bot GetInstance(string resourceFolder = "")
         {
-            if (bot == null)
-            {
-                bot = new Bot(resourceFolder);
-
-            }
-            return bot;
+            return _bot ?? (_bot = new Bot(resourceFolder));
         }
 
         /// <summary>
@@ -82,165 +75,168 @@ namespace Iveely.Framework.Algorithm.AI
                     xmlDoc.Load(resourceFolder + "\\Iveely.AI.aiml");
                 }
                 //子节点集合
-                XmlNodeList nodeList = xmlDoc.SelectSingleNode("aiml").ChildNodes;
-                //当前结点
-                XmlNode currentNode;
-                //遍历每一个子节点
-                for (int i = 0; i < nodeList.Count; i++)
+                var selectSingleNode = xmlDoc.SelectSingleNode("aiml");
+                if (selectSingleNode != null)
                 {
-                    foreach (var categoryNode in nodeList[i].ChildNodes)
+                    XmlNodeList nodeList = selectSingleNode.ChildNodes;
+                    //当前结点
+                    //遍历每一个子节点
+                    for (int i = 0; i < nodeList.Count; i++)
                     {
-
-                        ///将当前结点赋值
-                        currentNode = (XmlNode)categoryNode;
-                        //如果是类别结点
-                        if (currentNode.Name.ToLower() == "category" && currentNode.HasChildNodes)
+                        foreach (var categoryNode in nodeList[i].ChildNodes)
                         {
-                            // 新建类别
-                            var category = new Category();
-                            //说明存在模式
-                            var childList = currentNode.ChildNodes;
-                            for (int j = 0; j < childList.Count; j++)
+                            //将当前结点赋值
+                            XmlNode currentNode = (XmlNode)categoryNode;
+                            //如果是类别结点
+                            if (currentNode.Name.ToLower() == "category" && currentNode.HasChildNodes)
                             {
-                                //子节点赋值
-                                XmlNode childNode = childList[j];
-                                //如果是模式
-                                if (childNode.Name.ToLower() == "pattern")
+                                // 新建类别
+                                var category = new Category();
+                                //说明存在模式
+                                var childList = currentNode.ChildNodes;
+                                for (int j = 0; j < childList.Count; j++)
                                 {
-                                    //新建模式
-                                    var pattern = new Pattern { Value = childNode.InnerXml.Trim() };
-                                    //模式复制
-                                    //下一个一定是模板
-                                    j++;
-                                    //新建模板
-                                    var template = new Template();
-                                    //如果没有子结点
-                                    if (!childList[j].HasChildNodes)
+                                    //子节点赋值
+                                    XmlNode childNode = childList[j];
+                                    //如果是模式
+                                    if (childNode.Name.ToLower() == "pattern")
                                     {
-                                        //模板赋值
-                                        template.Value = childList[j].InnerXml.Trim();
-                                    }
-                                    else
-                                    {
-                                        //获取当前所有的子节点
-                                        XmlNodeList innerList = childList[j].ChildNodes;
-                                        //定义子节点值
-                                        string tempValue = "";
-                                        //遍历循环
-                                        for (int m = 0; m < innerList.Count; m++)
+                                        //新建模式
+                                        var pattern = new Pattern { Value = childNode.InnerXml.Trim() };
+                                        //模式复制
+                                        //下一个一定是模板
+                                        j++;
+                                        //新建模板
+                                        var template = new Template();
+                                        //如果没有子结点
+                                        if (!childList[j].HasChildNodes)
                                         {
-                                            //如果是随机
-                                            if (innerList[m].Name.ToLower() == "random")
-                                            {
-                                                //说明存在随机组
-                                                var rand = new Rand();
-                                                //那么获取出随机值
-                                                for (var n = 0; n < innerList[m].ChildNodes.Count; n++)
-                                                {
-                                                    //增加进去
-                                                    rand.List.Add(innerList[m].ChildNodes[n].InnerXml);
-                                                }
-                                                //模板随机值
-                                                template.Rand = rand;
-                                            }
-                                            //如果是普通值
-                                            else if (innerList[m].Name.ToLower() == "#text")
-                                            {
-                                                tempValue += innerList[m].Value.Trim();
-                                            }
-                                            //如果是*号标记
-                                            else if (innerList[m].Name.ToLower() == "star")
-                                            {
-                                                //获取star属性index，标识位置
-                                                int index = int.Parse(innerList[m].Attributes["index"].Value);
-                                                //设定答值
-                                                template.Star.Add(index);
-                                            }
-                                            //如果是input号标记
-                                            else if (innerList[m].Name.ToLower() == "input")
-                                            {
-                                                //获取input属性index，标识位置
-                                                int index = int.Parse(innerList[m].Attributes["index"].Value);
-                                                //设定答值
-                                                template.Input = index;
-                                            }
-                                            //如果是Set标记
-                                            else if (innerList[m].Name.ToLower() == "set")
-                                            {
-                                                //获取Set属性name，标识位置
-                                                string setName = innerList[m].Attributes["name"].Value;
-                                                //索引号
-                                                string index = innerList[m].Attributes["index"].Value;
-                                                //设定变量
-                                                template.SetVariable.Name = setName;
-                                                //设定取值编号
-                                                template.SetVariable.Value = index;
-                                                //利用Star来记录
-                                                template.Star.Add(int.Parse(index));
-                                            }
-                                            //如果是Get标记
-                                            else if (innerList[m].Name.ToLower() == "get")
-                                            {
-                                                //获取get的变量
-                                                string getName = innerList[m].Attributes["name"].Value;
-                                                //变量名
-                                                template.GetVariable.Name = getName;
-                                            }
-                                            //如果是函数功能标记
-                                            else if (innerList[m].Name.ToLower() == "function")
-                                            {
-                                                //获取函数名称
-                                                template.Function.Name = innerList[m].Attributes["name"].Value;
-                                                //如果存在参数
-                                                if (innerList[m].Attributes["para"] != null)
-                                                {
-                                                    //首先获取参数中的值
-                                                    string[] par = innerList[m].Attributes["para"].Value.Split(',');
-                                                    //遍历每一个参数值
-                                                    foreach (string p in par)
-                                                    {
-                                                        //首先记录下是哪些参数
-                                                        template.Star.Add(int.Parse(p));
-                                                        //在函数体中也记录
-                                                        template.Function.Parameters.Add(p);
-                                                    }
-                                                }
-                                            }
-                                            //如果是疑问
-                                            else if (innerList[m].Name.ToLower() == "question")
-                                            {
-                                                string[] questionStrings = innerList[m].InnerText.Split(
-                                                    new[] { ';', '；' }, StringSplitOptions.RemoveEmptyEntries);
-                                                foreach (var questionString in questionStrings)
-                                                {
-                                                    //[*.0]和谁离婚了?[*.1]
-                                                    string[] text = questionString.Split(new[] { '?', '？' },
-                                                        StringSplitOptions.RemoveEmptyEntries);
-                                                    if (text.Length == 2)
-                                                    {
-                                                        Template.Question question = new Template.Question();
-                                                        question.Description = text[0];
-                                                        question.Answer = text[1];
-                                                        template.AddQuestion(question);
-                                                    }
-                                                }
-                                            }
+                                            //模板赋值
+                                            template.Value = childList[j].InnerXml.Trim();
                                         }
-                                        //将临时值放回去
-                                        template.Value = tempValue.Trim();
+                                        else
+                                        {
+                                            //获取当前所有的子节点
+                                            XmlNodeList innerList = childList[j].ChildNodes;
+                                            //定义子节点值
+                                            string tempValue = "";
+                                            //遍历循环
+                                            for (int m = 0; m < innerList.Count; m++)
+                                            {
+                                                //如果是随机
+                                                if (innerList[m].Name.ToLower() == "random")
+                                                {
+                                                    //说明存在随机组
+                                                    var rand = new Rand();
+                                                    //那么获取出随机值
+                                                    for (var n = 0; n < innerList[m].ChildNodes.Count; n++)
+                                                    {
+                                                        //增加进去
+                                                        rand.List.Add(innerList[m].ChildNodes[n].InnerXml);
+                                                    }
+                                                    //模板随机值
+                                                    template.Rand = rand;
+                                                }
+                                                    //如果是普通值
+                                                else if (innerList[m].Name.ToLower() == "#text")
+                                                {
+                                                    tempValue += innerList[m].Value.Trim();
+                                                }
+                                                    //如果是*号标记
+                                                else if (innerList[m].Name.ToLower() == "star")
+                                                {
+                                                    //获取star属性index，标识位置
+                                                    int index = int.Parse(innerList[m].Attributes["index"].Value);
+                                                    //设定答值
+                                                    template.Star.Add(index);
+                                                }
+                                                    //如果是input号标记
+                                                else if (innerList[m].Name.ToLower() == "input")
+                                                {
+                                                    //获取input属性index，标识位置
+                                                    int index = int.Parse(innerList[m].Attributes["index"].Value);
+                                                    //设定答值
+                                                    template.Input = index;
+                                                }
+                                                    //如果是Set标记
+                                                else if (innerList[m].Name.ToLower() == "set")
+                                                {
+                                                    //获取Set属性name，标识位置
+                                                    string setName = innerList[m].Attributes["name"].Value;
+                                                    //索引号
+                                                    string index = innerList[m].Attributes["index"].Value;
+                                                    //设定变量
+                                                    template.SetVariable.Name = setName;
+                                                    //设定取值编号
+                                                    template.SetVariable.Value = index;
+                                                    //利用Star来记录
+                                                    template.Star.Add(int.Parse(index));
+                                                }
+                                                    //如果是Get标记
+                                                else if (innerList[m].Name.ToLower() == "get")
+                                                {
+                                                    //获取get的变量
+                                                    string getName = innerList[m].Attributes["name"].Value;
+                                                    //变量名
+                                                    template.GetVariable.Name = getName;
+                                                }
+                                                    //如果是函数功能标记
+                                                else if (innerList[m].Name.ToLower() == "function")
+                                                {
+                                                    //获取函数名称
+                                                    template.Function.Name = innerList[m].Attributes["name"].Value;
+                                                    //如果存在参数
+                                                    if (innerList[m].Attributes["para"] != null)
+                                                    {
+                                                        //首先获取参数中的值
+                                                        string[] par = innerList[m].Attributes["para"].Value.Split(',');
+                                                        //遍历每一个参数值
+                                                        foreach (string p in par)
+                                                        {
+                                                            //首先记录下是哪些参数
+                                                            template.Star.Add(int.Parse(p));
+                                                            //在函数体中也记录
+                                                            template.Function.Parameters.Add(p);
+                                                        }
+                                                    }
+                                                }
+                                                    //如果是疑问
+                                                else if (innerList[m].Name.ToLower() == "question")
+                                                {
+                                                    string[] questionStrings = innerList[m].InnerText.Split(
+                                                        new[] { ';', '；' }, StringSplitOptions.RemoveEmptyEntries);
+                                                    foreach (var questionString in questionStrings)
+                                                    {
+                                                        //[*.0]和谁离婚了?[*.1]
+                                                        string[] text = questionString.Split(new[] { '?', '？' },
+                                                            StringSplitOptions.RemoveEmptyEntries);
+                                                        if (text.Length == 2)
+                                                        {
+                                                            Template.Question question = new Template.Question
+                                                            {
+                                                                Description = text[0],
+                                                                Answer = text[1]
+                                                            };
+                                                            template.AddQuestion(question);
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                            //将临时值放回去
+                                            template.Value = tempValue.Trim();
+                                        }
+                                        //将模板赋值给模式
+                                        pattern.Template = template;
+                                        //将模式添加到模式集合
+                                        category.Patterns.Add(pattern);
                                     }
-                                    //将模板赋值给模式
-                                    pattern.Template = template;
-                                    //将模式添加到模式集合
-                                    category.Patterns.Add(pattern);
                                 }
+                                //将类别添加到类别集合
+                                Categorys.Add(category);
                             }
-                            //将类别添加到类别集合
-                            this.Categorys.Add(category);
                         }
                     }
                 }
-
             }
 
         }
@@ -253,15 +249,15 @@ namespace Iveely.Framework.Algorithm.AI
 
         private void BuildRealCategory()
         {
-            for (int i = 0; i < this.Categorys.Count; i++)
+            for (int i = 0; i < Categorys.Count; i++)
             {
                 SortedList<Pattern> realPatterns = new SortedList<Pattern>();
                 SortedList<Pattern> patterns = Categorys[i].Patterns;
-                for (int j = 0; j < patterns.Count; j++)
+                foreach (Pattern t in patterns)
                 {
-                    if (patterns[j].Value.Contains("["))
+                    if (t.Value.Contains("["))
                     {
-                        string patternValue = patterns[j].Value;
+                        string patternValue = t.Value;
                         List<Pattern> myPatterns = new List<Pattern>();
                         int leftIndex = patternValue.IndexOf('[');
                         int rightIndex = patternValue.IndexOf(']');
@@ -281,19 +277,19 @@ namespace Iveely.Framework.Algorithm.AI
                                     Template template = new Template();
 
                                     Template.Question[] questions =
-                                        new Template.Question[patterns[j].Template.Questions.Count];
+                                        new Template.Question[t.Template.Questions.Count];
                                     for (int n = 0; n < questions.Count(); n++)
                                     {
                                         questions[n] = new Template.Question();
                                         questions[n].Answer =
-                                            patterns[j].Template.Questions[n].Answer.Replace(
+                                            t.Template.Questions[n].Answer.Replace(
                                                 "[" + valueTemplate[0] + "]", valueTemplate[k + 1]);
-                                        questions[n].Description = patterns[j].Template.Questions[n].Description.Replace(
-                                                "[" + valueTemplate[0] + "]", valueTemplate[k + 1]);
+                                        questions[n].Description = t.Template.Questions[n].Description.Replace(
+                                            "[" + valueTemplate[0] + "]", valueTemplate[k + 1]);
                                     }
                                     template.Questions.AddRange(questions);
-                                    template.Function = patterns[j].Template.Function;
-                                    template.Star = patterns[j].Template.Star;
+                                    template.Function = t.Template.Function;
+                                    template.Star = t.Template.Star;
                                     pts[k].Template = template;
                                 }
                                 myPatterns.AddRange(pts);
@@ -340,9 +336,9 @@ namespace Iveely.Framework.Algorithm.AI
                             rightIndex = patternValue.IndexOf(']');
                             if (rightIndex == -1)
                             {
-                                for (int p = 0; p < myPatterns.Count; p++)
+                                foreach (Pattern t1 in myPatterns)
                                 {
-                                    myPatterns[p].Value += patternValue;
+                                    t1.Value += patternValue;
                                 }
                             }
                         }
@@ -351,7 +347,7 @@ namespace Iveely.Framework.Algorithm.AI
                     else
                     {
                         //Pattern pattern = new Pattern();
-                        realPatterns.Add(patterns[j]);
+                        realPatterns.Add(t);
                     }
                 }
                 Categorys[i].Patterns = realPatterns;
@@ -363,7 +359,7 @@ namespace Iveely.Framework.Algorithm.AI
             //记录用户的输入
             Input.List.Add(input);
             //遍历类别
-            foreach (Category cate in this.Categorys)
+            foreach (Category cate in Categorys)
             {
                 foreach (Pattern pat in cate.Patterns)
                 {
@@ -379,17 +375,7 @@ namespace Iveely.Framework.Algorithm.AI
 
         public List<Template.Question> BuildQuestion(string input,params string[] references)
         {
-            foreach (Category cate in this.Categorys)
-            {
-                foreach (Pattern pat in cate.Patterns)
-                {
-                    if (Analyse.Match(pat.Value, input))
-                    {
-                        return pat.Template.BuildQuestion(references);
-                    }
-                }
-            }
-            return null;
+            return (from cate in Categorys from pat in cate.Patterns where Analyse.Match(pat.Value, input) select pat.Template.BuildQuestion(references)).FirstOrDefault();
         }
     }
 }

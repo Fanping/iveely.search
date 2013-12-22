@@ -9,11 +9,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Iveely.CloudComputing.Client;
 
-namespace Iveely.CloudComputing.Example
+namespace Iveely.CloudComputing.Client
 {
     /// <summary>
     /// 出租车轨迹类
@@ -48,21 +45,15 @@ namespace Iveely.CloudComputing.Example
             {
                 return -1;
             }
-            else
+            if (this.TaxiId > taxiPath.TaxiId)
             {
-                if (this.TaxiId > taxiPath.TaxiId)
-                {
-                    return (int)((int)TaxiId - taxiPath.TaxiId);
-                }
-                else if (this.TaxiId == taxiPath.TaxiId)
-                {
-                    return 0;
-                }
-                else
-                {
-                    return -1;
-                }
+                return (int)((int)TaxiId - taxiPath.TaxiId);
             }
+            if (this.TaxiId == taxiPath.TaxiId)
+            {
+                return 0;
+            }
+            return -1;
         }
     }
 

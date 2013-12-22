@@ -3,16 +3,12 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
-using System.Text;
 using Iveely.CloudComputing.Client;
 using Iveely.Framework.Algorithm;
 using Iveely.Framework.Algorithm.AI;
-using Iveely.Framework.Algorithm.AI.Library;
-using Iveely.Framework.Network;
 using Iveely.Framework.Network.Synchronous;
 using Iveely.Framework.Text;
 using Iveely.Framework.Text.Segment;
-using System.Threading;
 
 
 namespace Iveely.SearchEngine
@@ -67,17 +63,17 @@ namespace Iveely.SearchEngine
         /// <summary>
         /// 爬虫爬行的跟站点
         /// </summary>
-        private string Host = "www.baike.com";
+        private const string Host = "www.baike.com";
 
         /// <summary>
         /// 索引文件
         /// </summary>
-        private string indexFile;
+        private string _indexFile;
 
         /// <summary>
         /// 搜索端口
         /// </summary>
-        private int searchPort = 9000;
+        private int _searchPort = 9000;
 
         /// <summary>
         /// 主程序入口
@@ -89,7 +85,7 @@ namespace Iveely.SearchEngine
             Init(args);
             Fragment = new InvertFragment(GetRootFolder());
             Urls.Add("http://www.baike.com");
-            indexFile = GetRootFolder() + "\\InvertFragment.global";
+            _indexFile = GetRootFolder() + "\\InvertFragment.global";
 
             //Thread searchThread = new Thread(StartSearcher);
             //searchThread.Start();
@@ -102,11 +98,11 @@ namespace Iveely.SearchEngine
                 //2.1 爬虫开始运行
                 Crawler(ref pages);
 
-                ////2.2 索引器开始运行
-                //if (pages != null && pages.Count > 0)
-                //{
-                //    Indexer(ref pages);
-                //}
+                //2.2 索引器开始运行
+                if (pages != null && pages.Count > 0)
+                {
+                    Indexer(ref pages);
+                }
             }
         }
 
@@ -125,7 +121,7 @@ namespace Iveely.SearchEngine
                     try
                     {
                         //1.1 获取标题，网页正文，子链接集
-                        //WriteToConsole("Processing " + Urls[i]);
+                        WriteToConsole("Processing " + Urls[i]);
                         string title = string.Empty;
                         string content = string.Empty;
                         List<string> childrenLink = null;
@@ -143,11 +139,13 @@ namespace Iveely.SearchEngine
                         //1.3 记录数据
                         if (title != string.Empty)
                         {
-                            Page page = new Page();
-                            page.Url = Urls[i];
-                            page.Title = title;
-                            page.Date = DateTime.Now.ToShortDateString();
-                            page.Content = content;
+                            Page page = new Page
+                            {
+                                Url = Urls[i],
+                                Title = title,
+                                Date = DateTime.Now.ToShortDateString(),
+                                Content = content
+                            };
                             pages.Add(page);
                             database.Store(page);
                         }
@@ -179,11 +177,6 @@ namespace Iveely.SearchEngine
             const string delimiter = ".?。！\t？…●|\r\n])!";
             foreach (Page page in pages)
             {
-                //List<Template.Question> titleResult = Bot.GetInstance(GetRootFolder()).BuildQuestion(page.Title, page.Url);
-                //if (titleResult != null && titleResult.Count > 0)
-                //{
-                //    questions.AddRange(titleResult);
-                //}
                 string[] sentences = page.Content.Split(delimiter.ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
                 foreach (string sentence in sentences)
                 {
@@ -202,42 +195,41 @@ namespace Iveely.SearchEngine
             //对表达的语义建议索引
             WriteToConsole(string.Format("对表达的语义建议索引，共{0}条记录。", questions.Count));
 
-            if (File.Exists(indexFile))
+            if (File.Exists(_indexFile))
             {
-                Fragment = Serializer.DeserializeFromFile<InvertFragment>(indexFile);
+                Fragment = Serializer.DeserializeFromFile<InvertFragment>(_indexFile);
             }
 
             using (var database = Database.Open(GetRootFolder() + "\\Iveely.Search.Question"))
             {
                 if (questions.Any())
                 {
-                    for (int i = 0; i < questions.Count; i++)
+                    foreach (Template.Question t in questions)
                     {
-                        int id = questions[i].Answer.GetHashCode();
-                        Fragment.AddDocument(id, NGram.GetGram(questions[i].Description));
-                        questions[i].Id = id;
-                        database.Store(questions[i]);
+                        int id = t.Answer.GetHashCode();
+                        Fragment.AddDocument(id, NGram.GetGram(t.Description));
+                        t.Id = id;
+                        database.Store(t);
                     }
                 }
             }
             questions.Clear();
-
-            Serializer.SerializeToFile(Fragment, indexFile);
+            Serializer.SerializeToFile(Fragment, _indexFile);
         }
 
         public void StartSearcher()
         {
-            if (File.Exists(indexFile))
+            if (File.Exists(_indexFile))
             {
-                Fragment = Serializer.DeserializeFromFile<InvertFragment>(indexFile);
+                Fragment = Serializer.DeserializeFromFile<InvertFragment>(_indexFile);
             }
             int servicePort = int.Parse(GetRootFolder()) % 100;
 
             try
             {
-                searchPort += servicePort;
-                Server server = new Server(Dns.GetHostName(), searchPort, processQuery);
-                WriteToConsole(searchPort + " is start search service.");
+                _searchPort += servicePort;
+                Server server = new Server(Dns.GetHostName(), _searchPort, ProcessQuery);
+                WriteToConsole(_searchPort + " is start search service.");
                 server.Listen();
             }
             catch (Exception exception)
@@ -247,7 +239,7 @@ namespace Iveely.SearchEngine
         }
 
 
-        public byte[] processQuery(byte[] bytes)
+        public byte[] ProcessQuery(byte[] bytes)
         {
             string currentQueryIndex = GetGlobalCache<string>("CurrentQueryIndex");
             if (!string.IsNullOrEmpty(currentQueryIndex))
@@ -274,17 +266,14 @@ namespace Iveely.SearchEngine
                         }
                     }
                 }
-                string inputResultKey = Dns.GetHostName() + "," + searchPort + query;
+                string inputResultKey = Dns.GetHostName() + "," + _searchPort + query;
                 WriteToConsole("Result write into cache key=" + inputResultKey + ", count=" + result.Count);
                 //if (result.Count > 10)
                 //{
                 //    result.RemoveRange(10, result.Count - 10);
                 //}
                 string content = string.Join("\r\n", result);
-                foreach (string keyword in keywords)
-                {
-                    content = content.Replace(keyword, "<strong>" + keyword + "</strong>");
-                }
+                content = keywords.Aggregate(content, (current, keyword) => current.Replace(keyword, "<strong>" + keyword + "</strong>"));
                 SetGlobalCache(inputResultKey, content);
             }
             return Serializer.SerializeToBytes(true);

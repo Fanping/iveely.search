@@ -10,10 +10,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Iveely.Framework.DataStructure;
-using Iveely.Framework.Text.Segment;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Iveely.Framework.Algorithm
@@ -37,7 +34,7 @@ namespace Iveely.Framework.Algorithm
             {
                 if (de.Value != null)
                 {
-                    this.table[de.Key.ToString()][docId.ToString()] = double.Parse(de.Value.ToString());
+                    Table[de.Key.ToString()][docId.ToString()] = double.Parse(de.Value.ToString());
                 }
             }
         }

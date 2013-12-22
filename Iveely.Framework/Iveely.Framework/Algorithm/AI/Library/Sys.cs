@@ -1,15 +1,16 @@
 /////////////////////////////////////////////////
-///文件名:System
-///描  述:
-///创建者:刘凡平(Iveely Liu)
-///邮  箱:liufanping@iveely.com
-///组  织:Iveely
-///年  份:2012/3/28 15:50:14
+//文件名:System
+//描  述:
+//创建者:刘凡平(Iveely Liu)
+//邮  箱:liufanping@iveely.com
+//组  织:Iveely
+//年  份:2012/3/28 15:50:14
 ///////////////////////////////////////////////
 
 using System;
 using System.Diagnostics;
 using System.Globalization;
+using System.Linq;
 
 
 namespace Iveely.Framework.Algorithm.AI.Library
@@ -181,12 +182,7 @@ namespace Iveely.Framework.Algorithm.AI.Library
                     //左边转换为字符
                     char[] cRight = right.ToCharArray();
                     //计算右边小数部分
-                    for (int i = 0; i < cRight.Length; i++)
-                    {
-                        //添加大写部分
-                        result += uppercase[int.Parse(cRight[i].ToString(CultureInfo.InvariantCulture))];
-                    }
-
+                    result = cRight.Aggregate(result, (current, t) => current + uppercase[int.Parse(t.ToString(CultureInfo.InvariantCulture))]);
                 }
                 //输出转换后的结果
                 return result;
@@ -210,14 +206,14 @@ namespace Iveely.Framework.Algorithm.AI.Library
             //首先全部转换为字符数组
             char[] myInput = input.ToCharArray();
             //遍历
-            for (int i = 0; i < myInput.Length; i++)
+            foreach (char t in myInput)
             {
-                //如果不是点，我们就当作数字字符
-                if (myInput[i] != '.')
+//如果不是点，我们就当作数字字符
+                if (t != '.')
                 {
                     //能成功转换为数字
                     int temp;
-                    if (int.TryParse(myInput[i].ToString(CultureInfo.InvariantCulture), out temp))
+                    if (int.TryParse(t.ToString(CultureInfo.InvariantCulture), out temp))
                     {
                         //数字+1
                         num++;
@@ -228,14 +224,14 @@ namespace Iveely.Framework.Algorithm.AI.Library
                             left++;
                         }
                     }
-                    //其它字符
+                        //其它字符
                     else
                     {
                         //其它字符+1
                         otherChar++;
                     }
                 }
-                //是小数点
+                    //是小数点
                 else
                 {
                     //小数点+1

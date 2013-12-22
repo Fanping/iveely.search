@@ -83,7 +83,7 @@ namespace Iveely.CloudComputing.CacheCommon
         /// <summary>
         /// 构建缓存消息
         /// </summary>
-        public Message(string endpoint, CommandType command, object key, object value, int topN = 200, object[] values = null, bool overrides = true)
+        public Message(string endpoint, CommandType command, object key, object value, int topN = 200, IEnumerable<object> values = null, bool overrides = true)
         {
             Endpoint = endpoint;
             Command = command;

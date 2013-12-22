@@ -47,7 +47,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UI.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Dependency\NDatabase\NDatabase.csproj">

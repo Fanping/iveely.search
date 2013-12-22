@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Net;
 using Iveely.CloudComputing.Configuration;
 using Iveely.Framework.Network;
 using Iveely.Framework.Network.Synchronous;

@@ -14,7 +14,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using Iveely.Framework.Text;
 
 namespace Iveely.CloudComputing.StateAPI
@@ -34,14 +33,9 @@ namespace Iveely.CloudComputing.StateAPI
         public static bool Put<T>(string path, T data)
         {
             CheckConnect();
-            bool isSuccess = true;
             StatePacket packet = new StatePacket(path, StatePacket.Type.Add, Serializer.SerializeToBytes(data));
             Logger.Info("put path " + path);
-            foreach (var client in _clients)
-            {
-                isSuccess &= client.Send<bool>(packet);
-            }
-            return isSuccess;
+            return _clients.Aggregate(true, (current, client) => current & client.Send<bool>(packet));
         }
 
         /// <summary>
@@ -80,9 +74,8 @@ namespace Iveely.CloudComputing.StateAPI
         {
             CheckConnect();
             StatePacket packet = new StatePacket(path, StatePacket.Type.Rename,
-                System.Text.Encoding.UTF8.GetBytes(nodeName));
+                Encoding.UTF8.GetBytes(nodeName)) {WaiteCallBack = false};
             //1207
-            packet.WaiteCallBack = false;
             _clients[0].Send<bool>(packet);
         }
 
@@ -93,13 +86,8 @@ namespace Iveely.CloudComputing.StateAPI
         public static bool Delete(string path)
         {
             CheckConnect();
-            bool isDeleted = true;
             StatePacket packet = new StatePacket(path, StatePacket.Type.Delete, Serializer.SerializeToBytes("delete data"));
-            foreach (var client in _clients)
-            {
-                isDeleted &= client.Send<bool>(packet);
-            }
-            return isDeleted;
+            return _clients.Aggregate(true, (current, client) => current & client.Send<bool>(packet));
         }
 
         /// <summary>

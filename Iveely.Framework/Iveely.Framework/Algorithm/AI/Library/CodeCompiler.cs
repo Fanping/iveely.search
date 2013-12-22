@@ -1,10 +1,10 @@
 /////////////////////////////////////////////////
-///文件名:CodeCompiler
-///描  述:
-///创建者:刘凡平(Iveely Liu)
-///邮  箱:liufanping@iveely.com
-///组  织:Iveely
-///年  份:2012/3/28 16:05:24
+//文件名:CodeCompiler
+//描  述:
+//创建者:刘凡平(Iveely Liu)
+//邮  箱:liufanping@iveely.com
+//组  织:Iveely
+//年  份:2012/3/28 16:05:24
 ///////////////////////////////////////////////
 
 using System;
@@ -24,7 +24,7 @@ namespace Iveely.Framework.Algorithm.AI.Library
         /// <param name="funName">函数名称</param>
         /// <param name="objs">参数集 </param>
         /// <returns>返回执行结果</returns>
-        public static string Execute(string funName, object[] objs)
+        public static string Execute(string funName, string[] objs)
         {
             Type magicType = Type.GetType("Iveely.Framework.Algorithm.AI.Library.Sys");
             Debug.Assert(magicType != null, "magicType != null");

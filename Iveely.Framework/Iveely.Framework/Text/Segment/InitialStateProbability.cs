@@ -30,21 +30,21 @@ namespace Iveely.Framework.Text.Segment
         /// <summary>
         /// 初始状态概率表
         /// </summary>
-        public IntTable<string, double> table;
+        public IntTable<string, double> Table;
 
         public InitialStateProbability()
         {
-            this.table = new IntTable<string, double>();
+            Table = new IntTable<string, double>();
         }
 
         public void Add(string state, double probability)
         {
-            this.table.Add(state, probability);
+            Table.Add(state, probability);
         }
 
         public double this[string index]
         {
-            get { return double.Parse(this.table[index].ToString()); }
+            get { return double.Parse(Table[index].ToString()); }
         }
     }
 }

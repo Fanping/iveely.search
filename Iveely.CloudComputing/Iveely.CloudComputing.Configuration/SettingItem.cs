@@ -115,15 +115,7 @@ namespace Iveely.CloudComputing.Configuration
 
         public static SettingItem GetInstance()
         {
-            if (_configration == null)
-            {
-                _configration = ConfigManager.GetConfigration();
-                if (_configration == null)
-                {
-                    _configration = GetDefaultConfigration();
-                }
-            }
-            return _configration;
+            return _configration ?? (_configration = ConfigManager.GetConfigration() ?? GetDefaultConfigration());
         }
 
         private static SettingItem GetDefaultConfigration()

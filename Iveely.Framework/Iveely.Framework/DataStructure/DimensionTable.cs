@@ -9,6 +9,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Iveely.Framework.DataStructure
@@ -183,13 +184,8 @@ namespace Iveely.Framework.DataStructure
         /// <returns> </returns>
         public List<TRow> GetFirstCloumns()
         {
-            var result = new List<TRow>();
             //读取每一行
-            foreach (DictionaryEntry cloumn in _cloumns)
-            {
-                result.Add((TRow)cloumn.Key);
-            }
-            return result;
+            return (from DictionaryEntry cloumn in _cloumns select (TRow) cloumn.Key).ToList();
         }
 
         /// <summary>

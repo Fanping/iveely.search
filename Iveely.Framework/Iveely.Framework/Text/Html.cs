@@ -15,7 +15,6 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Web;
 using HtmlAgilityPack;
 using Iveely.Framework.Log;
@@ -64,13 +63,12 @@ namespace Iveely.Framework.Text
             /// <summary>
             /// 内存流
             /// </summary>
-            private readonly MemoryStream _Stream = new MemoryStream();
+            private readonly MemoryStream _stream = new MemoryStream();
 
             /// <summary>
             /// 一般内容处理模式
             /// </summary>
             /// <param name="requestUrl"> 请求的URL </param>
-            /// <param name="referrerUrl"> 引用的URL </param>
             /// <param name="webResponse"> 请求URL的响应结果 </param>
             public BasicContent(Uri requestUrl, HttpWebResponse webResponse)
             {
@@ -88,12 +86,12 @@ namespace Iveely.Framework.Text
 
                 ResponseUrl = webResponse.ResponseUri;
                 MimeType = GetMimeType(webResponse);
-                this.CharSet = webResponse.CharacterSet;
+                CharSet = webResponse.CharacterSet;
                 using (var stream = webResponse.GetResponseStream())
                 {
-                    stream.CopyTo(_Stream);
+                    stream.CopyTo(_stream);
                 }
-                _Stream.Position = 0;
+                _stream.Position = 0;
             }
 
             /// <summary>
@@ -104,7 +102,7 @@ namespace Iveely.Framework.Text
             /// <summary>
             /// HTML类型
             /// </summary>
-            public static ReadOnlyCollection<string> HtmlMimeTypes
+            private static ReadOnlyCollection<string> HtmlMimeTypes
             {
                 get { return _HtmlMimeTypes; }
             }
@@ -112,12 +110,12 @@ namespace Iveely.Framework.Text
             /// <summary>
             /// XML类型
             /// </summary>
-            public static ReadOnlyCollection<string> XmlMimeTypes
+            private static ReadOnlyCollection<string> XmlMimeTypes
             {
                 get { return _XmlMimeTypes; }
             }
 
-            public static ReadOnlyCollection<string> CssMimeTypes
+            private static ReadOnlyCollection<string> CssMimeTypes
             {
                 get { return _CssMimeTypes; }
             }
@@ -125,21 +123,21 @@ namespace Iveely.Framework.Text
             /// <summary>
             /// 请求链接
             /// </summary>
-            public Uri RequestUrl { get; protected set; }
+            private Uri RequestUrl { get; set; }
 
             /// <summary>
             /// 响应链接
             /// </summary>
-            public Uri ResponseUrl { get; protected set; }
+            private Uri ResponseUrl { get; set; }
 
             /// <summary>
             /// 媒体类型
             /// </summary>
-            public string MimeType { get; protected set; }
+            private string MimeType { get; set; }
 
             protected MemoryStream Stream
             {
-                get { return _Stream; }
+                get { return _stream; }
             }
 
             /// <summary>
@@ -147,7 +145,7 @@ namespace Iveely.Framework.Text
             /// </summary>
             public virtual long Size
             {
-                get { return _Stream.Length; }
+                get { return _stream.Length; }
             }
 
             /// <summary>
@@ -157,7 +155,7 @@ namespace Iveely.Framework.Text
             {
                 get
                 {
-                    return Encoding.GetEncoding(this.CharSet).GetString(_Stream.ToArray());
+                    return Encoding.GetEncoding(CharSet).GetString(_stream.ToArray());
                     // Encoding.UTF8.GetString(_Stream.ToArray());
                 }
             }
@@ -178,7 +176,7 @@ namespace Iveely.Framework.Text
             /// </summary>
             /// <param name="response"> Web请求的响应 </param>
             /// <returns> </returns>
-            public static string GetMimeType(WebResponse response)
+            private static string GetMimeType(WebResponse response)
             {
                 //标头
                 var contentType = response.Headers[HttpResponseHeader.ContentType];
@@ -221,7 +219,7 @@ namespace Iveely.Framework.Text
             /// </summary>
             /// <param name="mimeType"> </param>
             /// <returns> </returns>
-            public static bool IsXml(string mimeType)
+            private static bool IsXml(string mimeType)
             {
                 return XmlMimeTypes.Contains(mimeType);
             }
@@ -231,7 +229,7 @@ namespace Iveely.Framework.Text
             /// </summary>
             /// <param name="mimeType"> </param>
             /// <returns> </returns>
-            public static bool IsCss(string mimeType)
+            private static bool IsCss(string mimeType)
             {
                 return CssMimeTypes.Contains(mimeType);
             }
@@ -265,15 +263,15 @@ namespace Iveely.Framework.Text
 
             public virtual void Save(Stream stream)
             {
-                _Stream.Position = 0;
-                _Stream.CopyTo(stream);
+                _stream.Position = 0;
+                _stream.CopyTo(stream);
             }
 
             protected virtual void Dispose(bool disposing)
             {
                 if (disposing)
                 {
-                    _Stream.Dispose();
+                    _stream.Dispose();
                 }
             }
         }
@@ -284,7 +282,7 @@ namespace Iveely.Framework.Text
                 : base(requestUrl, webResponse)
             {
                 Html = new HtmlDocument();
-                Encoding en = webResponse.CharacterSet.Contains("ISO")
+                Encoding en = webResponse.CharacterSet != null && webResponse.CharacterSet.Contains("ISO")
                                   ? Encoding.UTF8
                                   : Encoding.GetEncoding(webResponse.CharacterSet);
                 Html.Load(Stream, en);
@@ -346,7 +344,7 @@ namespace Iveely.Framework.Text
             private readonly char[] _htmlcode;
             //输出的结果
             private readonly StringBuilder _result = new StringBuilder();
-            private readonly string[] _specialTag = new[] { "script", "style", "!--" };
+            private readonly string[] _specialTag = { "script", "style", "!--" };
             //分析文本时候的指针位置 
             //标记现在的指针是不是在尖括号内
             private bool _inTag;
@@ -371,7 +369,7 @@ namespace Iveely.Framework.Text
             /// <summary>
             /// 当指针进入尖括号内，就会触发这个属性。这里主要逻辑是提取尖括号里的标签名字
             /// </summary>
-            public bool inTag
+            private bool InTag
             {
                 get { return _inTag; }
                 set
@@ -383,7 +381,7 @@ namespace Iveely.Framework.Text
                     _tagName = "";
                     while (ok)
                     {
-                        string word = read();
+                        string word = Read();
                         if (word != " " && word != ">")
                         {
                             _tagName += word;
@@ -395,7 +393,7 @@ namespace Iveely.Framework.Text
                         else if (word == ">")
                         {
                             ok = false;
-                            inTag = false;
+                            InTag = false;
                             _seek -= 1;
                         }
                     }
@@ -406,7 +404,7 @@ namespace Iveely.Framework.Text
             ///  设置要保存那些标签不要被过滤掉
             /// </summary>
             /// <param name="tags"> </param>
-            public void KeepTag(string[] tags)
+            private void KeepTag(string[] tags)
             {
                 _keepTag = tags;
             }
@@ -417,21 +415,20 @@ namespace Iveely.Framework.Text
             public string Text()
             {
                 int startTag = 0;
-                int endTag = 0;
                 string lastChar = "";
                 while (_seek < _htmlcode.Length)
                 {
-                    string word = read();
+                    string word = Read();
                     if (word.ToLower() == "<")
                     {
                         startTag = _seek;
-                        inTag = true;
+                        InTag = true;
                     }
                     else if (word.ToLower() == ">")
                     {
-                        endTag = _seek;
-                        inTag = false;
-                        if (iskeepTag(_tagName.Replace("/", "")))
+                        int endTag = _seek;
+                        InTag = false;
+                        if (IskeepTag(_tagName.Replace("/", "")))
                         {
                             for (int i = startTag - 1; i < endTag; i++)
                             {
@@ -443,11 +440,11 @@ namespace Iveely.Framework.Text
                             bool ok = true;
                             while (ok && _seek < _htmlcode.Length)
                             {
-                                if (read() == "-")
+                                if (Read() == "-")
                                 {
-                                    if (read() == "-")
+                                    if (Read() == "-")
                                     {
-                                        if (read() == ">")
+                                        if (Read() == ">")
                                         {
                                             ok = false;
                                         }
@@ -468,12 +465,11 @@ namespace Iveely.Framework.Text
                                     _needContent = false;
                                     break;
                                 }
-                                else
-                                    _needContent = true;
+                                _needContent = true;
                             }
                         }
                     }
-                    else if (!inTag && _needContent)
+                    else if (!InTag && _needContent)
                     {
                         if (word == lastChar && word == " ")
                         {
@@ -491,21 +487,14 @@ namespace Iveely.Framework.Text
             /// </summary>
             /// <param name="tag"> A <see cref="System.String" /> </param>
             /// <returns> A <see cref="System.Boolean" /> </returns>
-            private bool iskeepTag(string tag)
+            private bool IskeepTag(string tag)
             {
-                foreach (string ta in _keepTag)
-                {
-                    if (tag.ToLower() == ta.ToLower())
-                    {
-                        return true;
-                    }
-                }
-                return false;
+                return _keepTag.Any(ta => tag.ToLower() == ta.ToLower());
             }
 
-            private string read()
+            private string Read()
             {
-                return _htmlcode[_seek++].ToString();
+                return _htmlcode[_seek++].ToString(CultureInfo.InvariantCulture);
             }
         }
 
@@ -553,36 +542,36 @@ namespace Iveely.Framework.Text
 
             #region IE Conditional Support
 
-            private const string _IEConditionalReplaceString = "$1--$2";
-            private const string _EscapedIEConditionalReplaceString = "$1$3";
+            private const string IeConditionalReplaceString = "$1--$2";
+            private const string EscapedIeConditionalReplaceString = "$1$3";
 
-            private static readonly Regex _IEConditionalStartRegex = new Regex(@"(<!--\[if(?:.*?)IE(?:.*?)\])(>)",
+            private static readonly Regex IeConditionalStartRegex = new Regex(@"(<!--\[if(?:.*?)IE(?:.*?)\])(>)",
                                                                                RegexOptions.Compiled |
                                                                                RegexOptions.Singleline);
 
-            private static readonly Regex _IEConditionalEndRegex = new Regex(@"(<!)(\[endif\]-->)",
+            private static readonly Regex IeConditionalEndRegex = new Regex(@"(<!)(\[endif\]-->)",
                                                                              RegexOptions.Compiled | RegexOptions.Singleline);
 
-            private static readonly Regex _EscapedIEConditionalStartRegex = new Regex(
+            private static readonly Regex EscapedIeConditionalStartRegex = new Regex(
                 @"(<!--\[if(?:.*?)IE(?:.*?)\])(--)(>)", RegexOptions.Compiled | RegexOptions.Singleline);
 
-            private static readonly Regex _EscapedIEConditionalEndRegex = new Regex(@"(<!)(--)(\[endif\]-->)",
+            private static readonly Regex EscapedIeConditionalEndRegex = new Regex(@"(<!)(--)(\[endif\]-->)",
                                                                                     RegexOptions.Compiled |
                                                                                     RegexOptions.Singleline);
 
             protected static string EscapeIEConditionalComments(string input)
             {
-                var startingTagsEscaped = _IEConditionalStartRegex.Replace(input, _IEConditionalReplaceString);
+                var startingTagsEscaped = IeConditionalStartRegex.Replace(input, IeConditionalReplaceString);
 
-                return _IEConditionalEndRegex.Replace(startingTagsEscaped, _IEConditionalReplaceString);
+                return IeConditionalEndRegex.Replace(startingTagsEscaped, IeConditionalReplaceString);
             }
 
             protected static string UnescapeIEConditionalComments(string input)
             {
-                var startingTagsUnescaped = _EscapedIEConditionalStartRegex.Replace(input,
-                                                                                    _EscapedIEConditionalReplaceString);
+                var startingTagsUnescaped = EscapedIeConditionalStartRegex.Replace(input,
+                                                                                    EscapedIeConditionalReplaceString);
 
-                return _EscapedIEConditionalEndRegex.Replace(startingTagsUnescaped, _EscapedIEConditionalReplaceString);
+                return EscapedIeConditionalEndRegex.Replace(startingTagsUnescaped, EscapedIeConditionalReplaceString);
             }
 
             #endregion
@@ -630,7 +619,6 @@ namespace Iveely.Framework.Text
             /// 信息内容处理
             /// </summary>
             /// <param name="requestUrl"> 请求的URL </param>
-            /// <param name="referrerUrl"> 引用URL </param>
             /// <param name="webResponse"> web请求的响应结果 </param>
             /// <returns> </returns>
             public static BasicContent Create(Uri requestUrl, HttpWebResponse webResponse)
@@ -716,7 +704,7 @@ namespace Iveely.Framework.Text
             }
             catch (Exception exception)
             {
-                Logger.Error(uri+"->"+exception);
+                Logger.Error(uri + "->" + exception);
                 return null;
             }
         }
@@ -730,7 +718,6 @@ namespace Iveely.Framework.Text
         /// 创建请求
         /// </summary>
         /// <param name="url"> 请求的URL </param>
-        /// <param name="referrerUrl"> 以及引用该URL的链接 </param>
         /// <returns> 返回请求结果 </returns>
         private static HttpWebRequest CreateRequest(Uri url)
         {
@@ -799,7 +786,7 @@ namespace Iveely.Framework.Text
         [TestMethod]
         public void TestCreatHtml()
         {
-            Html html = Html.CreatHtml(new Uri("http://www.baidu.com"));
+            Html html = CreatHtml(new Uri("http://www.baidu.com"));
             Assert.IsTrue(html.Title == "百度一下，你就知道");
             Assert.IsTrue(html.Content.Length > 10);
             Assert.IsTrue(html.SourceCode.Length > 10);

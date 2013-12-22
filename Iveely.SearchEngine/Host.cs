@@ -7,17 +7,12 @@
  *========================================*/
 
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
 using System.Threading;
 using Iveely.CloudComputing.Client;
-using Iveely.Framework.Algorithm;
-using Iveely.Framework.DataStructure;
 using Iveely.Framework.Network;
 using Iveely.Framework.Network.Synchronous;
-using Iveely.Framework.Text;
 
 namespace Iveely.SearchEngine
 {
@@ -27,16 +22,13 @@ namespace Iveely.SearchEngine
         {
             Host host = new Host();
             host.Run(null);
-            //Backstage backstage = new Backstage();
-            //backstage.Run(new object[] { 8001, 8001, 8001, 8001, 8001 ,8001,8001});
         }
 
         public override void Run(object[] args)
         {
-            //long timestamp = DateTime.UtcNow.ToFileTimeUtc();
             IEnumerable<string> workers = GetAllWorkers();
-
-            Console.WriteLine("Get Worker count:" + workers.Count());
+            var enumerable = workers as string[] ?? workers.ToArray();
+            Console.WriteLine("Get Worker count:" + enumerable.Count());
             if (workers != null)
             {
                 while (true)
@@ -44,7 +36,7 @@ namespace Iveely.SearchEngine
                     Console.Write("Enter your query:");
                     string query = Console.ReadLine();
                     string result = GetGlobalCache<string>(query);
-                    Console.WriteLine(string.Format("query:[{0}] in cache is {1}", query, result));
+                    Console.WriteLine("query:[{0}] in cache is {1}", query, result);
                     if (string.IsNullOrEmpty(result))
                     {
                         string timestamp = DateTime.UtcNow.ToLongDateString();
@@ -52,18 +44,17 @@ namespace Iveely.SearchEngine
                         SetGlobalCache(timestamp, query);
                         int sendIndex = 9000;
                         List<string> cacheStore = new List<string>();
-                        foreach (string worker in workers)
+                        foreach (string worker in enumerable)
                         {
                             string[] workerInfo = worker.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
-                            int endFlagIndex = workerInfo[0].LastIndexOf("/") + 1;
+                            int endFlagIndex = workerInfo[0].LastIndexOf("/", StringComparison.Ordinal) + 1;
                             string ip = workerInfo[0].Substring(endFlagIndex, workerInfo[0].Length - endFlagIndex);
 
                             try
                             {
                                 sendIndex += (int.Parse(workerInfo[1]) % 100);
                                 Client client = new Client(ip, sendIndex);
-                                Packet dataPacket = new Packet(new byte[1]);
-                                dataPacket.WaiteCallBack = true;
+                                Packet dataPacket = new Packet(new byte[1]) {WaiteCallBack = true};
                                 client.Send<bool>(dataPacket);
                                 cacheStore.Add(ip + "," + sendIndex);
                                 sendIndex = 9000;

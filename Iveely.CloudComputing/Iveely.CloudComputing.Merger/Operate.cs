@@ -8,10 +8,7 @@
 
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Iveely.CloudComputing.Merger
 {
@@ -51,7 +48,7 @@ namespace Iveely.CloudComputing.Merger
         /// </summary>
         public static Hashtable Table;
 
-        public Operate(string appTimeStamp, string appName)
+        protected Operate(string appTimeStamp, string appName)
         {
             this.AppTimeStamp = appTimeStamp;
             this.AppName = appName;
@@ -78,7 +75,7 @@ namespace Iveely.CloudComputing.Merger
         public bool Waite(string flag)
         {
             //BUG:什么时候清理CountTable中的数据？
-            int allowSeconds = 10;
+            const int allowSeconds = 10;
             DateTime dateTime = DateTime.UtcNow;
             while ((DateTime.UtcNow - dateTime).TotalSeconds <= allowSeconds)
             {

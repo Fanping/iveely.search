@@ -9,8 +9,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Iveely.Framework.Algorithm
 {
@@ -49,9 +47,9 @@ namespace Iveely.Framework.Algorithm
 
             public Subset(int belong, T data)
             {
-                this.Belong = belong;
-                this.Data = data;
-                this.Distance = Double.MaxValue;
+                Belong = belong;
+                Data = data;
+                Distance = Double.MaxValue;
             }
 
             #endregion
@@ -102,14 +100,14 @@ namespace Iveely.Framework.Algorithm
 
         public Kmeans(int particle, int iteration = 1000)
         {
-            this._particle = particle;
-            this._iteration = iteration;
-            this._cluster = new Subset[particle];
+            _particle = particle;
+            _iteration = iteration;
+            _cluster = new Subset[particle];
             for (int i = 0; i < particle; i++)
             {
-                this._cluster[i] = new Subset(i, default(T));
+                _cluster[i] = new Subset(i, default(T));
             }
-            this.Data = new List<Subset>();
+            Data = new List<Subset>();
         }
 
         public void SetData(List<T> datas, GetDistance distance)
@@ -117,18 +115,18 @@ namespace Iveely.Framework.Algorithm
             //随机分配到各个中心
             for (int i = 0; i < datas.Count; i++)
             {
-                this.Data.Add(new Subset(i % this._particle, datas[i]));
+                Data.Add(new Subset(i % _particle, datas[i]));
             }
-            if (this._getlength == null)
+            if (_getlength == null)
             {
-                this._getlength = distance;
+                _getlength = distance;
             }
             //第一次分配中心点
-            for (int i = 0; i < this._particle; i++)
+            for (int i = 0; i < _particle; i++)
             {
-                this._cluster[i].Data = this.Data[this.Data.Count / (i + 1) - 1].Data;
+                _cluster[i].Data = Data[Data.Count / (i + 1) - 1].Data;
             }
-            this.SetCenter();
+            SetCenter();
         }
 
         #endregion
@@ -144,14 +142,14 @@ namespace Iveely.Framework.Algorithm
             // 1. 初始化聚点距离
             var distances = new List<double>();
             var counts = new List<long>();
-            for (int i = 0; i < this._particle; i++)
+            for (int i = 0; i < _particle; i++)
             {
                 distances.Add(0.0);
                 counts.Add(0);
             }
 
             // 2. 计算每一个聚簇中的点到聚簇点距离之和
-            foreach (var data in this.Data)
+            foreach (var data in Data)
             {
                 distances[data.Belong] += data.Distance;
                 counts[data.Belong]++;
@@ -159,21 +157,21 @@ namespace Iveely.Framework.Algorithm
 
             // 3. 计算平均距离
             var avgs = new List<double>();
-            for (int i = 0; i < this._particle; i++)
+            for (int i = 0; i < _particle; i++)
             {
                 avgs.Add(distances[i] / counts[i]);
             }
 
             // 4. 找出聚簇中心点
             bool flag = true;
-            foreach (var data in this.Data)
+            foreach (var data in Data)
             {
                 double len = Math.Abs(data.Distance - avgs[data.Belong]);
-                if (len < this._cluster[data.Belong].Distance)
+                if (len < _cluster[data.Belong].Distance)
                 {
                     flag = false;
-                    this._cluster[data.Belong].Distance = len;
-                    this._cluster[data.Belong].Data = data.Data;
+                    _cluster[data.Belong].Distance = len;
+                    _cluster[data.Belong].Data = data.Data;
                 }
             }
             return flag;
@@ -183,21 +181,21 @@ namespace Iveely.Framework.Algorithm
         {
             do
             {
-                for (int i = 0; i < this.Data.Count; i++)
+                foreach (Subset t in Data)
                 {
-                    for (int j = 0; j < this._cluster.Length; j++)
+                    for (int j = 0; j < _cluster.Length; j++)
                     {
-                        double length = this._getlength(this.Data[i].Data, this._cluster[j].Data);
-                        if (this.Data[i].Distance > length)
+                        double length = _getlength(t.Data, _cluster[j].Data);
+                        if (t.Distance > length)
                         {
-                            this.Data[i].Distance = length;
-                            this.Data[i].Belong = j;
+                            t.Distance = length;
+                            t.Belong = j;
                         }
                     }
                 }
-            } while (this._iteration-- > 0 && !this.SetCenter());
+            } while (_iteration-- > 0 && !SetCenter());
 
-            return (from data in this._cluster select data.Data).ToArray();
+            return (from data in _cluster select data.Data).ToArray();
         }
 
         #endregion

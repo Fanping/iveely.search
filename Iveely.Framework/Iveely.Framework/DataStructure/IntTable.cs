@@ -8,11 +8,7 @@
 
 using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
 using System.Runtime.Serialization;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Iveely.Framework.DataStructure
 {
@@ -39,9 +35,10 @@ namespace Iveely.Framework.DataStructure
         /// </summary>
         /// <param name="key"> 关键字 </param>
         /// <param name="value"> 值（遇到重复值，则累加） </param>
+        /// <param name="accumulate"></param>
         public void Add(TKey key, TValue value, bool accumulate = true)
         {
-            if (this.ContainsKey(key) && accumulate)
+            if (ContainsKey(key) && accumulate)
             {
                 this[key] = Add(ConvertType(this[key]), value);
             }
@@ -59,7 +56,7 @@ namespace Iveely.Framework.DataStructure
         {
             foreach (TKey key in keys)
             {
-                this.Add(key, ConvertType(1));
+                Add(key, ConvertType(1));
             }
         }
 
@@ -71,7 +68,6 @@ namespace Iveely.Framework.DataStructure
         /// 泛型数据类型转换
         /// </summary>
         /// <param name="value"> 传入需要转换的值 </param>
-        /// <param name="defaultValue"> 默认值 </param>
         /// <returns> </returns>
         private TValue ConvertType(object value)
         {

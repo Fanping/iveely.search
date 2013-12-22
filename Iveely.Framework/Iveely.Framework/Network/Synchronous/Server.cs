@@ -8,11 +8,8 @@
 
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Net.Sockets;
 using System.Threading;
-using Iveely.Framework.Log;
-using Iveely.Framework.Text;
 
 namespace Iveely.Framework.Network.Synchronous
 {
@@ -24,7 +21,6 @@ namespace Iveely.Framework.Network.Synchronous
         /// <summary>
         /// (委托)服务端信息处理方式
         /// </summary>
-        /// <param name="packet">客户端传递的信息包</param>
         /// <returns></returns>
         public delegate byte[] Processing(byte[] bytes);
 
@@ -53,9 +49,9 @@ namespace Iveely.Framework.Network.Synchronous
         /// </summary>
         private bool _isListening;
 
-        private int MaxVisitThread = 5;
+        private int _maxVisitThread = 5;
 
-        private int currentThreadCount = 0;
+        private int _currentThreadCount = 0;
 
         /// <summary>
         /// 网络传输最大大小
@@ -67,12 +63,13 @@ namespace Iveely.Framework.Network.Synchronous
         /// </summary>
         /// <param name="host">IP地址</param>
         /// <param name="port">端口号</param>
+        /// <param name="maxVisitThread"></param>
         public Server(string host, int port, int maxVisitThread = 1)
         {
             _isListening = false;
             _address = host;
             _port = port;
-            MaxVisitThread = maxVisitThread;
+            _maxVisitThread = maxVisitThread;
         }
 
         /// <summary>
@@ -81,13 +78,14 @@ namespace Iveely.Framework.Network.Synchronous
         /// <param name="host">IP地址</param>
         /// <param name="port">端口号</param>
         /// <param name="processing">数据处理过程</param>
+        /// <param name="maxVisitThread"></param>
         public Server(string host, int port, Processing processing, int maxVisitThread = 1)
         {
             _isListening = false;
             _address = host;
             _port = port;
             _processing = processing;
-            MaxVisitThread = maxVisitThread;
+            _maxVisitThread = maxVisitThread;
         }
 
         /// <summary>
@@ -193,7 +191,7 @@ namespace Iveely.Framework.Network.Synchronous
                 netStream.Flush();
             }
 
-            currentThreadCount--;
+            _currentThreadCount--;
         }
     }
 }

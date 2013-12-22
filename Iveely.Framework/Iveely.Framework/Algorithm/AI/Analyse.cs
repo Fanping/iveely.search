@@ -1,17 +1,15 @@
-
 /////////////////////////////////////////////////
-///文件名:Analyse
-///描  述:
-///创建者:刘凡平(Iveely Liu)
-///邮  箱:liufanping@iveely.com
-///组  织:Iveely
-///年  份:2012/3/27 21:52:15
+//文件名:Analyse
+//描  述:
+//创建者:刘凡平(Iveely Liu)
+//邮  箱:liufanping@iveely.com
+//组  织:Iveely
+//年  份:2012/3/27 21:52:15
 ///////////////////////////////////////////////
 
 
 using System.Linq;
 using System.Collections;
-using Iveely.Framework.Text.Segment;
 
 namespace Iveely.Framework.Algorithm.AI
 {
@@ -148,7 +146,7 @@ namespace Iveely.Framework.Algorithm.AI
             //重组模式
             string pat = pattern.Aggregate("", (current, s) => current + s);
             //模式
-            string _pattern = pat.Replace("*", "");
+            string finnaPattern = pat.Replace("*", "");
             //重组输入
             string inp = input.Aggregate("", (current, s) => current + s);
             //输入替换为空格
@@ -160,7 +158,7 @@ namespace Iveely.Framework.Algorithm.AI
             //记录下他
             Star.List = starInput;
             //模式与结果的比较
-            return _pattern==result;
+            return finnaPattern==result;
 
         }
     }

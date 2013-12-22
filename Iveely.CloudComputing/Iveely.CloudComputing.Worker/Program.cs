@@ -3,9 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
+using System.Linq;
 using System.Net;
 using System.Text;
-using System.Threading;
+using Iveely.CloudComputing.Client;
 using Iveely.CloudComputing.StateAPI;
 using Iveely.Framework.Log;
 using Iveely.Framework.Network;
@@ -48,7 +49,8 @@ namespace Iveely.CloudComputing.Worker
             CheckCrash();
 
             //2. 向State Center发送上线消息
-            StateHelper.Put("ISE://system/state/worker/" + _machineName + "," + _servicePort, _machineName + ":" + _servicePort + " is ready online!");
+            StateHelper.Put("ISE://system/state/worker/" + _machineName + "," + _servicePort,
+                _machineName + ":" + _servicePort + " is ready online!");
 
             //3. 启动任务接收监听
             if (_taskSuperviser == null)
@@ -62,7 +64,7 @@ namespace Iveely.CloudComputing.Worker
 
         private static byte[] ProcessTask(byte[] bytes)
         {
-            ExcutePacket packet = Serializer.DeserializeFromBytes<ExcutePacket>(bytes);
+            var packet = Serializer.DeserializeFromBytes<ExcutePacket>(bytes);
             Logger.Info("Get process task.");
             //如果是执行代码
             if (packet.ExcuteType == ExcutePacket.Type.Code)
@@ -73,8 +75,8 @@ namespace Iveely.CloudComputing.Worker
                     _statusCenter.Remove(appName);
                     _runner.Remove(appName);
                 }
-                RunningStatus status = new RunningStatus(packet, "Running");
-                Runner runner = new Runner(ref status);
+                var status = new RunningStatus(packet, "Running");
+                var runner = new Runner(ref status);
                 runner.StartRun(_machineName, _servicePort);
                 _statusCenter.Add(appName, status);
                 _runner.Add(appName, runner);
@@ -90,7 +92,7 @@ namespace Iveely.CloudComputing.Worker
                 {
                     if (_runner.ContainsKey(appName))
                     {
-                        Runner runner = (Runner)_runner[appName];
+                        var runner = (Runner) _runner[appName];
                         _runner.Remove(appName);
                         runner.Kill();
                     }
@@ -98,36 +100,30 @@ namespace Iveely.CloudComputing.Worker
                     Backup();
                     return Serializer.SerializeToBytes(flag + "Kill Success.");
                 }
-                else
-                {
-                    return Serializer.SerializeToBytes(flag + "Not found your application");
-                }
-
+                return Serializer.SerializeToBytes(flag + "Not found your application");
             }
 
             if (packet.ExcuteType == ExcutePacket.Type.Task)
             {
-                List<string> runningApps = new List<string>();
+                var runningApps = new List<string>();
                 if (_statusCenter.Count > 0)
                 {
-                    foreach (DictionaryEntry dictionaryEntry in _statusCenter)
-                    {
-                        string key = dictionaryEntry.Key.ToString();
-                        string status = ((RunningStatus)dictionaryEntry.Value).Description;
-                        runningApps.Add("[" + _machineName + "," + _servicePort + "] :" + key + " -> " + status);
-                    }
+                    runningApps.AddRange(from DictionaryEntry dictionaryEntry in _statusCenter
+                        let key = dictionaryEntry.Key.ToString()
+                        let status = ((RunningStatus) dictionaryEntry.Value).Description
+                        select "[" + _machineName + "," + _servicePort + "] :" + key + " -> " + status);
                 }
                 return Serializer.SerializeToBytes(runningApps);
             }
 
             //如果是文件片
-            else if (packet.ExcuteType == ExcutePacket.Type.FileFragment)
+            if (packet.ExcuteType == ExcutePacket.Type.FileFragment)
             {
                 byte[] fileNameBytes = packet.Data;
                 string fileName = Encoding.UTF8.GetString(fileNameBytes);
                 if (fileName.Contains("/"))
                 {
-                    string[] folder = fileName.Split(new[] { '/' }, StringSplitOptions.RemoveEmptyEntries);
+                    string[] folder = fileName.Split(new[] {'/'}, StringSplitOptions.RemoveEmptyEntries);
                     string tempPath = _servicePort + "/";
                     for (int i = 0; i < folder.Length - 1; i++)
                     {
@@ -139,20 +135,20 @@ namespace Iveely.CloudComputing.Worker
                     }
                 }
                 Logger.Info("Get command to save file fragment by name " + fileName);
-                FileTransfer fileTransfer = new FileTransfer();
+                var fileTransfer = new FileTransfer();
                 fileTransfer.Receive(7001, _servicePort + "/" + fileName);
                 return fileNameBytes;
             }
 
             //如果是下载文件
-            else if (packet.ExcuteType == ExcutePacket.Type.Download)
+            if (packet.ExcuteType == ExcutePacket.Type.Download)
             {
                 Logger.Info("Get command download.");
                 byte[] fileNameBytes = packet.Data;
                 string fileName = Encoding.UTF8.GetString(fileNameBytes);
 
                 Logger.Info("Start send file:" + fileName);
-                FileTransfer fileTransfer = new FileTransfer();
+                var fileTransfer = new FileTransfer();
                 fileTransfer.Send(_servicePort + "/" + fileName, packet.ReturnIp, 7002);
                 Logger.Info("Send finished.");
 
@@ -160,7 +156,7 @@ namespace Iveely.CloudComputing.Worker
             }
 
             //如果是删除文件
-            else if (packet.ExcuteType == ExcutePacket.Type.Delete)
+            if (packet.ExcuteType == ExcutePacket.Type.Delete)
             {
                 Logger.Info("Get command delete.");
                 byte[] fileNameBytes = packet.Data;
@@ -179,10 +175,10 @@ namespace Iveely.CloudComputing.Worker
             }
 
             //如果是重命名文件
-            else if (packet.ExcuteType == ExcutePacket.Type.Rename)
+            if (packet.ExcuteType == ExcutePacket.Type.Rename)
             {
                 Logger.Info("Get command rename.");
-                Tuple<string, string> fileTuple = Serializer.DeserializeFromBytes<Tuple<string, string
+                var fileTuple = Serializer.DeserializeFromBytes<Tuple<string, string
                     >>(packet.Data);
                 string fileName = _servicePort + "/" + fileTuple.Item1;
                 string fileNewName = _servicePort + "/" + fileTuple.Item2;
@@ -211,11 +207,11 @@ namespace Iveely.CloudComputing.Worker
                 _statusCenter = Serializer.DeserializeFromFile<Hashtable>(runnerFile);
                 foreach (DictionaryEntry dictionaryEntry in _statusCenter)
                 {
-                    RunningStatus status = (RunningStatus)dictionaryEntry.Value;
+                    var status = (RunningStatus) dictionaryEntry.Value;
                     //Runner runner = (Runner)dictionaryEntry.Value;
                     if (status.Description == "Running")
                     {
-                        Runner runner = new Runner(ref status);
+                        var runner = new Runner(ref status);
                         _runner.Add(status.Packet.AppName, runner);
                         runner.StartRun(_machineName, _servicePort);
                     }
@@ -250,7 +246,6 @@ namespace Iveely.CloudComputing.Worker
         [TestMethod]
         public void TestProcessTask()
         {
-
         }
 
 #endif

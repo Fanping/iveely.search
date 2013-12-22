@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
-using System.Threading;
 using Iveely.CloudComputing.CacheAPI;
 using Iveely.CloudComputing.StateAPI;
+using Iveely.Framework.Log;
 using Iveely.Framework.Network;
 using Iveely.Framework.Text;
+using log4net;
 
 namespace Iveely.CloudComputing.Client
 {
@@ -34,28 +35,32 @@ namespace Iveely.CloudComputing.Client
             Console.WriteLine(information);
             try
             {
-                  if (Sender == null)
+                if (Sender == null)
                 {
                     //BUG:传递parameter这个参数，非常不友好
                     string fromIp = Parameters[0].ToString();
                     string port = Parameters[1].ToString();
                     Sender = new Framework.Network.Synchronous.Client(fromIp, int.Parse(port));
                 }
-                Packet packet = new Packet(Serializer.SerializeToBytes("[result from:" + Parameters[2] + ",+" + Parameters[3] + "] " + information));
+                Packet packet = new Packet(Serializer.SerializeToBytes("[result from:" + Parameters[2] + ",+" + Parameters[3] + "] " + information))
+                {
+                    WaiteCallBack = false
+                };
                 //无需等待反馈1207
-                packet.WaiteCallBack = false;
                 Sender.Send<Packet>(packet);
             }
-            catch (Exception)
+            catch (Exception exception)
             {
-
-                
+                LogHelper.Warn(exception);
             }
         }
 
         public void GetHtml(string url, ref string title, ref string content, ref List<string> childrenLink)
         {
-            //if (childrenLink == null) throw new ArgumentNullException("childrenLink");
+            if (childrenLink == null)
+            {
+                Logger.Warn("Children link is null");
+            }
             Html html = Html.CreatHtml(new Uri(url));
             if (html != null)
             {
@@ -97,7 +102,7 @@ namespace Iveely.CloudComputing.Client
             //3. 写到状态树
             if (globalFile)
             {
-                StateAPI.StateHelper.Put("ISE://File/" + fileName + ".global", fileInfo.Length / 1024);
+                StateHelper.Put("ISE://File/" + fileName + ".global", fileInfo.Length / 1024);
             }
             else
             {
@@ -107,7 +112,7 @@ namespace Iveely.CloudComputing.Client
                 {
                     count = workers.Count;
                 }
-                StateAPI.StateHelper.Put("ISE://File/" + fileName + ".part", fileInfo.Length / 1024 * count);
+                StateHelper.Put("ISE://File/" + fileName + ".part", fileInfo.Length / 1024 * count);
             }
         }
 
@@ -125,9 +130,9 @@ namespace Iveely.CloudComputing.Client
         /// 写多行数据
         /// （如果文件存在，则追加）
         /// </summary>
-        /// <param name="line">数据</param>
+        /// <param name="lines">写的数据行</param>
         /// <param name="fileName">文件名</param>
-        /// <param name="parameters">其它参数</param>
+        /// <param name="globalFile">是否是全局文件</param>
         public void WriteAllText(string[] lines, string fileName, bool globalFile)
         {
             //1. 构建contents
@@ -143,7 +148,7 @@ namespace Iveely.CloudComputing.Client
 
         public IEnumerable<string> GetAllWorkers()
         {
-            IEnumerable<string> workers = StateAPI.StateHelper.GetChildren("ISE://system/state/worker");
+            IEnumerable<string> workers = StateHelper.GetChildren("ISE://system/state/worker");
             return workers;
         }
 
@@ -276,13 +281,7 @@ namespace Iveely.CloudComputing.Client
         public string[] GetKeysByValueFromCache(object expression, int keysCount, object changedValue)
         {
             object[] objects = Memory.GetKeysByValue(expression, keysCount, changedValue);
-            List<string> keys = new List<string>();
-            foreach (object obj in objects)
-            {
-                string key = obj.ToString();
-                keys.Add(key.Substring(key.IndexOf(':') + 1, key.Length - key.IndexOf(':') - 1));
-            }
-            return keys.ToArray();
+            return objects.Select(obj => obj.ToString()).Select(key => key.Substring(key.IndexOf(':') + 1, key.Length - key.IndexOf(':') - 1)).ToArray();
         }
 
         /// <summary>
@@ -293,13 +292,8 @@ namespace Iveely.CloudComputing.Client
         /// <param name="value">缓存值</param>
         public void SetListIntoCache(IEnumerable<object> objects, object value)
         {
-            List<string> keys = new List<string>();
-            foreach (object obj in objects)
-            {
-                string key = Parameters[2].ToString() + Parameters[3] + Parameters[4] + Parameters[5] + ":" + obj;
-                keys.Add(key);
-            }
-            Memory.SetList(keys, value, false);
+            List<string> keys = objects.Select(obj => Parameters[2].ToString() + Parameters[3] + Parameters[4] + Parameters[5] + ":" + obj).ToList();
+            Memory.SetList(keys, value);
         }
 
         #endregion

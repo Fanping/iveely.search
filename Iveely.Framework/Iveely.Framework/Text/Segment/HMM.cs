@@ -15,6 +15,7 @@
 #region
 
 using System;
+using System.Globalization;
 
 #endregion
 
@@ -26,23 +27,23 @@ namespace Iveely.Framework.Text.Segment
     [Serializable]
     public class HMM
     {
-        public State state { get; private set; }
+        public State State { get; private set; }
 
-        public Observed observed { get; private set; }
+        public Observed Observed { get; private set; }
 
-        public InitialStateProbability initialState { get; private set; }
+        public InitialStateProbability InitialState { get; private set; }
 
-        public Transition transition { get; private set; }
+        public Transition Transition { get; private set; }
 
-        public Complex complex;
+        public Complex Complex;
 
         public HMM()
         {
-            this.state = new State();
-            this.observed = new Observed();
-            this.initialState = new InitialStateProbability();
-            this.transition = new Transition();
-            this.complex = new Complex();
+            State = new State();
+            Observed = new Observed();
+            InitialState = new InitialStateProbability();
+            Transition = new Transition();
+            Complex = new Complex();
         }
 
         /// <summary>
@@ -53,11 +54,11 @@ namespace Iveely.Framework.Text.Segment
         {
             foreach(var state in states)
             {
-                this.state.Add(state);
+                State.Add(state);
 
                 foreach(var s in states)
                 {
-                    this.transition.Table[state][s] = 0.0;
+                    Transition.Table[state][s] = 0.0;
                 }
             }
         }
@@ -68,44 +69,30 @@ namespace Iveely.Framework.Text.Segment
         /// <param name="observer"> </param>
         public void AddObserver(string observer)
         {
-            this.observed.Add(observer);
+            Observed.Add(observer);
         }
 
         protected void AddComplexProbability(string observer, string state)
         {
-            object obj = this.complex.Table[observer][state];
-            if(obj != null)
-            {
-                this.complex.Table[observer][state] = double.Parse(obj.ToString()) + 1;
-            }
-            else
-            {
-                this.complex.Table[observer][state] = 1;
-            }
+            object obj = Complex.Table[observer][state];
+            Complex.Table[observer][state] = double.Parse(obj.ToString()) + 1;
         }
 
         protected void AddTransferProbability(string from, string to, double defaultValue)
         {
-            object obj = this.transition.Table[from][to];
-            if(obj != null)
-            {
-                this.transition.Table[from][to] = double.Parse(obj.ToString()) + defaultValue;
-            }
-            else
-            {
-                this.transition.Table[from][to] = defaultValue;
-            }
+            object obj = Transition.Table[from][to];
+            Transition.Table[@from][to] = double.Parse(obj.ToString()) + defaultValue;
         }
 
         protected void AddInitialStateProbability(string state, double defaultValue)
         {
-            this.initialState.Add(state, defaultValue);
+            InitialState.Add(state, defaultValue);
         }
 
         public int[] Decode(string[] input, out double probability, int type = 1)
         {
             int inputLength = input.Length;
-            int stateCount = this.state.Length;
+            int stateCount = State.Length;
             int minState;
             double minWeight;
 
@@ -128,10 +115,10 @@ namespace Iveely.Framework.Text.Segment
             //每一个状态对应第一个输入的距离
             for(int i = 0; i < stateCount; i++)
             {
-                object obj = complex.Table[this.state[i]][input[0]];
+                object obj = Complex.Table[State[i]][input[0]];
                 if(obj != null)
                 {
-                    a[i, 0] = (1.0*Math.Log(initialState[this.state[i]])) - Math.Log(double.Parse(obj.ToString()));
+                    a[i, 0] = (1.0*Math.Log(InitialState[State[i]])) - Math.Log(double.Parse(obj.ToString()));
                 }
             }
 
@@ -141,7 +128,7 @@ namespace Iveely.Framework.Text.Segment
                 {
                     minState = 0;
                     minWeight = a[0, t - type] -
-                                Math.Log(double.Parse(this.transition.Table[this.state[0]][this.state[j]].ToString()));
+                                Math.Log(double.Parse(Transition.Table[State[0]][State[j]].ToString(CultureInfo.InvariantCulture)));
                     //minWeight = Math.Abs(minWeight);
 
                     for(int i = 0; i < stateCount; i++)
@@ -149,7 +136,7 @@ namespace Iveely.Framework.Text.Segment
                         double weight = a[i, t - type] -
                                         Math.Log(
                                             double.Parse(
-                                                this.transition.Table[this.state[i]][this.state[j]].ToString()));
+                                                Transition.Table[State[i]][State[j]].ToString(CultureInfo.InvariantCulture)));
                         //weight = Math.Abs(weight);
                         if(weight < minWeight)
                         {
@@ -157,12 +144,9 @@ namespace Iveely.Framework.Text.Segment
                             minWeight = weight;
                         }
                     }
-                    object obj = complex.Table[this.state[j]][input[t]];
-                    if(obj != null)
-                    {
-                        a[j, t] = minWeight - Math.Log(double.Parse(obj.ToString()));
-                        s[j, t] = minState;
-                    }
+                    object obj = Complex.Table[State[j]][input[t]];
+                    a[j, t] = minWeight - Math.Log(double.Parse(obj.ToString()));
+                    s[j, t] = minState;
                 }
             }
             minState = 0;

@@ -28,12 +28,12 @@ namespace Iveely.Framework.Text.Segment
     {
         public int Length
         {
-            get { return array.Count; }
+            get { return Array.Count; }
         }
 
         public string this[int index]
         {
-            get { return this.array[index]; }
+            get { return Array[index]; }
         }
     }
 }

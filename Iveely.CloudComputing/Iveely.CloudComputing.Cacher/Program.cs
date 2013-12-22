@@ -1,7 +1,4 @@
-﻿using System;
-using Iveely.Framework.Network.Synchronous;
-
-namespace Iveely.CloudComputing.Cacher
+﻿namespace Iveely.CloudComputing.Cacher
 {
     class Program
     {
