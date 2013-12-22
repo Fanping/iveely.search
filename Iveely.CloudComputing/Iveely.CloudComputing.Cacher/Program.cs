@@ -10,7 +10,5 @@ namespace Iveely.CloudComputing.Cacher
             Executor executor = new Executor();
             executor.Start();
         }
-
-
     }
 }

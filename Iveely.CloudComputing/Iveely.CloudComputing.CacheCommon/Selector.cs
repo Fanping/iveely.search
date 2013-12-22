@@ -55,8 +55,8 @@ namespace Iveely.CloudComputing.CacheCommon
         /// </summary>
         private Selector()
         {
-            List<string> nodeList = new List<string>();
-            nodeList.Add(Dns.GetHostName());
+            List<string> nodeList = SettingItem.GetInstance().CacherCollections;
+            //nodeList.Add(Dns.GetHostName());
             _nodeLocator = new KetamaNodeLocator(nodeList, MaxNodeCopy);
         }
 

@@ -124,22 +124,22 @@ namespace Iveely.CloudComputing.Configuration
         private static SettingItem GetDefaultConfigration()
         {
             SettingItem configration = new SettingItem();
-            configration.SendDataSizeTholdhold = 10000;
-            configration.ReadTaskBasePathonCenter = "/root/task/read/";
-            configration.WriteTaskBasePathonCenter = "/root/task/write/";
-            configration.VirtualFileSystemBasePath = "/root/filesystem/ise/";
+            //configration.SendDataSizeTholdhold = 10000;
+            //configration.ReadTaskBasePathonCenter = "/root/task/read/";
+            //configration.WriteTaskBasePathonCenter = "/root/task/write/";
+            //configration.VirtualFileSystemBasePath = "/root/filesystem/ise/";
             configration.StateCenterHosts.Add(Dns.GetHostName());
             configration.StateCenterPort = 3026;
-            configration.UserAppMaxRunningTime = 5;
-            configration.SysAppMaxRunningTime = 27 * 7;
+            //configration.UserAppMaxRunningTime = 5;
+            //configration.SysAppMaxRunningTime = 27 * 7;
             configration.CacheNodePort = 8081;
             configration.CacherCollections.Add(Dns.GetHostName());
             configration.MergerCollections.Add(Dns.GetHostName());
-            configration.WorkerCollections.Add(Dns.GetHostName());
+            //configration.WorkerCollections.Add(Dns.GetHostName());
             configration.MergeServerIP = "127.0.0.1";
             configration.MaxAppToRun = 10;
             configration.WorkerStartPort = 2000;
-            configration.WorkerNumber = 3;
+            //configration.WorkerNumber = 3;
             return configration;
         }
     }

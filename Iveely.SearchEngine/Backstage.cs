@@ -118,7 +118,7 @@ namespace Iveely.SearchEngine
         {
             //1. 遍历url集合
             HashSet<string> newUrls = new HashSet<string>();
-            using (var database = Database.Open(GetRootFolder() + "\\Iveely.Search.Data"))
+            using (var database = Database.Open(GetRootFolder() + "\\Iveely.Search.Data.part"))
             {
                 for (int i = 0; i < Urls.Count; i++)
                 {
@@ -154,7 +154,7 @@ namespace Iveely.SearchEngine
                     }
                     catch (Exception exception)
                     {
-                        //WriteToConsole(exception.ToString());
+                        WriteToConsole(exception.ToString());
                     }
                 }
             }
@@ -174,22 +174,22 @@ namespace Iveely.SearchEngine
         public void Indexer(ref List<Page> pages)
         {
             //自动分析网页表达的含义
-             WriteToConsole(string.Format("开始自动分析网页表达的含义，共{0}条记录。", pages.Count));
+            WriteToConsole(string.Format("开始自动分析网页表达的含义，共{0}条记录。", pages.Count));
             List<Template.Question> questions = new List<Template.Question>();
             const string delimiter = ".?。！\t？…●|\r\n])!";
             foreach (Page page in pages)
             {
-                List<Template.Question> titleResult = Bot.GetInstance().BuildQuestion(page.Title, page.Url);
-                if (titleResult != null && titleResult.Count > 0)
-                {
-                    questions.AddRange(titleResult);
-                }
+                //List<Template.Question> titleResult = Bot.GetInstance(GetRootFolder()).BuildQuestion(page.Title, page.Url);
+                //if (titleResult != null && titleResult.Count > 0)
+                //{
+                //    questions.AddRange(titleResult);
+                //}
                 string[] sentences = page.Content.Split(delimiter.ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
                 foreach (string sentence in sentences)
                 {
                     if (sentence.Length >= 5)
                     {
-                        List<Template.Question> result = Bot.GetInstance().BuildQuestion(sentence, page.Url);
+                        List<Template.Question> result = Bot.GetInstance(GetRootFolder()).BuildQuestion(sentence, page.Url, page.Title);
                         if (result != null && result.Count > 0)
                         {
                             questions.AddRange(result);
@@ -254,27 +254,40 @@ namespace Iveely.SearchEngine
             {
                 string query = GetGlobalCache<string>(currentQueryIndex);
                 WriteToConsole("Get Query:" + query);
-                string[] keywords = NGram.GetGram(query);
+                string[] keywords = NGram.GetGram(query, NGram.Type.BiGram);
                 List<string> docs = Fragment.FindCommonDocumentByKeys(keywords);
                 List<Template.Question> result = new List<Template.Question>();
                 using (var database = Database.Open(GetRootFolder() + "\\Iveely.Search.Question"))
                 {
                     var wordsQuey = database.Query<Template.Question>();
+                    int returnCount = 5;
                     foreach (string doc in docs)
                     {
+                        if (returnCount == 0)
+                            break;
+                        returnCount--;
                         wordsQuey.Descend("Id").Constrain(int.Parse(doc)).Equal();
                         var questions = wordsQuey.Execute<Template.Question>();
                         if (questions != null && questions.Count > 0)
                         {
-                            result.AddRange(questions);
+                            result.Add(questions.GetFirst());
                         }
                     }
                 }
                 string inputResultKey = Dns.GetHostName() + "," + searchPort + query;
-                WriteToConsole("Result write into cache key=" + inputResultKey);
-                SetGlobalCache(inputResultKey, string.Join("\r\n", result));
+                WriteToConsole("Result write into cache key=" + inputResultKey + ", count=" + result.Count);
+                //if (result.Count > 10)
+                //{
+                //    result.RemoveRange(10, result.Count - 10);
+                //}
+                string content = string.Join("\r\n", result);
+                foreach (string keyword in keywords)
+                {
+                    content = content.Replace(keyword, "<strong>" + keyword + "</strong>");
+                }
+                SetGlobalCache(inputResultKey, content);
             }
-            return bytes;
+            return Serializer.SerializeToBytes(true);
         }
     }
 }

@@ -4,7 +4,7 @@
     {
         static void Main()
         {
-
+            SettingItem.GetInstance().Save();
         }
     }
 }

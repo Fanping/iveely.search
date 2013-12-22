@@ -193,6 +193,7 @@ namespace Iveely.CloudComputing.Client
             IEnumerable<string> ipPathes = StateHelper.GetChildren("ISE://system/state/worker");
             foreach (var ipPath in ipPathes)
             {
+                Logger.Info("Current worker ip path:" + ipPath);
                 string[] ip =
                     ipPath.Substring(ipPath.LastIndexOf('/') + 1, ipPath.Length - ipPath.LastIndexOf('/') - 1)
                         .Split(',');
@@ -212,7 +213,7 @@ namespace Iveely.CloudComputing.Client
             {
                 if (CheckApplicationExit(timeStamp, appName, ipPathes.Count()))
                 {
-                    Console.WriteLine("Application has finished.");
+                    Console.WriteLine("Application has submitted, you can user [task] command to see the status.");
                     return;
                 }
                 Thread.Sleep(1000);

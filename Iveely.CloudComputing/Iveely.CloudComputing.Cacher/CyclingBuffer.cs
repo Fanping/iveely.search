@@ -24,7 +24,7 @@ namespace Iveely.CloudComputing.Cacher
         /// <summary>
         /// 缓冲区容量
         /// </summary>
-        private const int Capacity = 7;
+        private const int Capacity = 1;
 
         /// <summary>
         /// 最后更新索引位

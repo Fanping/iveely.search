@@ -8,6 +8,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -66,12 +67,12 @@ namespace Iveely.Framework.Text.Segment
             }
 
             List<string> arrayString = new List<string>();
-            bool endFlag = false;
             string temp = string.Empty;
+            text = text.ToLower();
             foreach (char c in text)
             {
                 //连续的字母和数字应该在一起
-                if (!char.IsWhiteSpace(c))
+                if (!(char.IsWhiteSpace(c)|| char.IsSeparator(c) || char.IsPunctuation(c)))
                 {
                     if (c < 128)
                     {
@@ -86,13 +87,14 @@ namespace Iveely.Framework.Text.Segment
                             temp = string.Empty;
                         }
                     }
-
-
-
                 }
                 else
                 {
-                    temp = string.Empty;
+                    if (temp != string.Empty)
+                    {
+                        arrayString.Add(temp);
+                        temp = string.Empty;
+                    }
                 }
             }
             string[] uniGrams = arrayString.ToArray();//(string[])Convert.ChangeType(text.ToCharArray(),typeof(string[]));//text.ToLower().ToCharArray().Cast<string>().ToArray();//.Split(Delimiter, StringSplitOptions.RemoveEmptyEntries);
@@ -184,6 +186,10 @@ namespace Iveely.Framework.Text.Segment
             string emptyContent = string.Empty;
             string[] emptyUniGrams = GetGram(emptyContent, Type.UnitGram);
             Assert.IsTrue(emptyUniGrams.Length == 0);
+
+            string chineseContent = "我们是Iveely的忠实开发者，你呢?";
+            string[] chineseUniGrams = GetGram(chineseContent, Type.UnitGram);
+            Assert.IsTrue(chineseUniGrams.Length == 12);
         }
 
         [TestMethod]

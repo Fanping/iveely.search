@@ -26,7 +26,7 @@ namespace Iveely.CloudComputing.Cacher
         /// <summary>
         /// 环形哈希空间容量(默认1亿)
         /// </summary>
-        private const int Capacity = 100 * 100 * 100 * 100;
+        private const int Capacity = 100 * 100;
 
         /// <summary>
         /// 最后更新的索引位置

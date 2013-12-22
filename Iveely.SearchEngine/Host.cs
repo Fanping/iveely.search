@@ -13,9 +13,11 @@ using System.Linq;
 using System.Net;
 using System.Threading;
 using Iveely.CloudComputing.Client;
+using Iveely.Framework.Algorithm;
 using Iveely.Framework.DataStructure;
 using Iveely.Framework.Network;
 using Iveely.Framework.Network.Synchronous;
+using Iveely.Framework.Text;
 
 namespace Iveely.SearchEngine
 {
@@ -23,6 +25,10 @@ namespace Iveely.SearchEngine
     {
         public static void Main()
         {
+            //InvertFragment fragment =
+            //    Serializer.DeserializeFromFile<InvertFragment>(
+            //        @"C:\Users\Fanping\Desktop\InvertFragment\InvertFragment.global");
+            //string s = fragment.table.ToString();
             Host host = new Host();
             host.Run(null);
             //Backstage backstage = new Backstage();
@@ -61,8 +67,8 @@ namespace Iveely.SearchEngine
                                 sendIndex += (int.Parse(workerInfo[1]) % 100);
                                 Client client = new Client(ip, sendIndex);
                                 Packet dataPacket = new Packet(new byte[1]);
-                                dataPacket.WaiteCallBack = false;
-                                client.Send<string>(dataPacket);
+                                dataPacket.WaiteCallBack = true;
+                                client.Send<bool>(dataPacket);
                                 cacheStore.Add(ip + "," + sendIndex);
                                 sendIndex = 9000;
                             }
@@ -71,7 +77,7 @@ namespace Iveely.SearchEngine
                                 Console.WriteLine(exception);
                             }
                         }
-
+                        Thread.Sleep(2000);
                         foreach (string ca in cacheStore)
                         {
                             try
@@ -80,11 +86,11 @@ namespace Iveely.SearchEngine
                                 Console.WriteLine(outputResult);
                                 result += GetGlobalCache<string>(outputResult);
                             }
-                            catch (Exception)
+                            catch (Exception exception)
                             {
-                                
+                                Console.WriteLine(exception);
                             }
-                          
+
                         }
                     }
                     Console.WriteLine("Finnal result :" + result);

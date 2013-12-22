@@ -56,7 +56,7 @@
     <None Include="Stop-Local-Environment.bat">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="Iveely.AI.aiml">
+    <None Include="Init\Iveely.AI.aiml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>

@@ -24,7 +24,7 @@ namespace Iveely.CloudComputing.CacheAPI
         /// </summary>
         public static object Get(object key)
         {
-            int maxRetryCount = 3;
+            int maxRetryCount = 10;
             object obj = Selector.GetItem(key);
             while (obj == null && maxRetryCount > 0)
             {

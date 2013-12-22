@@ -40,11 +40,11 @@ namespace Iveely.Framework.Algorithm.AI
         /// <summary>
         /// 获取实例
         /// </summary>
-        public static Bot GetInstance()
+        public static Bot GetInstance(string resourceFolder = "")
         {
             if (bot == null)
             {
-                bot = new Bot();
+                bot = new Bot(resourceFolder);
 
             }
             return bot;
@@ -53,11 +53,11 @@ namespace Iveely.Framework.Algorithm.AI
         /// <summary>
         /// 构造方法
         /// </summary>
-        private Bot()
+        private Bot(string resourceFolder)
         {
             SetUp = false;
             //初始化
-            Init();
+            Init(resourceFolder);
             BuildRealCategory();
             //正常启动
             SetUp = true;
@@ -66,14 +66,21 @@ namespace Iveely.Framework.Algorithm.AI
         /// <summary>
         /// 应答机器人的初始化工作
         /// </summary>
-        public void Init()
+        public void Init(string resourceFolder = "")
         {
             if (!SetUp)
             {
                 //xml文档对象
                 var xmlDoc = new XmlDocument();
                 //加载对应的智能文件
-                xmlDoc.Load("Iveely.AI.aiml");
+                if (resourceFolder == "")
+                {
+                    xmlDoc.Load(resourceFolder + "Iveely.AI.aiml");
+                }
+                else
+                {
+                    xmlDoc.Load(resourceFolder + "\\Iveely.AI.aiml");
+                }
                 //子节点集合
                 XmlNodeList nodeList = xmlDoc.SelectSingleNode("aiml").ChildNodes;
                 //当前结点
@@ -370,7 +377,7 @@ namespace Iveely.Framework.Algorithm.AI
             return string.Empty;
         }
 
-        public List<Template.Question> BuildQuestion(string input,string reference)
+        public List<Template.Question> BuildQuestion(string input,params string[] references)
         {
             foreach (Category cate in this.Categorys)
             {
@@ -378,7 +385,7 @@ namespace Iveely.Framework.Algorithm.AI
                 {
                     if (Analyse.Match(pat.Value, input))
                     {
-                        return pat.Template.BuildQuestion(reference);
+                        return pat.Template.BuildQuestion(references);
                     }
                 }
             }

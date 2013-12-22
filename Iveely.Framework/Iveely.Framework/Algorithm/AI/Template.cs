@@ -27,6 +27,11 @@ namespace Iveely.Framework.Algorithm.AI
         public class Question
         {
             /// <summary>
+            /// 所在页标题
+            /// </summary>
+            public string FromTitle { get; internal set; }
+
+            /// <summary>
             /// 问题描述
             /// </summary>
             public string Description { get; internal set; }
@@ -48,7 +53,7 @@ namespace Iveely.Framework.Algorithm.AI
 
             public override string ToString()
             {
-                return string.Format("{0}\t{1}\t{2}", Description, Answer, Reference);
+                return string.Format("{0}\t{1}\t{2}\t{3}", FromTitle, Description, Answer, Reference);
             }
         }
 
@@ -191,7 +196,7 @@ namespace Iveely.Framework.Algorithm.AI
             this.Questions.Add(question);
         }
 
-        public List<Question> BuildQuestion(string reference)
+        public List<Question> BuildQuestion(params string[] references)
         {
             List<Question> formalQuestions = new List<Question>();
             string[] values = AI.Star.List;
@@ -210,7 +215,8 @@ namespace Iveely.Framework.Algorithm.AI
                 Question formalQuestion = new Question();
                 formalQuestion.Answer = answer;
                 formalQuestion.Description = doubt;
-                formalQuestion.Reference = reference;
+                formalQuestion.FromTitle= references[1];
+                formalQuestion.Reference = references[0];
                 formalQuestions.Add(formalQuestion);
             }
             return formalQuestions;

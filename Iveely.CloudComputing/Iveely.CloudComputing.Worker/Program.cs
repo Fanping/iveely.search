@@ -54,7 +54,7 @@ namespace Iveely.CloudComputing.Worker
             if (_taskSuperviser == null)
             {
                 Logger.Info("Starting listen the worker's task...");
-                _taskSuperviser = new Server(Dns.GetHostName(), port, ProcessTask);
+                _taskSuperviser = new Server(_machineName, _servicePort, ProcessTask);
                 Logger.Info("worker's task supervisor instance build success...");
                 _taskSuperviser.Listen();
             }
