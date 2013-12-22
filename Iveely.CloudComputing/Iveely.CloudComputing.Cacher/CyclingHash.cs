@@ -9,6 +9,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Iveely.CloudComputing.Configuration;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Iveely.CloudComputing.Cacher
@@ -26,7 +27,7 @@ namespace Iveely.CloudComputing.Cacher
         /// <summary>
         /// 环形哈希空间容量(默认1亿)
         /// </summary>
-        private const int Capacity = 100 * 100;
+        private int Capacity = SettingItem.GetInstance().CacheSize;
 
         /// <summary>
         /// 最后更新的索引位置

@@ -67,7 +67,7 @@ namespace Iveely.SearchEngine
         /// <summary>
         /// 爬虫爬行的跟站点
         /// </summary>
-        private string Host = "www.cnblogs.com";
+        private string Host = "www.baike.com";
 
         /// <summary>
         /// 索引文件
@@ -88,11 +88,11 @@ namespace Iveely.SearchEngine
             //1. 初始化
             Init(args);
             Fragment = new InvertFragment(GetRootFolder());
-            Urls.Add("http://www.cnblogs.com");
+            Urls.Add("http://www.baike.com");
             indexFile = GetRootFolder() + "\\InvertFragment.global";
 
-            Thread searchThread = new Thread(StartSearcher);
-            searchThread.Start();
+            //Thread searchThread = new Thread(StartSearcher);
+            //searchThread.Start();
 
             //2. 循环数据采集
             while (Urls.Count > 0)
@@ -102,11 +102,11 @@ namespace Iveely.SearchEngine
                 //2.1 爬虫开始运行
                 Crawler(ref pages);
 
-                //2.2 索引器开始运行
-                if (pages != null && pages.Count > 0)
-                {
-                    Indexer(ref pages);
-                }
+                ////2.2 索引器开始运行
+                //if (pages != null && pages.Count > 0)
+                //{
+                //    Indexer(ref pages);
+                //}
             }
         }
 

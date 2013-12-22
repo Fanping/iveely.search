@@ -89,6 +89,11 @@ namespace Iveely.CloudComputing.Configuration
         public string MergeServerIP { get; set; }
 
         /// <summary>
+        /// the size of cache
+        /// </summary>
+        public int CacheSize { get; set; }
+
+        /// <summary>
         /// The colloection of workers
         /// </summary>
         public List<string> WorkerCollections { get; set; }
@@ -139,6 +144,7 @@ namespace Iveely.CloudComputing.Configuration
             configration.MergeServerIP = "127.0.0.1";
             configration.MaxAppToRun = 10;
             configration.WorkerStartPort = 2000;
+            configration.CacheSize = 100*100*100;
             //configration.WorkerNumber = 3;
             return configration;
         }

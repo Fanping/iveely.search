@@ -285,7 +285,7 @@ namespace Iveely.Framework.Text
             {
                 Html = new HtmlDocument();
                 Encoding en = webResponse.CharacterSet.Contains("ISO")
-                                  ? Encoding.Default
+                                  ? Encoding.UTF8
                                   : Encoding.GetEncoding(webResponse.CharacterSet);
                 Html.Load(Stream, en);
                 //AutoDetectEncoding = true;

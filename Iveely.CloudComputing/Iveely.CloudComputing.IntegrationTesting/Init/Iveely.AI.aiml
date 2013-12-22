@@ -1,68 +1,61 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <aiml>
-    <topic name="房产">
-  <category>
-        <pattern>*[地名:北京|上海|天津|-ns]*将*[行为:开盘|发布会]</pattern>
-        <template>
-          <function name="Normal" para="1,2,3,4"></function>
+  <topic name="房产">
+    <category>
+      <pattern>*[地名:北京|上海|天津|-ns]*将*[行为:开盘|发布会]</pattern>
+      <template>
+        <function name="Normal" para="1,2,3,4"></function>
         <question>[0]什么地方[1]将[2][行为]？[地名]</question>
-        </template>
-  </category>
-      <category>
-        <pattern>*是*</pattern>
-        <template>
-          <function name="Normal" para="1,2"></function>
-          <question>[0]是什么？[1]</question>
-        </template>
-      </category>
-  <category>
-        <pattern>*[性别:男|女]*族*人*</pattern>
-        <template>
-          <function name="Normal" para="1,2,3"></function>
+      </template>
+    </category>
+    <category>
+      <pattern>*[性别:男|女]*族*人*</pattern>
+      <template>
+        <function name="Normal" para="1,2,3"></function>
         <question>[0]是哪儿人？[2];[0]是什么名族?[1]</question>
-    		</template>
-	</category>
-	<category>
-    		<pattern>*[行为:当选|选举为]*[职位:主席|司令|书记]*</pattern>
-    		<template>
-       			<function name="Normal" para="1,2,3"></function>
-				<question>谁[行为][1][职位]？[0];[0][行为]什么的[职位]?[1]</question>
-    		</template>
-	</category>
-	<category>
-    		<pattern>*有*之称*位于*</pattern>
-    		<template>
-       			<function name="Normal" para="1,2,3,4"></function>
-				<question>[0]有什么之称?[1];[0]有[1]之称,她位于哪里？[3]</question>
-    		</template>
-	</category>
-	<category>
-    		<pattern>*[称呼:又称为|又称]*</pattern>
-    		<template>
-       			<function name="Normal" para="1,2,3,4"></function>
-				<question>[0]又称为什么?[1];[1]又称为什么?[0]</question>
-    		</template>
-	</category>
-	<category>
-    		<pattern>[时间:*年*月*日|*月*日*|*年**|*月**|*日**]*[行为:出版|发行]*</pattern>
-    		<template>
-       			<function name="Normal" para="1,2,3,4,5,6,7,8"></function>
-				<question>[时间]什么[行为]？[3]</question>
-    		</template>
-	</category>
-	<category>
-    		<pattern>[时间:*年*月*日|*月*日*|*年**|*月**|*日**]*[行为:出版|发行]*</pattern>
-    		<template>
-       			<function name="Normal" para="1,2,3,4,5,6,7,8"></function>
-				<question>[时间]{0,2}什么[行为]？[3]</question>
-    		</template>
-	</category>
-	<category>
-    		<pattern>*[助词:于|是][时间:*年*月*日|*月*日*|*年**|*月**|*日**][动作:出生于|出生在]*</pattern>
-    		<template>
-       			<function name="Normal" para="1,2,3,4,5,6,7,8"></function>
-				<question>[0]的出生日期是?[时间]{1,3};[0]的出生地点在哪儿?[5]</question>
-    		</template>
-	</category>
+      </template>
+    </category>
+    <category>
+      <pattern>*[行为:当选|选举为]*[职位:主席|司令|书记]*</pattern>
+      <template>
+        <function name="Normal" para="1,2,3"></function>
+        <question>谁[行为][1][职位]？[0];[0][行为]什么的[职位]?[1]</question>
+      </template>
+    </category>
+    <category>
+      <pattern>*有*之称*位于*</pattern>
+      <template>
+        <function name="Normal" para="1,2,3,4"></function>
+        <question>[0]有什么之称?[1];[0]有[1]之称,她位于哪里？[3]</question>
+      </template>
+    </category>
+    <category>
+      <pattern>*[称呼:又称为|又称]*</pattern>
+      <template>
+        <function name="Normal" para="1,2,3,4"></function>
+        <question>[0]又称为什么?[1];[1]又称为什么?[0]</question>
+      </template>
+    </category>
+    <category>
+      <pattern>[时间:*年*月*日|*月*日*|*年**|*月**|*日**]*[行为:出版|发行]*</pattern>
+      <template>
+        <function name="Normal" para="1,2,3,4,5,6,7,8"></function>
+        <question>[时间]什么[行为]？[3]</question>
+      </template>
+    </category>
+    <category>
+      <pattern>[时间:*年*月*日|*月*日*|*年**|*月**|*日**]*[行为:出版|发行]*</pattern>
+      <template>
+        <function name="Normal" para="1,2,3,4,5,6,7,8"></function>
+        <question>[时间]{0,2}什么[行为]？[3]</question>
+      </template>
+    </category>
+    <category>
+      <pattern>*[助词:于|是][时间:*年*月*日|*月*日*|*年**|*月**|*日**][动作:出生于|出生在]*</pattern>
+      <template>
+        <function name="Normal" para="1,2,3,4,5,6,7,8"></function>
+        <question>[0]的出生日期是?[时间]{1,3};[0]的出生地点在哪儿?[5]</question>
+      </template>
+    </category>
   </topic>
 </aiml>

@@ -25,10 +25,6 @@ namespace Iveely.SearchEngine
     {
         public static void Main()
         {
-            //InvertFragment fragment =
-            //    Serializer.DeserializeFromFile<InvertFragment>(
-            //        @"C:\Users\Fanping\Desktop\InvertFragment\InvertFragment.global");
-            //string s = fragment.table.ToString();
             Host host = new Host();
             host.Run(null);
             //Backstage backstage = new Backstage();
