@@ -43,6 +43,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Iveely.CloudComputing.Cache
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharpSerializer.Library", "Dependency\SharpSerializer\SharpSerializer.Library.csproj", "{88AB738F-7A36-4C93-B808-B6CE2D3444B2}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharpICTCLAS", "Dependency\SharpICTCLAS\SharpICTCLAS.csproj", "{E27DB382-5785-40F9-B671-197FD5B77569}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -125,6 +127,10 @@ Global
 		{88AB738F-7A36-4C93-B808-B6CE2D3444B2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{88AB738F-7A36-4C93-B808-B6CE2D3444B2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{88AB738F-7A36-4C93-B808-B6CE2D3444B2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E27DB382-5785-40F9-B671-197FD5B77569}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E27DB382-5785-40F9-B671-197FD5B77569}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E27DB382-5785-40F9-B671-197FD5B77569}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E27DB382-5785-40F9-B671-197FD5B77569}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -147,5 +153,6 @@ Global
 		{EEEA67F9-9089-481D-A4DC-0966DEC9FD7D} = {B40A826B-7BE9-4629-BE4A-69809B06560D}
 		{4B6993D5-995D-4AAA-BBCE-423D1B5451F6} = {B40A826B-7BE9-4629-BE4A-69809B06560D}
 		{88AB738F-7A36-4C93-B808-B6CE2D3444B2} = {B40A826B-7BE9-4629-BE4A-69809B06560D}
+		{E27DB382-5785-40F9-B671-197FD5B77569} = {B40A826B-7BE9-4629-BE4A-69809B06560D}
 	EndGlobalSection
 EndGlobal
