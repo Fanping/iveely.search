@@ -8,11 +8,16 @@
 
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Text;
 using System.Threading;
 using Iveely.CloudComputing.Client;
+using Iveely.Framework.Algorithm.AI;
+using Iveely.Framework.Algorithm.AI.Library;
 using Iveely.Framework.Network;
 using Iveely.Framework.Network.Synchronous;
+using Iveely.Framework.Text.Segment;
 
 namespace Iveely.SearchEngine
 {
@@ -20,8 +25,26 @@ namespace Iveely.SearchEngine
     {
         public static void Main()
         {
-            Host host = new Host();
-            host.Run(null);
+            //Backstage backstage = new Backstage();
+            //backstage.Run(new object[] { 8001, 8001, 8001, 8001, 8001, 8001 });
+            const string delimiter = ".?。！\t？…●|\r\n])!";
+            string[] sentences =File.ReadAllText("TestData.txt", Encoding.UTF8).Split(delimiter.ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
+            foreach (string sentence in sentences)
+            {
+                if (sentence.Length >= 5)
+                {
+                    List<Template.Question> result = Bot.GetInstance("Init\\").BuildQuestion(sentence, "http://", "tutl");
+                    foreach (var question in result)
+                    {
+                        Console.WriteLine(sentence);
+                        Console.WriteLine(question.Description + "? " + question.Answer);
+                        Console.WriteLine();
+                    }
+                }
+            }
+            Console.ReadKey();
+            //Host host = new Host();
+            //host.Run(null);
         }
 
         public override void Run(object[] args)
@@ -54,7 +77,7 @@ namespace Iveely.SearchEngine
                             {
                                 sendIndex += (int.Parse(workerInfo[1]) % 100);
                                 Client client = new Client(ip, sendIndex);
-                                Packet dataPacket = new Packet(new byte[1]) {WaiteCallBack = true};
+                                Packet dataPacket = new Packet(new byte[1]) { WaiteCallBack = true };
                                 client.Send<bool>(dataPacket);
                                 cacheStore.Add(ip + "," + sendIndex);
                                 sendIndex = 9000;

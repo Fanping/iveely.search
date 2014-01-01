@@ -36,7 +36,7 @@ namespace Iveely.Framework.Algorithm
         /// <summary>
         /// 构造方法
         /// </summary>
-        protected Invert(string folder="")
+        protected Invert(string folder = "")
         {
             Table = new DimensionTable<string, string, T>();
             Participle = Participle.GetInstance(folder);
@@ -54,7 +54,7 @@ namespace Iveely.Framework.Algorithm
         public void AddDocument(object id, string doc, bool split = false)
         {
             // 获取此文档的词频集合
-            string[] words = split ? doc.Split(' ') : Participle.Split(doc).Split('/');
+            string[] words = split ? doc.Split(' ') : IctclasSegment.GetInstance().SplitToString(doc).Split(new[] { '/' }, StringSplitOptions.RemoveEmptyEntries);
             ProcessWords(words, id);
         }
 

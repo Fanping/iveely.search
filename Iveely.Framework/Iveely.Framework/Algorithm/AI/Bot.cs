@@ -11,6 +11,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Xml;
+using Iveely.Framework.Algorithm.AI.Library;
 using Iveely.Framework.DataStructure;
 
 namespace Iveely.Framework.Algorithm.AI
@@ -137,12 +138,12 @@ namespace Iveely.Framework.Algorithm.AI
                                                     //模板随机值
                                                     template.Rand = rand;
                                                 }
-                                                    //如果是普通值
+                                                //如果是普通值
                                                 else if (innerList[m].Name.ToLower() == "#text")
                                                 {
                                                     tempValue += innerList[m].Value.Trim();
                                                 }
-                                                    //如果是*号标记
+                                                //如果是*号标记
                                                 else if (innerList[m].Name.ToLower() == "star")
                                                 {
                                                     //获取star属性index，标识位置
@@ -150,7 +151,7 @@ namespace Iveely.Framework.Algorithm.AI
                                                     //设定答值
                                                     template.Star.Add(index);
                                                 }
-                                                    //如果是input号标记
+                                                //如果是input号标记
                                                 else if (innerList[m].Name.ToLower() == "input")
                                                 {
                                                     //获取input属性index，标识位置
@@ -158,7 +159,7 @@ namespace Iveely.Framework.Algorithm.AI
                                                     //设定答值
                                                     template.Input = index;
                                                 }
-                                                    //如果是Set标记
+                                                //如果是Set标记
                                                 else if (innerList[m].Name.ToLower() == "set")
                                                 {
                                                     //获取Set属性name，标识位置
@@ -172,7 +173,7 @@ namespace Iveely.Framework.Algorithm.AI
                                                     //利用Star来记录
                                                     template.Star.Add(int.Parse(index));
                                                 }
-                                                    //如果是Get标记
+                                                //如果是Get标记
                                                 else if (innerList[m].Name.ToLower() == "get")
                                                 {
                                                     //获取get的变量
@@ -180,7 +181,7 @@ namespace Iveely.Framework.Algorithm.AI
                                                     //变量名
                                                     template.GetVariable.Name = getName;
                                                 }
-                                                    //如果是函数功能标记
+                                                //如果是函数功能标记
                                                 else if (innerList[m].Name.ToLower() == "function")
                                                 {
                                                     //获取函数名称
@@ -200,7 +201,7 @@ namespace Iveely.Framework.Algorithm.AI
                                                         }
                                                     }
                                                 }
-                                                    //如果是疑问
+                                                //如果是疑问
                                                 else if (innerList[m].Name.ToLower() == "question")
                                                 {
                                                     string[] questionStrings = innerList[m].InnerText.Split(
@@ -373,9 +374,28 @@ namespace Iveely.Framework.Algorithm.AI
             return string.Empty;
         }
 
-        public List<Template.Question> BuildQuestion(string input,params string[] references)
+        public List<Template.Question> BuildQuestion(string input, params string[] references)
         {
-            return (from cate in Categorys from pat in cate.Patterns where Analyse.Match(pat.Value, input) select pat.Template.BuildQuestion(references)).FirstOrDefault();
+            Interrogative interrogative = new Interrogative();
+            List<Template.Question> questions = new List<Template.Question>();
+            if (input.Length < 10 || input.Length > 100)
+            {
+                return questions;
+            }
+            List<Tuple<string, string>> list = interrogative.GetQuestions(input);
+            if (list != null && list.Count > 0)
+            {
+                foreach (Tuple<string, string> tuple in list)
+                {
+                    Template.Question question = new Template.Question();
+                    question.Description = tuple.Item1;
+                    question.Answer = tuple.Item2;
+                    question.Reference = references[0];
+                    question.FromTitle = references[1];
+                    questions.Add(question);
+                }
+            }
+            return questions;
         }
     }
 }

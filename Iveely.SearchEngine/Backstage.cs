@@ -135,7 +135,7 @@ namespace Iveely.SearchEngine
                 try
                 {
                     //1.1 获取标题，网页正文，子链接集
-                    WriteToConsole("Processing " + Urls[i]);
+                    //WriteToConsole("Processing " + Urls[i]);
                     string title = string.Empty;
                     string content = string.Empty;
                     List<string> childrenLink = null;
@@ -186,7 +186,7 @@ namespace Iveely.SearchEngine
         public void Indexer(ref List<Page> pages)
         {
             //自动分析网页表达的含义
-            WriteToConsole(string.Format("开始自动分析网页表达的含义，共{0}条记录。", pages.Count));
+            //WriteToConsole(string.Format("开始自动分析网页表达的含义，共{0}条记录。", pages.Count));
             List<Template.Question> questions = new List<Template.Question>();
             const string delimiter = ".?。！\t？…●|\r\n])!";
             using (var database = Database.Open(GetRootFolder() + "\\Iveely.Search.Data.part"))
@@ -218,7 +218,7 @@ namespace Iveely.SearchEngine
             pages.Clear();
 
             //对表达的语义建议索引
-            WriteToConsole(string.Format("对表达的语义建议索引，共{0}条记录。", questions.Count));
+            // WriteToConsole(string.Format("对表达的语义建议索引，共{0}条记录。", questions.Count));
 
             if (File.Exists(_indexFile))
             {
@@ -232,7 +232,7 @@ namespace Iveely.SearchEngine
                     foreach (Template.Question t in questions)
                     {
                         int id = t.Answer.GetHashCode();
-                        Fragment.AddDocument(id, NGram.GetGram(t.Description));
+                        Fragment.AddDocument(id, t.Description, false);
                         t.Id = id;
                         database.Store(t);
                     }

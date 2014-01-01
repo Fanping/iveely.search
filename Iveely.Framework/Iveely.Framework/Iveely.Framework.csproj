@@ -48,6 +48,7 @@
     <Compile Include="Algorithm\AI\Fucntion.cs" />
     <Compile Include="Algorithm\AI\Input.cs" />
     <Compile Include="Algorithm\AI\Library\CodeCompiler.cs" />
+    <Compile Include="Algorithm\AI\Library\Interrogative.cs" />
     <Compile Include="Algorithm\AI\Library\Sys.cs" />
     <Compile Include="Algorithm\AI\Memory.cs" />
     <Compile Include="Algorithm\AI\Pattern.cs" />
@@ -81,6 +82,7 @@
     <Compile Include="Text\Html.cs" />
     <Compile Include="Text\Segment\Complex.cs" />
     <Compile Include="Text\Segment\HMM.cs" />
+    <Compile Include="Text\Segment\IctclasSegment.cs" />
     <Compile Include="Text\Segment\InitialStateProbability.cs" />
     <Compile Include="Text\Segment\Matrix.cs" />
     <Compile Include="Text\Segment\NGram.cs" />
@@ -110,6 +112,10 @@
     <ProjectReference Include="..\..\Dependency\Newtonsoft.Json\Newtonsoft.Json.csproj">
       <Project>{eeea67f9-9089-481d-a4dc-0966dec9fd7d}</Project>
       <Name>Newtonsoft.Json</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Dependency\SharpICTCLAS\SharpICTCLAS.csproj">
+      <Project>{e27db382-5785-40f9-b671-197fd5b77569}</Project>
+      <Name>SharpICTCLAS</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Dependency\SharpSerializer\SharpSerializer.Library.csproj">
       <Project>{88ab738f-7a36-4c93-b808-b6ce2d3444b2}</Project>
