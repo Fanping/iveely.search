@@ -6,6 +6,7 @@ using System.Net;
 using Iveely.CloudComputing.Client;
 using Iveely.Framework.Algorithm;
 using Iveely.Framework.Algorithm.AI;
+using Iveely.Framework.DataStructure;
 using Iveely.Framework.Log;
 using Iveely.Framework.Network.Synchronous;
 using Iveely.Framework.Text;
@@ -57,9 +58,14 @@ namespace Iveely.SearchEngine
         public List<string> Urls = new List<string>();
 
         /// <summary>
-        /// 索引片段向量
+        /// 文本索引片段向量
         /// </summary>
-        public static InvertFragment Fragment;
+        public static InvertFragment TextFragment;
+
+        /// <summary>
+        /// 相关性索引片段向量
+        /// </summary>
+        public static DimensionTable<string, string, double> RelativeTable;
 
         /// <summary>
         /// 爬虫爬行的跟站点
@@ -69,7 +75,12 @@ namespace Iveely.SearchEngine
         /// <summary>
         /// 索引文件
         /// </summary>
-        private string _indexFile;
+        private string _textIndexFile;
+
+        /// <summary>
+        /// 相关性索引文件
+        /// </summary>
+        private string _relativeIndexFile;
 
         /// <summary>
         /// 搜索端口
@@ -84,9 +95,11 @@ namespace Iveely.SearchEngine
         {
             //1. 初始化
             Init(args);
-            Fragment = new InvertFragment(GetRootFolder());
+            TextFragment = new InvertFragment(GetRootFolder());
+            RelativeTable = new DimensionTable<string, string, double>();
             Urls.Add("http://www.baike.com");
-            _indexFile = GetRootFolder() + "\\InvertFragment.global";
+            _textIndexFile = GetRootFolder() + "\\InvertFragment.part";
+            _relativeIndexFile = GetRootFolder() + "\\RelativeFragment.part";
 
             //Thread searchThread = new Thread(StartSearcher);
             //searchThread.Start();
@@ -117,6 +130,16 @@ namespace Iveely.SearchEngine
                         Logger.Warn(exception);
                     }
 
+                }
+
+                //2.3 更新url
+                try
+                {
+                    Urls.AddRange(GetKeysByValueFromCache(false, 10, true));
+                }
+                catch (Exception exception)
+                {
+                    Logger.Warn(exception);
                 }
             }
         }
@@ -176,7 +199,7 @@ namespace Iveely.SearchEngine
 
             //4. 重新获取新的url
             Urls.Clear();
-            Urls.AddRange(GetKeysByValueFromCache(false, 10, true));
+
         }
 
         /// <summary>
@@ -200,18 +223,19 @@ namespace Iveely.SearchEngine
                     {
                         if (sentence.Length >= 5)
                         {
-                            //List<Template.Question> result = Bot.GetInstance(GetRootFolder())
-                            //    .BuildQuestion(sentence, page.Url, page.Title);
-                            //if (result != null && result.Count > 0)
-                            //{
-                            //    isSavePage = true;
-                            //    questions.AddRange(result);
-                            //}
+                            Template.Question result = Bot.GetInstance(GetRootFolder())
+                                .BuildQuestion(sentence, page.Url, page.Title);
+                            if (result != null && result.Description != null && result.Description.Count > 0)
+                            {
+                                isSavePage = true;
+                                result.Content = sentence;
+                                questions.Add(result);
+                            }
                         }
                     }
                     if (isSavePage)
                     {
-                        database.Store(page);
+                        database.Store(questions);
                     }
                 }
             }
@@ -220,33 +244,47 @@ namespace Iveely.SearchEngine
             //对表达的语义建议索引
             // WriteToConsole(string.Format("对表达的语义建议索引，共{0}条记录。", questions.Count));
 
-            if (File.Exists(_indexFile))
+            if (File.Exists(_textIndexFile))
             {
-                Fragment = Serializer.DeserializeFromFile<InvertFragment>(_indexFile);
+                TextFragment = Serializer.DeserializeFromFile<InvertFragment>(_textIndexFile);
+            }
+
+            if (File.Exists(_relativeIndexFile))
+            {
+                RelativeTable =
+                    Serializer.DeserializeFromFile<DimensionTable<string, string, double>>(_relativeIndexFile);
             }
 
             using (var database = Database.Open(GetRootFolder() + "\\Iveely.Search.Question"))
             {
                 if (questions.Any())
                 {
-                    foreach (Template.Question t in questions)
+                    foreach (Template.Question question in questions)
                     {
-                        //int id = t.Answer.GetHashCode();
-                        //Fragment.AddDocument(id, t.Description, false);
-                        //t.Id = id;
-                        //database.Store(t);
+                        int id = question.Content.GetHashCode();
+                        question.Id = id;
+                        TextFragment.AddDocument(id, question.Content, false);
+                        foreach (var entity in question.Entity)
+                        {
+                            double oldValue = RelativeTable[entity.Item1][entity.Item2] == null
+                                ? 0
+                                : RelativeTable[entity.Item1][entity.Item2];
+                            RelativeTable[entity.Item1][entity.Item2] = oldValue + 0.0001;
+                        }
+                        database.Store(question);
                     }
                 }
             }
             questions.Clear();
-            Serializer.SerializeToFile(Fragment, _indexFile);
+            Serializer.SerializeToFile(TextFragment, _textIndexFile);
+            Serializer.SerializeToFile(RelativeTable, _relativeIndexFile);
         }
 
         public void StartSearcher()
         {
-            if (File.Exists(_indexFile))
+            if (File.Exists(_textIndexFile))
             {
-                Fragment = Serializer.DeserializeFromFile<InvertFragment>(_indexFile);
+                TextFragment = Serializer.DeserializeFromFile<InvertFragment>(_textIndexFile);
             }
             int servicePort = int.Parse(GetRootFolder()) % 100;
 
@@ -272,7 +310,7 @@ namespace Iveely.SearchEngine
                 string query = GetGlobalCache<string>(currentQueryIndex);
                 WriteToConsole("Get Query:" + query);
                 string[] keywords = NGram.GetGram(query, NGram.Type.BiGram);
-                List<string> docs = Fragment.FindCommonDocumentByKeys(keywords);
+                List<string> docs = TextFragment.FindCommonDocumentByKeys(keywords);
                 List<Template.Question> result = new List<Template.Question>();
                 using (var database = Database.Open(GetRootFolder() + "\\Iveely.Search.Question"))
                 {

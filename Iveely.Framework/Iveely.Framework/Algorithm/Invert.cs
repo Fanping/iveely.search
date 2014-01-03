@@ -21,7 +21,7 @@ namespace Iveely.Framework.Algorithm
         /// <summary>
         /// 分词组件
         /// </summary>
-        protected readonly Participle Participle;
+        protected readonly IctclasSegment Participle;
 
         /// <summary>
         /// 倒排表
@@ -39,7 +39,7 @@ namespace Iveely.Framework.Algorithm
         protected Invert(string folder = "")
         {
             Table = new DimensionTable<string, string, T>();
-            Participle = Participle.GetInstance(folder);
+            Participle = IctclasSegment.GetInstance();
         }
 
         /// <summary>

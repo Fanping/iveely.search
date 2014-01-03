@@ -25,26 +25,26 @@ namespace Iveely.SearchEngine
     {
         public static void Main()
         {
-            //Backstage backstage = new Backstage();
-            //backstage.Run(new object[] { 8001, 8001, 8001, 8001, 8001, 8001 });
-            const string delimiter = ".?。！\t？…●|\r\n])!";
-            string[] sentences = File.ReadAllText("TestData.txt", Encoding.UTF8).Split(delimiter.ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
-            foreach (string sentence in sentences)
-            {
-                if (sentence.Length >= 5)
-                {
-                    Template.Question result = Bot.GetInstance("Init\\").BuildQuestion(sentence, "http://", "tutl");
-                    if (result.Description != null)
-                    {
-                        foreach (var question in result.Description)
-                        {
-                            Console.WriteLine(sentence);
-                            Console.WriteLine(question.Item1 + "? " + question.Item2);
-                            Console.WriteLine();
-                        }
-                    }
-                }
-            }
+            Backstage backstage = new Backstage();
+            backstage.Run(new object[] { 8001, 8001, 8001, 8001, 8001, 8001 });
+            //const string delimiter = ".?。！\t？…●|\r\n])!";
+            //string[] sentences = File.ReadAllText("TestData.txt", Encoding.UTF8).Split(delimiter.ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
+            //foreach (string sentence in sentences)
+            //{
+            //    if (sentence.Length >= 5)
+            //    {
+            //        Template.Question result = Bot.GetInstance("Init\\").BuildQuestion(sentence, "http://", "tutl");
+            //        if (result.Description != null)
+            //        {
+            //            foreach (var question in result.Description)
+            //            {
+            //                Console.WriteLine(sentence);
+            //                Console.WriteLine(question.Item1 + "? " + question.Item2);
+            //                Console.WriteLine();
+            //            }
+            //        }
+            //    }
+            //}
             Console.ReadKey();
             //Host host = new Host();
             //host.Run(null);

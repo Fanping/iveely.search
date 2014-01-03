@@ -32,6 +32,11 @@ namespace Iveely.Framework.Algorithm.AI
             public string FromTitle { get; internal set; }
 
             /// <summary>
+            /// 原始内容
+            /// </summary>
+            public string Content { get; set; }
+
+            /// <summary>
             /// 问题集合
             /// </summary>
             public List<Tuple<string, string>> Description { get; set; }
