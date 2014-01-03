@@ -28,7 +28,7 @@ namespace Iveely.SearchEngine
             //Backstage backstage = new Backstage();
             //backstage.Run(new object[] { 8001, 8001, 8001, 8001, 8001, 8001 });
             const string delimiter = ".?。！\t？…●|\r\n])!";
-            string[] sentences =File.ReadAllText("TestData.txt", Encoding.UTF8).Split(delimiter.ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
+            string[] sentences = new[] { "周恩来(1898年3月5日-1976年1月8日),江苏淮安人。" };//File.ReadAllText("TestData.txt", Encoding.UTF8).Split(delimiter.ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
             foreach (string sentence in sentences)
             {
                 if (sentence.Length >= 5)

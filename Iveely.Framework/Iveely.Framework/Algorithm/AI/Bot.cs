@@ -13,6 +13,7 @@ using System.Linq;
 using System.Xml;
 using Iveely.Framework.Algorithm.AI.Library;
 using Iveely.Framework.DataStructure;
+using SharpICTCLAS;
 
 namespace Iveely.Framework.Algorithm.AI
 {
@@ -382,19 +383,22 @@ namespace Iveely.Framework.Algorithm.AI
             {
                 return questions;
             }
-            List<Tuple<string, string>> list = interrogative.GetQuestions(input);
-            if (list != null && list.Count > 0)
-            {
-                foreach (Tuple<string, string> tuple in list)
-                {
-                    Template.Question question = new Template.Question();
-                    question.Description = tuple.Item1;
-                    question.Answer = tuple.Item2;
-                    question.Reference = references[0];
-                    question.FromTitle = references[1];
-                    questions.Add(question);
-                }
-            }
+
+            List<WordResult[]> words = Text.Segment.IctclasSegment.GetInstance().SplitToArray(input);
+            interrogative.Understand(words);
+            //List<Tuple<string, string, string, string>> list = interrogative.GetQuestions(input);
+            //if (list != null && list.Count > 0)
+            //{
+            //    foreach (Tuple<string, string, string, string> tuple in list)
+            //    {
+            //        Template.Question question = new Template.Question();
+            //        question.Description = tuple.Item1;
+            //        question.Answer = tuple.Item2;
+            //        question.Reference = references[0];
+            //        question.FromTitle = references[1];
+            //        questions.Add(question);
+            //    }
+            //}
             return questions;
         }
     }

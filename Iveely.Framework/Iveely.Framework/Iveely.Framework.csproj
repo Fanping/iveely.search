@@ -48,7 +48,8 @@
     <Compile Include="Algorithm\AI\Fucntion.cs" />
     <Compile Include="Algorithm\AI\Input.cs" />
     <Compile Include="Algorithm\AI\Library\CodeCompiler.cs" />
-    <Compile Include="Algorithm\AI\Library\Interrogative.cs" />
+    <Compile Include="Algorithm\AI\Interrogative.cs" />
+    <Compile Include="Algorithm\AI\SentenceGetter.cs" />
     <Compile Include="Algorithm\AI\Library\Sys.cs" />
     <Compile Include="Algorithm\AI\Memory.cs" />
     <Compile Include="Algorithm\AI\Pattern.cs" />
