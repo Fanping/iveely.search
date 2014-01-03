@@ -28,17 +28,20 @@ namespace Iveely.SearchEngine
             //Backstage backstage = new Backstage();
             //backstage.Run(new object[] { 8001, 8001, 8001, 8001, 8001, 8001 });
             const string delimiter = ".?。！\t？…●|\r\n])!";
-            string[] sentences = new[] { "台北主题 台北主题首页" };//File.ReadAllText("TestData.txt", Encoding.UTF8).Split(delimiter.ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
+            string[] sentences = File.ReadAllText("TestData.txt", Encoding.UTF8).Split(delimiter.ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
             foreach (string sentence in sentences)
             {
                 if (sentence.Length >= 5)
                 {
-                    List<Template.Question> result = Bot.GetInstance("Init\\").BuildQuestion(sentence, "http://", "tutl");
-                    foreach (var question in result)
+                    Template.Question result = Bot.GetInstance("Init\\").BuildQuestion(sentence, "http://", "tutl");
+                    if (result.Description != null)
                     {
-                        Console.WriteLine(sentence);
-                        Console.WriteLine(question.Description + "? " + question.Answer);
-                        Console.WriteLine();
+                        foreach (var question in result.Description)
+                        {
+                            Console.WriteLine(sentence);
+                            Console.WriteLine(question.Item1 + "? " + question.Item2);
+                            Console.WriteLine();
+                        }
                     }
                 }
             }

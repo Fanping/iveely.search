@@ -216,8 +216,8 @@ namespace Iveely.Framework.Algorithm.AI
                                                         {
                                                             Template.Question question = new Template.Question
                                                             {
-                                                                Description = text[0],
-                                                                Answer = text[1]
+                                                                //Description = text[0],
+                                                                //Answer = text[1]
                                                             };
                                                             template.AddQuestion(question);
                                                         }
@@ -282,12 +282,12 @@ namespace Iveely.Framework.Algorithm.AI
                                         new Template.Question[t.Template.Questions.Count];
                                     for (int n = 0; n < questions.Count(); n++)
                                     {
-                                        questions[n] = new Template.Question();
-                                        questions[n].Answer =
-                                            t.Template.Questions[n].Answer.Replace(
-                                                "[" + valueTemplate[0] + "]", valueTemplate[k + 1]);
-                                        questions[n].Description = t.Template.Questions[n].Description.Replace(
-                                            "[" + valueTemplate[0] + "]", valueTemplate[k + 1]);
+                                        //questions[n] = new Template.Question();
+                                        //questions[n].Answer =
+                                        //    t.Template.Questions[n].Answer.Replace(
+                                        //        "[" + valueTemplate[0] + "]", valueTemplate[k + 1]);
+                                        //questions[n].Description = t.Template.Questions[n].Description.Replace(
+                                        //    "[" + valueTemplate[0] + "]", valueTemplate[k + 1]);
                                     }
                                     template.Questions.AddRange(questions);
                                     template.Function = t.Template.Function;
@@ -310,12 +310,12 @@ namespace Iveely.Framework.Algorithm.AI
                                         Template template = new Template();
                                         for (int m = 0; m < questions.Count; m++)
                                         {
-                                            Template.Question myQuestion = new Template.Question();
-                                            myQuestion.Description = questions[m].Description.Replace(
-                                                "[" + valueTemplate[0] + "]", valueTemplate[n + 1]);
-                                            myQuestion.Answer = questions[m].Answer.Replace(
-                                                "[" + valueTemplate[0] + "]", valueTemplate[n + 1]);
-                                            template.AddQuestion(myQuestion);
+                                            //Template.Question myQuestion = new Template.Question();
+                                            //myQuestion.Description = questions[m].Description.Replace(
+                                            //    "[" + valueTemplate[0] + "]", valueTemplate[n + 1]);
+                                            //myQuestion.Answer = questions[m].Answer.Replace(
+                                            //    "[" + valueTemplate[0] + "]", valueTemplate[n + 1]);
+                                            //template.AddQuestion(myQuestion);
 
                                         }
                                         template.Function = myPatterns[k].Template.Function;
@@ -375,30 +375,21 @@ namespace Iveely.Framework.Algorithm.AI
             return string.Empty;
         }
 
-        public List<Template.Question> BuildQuestion(string input, params string[] references)
+        public Template.Question BuildQuestion(string input, params string[] references)
         {
             Interrogative interrogative = new Interrogative();
-            List<Template.Question> questions = new List<Template.Question>();
+            Template.Question questions = new Template.Question();
             if (input.Length < 10 || input.Length > 100)
             {
                 return questions;
             }
 
-            List<WordResult[]> words = Text.Segment.IctclasSegment.GetInstance().SplitToArray(input);
-            interrogative.Understand(words);
-            //List<Tuple<string, string, string, string>> list = interrogative.GetQuestions(input);
-            //if (list != null && list.Count > 0)
-            //{
-            //    foreach (Tuple<string, string, string, string> tuple in list)
-            //    {
-            //        Template.Question question = new Template.Question();
-            //        question.Description = tuple.Item1;
-            //        question.Answer = tuple.Item2;
-            //        question.Reference = references[0];
-            //        question.FromTitle = references[1];
-            //        questions.Add(question);
-            //    }
-            //}
+
+            Tuple<List<Tuple<string, string>>, List<Tuple<string, string>>> result = interrogative.Understand(input);
+            questions.Description = result.Item1;
+            questions.Entity = result.Item2;
+            questions.FromTitle = references[0];
+            questions.Reference = references[1];
             return questions;
         }
     }

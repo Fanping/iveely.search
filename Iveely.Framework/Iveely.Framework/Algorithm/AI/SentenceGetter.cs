@@ -176,7 +176,7 @@ namespace Iveely.Framework.Algorithm.AI
                 //前面允许出现的词性
                 FrontAllowSigns.Add("v");
                 FrontAllowSigns.Add("j");
-                FrontAllowSigns.Add("ng");
+                //FrontAllowSigns.Add("ng");
                 FrontAllowSigns.Add("no-type");
 
                 //后面允许的词性

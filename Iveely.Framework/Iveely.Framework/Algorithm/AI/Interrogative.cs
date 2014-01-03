@@ -23,42 +23,118 @@ namespace Iveely.Framework.Algorithm.AI
     public class Interrogative
     {
 
-        public Tuple<List<Tuple<string, string>>, List<Tuple<string, string, string>>> Understand(
-            List<WordResult[]> words)
+        public Tuple<List<Tuple<string, string>>, List<Tuple<string, string>>> Understand(
+            string input)
         {
+            List<WordResult[]> words = Text.Segment.IctclasSegment.GetInstance().SplitToArray(input);
             SentenceGetter sentenceGetter = new SentenceGetter();
-          
+            List<Tuple<string, string>> questions = new List<Tuple<string, string>>();
+            List<Tuple<string, string>> relativeBody = new List<Tuple<string, string>>();
+            List<string> bodys = new List<string>();
+
+            // 1.构建疑问句
             string[] locations = sentenceGetter.GetLocations(words);
             foreach (var location in locations)
             {
-                Console.WriteLine("location:" + location);
+                int index = input.IndexOf(location);
+                if (index == -1)
+                {
+                    continue;
+                }
+                string str = input.Substring(0, index);
+                str += "什么地方";
+                str += input.Substring(index + location.Length, input.Length - index - location.Length);
+                Tuple<string, string> tuple = new Tuple<string, string>(str, location);
+                questions.Add(tuple);
             }
+            if (locations.Any())
+                bodys.AddRange(locations);
 
             string[] names = sentenceGetter.GetNames(words);
             foreach (var name in names)
             {
-                Console.WriteLine("name:" + name);
+                int index = input.IndexOf(name);
+                if (index == -1)
+                {
+                    continue;
+                }
+                string str = input.Substring(0, index);
+                str += "谁";
+                str += input.Substring(index + name.Length, input.Length - index - name.Length);
+                Tuple<string, string> tuple = new Tuple<string, string>(str, name);
+                questions.Add(tuple);
             }
+            if (names.Any())
+                bodys.AddRange(names);
 
             string[] times = sentenceGetter.GetTime(words);
             foreach (var time in times)
             {
-                Console.WriteLine("time:" + time);
+                int index = input.IndexOf(time);
+                if (index == -1)
+                {
+                    continue;
+                }
+                string str = input.Substring(0, index);
+                str += "什么时候";
+                str += input.Substring(index + time.Length, input.Length - index - time.Length);
+                Tuple<string, string> tuple = new Tuple<string, string>(str, time);
+                questions.Add(tuple);
             }
+            if (times.Any())
+                bodys.AddRange(times);
 
             string[] events = sentenceGetter.GetEvent(words);
             foreach (var @event in events)
             {
-                Console.WriteLine("event:" + @event);
+                int index = input.IndexOf(@event);
+                if (index == -1)
+                {
+                    continue;
+                }
+                string str = input.Substring(0, index);
+                str += "什么";
+                str += input.Substring(index + @event.Length, input.Length - index - @event.Length);
+                Tuple<string, string> tuple = new Tuple<string, string>(str, @event);
+                questions.Add(tuple);
             }
+            if (events.Any())
+                bodys.AddRange(events);
 
             string[] agences = sentenceGetter.GetAgency(words);
             foreach (var agence in agences)
             {
-                Console.WriteLine(agence);
+                int index = input.IndexOf(agence);
+                if (index == -1)
+                {
+                    continue;
+                }
+                string str = input.Substring(0, index);
+                str += "谁";
+                str += input.Substring(index + agence.Length, input.Length - index - agence.Length);
+                Tuple<string, string> tuple = new Tuple<string, string>(str, agence);
+                questions.Add(tuple);
+            }
+            if (agences.Any())
+                bodys.AddRange(agences);
+
+            // 2 构建对象关系
+            foreach (var bodyA in bodys)
+            {
+                foreach (var bodyB in bodys)
+                {
+                    if (bodyA != bodyB)
+                    {
+                        Tuple<string, string> tuple = new Tuple<string, string>(bodyA, bodyB);
+                        relativeBody.Add(tuple);
+                    }
+
+                }
             }
 
-            return null;
+            Tuple<List<Tuple<string, string>>, List<Tuple<string, string>>> result =
+                new Tuple<List<Tuple<string, string>>, List<Tuple<string, string>>>(questions, relativeBody);
+            return result;
         }
 
         /// <summary>

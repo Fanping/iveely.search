@@ -200,13 +200,13 @@ namespace Iveely.SearchEngine
                     {
                         if (sentence.Length >= 5)
                         {
-                            List<Template.Question> result = Bot.GetInstance(GetRootFolder())
-                                .BuildQuestion(sentence, page.Url, page.Title);
-                            if (result != null && result.Count > 0)
-                            {
-                                isSavePage = true;
-                                questions.AddRange(result);
-                            }
+                            //List<Template.Question> result = Bot.GetInstance(GetRootFolder())
+                            //    .BuildQuestion(sentence, page.Url, page.Title);
+                            //if (result != null && result.Count > 0)
+                            //{
+                            //    isSavePage = true;
+                            //    questions.AddRange(result);
+                            //}
                         }
                     }
                     if (isSavePage)
@@ -231,10 +231,10 @@ namespace Iveely.SearchEngine
                 {
                     foreach (Template.Question t in questions)
                     {
-                        int id = t.Answer.GetHashCode();
-                        Fragment.AddDocument(id, t.Description, false);
-                        t.Id = id;
-                        database.Store(t);
+                        //int id = t.Answer.GetHashCode();
+                        //Fragment.AddDocument(id, t.Description, false);
+                        //t.Id = id;
+                        //database.Store(t);
                     }
                 }
             }

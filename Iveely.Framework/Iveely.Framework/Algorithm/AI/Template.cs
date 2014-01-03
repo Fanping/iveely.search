@@ -32,14 +32,14 @@ namespace Iveely.Framework.Algorithm.AI
             public string FromTitle { get; internal set; }
 
             /// <summary>
-            /// 问题描述
+            /// 问题集合
             /// </summary>
-            public string Description { get; internal set; }
+            public List<Tuple<string, string>> Description { get; set; }
 
             /// <summary>
-            /// 问题答案
+            /// 包含实体
             /// </summary>
-            public string Answer { get; internal set; }
+            public List<Tuple<string, string>> Entity { get; set; }
 
             /// <summary>
             /// 参考信息
@@ -53,7 +53,8 @@ namespace Iveely.Framework.Algorithm.AI
 
             public override string ToString()
             {
-                return string.Format("{0}\t{1}\t{2}\t{3}", FromTitle, Description, Answer, Reference);
+                return string.Empty;
+                // return string.Format("{0}\t{1}\t{2}\t{3}", FromTitle, Description, Answer, Reference);
             }
         }
 
@@ -198,30 +199,31 @@ namespace Iveely.Framework.Algorithm.AI
 
         public List<Question> BuildQuestion(params string[] references)
         {
-            List<Question> formalQuestions = new List<Question>();
-            string[] values = AI.Star.List;
-            foreach (var question in Questions)
-            {
-                string doubt = question.Description;
-                string answer = question.Answer;
-                for (int i = 0; i < values.Count(); i++)
-                {
-                    doubt = doubt.Replace("[" + i + "]", values[i]);
-                    answer = answer.Replace("[" + i + "]", values[i]);
-                }
+            //List<Question> formalQuestions = new List<Question>();
+            //string[] values = AI.Star.List;
+            //foreach (var question in Questions)
+            //{
+            //    string doubt = question.Description;
+            //    string answer = question.Answer;
+            //    for (int i = 0; i < values.Count(); i++)
+            //    {
+            //        doubt = doubt.Replace("[" + i + "]", values[i]);
+            //        answer = answer.Replace("[" + i + "]", values[i]);
+            //    }
 
-                //doubt = ReplaceStar(doubt, values);
-                answer = ReplaceStar(answer, values);
-                Question formalQuestion = new Question
-                {
-                    Answer = answer,
-                    Description = doubt,
-                    FromTitle = references[1],
-                    Reference = references[0]
-                };
-                formalQuestions.Add(formalQuestion);
-            }
-            return formalQuestions;
+            //    //doubt = ReplaceStar(doubt, values);
+            //    answer = ReplaceStar(answer, values);
+            //    Question formalQuestion = new Question
+            //    {
+            //        Answer = answer,
+            //        Description = doubt,
+            //        FromTitle = references[1],
+            //        Reference = references[0]
+            //    };
+            //    formalQuestions.Add(formalQuestion);
+            //}
+            //return formalQuestions;
+            return null;
         }
 
         private string ReplaceStar(string text, string[] values)
