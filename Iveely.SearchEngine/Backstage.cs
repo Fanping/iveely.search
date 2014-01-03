@@ -315,7 +315,7 @@ namespace Iveely.SearchEngine
                     string query = GetGlobalCache<string>(currentTextQuery);
                     WriteToConsole("Get Text Query:" + query);
                     string[] keywords = IctclasSegment.GetInstance().SplitToString(query).Split(new[] { ' ' });
-                    List<string> docs = TextFragment.FindCommonDocumentByKeys(keywords);
+                    List<string> docs = TextFragment.FindCommonDocumentByKeys(keywords,10);
                     List<Template.Question> result = new List<Template.Question>();
                     using (var database = Database.Open(GetRootFolder() + "\\Iveely.Search.Question"))
                     {
@@ -351,14 +351,10 @@ namespace Iveely.SearchEngine
                 {
                     string query = GetGlobalCache<string>(currentRelativeQuery);
                     WriteToConsole("Get Relative Query:" + query);
-                    List<Tuple<string, double>> result = RelativeTable[query].GetAllKeyValue();
+                    List<Tuple<string, double>> result = RelativeTable[query].GetAllKeyValue(20);
                     string inputResultKey = Dns.GetHostName() + "," + _searchPort + query;
                     if (result != null)
                     {
-                        if (result.Count > 5)
-                        {
-                            result.RemoveRange(5, result.Count - 5);
-                        }
                         SetGlobalCache(inputResultKey, result);
                     }
                     SetGlobalCache(inputResultKey, new List<Tuple<string, double>>());

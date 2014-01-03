@@ -15,6 +15,7 @@ using System.Threading;
 using Iveely.CloudComputing.Client;
 using Iveely.Framework.Algorithm.AI;
 using Iveely.Framework.Algorithm.AI.Library;
+using Iveely.Framework.DataStructure;
 using Iveely.Framework.Network;
 using Iveely.Framework.Network.Synchronous;
 using Iveely.Framework.Text.Segment;
@@ -27,8 +28,8 @@ namespace Iveely.SearchEngine
 
         public static void Main()
         {
-            Backstage backstage = new Backstage();
-            backstage.Run(new object[] { 8001, 8001, 8001, 8001, 8001, 8001 });
+            //Backstage backstage = new Backstage();
+            //backstage.Run(new object[] { 8001, 8001, 8001, 8001, 8001, 8001 });
             Console.ReadKey();
         }
 

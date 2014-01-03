@@ -107,7 +107,7 @@ namespace Iveely.Framework.Algorithm
         /// </example>
         /// </summary>
         /// <returns> 返回按照频率的集合 </returns>
-        public List<string> FindCommonDocumentByKeys(string[] keys)
+        public List<string> FindCommonDocumentByKeys(string[] keys, int maxCount)
         {
             List<string> result = new List<string>();
             foreach (string key in keys)
@@ -119,6 +119,10 @@ namespace Iveely.Framework.Algorithm
                 }
             }
             result.Sort();
+            if (result.Count > maxCount)
+            {
+                result.RemoveRange(maxCount, result.Count - maxCount);
+            }
             return result;
         }
 

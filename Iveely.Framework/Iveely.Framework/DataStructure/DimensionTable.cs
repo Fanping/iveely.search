@@ -21,10 +21,11 @@ namespace Iveely.Framework.DataStructure
     /// <typeparam name="TRow"> </typeparam>
     /// <typeparam name="TColumn"> </typeparam>
 
-    [Serializable]
+
 #if DEBUG
     [TestClass]
 #endif
+    [Serializable]
     public class DimensionTable<TColumn, TRow, TValue>
     {
         #region 属性或字段
@@ -82,9 +83,9 @@ namespace Iveely.Framework.DataStructure
                 return result;
             }
 
-            public SortedList<TRow> GetAllKeys()
+            public List<TRow> GetAllKeys()
             {
-                var result = new SortedList<TRow>();
+                var result = new List<TRow>();
                 foreach (DictionaryEntry row in _table)
                 {
                     result.Add((TRow)row.Key);
@@ -99,13 +100,18 @@ namespace Iveely.Framework.DataStructure
             /// 整数部分是次数
             /// </summary>
             /// <returns> </returns>
-            public List<Tuple<TRow, TValue>> GetAllKeyValue()
+            public List<Tuple<TRow, TValue>> GetAllKeyValue(int maxCount)
             {
                 var result = new List<Tuple<TRow, TValue>>();
                 foreach (DictionaryEntry row in _table)
                 {
                     Tuple<TRow, TValue> tuple = new Tuple<TRow, TValue>((TRow)row.Key, (TValue)row.Value);
                     result.Add(tuple);
+                    maxCount--;
+                    if (maxCount == 0)
+                    {
+                        break;
+                    }
                 }
                 return result;
             }
@@ -211,11 +217,28 @@ namespace Iveely.Framework.DataStructure
         [TestMethod]
         public void TestDimensionTable()
         {
-            var table = new DimensionTable<string, int, double>();
-            table["a"][1] = 0.01;
-            table["b"][2] = 0.02;
-            Assert.Equals(table["a"][1], 0.01);
-            Assert.Equals(table["b"][2], 0.02);
+            var strIntTable = new DimensionTable<string, int, double>();
+            strIntTable["a"][1] = 0.01;
+            strIntTable["b"][2] = 0.02;
+            Assert.AreEqual(strIntTable["a"][1], 0.01);
+            Assert.AreEqual(strIntTable["b"][2], 0.02);
+
+            var strStrTable = new DimensionTable<string, string, double>();
+            strStrTable["a"]["_1"] = 0.031;
+            strStrTable["a"]["_3"] = 0.033;
+            strStrTable["a"]["_2"] = 0.032;
+            SortedList<double> values = strStrTable["a"].GetAllValue();
+            Assert.IsTrue(values[2] == 0.033);
+            Assert.IsTrue(values[1] == 0.032);
+            Assert.IsTrue(values[0] == 0.031);
+
+            List<string> keys = strStrTable["a"].GetAllKeys();
+            Assert.IsTrue(keys[2] == "_3");
+            Assert.IsTrue(keys[1] == "_2");
+            Assert.IsTrue(keys[0] == "_1");
+
+            List<Tuple<string, double>> keyValues = strStrTable["a"].GetAllKeyValue();
+            Assert.IsTrue(keyValues.Count == 3);
         }
 
 #endif
