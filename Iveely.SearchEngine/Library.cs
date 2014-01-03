@@ -21,12 +21,12 @@ namespace Iveely.SearchEngine
     {
         public string TextQuery(string keywords)
         {
-            return Query(keywords, "Current-Text-Query");
+            return Query(keywords, "Current-Text-Query", "Test-Query");
         }
 
         public string RelativeQuery(string keyword)
         {
-            return Query(keyword, "Current-Relative-Query");
+            return Query(keyword, "Current-Relative-Query", "Relative-Query");
         }
 
         public override void Run(object[] args)
@@ -34,7 +34,7 @@ namespace Iveely.SearchEngine
             throw new NotImplementedException();
         }
 
-        private string Query(string keywords, string queryType)
+        private string Query(string keywords, string queryType, string data)
         {
             IEnumerable<string> workers = GetAllWorkers();
             string result = string.Empty;
@@ -61,7 +61,10 @@ namespace Iveely.SearchEngine
                         {
                             sendIndex += (int.Parse(workerInfo[1]) % 100);
                             Client client = new Client(ip, sendIndex);
-                            Packet dataPacket = new Packet(new byte[1]) { WaiteCallBack = true };
+                            Packet dataPacket = new Packet(System.Text.Encoding.UTF8.GetBytes(data))
+                            {
+                                WaiteCallBack = true
+                            };
                             client.Send<bool>(dataPacket);
                             cacheStore.Add(ip + "," + sendIndex);
                             sendIndex = 9000;
@@ -89,7 +92,10 @@ namespace Iveely.SearchEngine
                 }
                 Console.WriteLine("Finnal result :" + result);
             }
-            Console.WriteLine("Not found any workers!");
+            else
+            {
+                Console.WriteLine("Not found any workers!");
+            }
             return result;
         }
     }

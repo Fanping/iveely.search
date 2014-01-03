@@ -1,1 +1,1 @@
-Iveely.CloudComputing.Client.exe submit Example_TestDeploy.cs Iveely.CloudComputing.Example.Example_TestDeploy TestDeploy
+Iveely.CloudComputing.Client.exe submit Example_TestDeploy.cs Iveely.CloudComputing.Client.ExampleTestDeploy TestDeploy
