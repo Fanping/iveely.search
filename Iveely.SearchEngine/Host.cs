@@ -28,6 +28,8 @@ namespace Iveely.SearchEngine
 
         public static void Main()
         {
+            Host host = new Host();
+            host.Run(null);
             //Backstage backstage = new Backstage();
             //backstage.Run(new object[] { 8001, 8001, 8001, 8001, 8001, 8001 });
             Console.ReadKey();

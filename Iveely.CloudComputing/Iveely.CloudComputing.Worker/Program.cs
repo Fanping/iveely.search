@@ -44,7 +44,7 @@ namespace Iveely.CloudComputing.Worker
             if (!Directory.Exists(processFolder))
             {
                 Directory.CreateDirectory(processFolder);
-                CopyInitFolder();
+                CopyDirectory("Init", processFolder + "\\");
             }
             CheckCrash();
 
@@ -92,7 +92,7 @@ namespace Iveely.CloudComputing.Worker
                 {
                     if (_runner.ContainsKey(appName))
                     {
-                        var runner = (Runner) _runner[appName];
+                        var runner = (Runner)_runner[appName];
                         _runner.Remove(appName);
                         runner.Kill();
                     }
@@ -109,9 +109,9 @@ namespace Iveely.CloudComputing.Worker
                 if (_statusCenter.Count > 0)
                 {
                     runningApps.AddRange(from DictionaryEntry dictionaryEntry in _statusCenter
-                        let key = dictionaryEntry.Key.ToString()
-                        let status = ((RunningStatus) dictionaryEntry.Value).Description
-                        select "[" + _machineName + "," + _servicePort + "] :" + key + " -> " + status);
+                                         let key = dictionaryEntry.Key.ToString()
+                                         let status = ((RunningStatus)dictionaryEntry.Value).Description
+                                         select "[" + _machineName + "," + _servicePort + "] :" + key + " -> " + status);
                 }
                 return Serializer.SerializeToBytes(runningApps);
             }
@@ -123,7 +123,7 @@ namespace Iveely.CloudComputing.Worker
                 string fileName = Encoding.UTF8.GetString(fileNameBytes);
                 if (fileName.Contains("/"))
                 {
-                    string[] folder = fileName.Split(new[] {'/'}, StringSplitOptions.RemoveEmptyEntries);
+                    string[] folder = fileName.Split(new[] { '/' }, StringSplitOptions.RemoveEmptyEntries);
                     string tempPath = _servicePort + "/";
                     for (int i = 0; i < folder.Length - 1; i++)
                     {
@@ -190,14 +190,54 @@ namespace Iveely.CloudComputing.Worker
             return null;
         }
 
-        private static void CopyInitFolder()
+        /// <summary>
+        /// 拷贝文件夹
+        /// </summary>
+        /// <param name="srcdir"></param>
+        /// <param name="desdir"></param>
+        private static void CopyDirectory(string srcdir, string desdir)
         {
-            string[] files = Directory.GetFiles("Init");
-            foreach (string file in files)
+            string folderName = srcdir.Substring(srcdir.LastIndexOf("\\") + 1);
+
+            string desfolderdir = desdir + "\\" + folderName;
+
+            if (desdir.LastIndexOf("\\") == (desdir.Length - 1))
             {
-                File.Copy(file, _servicePort + "\\" + new FileInfo(file).Name);
+                desfolderdir = desdir + folderName;
+            }
+            string[] filenames = Directory.GetFileSystemEntries(srcdir);
+
+            foreach (string file in filenames)
+            {
+                if (Directory.Exists(file))
+                {
+
+                    string currentdir = desfolderdir + "\\" + file.Substring(file.LastIndexOf("\\") + 1);
+                    if (!Directory.Exists(currentdir))
+                    {
+                        Directory.CreateDirectory(currentdir);
+                    }
+
+                    CopyDirectory(file, desfolderdir);
+                }
+
+                else
+                {
+                    string srcfileName = file.Substring(file.LastIndexOf("\\") + 1);
+
+                    srcfileName = desfolderdir + "\\" + srcfileName;
+
+                    if (!Directory.Exists(desfolderdir))
+                    {
+                        Directory.CreateDirectory(desfolderdir);
+                    }
+
+                    File.Copy(file, srcfileName);
+                }
             }
         }
+
+
 
         private static void CheckCrash()
         {
@@ -207,7 +247,7 @@ namespace Iveely.CloudComputing.Worker
                 _statusCenter = Serializer.DeserializeFromFile<Hashtable>(runnerFile);
                 foreach (DictionaryEntry dictionaryEntry in _statusCenter)
                 {
-                    var status = (RunningStatus) dictionaryEntry.Value;
+                    var status = (RunningStatus)dictionaryEntry.Value;
                     //Runner runner = (Runner)dictionaryEntry.Value;
                     if (status.Description == "Running")
                     {
@@ -223,7 +263,7 @@ namespace Iveely.CloudComputing.Worker
         {
             if (_statusCenter[key] != null)
             {
-                ((RunningStatus) _statusCenter[key]).Description = status;
+                ((RunningStatus)_statusCenter[key]).Description = status;
                 Backup();
             }
         }
