@@ -38,11 +38,12 @@ using System.Collections.Generic;
 
 namespace SharpICTCLAS
 {
-   public class ChainItem<T>
-   {
-      public int row;
-      public int col;
-      public T Content;
-      public ChainItem<T> next;
-   }
+    [Serializable]
+    public class ChainItem<T>
+    {
+        public int row;
+        public int col;
+        public T Content;
+        public ChainItem<T> next;
+    }
 }

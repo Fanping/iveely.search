@@ -39,143 +39,144 @@ using System.Collections.Generic;
 
 namespace SharpICTCLAS
 {
-   public abstract class DynamicArray<T>
-   {
-      protected ChainItem<T> pHead;  //The head pointer of array chain
-      public int ColumnCount, RowCount;  //The row and col of the array
+    [Serializable]
+    public abstract class DynamicArray<T>
+    {
+        protected ChainItem<T> pHead;  //The head pointer of array chain
+        public int ColumnCount, RowCount;  //The row and col of the array
 
-      #region Constructor
+        #region Constructor
 
-      public DynamicArray()
-      {
-         pHead = null;
-         RowCount = 0;
-         ColumnCount = 0;
-      }
+        public DynamicArray()
+        {
+            pHead = null;
+            RowCount = 0;
+            ColumnCount = 0;
+        }
 
-      #endregion
+        #endregion
 
-      #region ItemCount Property
+        #region ItemCount Property
 
-      public int ItemCount
-      {
-         get
-         {
+        public int ItemCount
+        {
+            get
+            {
+                ChainItem<T> pCur = pHead;
+                int nCount = 0;
+                while (pCur != null)
+                {
+                    nCount++;
+                    pCur = pCur.next;
+                }
+                return nCount;
+            }
+        }
+
+        #endregion
+
+        #region GetElement Method
+
+        //====================================================================
+        // 查找行、列值为nRow, nCol的结点
+        //====================================================================
+        public ChainItem<T> GetElement(int nRow, int nCol)
+        {
             ChainItem<T> pCur = pHead;
+
+            while (pCur != null && !(pCur.col == nCol && pCur.row == nRow))
+                pCur = pCur.next;
+
+            return pCur;
+        }
+
+        #endregion
+
+        #region SetElement Method
+
+        //====================================================================
+        // 设置或插入一个新的结点
+        //====================================================================
+        public abstract void SetElement(int nRow, int nCol, T content);
+
+        #endregion
+
+        #region GetHead, GetTail, SetEmpty Method
+
+        //====================================================================
+        // Return the head element of ArrayChain
+        //====================================================================
+        public ChainItem<T> GetHead()
+        {
+            return pHead;
+        }
+
+        //====================================================================
+        //Get the tail Element buffer and return the count of elements
+        //====================================================================
+        public int GetTail(out ChainItem<T> pTailRet)
+        {
+            ChainItem<T> pCur = pHead, pPrev = null;
             int nCount = 0;
             while (pCur != null)
             {
-               nCount++;
-               pCur = pCur.next;
+                nCount++;
+                pPrev = pCur;
+                pCur = pCur.next;
             }
+            pTailRet = pPrev;
             return nCount;
-         }
-      }
+        }
 
-      #endregion
+        //====================================================================
+        // Set Empty
+        //====================================================================
+        public void SetEmpty()
+        {
+            pHead = null;
+            ColumnCount = 0;
+            RowCount = 0;
+        }
 
-      #region GetElement Method
+        #endregion
 
-      //====================================================================
-      // 查找行、列值为nRow, nCol的结点
-      //====================================================================
-      public ChainItem<T> GetElement(int nRow, int nCol)
-      {
-         ChainItem<T> pCur = pHead;
+        #region ToString Method
 
-         while (pCur != null && !(pCur.col == nCol && pCur.row == nRow))
-            pCur = pCur.next;
+        public override string ToString()
+        {
+            StringBuilder sb = new StringBuilder();
 
-         return pCur;
-      }
+            ChainItem<T> pCur = pHead;
 
-      #endregion
+            while (pCur != null)
+            {
+                sb.Append(string.Format("row:{0,3},  col:{1,3},  ", pCur.row, pCur.col));
+                sb.Append(pCur.Content.ToString());
+                sb.Append("\r\n");
+                pCur = pCur.next;
+            }
 
-      #region SetElement Method
+            return sb.ToString();
+        }
 
-      //====================================================================
-      // 设置或插入一个新的结点
-      //====================================================================
-      public abstract void SetElement(int nRow, int nCol, T content);
+        #endregion
 
-      #endregion
+        #region
 
-      #region GetHead, GetTail, SetEmpty Method
+        public List<ChainItem<T>> ToListItems()
+        {
+            List<ChainItem<T>> result = new List<ChainItem<T>>();
 
-      //====================================================================
-      // Return the head element of ArrayChain
-      //====================================================================
-      public ChainItem<T> GetHead()
-      {
-         return pHead;
-      }
+            ChainItem<T> pCur = pHead;
+            while (pCur != null)
+            {
+                result.Add(pCur);
+                pCur = pCur.next;
+            }
 
-      //====================================================================
-      //Get the tail Element buffer and return the count of elements
-      //====================================================================
-      public int GetTail(out ChainItem<T> pTailRet)
-      {
-         ChainItem<T> pCur = pHead, pPrev = null;
-         int nCount = 0;
-         while (pCur != null)
-         {
-            nCount++;
-            pPrev = pCur;
-            pCur = pCur.next;
-         }
-         pTailRet = pPrev;
-         return nCount;
-      }
+            return result;
+        }
 
-      //====================================================================
-      // Set Empty
-      //====================================================================
-      public void SetEmpty()
-      {
-         pHead = null;
-         ColumnCount = 0;
-         RowCount = 0;
-      }
-
-      #endregion
-
-      #region ToString Method
-
-      public override string ToString()
-      {
-         StringBuilder sb = new StringBuilder();
-
-         ChainItem<T> pCur = pHead;
-
-         while (pCur != null)
-         {
-            sb.Append(string.Format("row:{0,3},  col:{1,3},  ", pCur.row, pCur.col));
-            sb.Append(pCur.Content.ToString());
-            sb.Append("\r\n");
-            pCur = pCur.next;
-         }
-
-         return sb.ToString();
-      }
-
-      #endregion
-
-      #region 
-
-      public List<ChainItem<T>> ToListItems()
-      {
-         List<ChainItem<T>> result = new List<ChainItem<T>>();
-
-         ChainItem<T> pCur = pHead;
-         while (pCur != null)
-         {
-            result.Add(pCur);
-            pCur = pCur.next;
-         }
-
-         return result;
-      }
-
-      #endregion
-   }
+        #endregion
+    }
 }

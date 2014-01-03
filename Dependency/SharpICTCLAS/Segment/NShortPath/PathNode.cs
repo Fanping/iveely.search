@@ -39,15 +39,16 @@ using System.Text;
 
 namespace SharpICTCLAS
 {
-   internal class PathNode
-   {
-      public int nParent;
-      public int nIndex;
+    [Serializable]
+    internal class PathNode
+    {
+        public int nParent;
+        public int nIndex;
 
-      public PathNode(int parent, int index)
-      {
-         this.nParent = parent;
-         this.nIndex = index;
-      }
-   }
+        public PathNode(int parent, int index)
+        {
+            this.nParent = parent;
+            this.nIndex = index;
+        }
+    }
 }

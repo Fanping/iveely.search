@@ -39,19 +39,20 @@ using System.Text;
 
 namespace SharpICTCLAS
 {
-   public class SegmentEventArgs : EventArgs
-   {
-      public SegmentStage Stage;
-      public string Info = "";
+    [Serializable]
+    public class SegmentEventArgs : EventArgs
+    {
+        public SegmentStage Stage;
+        public string Info = "";
 
-      public SegmentEventArgs()
-      {
-      }
+        public SegmentEventArgs()
+        {
+        }
 
-      public SegmentEventArgs(SegmentStage stage, string info)
-      {
-         this.Stage = stage;
-         this.Info = info;
-      }
-   }
+        public SegmentEventArgs(SegmentStage stage, string info)
+        {
+            this.Stage = stage;
+            this.Info = info;
+        }
+    }
 }

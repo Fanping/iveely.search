@@ -40,6 +40,7 @@ using System.Text.RegularExpressions;
 
 namespace SharpICTCLAS
 {
+    [Serializable]
     public class Segment
     {
         private WordDictionary biDict, coreDict;

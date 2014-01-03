@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Net.Mime;
 using Iveely.CloudComputing.Client;
 using Iveely.Framework.Algorithm;
 using Iveely.Framework.Algorithm.AI;
@@ -287,7 +288,6 @@ namespace Iveely.SearchEngine
                 TextFragment = Serializer.DeserializeFromFile<InvertFragment>(_textIndexFile);
             }
             int servicePort = int.Parse(GetRootFolder()) % 100;
-
             try
             {
                 _searchPort += servicePort;
@@ -304,40 +304,65 @@ namespace Iveely.SearchEngine
 
         public byte[] ProcessQuery(byte[] bytes)
         {
-            string currentQueryIndex = GetGlobalCache<string>("CurrentQueryIndex");
-            if (!string.IsNullOrEmpty(currentQueryIndex))
+            string type = System.Text.Encoding.UTF8.GetString(bytes);
+
+            //如果是文本搜索
+            if (type == "Text-Query")
             {
-                string query = GetGlobalCache<string>(currentQueryIndex);
-                WriteToConsole("Get Query:" + query);
-                string[] keywords = NGram.GetGram(query, NGram.Type.BiGram);
-                List<string> docs = TextFragment.FindCommonDocumentByKeys(keywords);
-                List<Template.Question> result = new List<Template.Question>();
-                using (var database = Database.Open(GetRootFolder() + "\\Iveely.Search.Question"))
+                string currentTextQuery = GetGlobalCache<string>("Current-Text-Query");
+                if (!string.IsNullOrEmpty(currentTextQuery))
                 {
-                    var wordsQuey = database.Query<Template.Question>();
-                    int returnCount = 5;
-                    foreach (string doc in docs)
+                    string query = GetGlobalCache<string>(currentTextQuery);
+                    WriteToConsole("Get Text Query:" + query);
+                    string[] keywords = IctclasSegment.GetInstance().SplitToString(query).Split(new[] { ' ' });
+                    List<string> docs = TextFragment.FindCommonDocumentByKeys(keywords);
+                    List<Template.Question> result = new List<Template.Question>();
+                    using (var database = Database.Open(GetRootFolder() + "\\Iveely.Search.Question"))
                     {
-                        if (returnCount == 0)
-                            break;
-                        returnCount--;
-                        wordsQuey.Descend("Id").Constrain(int.Parse(doc)).Equal();
-                        var questions = wordsQuey.Execute<Template.Question>();
-                        if (questions != null && questions.Count > 0)
+                        var wordsQuey = database.Query<Template.Question>();
+                        int returnCount = 10;
+                        foreach (string doc in docs)
                         {
-                            result.Add(questions.GetFirst());
+                            if (returnCount == 0)
+                                break;
+                            returnCount--;
+                            wordsQuey.Descend("Id").Constrain(int.Parse(doc)).Equal();
+                            var questions = wordsQuey.Execute<Template.Question>();
+                            if (questions != null && questions.Count > 0)
+                            {
+                                result.Add(questions.GetFirst());
+                            }
                         }
                     }
+                    string inputResultKey = Dns.GetHostName() + "," + _searchPort + query;
+                    WriteToConsole("Result write into cache key=" + inputResultKey + ", count=" + result.Count);
+                    string content = string.Join("\r\n", result);
+                    content = keywords.Aggregate(content,
+                        (current, keyword) => current.Replace(keyword, "<strong>" + keyword + "</strong>"));
+                    SetGlobalCache(inputResultKey, content);
                 }
-                string inputResultKey = Dns.GetHostName() + "," + _searchPort + query;
-                WriteToConsole("Result write into cache key=" + inputResultKey + ", count=" + result.Count);
-                //if (result.Count > 10)
-                //{
-                //    result.RemoveRange(10, result.Count - 10);
-                //}
-                string content = string.Join("\r\n", result);
-                content = keywords.Aggregate(content, (current, keyword) => current.Replace(keyword, "<strong>" + keyword + "</strong>"));
-                SetGlobalCache(inputResultKey, content);
+            }
+
+            //如果是相关搜索
+            else if (type == "Relative-Query")
+            {
+                string currentRelativeQuery = GetGlobalCache<string>("Current-Relative-Query");
+                if (!string.IsNullOrEmpty(currentRelativeQuery))
+                {
+                    string query = GetGlobalCache<string>(currentRelativeQuery);
+                    WriteToConsole("Get Relative Query:" + query);
+                    List<Tuple<string, double>> result = RelativeTable[query].GetAllKeyValue();
+                    string inputResultKey = Dns.GetHostName() + "," + _searchPort + query;
+                    if (result != null)
+                    {
+                        if (result.Count > 5)
+                        {
+                            result.RemoveRange(5, result.Count - 5);
+                        }
+                        SetGlobalCache(inputResultKey, result);
+                    }
+                    SetGlobalCache(inputResultKey, new List<Tuple<string, double>>());
+                }
             }
             return Serializer.SerializeToBytes(true);
         }

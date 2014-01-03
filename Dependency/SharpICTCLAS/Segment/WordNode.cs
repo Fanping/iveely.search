@@ -39,13 +39,14 @@ using System.Text;
 
 namespace SharpICTCLAS
 {
-   internal class WordNode
-   {
-      public int row;
-      public int col;
-      public WordResult theWord;
-      public string sWordInSegGraph;
+    [Serializable]
+    internal class WordNode
+    {
+        public int row;
+        public int col;
+        public WordResult theWord;
+        public string sWordInSegGraph;
 
-      public WordNode next;
-   }
+        public WordNode next;
+    }
 }

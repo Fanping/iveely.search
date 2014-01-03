@@ -82,12 +82,12 @@ namespace Iveely.Framework.DataStructure
                 return result;
             }
 
-            public SortedList<TValue> GetAllKeys()
+            public SortedList<TRow> GetAllKeys()
             {
-                var result = new SortedList<TValue>();
+                var result = new SortedList<TRow>();
                 foreach (DictionaryEntry row in _table)
                 {
-                    result.Add((TValue)row.Key);
+                    result.Add((TRow)row.Key);
                 }
                 return result;
             }
@@ -99,13 +99,13 @@ namespace Iveely.Framework.DataStructure
             /// 整数部分是次数
             /// </summary>
             /// <returns> </returns>
-            public SortedList<TValue> GetAllKeyValue()
+            public List<Tuple<TRow, TValue>> GetAllKeyValue()
             {
-                var result = new SortedList<TValue>();
+                var result = new List<Tuple<TRow, TValue>>();
                 foreach (DictionaryEntry row in _table)
                 {
-                    TValue r = ConvertType(row.Key + "#=+key:value+=#" + row.Value);
-                    result.Add(r);
+                    Tuple<TRow, TValue> tuple = new Tuple<TRow, TValue>((TRow)row.Key, (TValue)row.Value);
+                    result.Add(tuple);
                 }
                 return result;
             }
@@ -185,7 +185,7 @@ namespace Iveely.Framework.DataStructure
         public List<TRow> GetFirstCloumns()
         {
             //读取每一行
-            return (from DictionaryEntry cloumn in _cloumns select (TRow) cloumn.Key).ToList();
+            return (from DictionaryEntry cloumn in _cloumns select (TRow)cloumn.Key).ToList();
         }
 
         /// <summary>

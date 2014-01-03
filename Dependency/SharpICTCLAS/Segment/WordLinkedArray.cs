@@ -39,40 +39,41 @@ using System.Text;
 
 namespace SharpICTCLAS
 {
-   internal class WordLinkedArray
-   {
-      public WordNode first = null;
-      public WordNode last = null;
-      public int Count = 0;
+    [Serializable]
+    internal class WordLinkedArray
+    {
+        public WordNode first = null;
+        public WordNode last = null;
+        public int Count = 0;
 
-      public void AppendNode(WordNode node)
-      {
-         if (first == null && last == null)
-         {
-            first = node;
-            last = node;
-         }
-         else
-         {
-            last.next = node;
-            last = node;
-         }
+        public void AppendNode(WordNode node)
+        {
+            if (first == null && last == null)
+            {
+                first = node;
+                last = node;
+            }
+            else
+            {
+                last.next = node;
+                last = node;
+            }
 
-         Count++;
-      }
+            Count++;
+        }
 
-      public override string ToString()
-      {
-         StringBuilder sb = new StringBuilder();
+        public override string ToString()
+        {
+            StringBuilder sb = new StringBuilder();
 
-         WordNode cur = first;
-         while (cur != null)
-         {
-            sb.Append(string.Format("{0}, ", cur.theWord.sWord));
-            cur = cur.next;
-         }
+            WordNode cur = first;
+            while (cur != null)
+            {
+                sb.Append(string.Format("{0}, ", cur.theWord.sWord));
+                cur = cur.next;
+            }
 
-         return sb.ToString();
-      }
-   }
+            return sb.ToString();
+        }
+    }
 }

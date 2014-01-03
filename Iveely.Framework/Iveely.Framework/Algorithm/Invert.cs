@@ -78,7 +78,7 @@ namespace Iveely.Framework.Algorithm
         /// <param name="key"> 关键字 </param>
         /// <param name="asc"> 是否为升序 </param>
         /// <returns> 返回按照频率的集合 </returns>
-        public List<T> FindDocumentByKey(string key, bool asc)
+        public List<string> FindDocumentByKey(string key, bool asc)
         {
             return Table[key].GetAllKeys();
         }
@@ -107,12 +107,12 @@ namespace Iveely.Framework.Algorithm
         /// </example>
         /// </summary>
         /// <returns> 返回按照频率的集合 </returns>
-        public List<T> FindCommonDocumentByKeys(string[] keys)
+        public List<string> FindCommonDocumentByKeys(string[] keys)
         {
-            List<T> result = new List<T>();
+            List<string> result = new List<string>();
             foreach (string key in keys)
             {
-                List<T> temp = FindDocumentByKey(key, false);
+                List<string> temp = FindDocumentByKey(key, false);
                 if (temp != null)
                 {
                     result.AddRange(temp);

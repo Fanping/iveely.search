@@ -39,6 +39,7 @@ using System.Text;
 
 namespace SharpICTCLAS
 {
+   [Serializable]
    public class ContextItem
    {
       public int nKey; //The key word

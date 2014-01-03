@@ -39,37 +39,38 @@ using System.Text;
 
 namespace SharpICTCLAS
 {
-   public class ChainContent
-   {
-      public string sWord;
-      public int nPOS;
-      public double eWeight;
+    [Serializable]
+    public class ChainContent
+    {
+        public string sWord;
+        public int nPOS;
+        public double eWeight;
 
-      public ChainContent()
-      {
-      }
+        public ChainContent()
+        {
+        }
 
-      public ChainContent(double eWeight)
-      {
-         this.eWeight = eWeight;
-      }
+        public ChainContent(double eWeight)
+        {
+            this.eWeight = eWeight;
+        }
 
-      public ChainContent(double eWeight, int nPos)
-      {
-         this.eWeight = eWeight;
-         this.nPOS = nPos;
-      }
+        public ChainContent(double eWeight, int nPos)
+        {
+            this.eWeight = eWeight;
+            this.nPOS = nPos;
+        }
 
-      public ChainContent(double eWeight, int nPos, string sWord)
-      {
-         this.eWeight = eWeight;
-         this.nPOS = nPos;
-         this.sWord = sWord;
-      }
+        public ChainContent(double eWeight, int nPos, string sWord)
+        {
+            this.eWeight = eWeight;
+            this.nPOS = nPos;
+            this.sWord = sWord;
+        }
 
-      public override string ToString()
-      {
-         return string.Format("eWeight:{0, 10:F2},   nPOS:{1, 7},   sWord:{2}", eWeight, nPOS, sWord);
-      }
-   }
+        public override string ToString()
+        {
+            return string.Format("eWeight:{0, 10:F2},   nPOS:{1, 7},   sWord:{2}", eWeight, nPOS, sWord);
+        }
+    }
 }

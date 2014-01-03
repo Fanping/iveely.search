@@ -41,6 +41,7 @@ using System.Text.RegularExpressions;
 
 namespace SharpICTCLAS
 {
+    [Serializable]
     public sealed class Utility
     {
         private Utility()

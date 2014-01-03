@@ -39,11 +39,12 @@ using System.Text;
 
 namespace SharpICTCLAS
 {
-   public enum TAG_TYPE
-   {
-      TT_NORMAL, 
-      TT_PERSON, 
-      TT_PLACE, 
-      TT_TRANS_PERSON
-   }
+    [Serializable]
+    public enum TAG_TYPE
+    {
+        TT_NORMAL,
+        TT_PERSON,
+        TT_PLACE,
+        TT_TRANS_PERSON
+    }
 }

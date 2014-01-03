@@ -39,83 +39,89 @@ using System.Text;
 
 namespace SharpICTCLAS
 {
-   //==================================================
-   // Original predefined in DynamicArray.h file
-   //==================================================
-   public class WordResult
-   {
-      //The word 
-      public string sWord;
+    //==================================================
+    // Original predefined in DynamicArray.h file
+    //==================================================
+    [Serializable]
+    public class WordResult
+    {
+        //The word 
+        public string sWord;
 
-      //the POS of the word
-      public int nPOS;
+        //the POS of the word
+        public int nPOS;
 
-      //The -log(frequency/MAX)
-      public double dValue;
-   }
+        //The -log(frequency/MAX)
+        public double dValue;
+    }
 
-   //--------------------------------------------------
-   // data structure for word item
-   //--------------------------------------------------
-   public class WordItem
-   {
-      public int nWordLen;
+    //--------------------------------------------------
+    // data structure for word item
+    //--------------------------------------------------
+    [Serializable]
+    public class WordItem
+    {
+        public int nWordLen;
 
-      //The word 
-      public string sWord;
+        //The word 
+        public string sWord;
 
-      //the process or information handle of the word
-      public int nPOS;
+        //the process or information handle of the word
+        public int nPOS;
 
-      //The count which it appear
-      public int nFrequency;
-   }
+        //The count which it appear
+        public int nFrequency;
+    }
 
-   //--------------------------------------------------
-   //data structure for dictionary index table item
-   //--------------------------------------------------
-   public class IndexTableItem
-   {
-      //The count number of words which initial letter is sInit
-      public int nCount;
+    //--------------------------------------------------
+    //data structure for dictionary index table item
+    //--------------------------------------------------
+    [Serializable]
+    public class IndexTableItem
+    {
+        //The count number of words which initial letter is sInit
+        public int nCount;
 
-      //The  head of word items
-      public WordItem[] WordItems;
-   }
+        //The  head of word items
+        public WordItem[] WordItems;
+    }
 
-   //--------------------------------------------------
-   //data structure for word item chain
-   //--------------------------------------------------
-   public class WordChain
-   {
-      public WordItem data;
-      public WordChain next;
-   }
+    //--------------------------------------------------
+    //data structure for word item chain
+    //--------------------------------------------------
+    [Serializable]
+    public class WordChain
+    {
+        public WordItem data;
+        public WordChain next;
+    }
 
-   //--------------------------------------------------
-   //data structure for dictionary index table item
-   //--------------------------------------------------
-   public class ModifyTableItem
-   {
-      //The count number of words which initial letter is sInit
-      public int nCount;
+    //--------------------------------------------------
+    //data structure for dictionary index table item
+    //--------------------------------------------------
+    [Serializable]
+    public class ModifyTableItem
+    {
+        //The count number of words which initial letter is sInit
+        public int nCount;
 
-      //The number of deleted items in the index table
-      public int nDelete;
+        //The number of deleted items in the index table
+        public int nDelete;
 
-      //The head of word items
-      public WordChain pWordItemHead;
-   }
+        //The head of word items
+        public WordChain pWordItemHead;
+    }
 
-   //--------------------------------------------------
-   // return value of GetWordInfos Method in Dictionary.cs
-   //--------------------------------------------------
-   public class WordInfo
-   {
-      public string sWord;
-      public int Count = 0;
+    //--------------------------------------------------
+    // return value of GetWordInfos Method in Dictionary.cs
+    //--------------------------------------------------
+    [Serializable]
+    public class WordInfo
+    {
+        public string sWord;
+        public int Count = 0;
 
-      public List<int> POSs = new List<int>();
-      public List<int> Frequencies = new List<int>();
-   }
+        public List<int> POSs = new List<int>();
+        public List<int> Frequencies = new List<int>();
+    }
 }

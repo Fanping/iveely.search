@@ -37,79 +37,80 @@ using System;
 
 namespace SharpICTCLAS
 {
-   public class ColumnFirstDynamicArray<T> : DynamicArray<T>
-   {
+    [Serializable]
+    public class ColumnFirstDynamicArray<T> : DynamicArray<T>
+    {
 
-      #region GetElement Method
+        #region GetElement Method
 
-      //====================================================================
-      // 查找列为 nCol 的第一个结点
-      //====================================================================
-      public ChainItem<T> GetFirstElementOfCol(int nCol)
-      {
-         ChainItem<T> pCur = pHead;
+        //====================================================================
+        // 查找列为 nCol 的第一个结点
+        //====================================================================
+        public ChainItem<T> GetFirstElementOfCol(int nCol)
+        {
+            ChainItem<T> pCur = pHead;
 
-         while (pCur != null && pCur.col != nCol)
-            pCur = pCur.next;
+            while (pCur != null && pCur.col != nCol)
+                pCur = pCur.next;
 
-         return pCur;
-      }
+            return pCur;
+        }
 
-      //====================================================================
-      // 从 startFrom 处向后查找列为 nCol 的第一个结点
-      //====================================================================
-      public ChainItem<T> GetFirstElementOfCol(int nCol, ChainItem<T> startFrom)
-      {
-         ChainItem<T> pCur = startFrom;
+        //====================================================================
+        // 从 startFrom 处向后查找列为 nCol 的第一个结点
+        //====================================================================
+        public ChainItem<T> GetFirstElementOfCol(int nCol, ChainItem<T> startFrom)
+        {
+            ChainItem<T> pCur = startFrom;
 
-         while (pCur != null && pCur.col != nCol)
-            pCur = pCur.next;
+            while (pCur != null && pCur.col != nCol)
+                pCur = pCur.next;
 
-         return pCur;
-      }
+            return pCur;
+        }
 
-      #endregion
+        #endregion
 
-      #region SetElement Method
+        #region SetElement Method
 
-      //====================================================================
-      // 设置或插入一个新的结点
-      //====================================================================
-      public override void SetElement(int nRow, int nCol, T content)
-      {
-         ChainItem<T> pCur = pHead, pPre = null, pNew;  //The pointer of array chain
+        //====================================================================
+        // 设置或插入一个新的结点
+        //====================================================================
+        public override void SetElement(int nRow, int nCol, T content)
+        {
+            ChainItem<T> pCur = pHead, pPre = null, pNew;  //The pointer of array chain
 
-         if (nRow > RowCount)//Set the array row
-            RowCount = nRow;
+            if (nRow > RowCount)//Set the array row
+                RowCount = nRow;
 
-         if (nCol > ColumnCount)//Set the array col
-            ColumnCount = nCol;
+            if (nCol > ColumnCount)//Set the array col
+                ColumnCount = nCol;
 
-         while (pCur != null && (pCur.col < nCol || (pCur.col == nCol && pCur.row < nRow)))
-         {
-            pPre = pCur;
-            pCur = pCur.next;
-         }
+            while (pCur != null && (pCur.col < nCol || (pCur.col == nCol && pCur.row < nRow)))
+            {
+                pPre = pCur;
+                pCur = pCur.next;
+            }
 
-         if (pCur != null && pCur.row == nRow && pCur.col == nCol)//Find the same position
-            pCur.Content = content;//Set the value
-         else
-         {
-            pNew = new ChainItem<T>();//malloc a new node
-            pNew.col = nCol;
-            pNew.row = nRow;
-            pNew.Content = content;
-
-            pNew.next = pCur;
-
-            if (pPre == null)//link pNew after the pPre
-               pHead = pNew;
+            if (pCur != null && pCur.row == nRow && pCur.col == nCol)//Find the same position
+                pCur.Content = content;//Set the value
             else
-               pPre.next = pNew;
-         }
-      }
+            {
+                pNew = new ChainItem<T>();//malloc a new node
+                pNew.col = nCol;
+                pNew.row = nRow;
+                pNew.Content = content;
 
-      #endregion
-      
-   }
+                pNew.next = pCur;
+
+                if (pPre == null)//link pNew after the pPre
+                    pHead = pNew;
+                else
+                    pPre.next = pNew;
+            }
+        }
+
+        #endregion
+
+    }
 }

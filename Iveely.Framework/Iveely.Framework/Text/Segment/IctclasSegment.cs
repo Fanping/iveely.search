@@ -23,6 +23,7 @@ namespace Iveely.Framework.Text.Segment
 #if DEBUG
     [TestClass]
 #endif
+    [Serializable]
     public class IctclasSegment
     {
 
@@ -86,7 +87,7 @@ namespace Iveely.Framework.Text.Segment
             {
                 for (int j = 1; j < result[i].Length - 1; j++)
                 {
-                    buffer += result[i][j].sWord + "/";
+                    buffer += result[i][j].sWord + " ";
                 }
             }
             return buffer;

@@ -39,19 +39,20 @@ using System.Text;
 
 namespace SharpICTCLAS
 {
-   public class AtomNode
-   {
-      public string sWord;
-      public int nPOS;
+    [Serializable]
+    public class AtomNode
+    {
+        public string sWord;
+        public int nPOS;
 
-      public AtomNode()
-      {
-      }
+        public AtomNode()
+        {
+        }
 
-      public AtomNode(string sWord, int nPOS)
-      {
-         this.sWord = sWord;
-         this.nPOS = nPOS;
-      }
-   }
+        public AtomNode(string sWord, int nPOS)
+        {
+            this.sWord = sWord;
+            this.nPOS = nPOS;
+        }
+    }
 }

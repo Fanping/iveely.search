@@ -39,99 +39,100 @@ using System.Text;
 
 namespace SharpICTCLAS
 {
-   internal class QueueElement
-   {
-      public int nParent;
-      public int nIndex;
-      public double eWeight;
-      public QueueElement next = null;
+    [Serializable]
+    internal class QueueElement
+    {
+        public int nParent;
+        public int nIndex;
+        public double eWeight;
+        public QueueElement next = null;
 
-      public QueueElement(int nParent, int nIndex, double eWeight)
-      {
-         this.nParent = nParent;
-         this.nIndex = nIndex;
-         this.eWeight = eWeight;
-      }
-   }
+        public QueueElement(int nParent, int nIndex, double eWeight)
+        {
+            this.nParent = nParent;
+            this.nIndex = nIndex;
+            this.eWeight = eWeight;
+        }
+    }
 
-   internal class CQueue
-   {
-      private QueueElement pHead = null;
-      private QueueElement pLastAccess = null;
+    internal class CQueue
+    {
+        private QueueElement pHead = null;
+        private QueueElement pLastAccess = null;
 
-      //====================================================================
-      // 将QueueElement根据eWeight由小到大的顺序插入队列
-      //====================================================================
-      public void EnQueue(QueueElement newElement)
-      {
-         QueueElement pCur = pHead, pPre = null;
+        //====================================================================
+        // 将QueueElement根据eWeight由小到大的顺序插入队列
+        //====================================================================
+        public void EnQueue(QueueElement newElement)
+        {
+            QueueElement pCur = pHead, pPre = null;
 
-         while (pCur != null && pCur.eWeight < newElement.eWeight)
-         {
-            pPre = pCur;
-            pCur = pCur.next;
-         }
+            while (pCur != null && pCur.eWeight < newElement.eWeight)
+            {
+                pPre = pCur;
+                pCur = pCur.next;
+            }
 
-         newElement.next = pCur;
+            newElement.next = pCur;
 
-         if (pPre == null)
-            pHead = newElement;
-         else
-            pPre.next = newElement;
-      }
+            if (pPre == null)
+                pHead = newElement;
+            else
+                pPre.next = newElement;
+        }
 
-      //====================================================================
-      // 从队列中取出前面的一个元素
-      //====================================================================
-      public QueueElement DeQueue()
-      {
-         if (pHead == null)
-            return null;
+        //====================================================================
+        // 从队列中取出前面的一个元素
+        //====================================================================
+        public QueueElement DeQueue()
+        {
+            if (pHead == null)
+                return null;
 
-         QueueElement pRet = pHead;
-         pHead = pHead.next;
+            QueueElement pRet = pHead;
+            pHead = pHead.next;
 
-         return pRet;
-      }
+            return pRet;
+        }
 
-      //====================================================================
-      // 读取第一个元素，但不执行DeQueue操作
-      //====================================================================
-      public QueueElement GetFirst()
-      {
-         pLastAccess = pHead;
-         return pLastAccess;
-      }
+        //====================================================================
+        // 读取第一个元素，但不执行DeQueue操作
+        //====================================================================
+        public QueueElement GetFirst()
+        {
+            pLastAccess = pHead;
+            return pLastAccess;
+        }
 
-      //====================================================================
-      // 读取上次读取后的下一个元素，不执行DeQueue操作
-      //====================================================================
-      public QueueElement GetNext()
-      {
-         if (pLastAccess != null)
-            pLastAccess = pLastAccess.next;
+        //====================================================================
+        // 读取上次读取后的下一个元素，不执行DeQueue操作
+        //====================================================================
+        public QueueElement GetNext()
+        {
+            if (pLastAccess != null)
+                pLastAccess = pLastAccess.next;
 
-         return pLastAccess;
-      }
+            return pLastAccess;
+        }
 
-      //====================================================================
-      // 是否仍然有下一个元素可供读取
-      //====================================================================
-      public bool CanGetNext
-      {
-         get
-         {
-            return (pLastAccess.next != null);
-         }
-      }
+        //====================================================================
+        // 是否仍然有下一个元素可供读取
+        //====================================================================
+        public bool CanGetNext
+        {
+            get
+            {
+                return (pLastAccess.next != null);
+            }
+        }
 
-      //====================================================================
-      // 清除所有元素
-      //====================================================================
-      public void Clear()
-      {
-         pHead = null;
-         pLastAccess = null;
-      }
-   }
+        //====================================================================
+        // 清除所有元素
+        //====================================================================
+        public void Clear()
+        {
+            pHead = null;
+            pLastAccess = null;
+        }
+    }
 }

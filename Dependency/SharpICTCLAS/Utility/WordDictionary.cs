@@ -39,6 +39,7 @@ using System.IO;
 
 namespace SharpICTCLAS
 {
+    [Serializable]
     public class WordDictionary
     {
         public bool bReleased = true;
