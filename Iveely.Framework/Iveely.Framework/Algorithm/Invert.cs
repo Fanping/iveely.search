@@ -54,7 +54,7 @@ namespace Iveely.Framework.Algorithm
         public void AddDocument(object id, string doc, bool split = false)
         {
             // 获取此文档的词频集合
-            string[] words = split ? doc.Split(' ') : IctclasSegment.GetInstance().SplitToString(doc).Split(new[] { '/' }, StringSplitOptions.RemoveEmptyEntries);
+            string[] words = split ? doc.Split(' ') : IctclasSegment.GetInstance().SplitToString(doc).Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
             ProcessWords(words, id);
         }
 

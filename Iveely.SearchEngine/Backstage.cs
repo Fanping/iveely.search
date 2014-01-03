@@ -98,14 +98,32 @@ namespace Iveely.SearchEngine
         {
             //1. 初始化
             Init(args);
-            TextFragment = new InvertFragment(GetRootFolder());
-            RelativeTable = new DimensionTable<string, string, double>();
-            Urls.Add("http://www.baike.com");
             _textIndexFile = GetRootFolder() + "\\InvertFragment.part";
-            _relativeIndexFile = GetRootFolder() + "\\RelativeFragment.part";
+           
+            //1.1 文本索引文件
+            if (File.Exists(_textIndexFile))
+                TextFragment = Serializer.DeserializeFromFile<InvertFragment>(_textIndexFile);
+            if (TextFragment == null)
+            {
+                TextFragment = new InvertFragment(GetRootFolder());
+            }
 
+            //1.2 相关索引文件
+            _relativeIndexFile = GetRootFolder() + "\\RelativeFragment.part";
+            if (File.Exists(_relativeIndexFile))
+                RelativeTable = Serializer.DeserializeFromFile<DimensionTable<string, string, double>>(_relativeIndexFile);
+            if (RelativeTable == null)
+            {
+                RelativeTable = new DimensionTable<string, string, double>();
+            }
+            Urls.Add("http://www.baike.com");
+
+
+            //StartSearcher();
             Thread searchThread = new Thread(StartSearcher);
             searchThread.Start();
+
+            Thread.Sleep(10000);
 
             //2. 循环数据采集
             while (Urls.Count > 0)
@@ -247,12 +265,12 @@ namespace Iveely.SearchEngine
             //对表达的语义建议索引
             // WriteToConsole(string.Format("对表达的语义建议索引，共{0}条记录。", questions.Count));
 
-            if (File.Exists(_textIndexFile))
+            if (File.Exists(_textIndexFile) && TextFragment == null)
             {
                 TextFragment = Serializer.DeserializeFromFile<InvertFragment>(_textIndexFile);
             }
 
-            if (File.Exists(_relativeIndexFile))
+            if (File.Exists(_relativeIndexFile) && RelativeTable == null)
             {
                 RelativeTable =
                     Serializer.DeserializeFromFile<DimensionTable<string, string, double>>(_relativeIndexFile);
@@ -285,9 +303,14 @@ namespace Iveely.SearchEngine
 
         public void StartSearcher()
         {
-            if (File.Exists(_textIndexFile))
+            if (File.Exists(_textIndexFile) && TextFragment == null)
             {
                 TextFragment = Serializer.DeserializeFromFile<InvertFragment>(_textIndexFile);
+            }
+            if (File.Exists(_relativeIndexFile) && RelativeTable == null)
+            {
+                RelativeTable =
+                    Serializer.DeserializeFromFile<DimensionTable<string, string, double>>(_relativeIndexFile);
             }
             int servicePort = int.Parse(GetRootFolder()) % 100;
             try
