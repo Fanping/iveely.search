@@ -91,6 +91,8 @@ namespace Iveely.Framework.Algorithm.AI
                 FrontAllowSigns.Add("no-type");
                 FrontAllowSigns.Add("v");
                 FrontAllowSigns.Add("w");
+                FrontAllowSigns.Add("p");
+                FrontAllowSigns.Add("n");
             }
         }
 
@@ -122,6 +124,7 @@ namespace Iveely.Framework.Algorithm.AI
                 FrontAllowSigns.Add("b");
                 FrontAllowSigns.Add("uj");
                 FrontAllowSigns.Add("v");
+                FrontAllowSigns.Add("f");
             }
         }
 
@@ -306,6 +309,12 @@ namespace Iveely.Framework.Algorithm.AI
                             }
                             else
                             {
+                                if (answer != string.Empty && !bodys.Contains(answer))
+                                {
+                                    bodys.Add(answer);
+                                    answer = string.Empty;
+                                    shoudContine = false;
+                                }
                                 continue;
                             }
                         }

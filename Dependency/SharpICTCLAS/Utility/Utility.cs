@@ -180,7 +180,7 @@ namespace SharpICTCLAS
         {
             if (Convert.ToInt32(c) < 128)
             {
-                string delimiters = " *!,.?()[]{}+=";
+                string delimiters = "*!,.?()[]{}+=";
                 //注释：原来程序为"\042!,.?()[]{}+="，"\042"为10进制42好ASC字符，为*
                 if (delimiters.IndexOf(c) >= 0)
                     return Predefine.CT_DELIMITER;
