@@ -19,14 +19,18 @@ namespace Iveely.SearchEngine
 {
     public class Library : Application
     {
+        private const string CurentTextQuery = "Current-Text-Query";
+
+        private const string CurrentRelativeQuery = "Current-Relative-Query";
+
         public string TextQuery(string keywords)
         {
-            return Query(keywords, "Current-Text-Query", "Test-Query");
+            return Query(keywords, CurentTextQuery, "Text-Query");
         }
 
         public string RelativeQuery(string keyword)
         {
-            return Query(keyword, "Current-Relative-Query", "Relative-Query");
+            return Query(keyword, CurrentRelativeQuery, "Relative-Query");
         }
 
         public override void Run(object[] args)
@@ -89,8 +93,9 @@ namespace Iveely.SearchEngine
                         }
 
                     }
+                    Console.WriteLine("Finnal result :" + result);
                 }
-                Console.WriteLine("Finnal result :" + result);
+
             }
             else
             {

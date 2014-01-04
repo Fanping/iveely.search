@@ -26,12 +26,18 @@ namespace Iveely.SearchEngine
     {
         private Library library = new Library();
 
-        public static void Main()
+        public static void Main(string[] args)
         {
-            Host host = new Host();
-            host.Run(null);
-            //Backstage backstage = new Backstage();
-            //backstage.Run(new object[] { 8001, 8001, 8001, 8001, 8001, 8001 });
+            if (args.Length > 0)
+            {
+                Host host = new Host();
+                host.Run(null);
+            }
+            else
+            {
+                Backstage backstage = new Backstage();
+                backstage.Run(new object[] { 8001, 8001, 8001, 8001, 8001, 8001 });
+            }
             Console.ReadKey();
         }
 

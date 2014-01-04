@@ -10,8 +10,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Iveely.Framework.Algorithm.AI.Library;
 using Iveely.Framework.DataStructure;
+using Iveely.Framework.Text;
+using CodeCompiler = Iveely.Framework.Algorithm.AI.Library.CodeCompiler;
 
 
 namespace Iveely.Framework.Algorithm.AI
@@ -56,10 +57,36 @@ namespace Iveely.Framework.Algorithm.AI
             /// </summary>
             public int Id { get; set; }
 
+            /// <summary>
+            /// 获取最佳问题
+            /// </summary>
+            /// <param name="input"></param>
+            /// <returns></returns>
+            public string GetBestQuestion(string input)
+            {
+                string bestQuestion = string.Empty;
+                string bestAnswer = string.Empty;
+                decimal val = 0;
+                foreach (var desc in Description)
+                {
+                    decimal similarVal = LevenshteinDistance.Instance.LevenshteinDistancePercent(input, desc.Item1);
+                    if (similarVal > val)
+                    {
+                        val = similarVal;
+                        bestQuestion = desc.Item1;
+                        bestAnswer = desc.Item2;
+                    }
+                }
+                if (val >= (decimal)0.8)
+                {
+                    return string.Format("您是想问：{0}吗？\t答案可能是：{1}\t参考自：<a href='{3}' about='blank'>{2}</a>", bestQuestion, bestAnswer, FromTitle, Reference);
+                }
+                return string.Empty;
+            }
+
             public override string ToString()
             {
-                return string.Empty;
-                // return string.Format("{0}\t{1}\t{2}\t{3}", FromTitle, Description, Answer, Reference);
+                return string.Format("{0}\t{1}\t{2}\t{3}", FromTitle, Content, Entity.Count > 0 ? "主体" + Entity[0].Item1 : "", Reference);
             }
         }
 
