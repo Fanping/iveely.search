@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Net.Mime;
 using System.Text;
+using System.Threading;
 using Iveely.CloudComputing.Client;
 using Iveely.CloudComputing.StateAPI;
 using Iveely.Framework.Log;
@@ -44,7 +47,6 @@ namespace Iveely.CloudComputing.Worker
             if (!Directory.Exists(processFolder))
             {
                 Directory.CreateDirectory(processFolder);
-                //CopyFile("Init", processFolder);
                 CopyDirectory("Init", processFolder + "\\");
             }
             CheckCrash();
@@ -52,6 +54,10 @@ namespace Iveely.CloudComputing.Worker
             //2. 向State Center发送上线消息
             StateHelper.Put("ISE://system/state/worker/" + _machineName + "," + _servicePort,
                 _machineName + ":" + _servicePort + " is ready online!");
+
+            //3. 启动心跳线程
+            Thread thread = new Thread(SendHeartbeat);
+            thread.Start();
 
             //3. 启动任务接收监听
             if (_taskSuperviser == null)
@@ -248,7 +254,9 @@ namespace Iveely.CloudComputing.Worker
         }
 
 
-
+        /// <summary>
+        /// 检查异常中断中的任务
+        /// </summary>
         private static void CheckCrash()
         {
             string runnerFile = _servicePort + "\\sys.ruuners";
@@ -278,6 +286,9 @@ namespace Iveely.CloudComputing.Worker
             }
         }
 
+        /// <summary>
+        /// 备份执行状态
+        /// </summary>
         private static void Backup()
         {
             string runnerFile = _servicePort + "\\sys.ruuners";
@@ -288,6 +299,23 @@ namespace Iveely.CloudComputing.Worker
             if (_statusCenter.Count > 0)
             {
                 Serializer.SerializeToFile(_statusCenter, runnerFile);
+            }
+        }
+
+        /// <summary>
+        /// 发送心跳
+        /// </summary>
+        private static void SendHeartbeat()
+        {
+            while (true)
+            {
+                Framework.Network.Synchronous.Client client = new Framework.Network.Synchronous.Client(Dns.GetHostName(),
+            8600);
+                string information = Process.GetCurrentProcess().Id + "|" + _servicePort + "?" + DateTime.UtcNow.ToString();
+                Packet packet = new Packet(Encoding.UTF8.GetBytes(information));
+                packet.WaiteCallBack = false;
+                client.Send<bool>(packet);
+                Thread.Sleep(30 * 1000);
             }
         }
 

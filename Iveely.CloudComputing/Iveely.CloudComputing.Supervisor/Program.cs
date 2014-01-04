@@ -26,12 +26,15 @@ namespace Iveely.CloudComputing.Supervisor
 
         static void Main(string[] args)
         {
-            //启动监控器
-            Thread thread = new Thread(KeepMonitor);
-            thread.Start();
-
             //心跳检查
-            CheckLive();
+            Logger.Info("Check heatbeat...");
+            Thread liveThread = new Thread(CheckLive);
+            liveThread.Start();
+
+            //启动监控器
+            Logger.Info("Start the monitor...");
+            Thread monitorThread = new Thread(KeepMonitor);
+            monitorThread.Start();
         }
 
         private static void KeepMonitor()
@@ -47,7 +50,7 @@ namespace Iveely.CloudComputing.Supervisor
         {
             while (true)
             {
-                Thread.Sleep(60 * 1000);
+                List<object> removedProcess = new List<object>();
                 foreach (DictionaryEntry entry in table)
                 {
                     DateTime dateTime = (DateTime)entry.Value;
@@ -55,9 +58,24 @@ namespace Iveely.CloudComputing.Supervisor
                     if (timeSpan.TotalSeconds > 59)
                     {
                         //重新启动该进程
+                        Logger.Warn(entry.Key + " too long time breathy...would be reboot.");
                         Reboot(entry.Key.ToString());
+                        removedProcess.Add(entry.Key);
+                    }
+                    else
+                    {
+                        Logger.Info(entry.Key + " is work fine!");
                     }
                 }
+
+                if (removedProcess.Count > 0)
+                {
+                    foreach (var pro in removedProcess)
+                    {
+                        table.Remove(pro);
+                    }
+                }
+                Thread.Sleep(1000 * 60);
             }
         }
 
@@ -67,15 +85,23 @@ namespace Iveely.CloudComputing.Supervisor
             string[] processStrings = processInfor.Split(new[] { '|' });
             string processId = processStrings[0];
             string port = processStrings[1];
-            Process killProcess = System.Diagnostics.Process.GetProcessById(int.Parse(processId));
-            if (killProcess != null)
-                killProcess.Kill();
+            try
+            {
+                Process killProcess = System.Diagnostics.Process.GetProcessById(int.Parse(processId));
+                if (killProcess != null)
+                    killProcess.Kill();
+            }
+            catch (Exception exception)
+            {
+                Logger.Warn("When try to kill process,exception happen:" + exception);
+            }
 
             //重新启动
             Process newProcess = new Process();
             newProcess.StartInfo.FileName = "Iveely.CloudComputing.Worker.exe";
             newProcess.StartInfo.Arguments = port;
             newProcess.Start();
+            Logger.Info("reboot success!");
         }
 
         /// <summary>
@@ -92,7 +118,7 @@ namespace Iveely.CloudComputing.Supervisor
                 if (flag != null)
                 {
                     string[] information = flag.Split(new[] { '?' });
-                    if (information.Length > 2)
+                    if (information.Length == 2)
                     {
                         string machine = information[0];
                         DateTime timestamp = DateTime.Parse(information[1]);
