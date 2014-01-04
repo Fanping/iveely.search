@@ -25,6 +25,7 @@ namespace Iveely.Framework.Algorithm.AI
         /// <summary>
         /// 生成的问题
         /// </summary>
+        [Serializable]
         public class Question
         {
             /// <summary>

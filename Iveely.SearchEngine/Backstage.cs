@@ -102,7 +102,7 @@ namespace Iveely.SearchEngine
             //1. 初始化
             Init(args);
             DataStore = new LocalStore<Template.Question>(GetRootFolder() + "\\QuestionData.index",
-                GetRootFolder() + "\\QuestionData", 200);
+                GetRootFolder() + "\\QuestionData", 100);
 
             //1.1 文本索引文件
             _textIndexFile = GetRootFolder() + "\\InvertFragment.part";

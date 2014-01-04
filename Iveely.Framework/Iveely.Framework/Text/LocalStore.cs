@@ -30,6 +30,8 @@ namespace Iveely.Framework.Text
         [Serializable]
         internal class Index
         {
+            private static object mutex;
+
             /// <summary>
             /// 文件索引
             /// </summary>
@@ -59,6 +61,7 @@ namespace Iveely.Framework.Text
 
             public Index(string dataStoreFolder, int fileSize)
             {
+                mutex = new object();
                 _table = new Hashtable();
                 _fileId = 0;
                 _fileSize = 100;
@@ -74,22 +77,26 @@ namespace Iveely.Framework.Text
             /// <returns>true为已经将之前的所有记录存放到文件，false为还在内存中</returns>
             public bool Store(T obj)
             {
-                if (_table.ContainsKey(obj.GetHashCode()))
+                lock (mutex)
                 {
+                    if (_table.ContainsKey(obj.GetHashCode()))
+                    {
+                        return false;
+                    }
+                    _currentData.Add(obj);
+                    _recoredId++;
+                    _table.Add(obj.GetHashCode(), _fileId + "." + _recoredId);
+
+                    if (_currentData.Count >= _fileSize)
+                    {
+                        Serializer.SerializeToFile(_currentData, _dataStoreFolder + "\\" + _fileId);
+                        _fileId++;
+                        _recoredId = 0;
+                        _currentData.Clear();
+                        return true;
+                    }
                     return false;
                 }
-                _currentData.Add(obj);
-                _recoredId++;
-                _table.Add(obj.GetHashCode(), _fileId + "." + _recoredId);
-                if (_currentData.Count == _fileSize)
-                {
-                    Serializer.SerializeToFile(_currentData, _dataStoreFolder + "\\" + _fileId);
-                    _fileId++;
-                    _recoredId = 0;
-                    _currentData.Clear();
-                    return true;
-                }
-                return false;
             }
 
             public T Read(int hashCode)
