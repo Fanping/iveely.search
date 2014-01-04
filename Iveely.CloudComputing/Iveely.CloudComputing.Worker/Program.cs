@@ -47,6 +47,7 @@ namespace Iveely.CloudComputing.Worker
             if (!Directory.Exists(processFolder))
             {
                 Directory.CreateDirectory(processFolder);
+                CopyFile("Init", processFolder);
                 CopyDirectory("Init", processFolder + "\\");
             }
             CheckCrash();
@@ -248,7 +249,8 @@ namespace Iveely.CloudComputing.Worker
                         Directory.CreateDirectory(desfolderdir);
                     }
 
-                    File.Copy(file, srcfileName);
+                    if (!File.Exists(srcfileName))
+                        File.Copy(file, srcfileName);
                 }
             }
         }

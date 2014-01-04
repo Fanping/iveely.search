@@ -24,6 +24,8 @@ namespace Iveely.CloudComputing.Supervisor
     {
         private static Hashtable table = new Hashtable();
 
+        private static bool allowAccess;
+
         static void Main(string[] args)
         {
             //心跳检查
@@ -51,29 +53,37 @@ namespace Iveely.CloudComputing.Supervisor
             while (true)
             {
                 List<object> removedProcess = new List<object>();
-                foreach (DictionaryEntry entry in table)
+                try
                 {
-                    DateTime dateTime = (DateTime)entry.Value;
-                    TimeSpan timeSpan = DateTime.UtcNow - dateTime;
-                    if (timeSpan.TotalSeconds > 59)
+                    foreach (DictionaryEntry entry in table)
                     {
-                        //重新启动该进程
-                        Logger.Warn(entry.Key + " too long time breathy...would be reboot.");
-                        Reboot(entry.Key.ToString());
-                        removedProcess.Add(entry.Key);
+                        DateTime dateTime = (DateTime)entry.Value;
+                        TimeSpan timeSpan = DateTime.UtcNow - dateTime;
+                        if (timeSpan.TotalSeconds > 59)
+                        {
+                            //重新启动该进程
+                            Logger.Warn(entry.Key + " too long time breathy...would be reboot.");
+                            Reboot(entry.Key.ToString());
+                            removedProcess.Add(entry.Key);
+                        }
+                        else
+                        {
+                            Logger.Info(entry.Key + " is work fine!");
+                        }
                     }
-                    else
+
+
+                    if (removedProcess.Count > 0)
                     {
-                        Logger.Info(entry.Key + " is work fine!");
+                        foreach (var pro in removedProcess)
+                        {
+                            table.Remove(pro);
+                        }
                     }
                 }
-
-                if (removedProcess.Count > 0)
+                catch (Exception exception)
                 {
-                    foreach (var pro in removedProcess)
-                    {
-                        table.Remove(pro);
-                    }
+                    Logger.Warn(exception);
                 }
                 Thread.Sleep(1000 * 60);
             }
