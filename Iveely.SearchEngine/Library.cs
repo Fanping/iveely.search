@@ -93,7 +93,7 @@ namespace Iveely.SearchEngine
                         }
 
                     }
-                    Console.WriteLine("Finnal result :" + result);
+                    //Console.WriteLine("Finnal result :" + result);
                 }
 
             }

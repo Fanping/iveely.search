@@ -105,14 +105,14 @@ namespace Iveely.Framework.Text
                 }
             }
 
-            for (i = 0; i <= n; i++)
-            {
-                for (j = 0; j <= m; j++)
-                {
-                    Console.Write(" {0} ", Matrix[i, j]);
-                }
-                Console.WriteLine("");
-            }
+            //for (i = 0; i <= n; i++)
+            //{
+            //    for (j = 0; j <= m; j++)
+            //    {
+            //        Console.Write(" {0} ", Matrix[i, j]);
+            //    }
+            //    Console.WriteLine("");
+            //}
             return Matrix[n, m];
 
         }
