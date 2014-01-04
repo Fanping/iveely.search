@@ -18,6 +18,7 @@ using Iveely.Framework.Algorithm.AI.Library;
 using Iveely.Framework.DataStructure;
 using Iveely.Framework.Network;
 using Iveely.Framework.Network.Synchronous;
+using Iveely.Framework.Text;
 using Iveely.Framework.Text.Segment;
 
 namespace Iveely.SearchEngine

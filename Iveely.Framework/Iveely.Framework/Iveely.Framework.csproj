@@ -82,6 +82,7 @@
     <Compile Include="Text\FileBlock.cs" />
     <Compile Include="Text\Html.cs" />
     <Compile Include="Text\LevenshteinDistance.cs" />
+    <Compile Include="Text\LocalStore.cs" />
     <Compile Include="Text\Segment\Complex.cs" />
     <Compile Include="Text\Segment\HMM.cs" />
     <Compile Include="Text\Segment\IctclasSegment.cs" />

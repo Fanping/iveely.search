@@ -50,7 +50,7 @@ namespace Iveely.Framework.Algorithm
             invert.AddDocument(4, "爱是粉红的羽毛");
             invert.AddDocument(5, "雪白的羽毛");
             invert.AddDocument(6, "生活天很好");
-            IList<string> result = invert.FindCommonDocumentByKeys(new[] { "爱", "风", "好" });
+            IList<string> result = invert.FindCommonDocumentByKeys(new[] { "爱", "风", "好" },10);
             Assert.IsTrue(result.Any());
         }
 

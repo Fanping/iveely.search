@@ -71,6 +71,8 @@ namespace Iveely.SearchEngine
         /// </summary>
         public static DimensionTable<string, string, double> RelativeTable;
 
+        public static LocalStore<Template.Question> DataStore;
+
         /// <summary>
         /// 爬虫爬行的跟站点
         /// </summary>
@@ -99,9 +101,11 @@ namespace Iveely.SearchEngine
         {
             //1. 初始化
             Init(args);
-            _textIndexFile = GetRootFolder() + "\\InvertFragment.part";
+            DataStore = new LocalStore<Template.Question>(GetRootFolder() + "\\QuestionData.index",
+                GetRootFolder() + "\\QuestionData", 200);
 
             //1.1 文本索引文件
+            _textIndexFile = GetRootFolder() + "\\InvertFragment.part";
             if (File.Exists(_textIndexFile))
                 TextFragment = Serializer.DeserializeFromFile<InvertFragment>(_textIndexFile);
             if (TextFragment == null)
@@ -120,50 +124,50 @@ namespace Iveely.SearchEngine
             Urls.Add("http://www.baike.com");
 
 
-            StartSearcher();
-            //Thread searchThread = new Thread(StartSearcher);
-            //searchThread.Start();
+            // StartSearcher();
+            Thread searchThread = new Thread(StartSearcher);
+            searchThread.Start();
 
             //Thread.Sleep(10000);
 
-            ////2. 循环数据采集
-            //while (Urls.Count > 0)
-            //{
-            //    List<Page> pages = new List<Page>();
-            //    try
-            //    {
-            //        //2.1 爬虫开始运行
-            //        Crawler(ref pages);
-            //    }
-            //    catch (Exception exception)
-            //    {
-            //        Logger.Warn(exception);
-            //    }
+            //2. 循环数据采集
+            while (Urls.Count > 0)
+            {
+                List<Page> pages = new List<Page>();
+                try
+                {
+                    //2.1 爬虫开始运行
+                    Crawler(ref pages);
+                }
+                catch (Exception exception)
+                {
+                    Logger.Warn(exception);
+                }
 
-            //    //2.2 索引器开始运行
-            //    if (pages != null && pages.Count > 0)
-            //    {
-            //        try
-            //        {
-            //            Indexer(ref pages);
-            //        }
-            //        catch (Exception exception)
-            //        {
-            //            Logger.Warn(exception);
-            //        }
+                //2.2 索引器开始运行
+                if (pages != null && pages.Count > 0)
+                {
+                    try
+                    {
+                        Indexer(ref pages);
+                    }
+                    catch (Exception exception)
+                    {
+                        Logger.Warn(exception);
+                    }
 
-            //    }
+                }
 
-            //    //2.3 更新url
-            //    try
-            //    {
-            //        Urls.AddRange(GetKeysByValueFromCache(false, 10, true));
-            //    }
-            //    catch (Exception exception)
-            //    {
-            //        Logger.Warn(exception);
-            //    }
-            //}
+                //2.3 更新url
+                try
+                {
+                    Urls.AddRange(GetKeysByValueFromCache(false, 10, true));
+                }
+                catch (Exception exception)
+                {
+                    Logger.Warn(exception);
+                }
+            }
         }
 
         /// <summary>
@@ -237,7 +241,6 @@ namespace Iveely.SearchEngine
 
             foreach (Page page in pages)
             {
-                bool isSavePage = false;
                 string[] sentences = page.Content.Split(delimiter.ToCharArray(),
                     StringSplitOptions.RemoveEmptyEntries);
                 foreach (string sentence in sentences)
@@ -248,7 +251,6 @@ namespace Iveely.SearchEngine
                             .BuildQuestion(sentence, page.Url, page.Title);
                         if (result != null && result.Description != null && result.Description.Count > 0)
                         {
-                            isSavePage = true;
                             result.Content = sentence;
                             questions.Add(result);
                         }
@@ -272,24 +274,22 @@ namespace Iveely.SearchEngine
                     Serializer.DeserializeFromFile<DimensionTable<string, string, double>>(_relativeIndexFile);
             }
 
-            using (var database = Database.Open(GetRootFolder() + "\\Iveely.Search.Question"))
+
+            if (questions.Any())
             {
-                if (questions.Any())
+                foreach (Template.Question question in questions)
                 {
-                    foreach (Template.Question question in questions)
+                    int id = question.GetHashCode();
+                    question.Id = id;
+                    TextFragment.AddDocument(id, question.Content, false);
+                    foreach (var entity in question.Entity)
                     {
-                        int id = question.Content.GetHashCode();
-                        question.Id = id;
-                        TextFragment.AddDocument(id, question.Content, false);
-                        foreach (var entity in question.Entity)
-                        {
-                            double oldValue = RelativeTable[entity.Item1][entity.Item2] == null
-                                ? 0
-                                : RelativeTable[entity.Item1][entity.Item2];
-                            RelativeTable[entity.Item1][entity.Item2] = oldValue + 0.0001;
-                        }
-                        database.Store(question);
+                        double oldValue = RelativeTable[entity.Item1][entity.Item2] == null
+                            ? 0
+                            : RelativeTable[entity.Item1][entity.Item2];
+                        RelativeTable[entity.Item1][entity.Item2] = oldValue + 0.0001;
                     }
+                    DataStore.Write(question);
                 }
             }
             questions.Clear();
@@ -340,34 +340,19 @@ namespace Iveely.SearchEngine
                         WriteToConsole("Get Text Query:" + query);
                         string[] keywords = IctclasSegment.GetInstance().SplitToString(query).Split(new[] { ' ' });
                         List<string> docs = TextFragment.FindCommonDocumentByKeys(keywords, 10);
-                        List<Template.Question> result = new List<Template.Question>();
-                        using (var database = Database.Open(GetRootFolder() + "\\Iveely.Search.Question"))
-                        {
-                            var wordsQuey = database.Query<Template.Question>();
-                            int returnCount = 10;
-                            foreach (string doc in docs)
-                            {
-                                if (returnCount == 0)
-                                    break;
-                                returnCount--;
-                                wordsQuey.Descend("Id").Constrain(int.Parse(doc)).Equal();
-                                var questions = wordsQuey.Execute<Template.Question>();
-                                if (questions != null && questions.Count > 0)
-                                {
-                                    result.Add(questions.GetFirst());
-                                }
-                            }
-                        }
-                        string inputResultKey = Dns.GetHostName() + "," + _searchPort + query;
-                        WriteToConsole("Result write into cache key=" + inputResultKey + ", count=" + result.Count);
+
 
                         string content = string.Empty;
                         string bestQuestion = string.Empty;
-                        foreach (var que in result)
+                        foreach (var doc in docs)
                         {
-                            content += que.ToString() + ";";
-                            bestQuestion = que.GetBestQuestion(query);
+                            Template.Question question = DataStore.Read(int.Parse(doc));
+                            bestQuestion += question.GetBestQuestion(query) + ";";
+                            content += question.ToString() + ";";
                         }
+
+                        string inputResultKey = Dns.GetHostName() + "," + _searchPort + query;
+                        WriteToConsole("Result write into cache key=" + inputResultKey + ", count=" + docs.Count);
 
                         foreach (var keyword in keywords)
                         {

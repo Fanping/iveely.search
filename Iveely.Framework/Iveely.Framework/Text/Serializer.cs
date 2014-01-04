@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.Serialization.Formatters.Binary;
+using Iveely.Framework.Log;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Polenter.Serialization;
 
@@ -76,23 +77,34 @@ namespace Iveely.Framework.Text
         /// <param name="fileName">文件（路径）名</param>
         public static void SerializeToFile<T>(T t, string fileName)
         {
-            if (t == null)
+            try
             {
-                return;
+                if (t == null)
+                {
+                    return;
+                }
+                lock (LockSerObject)
+                {
+                    if (File.Exists(fileName))
+                    {
+                        File.Delete(fileName);
+                    }
+                    //文件流创建
+                    FileStream fileStream = new FileStream(fileName, FileMode.OpenOrCreate);
+                    //二进制对象
+                    var binaryFormatter = new BinaryFormatter();
+                    //执行序列化
+                    binaryFormatter.Serialize(fileStream, t);
+                    fileStream.Close();
+                }
             }
-            lock (LockSerObject)
+            catch (Exception exception)
             {
+                Logger.Warn(exception);
                 if (File.Exists(fileName))
                 {
                     File.Delete(fileName);
                 }
-                //文件流创建
-                FileStream fileStream = new FileStream(fileName, FileMode.OpenOrCreate);
-                //二进制对象
-                var binaryFormatter = new BinaryFormatter();
-                //执行序列化
-                binaryFormatter.Serialize(fileStream, t);
-                fileStream.Close();
             }
         }
 
@@ -147,23 +159,37 @@ namespace Iveely.Framework.Text
         /// <returns></returns>
         public static T DeserializeFromFile<T>(string fileName)
         {
-            lock (LockDeserObject)
+            try
             {
-                if (!File.Exists(fileName))
+
+                lock (LockDeserObject)
                 {
-                    throw new FileNotFoundException(fileName);
+                    if (!File.Exists(fileName))
+                    {
+                        throw new FileNotFoundException(fileName);
+                    }
+                    //文件流
+                    var fileStream = new FileStream(fileName, FileMode.Open, FileAccess.Read);
+                    //fs.Seek(0, SeekOrigin.Begin);
+                    //二进制对象
+                    var binaryFormatter = new BinaryFormatter();
+                    //执行序列化
+                    Object obj = binaryFormatter.Deserialize(fileStream);
+                    //关闭流，这个很重要
+                    fileStream.Close();
+                    return (T)obj;
                 }
-                //文件流
-                var fileStream = new FileStream(fileName, FileMode.Open,FileAccess.Read);
-                //fs.Seek(0, SeekOrigin.Begin);
-                //二进制对象
-                var binaryFormatter = new BinaryFormatter();
-                //执行序列化
-                Object obj = binaryFormatter.Deserialize(fileStream);
-                //关闭流，这个很重要
-                fileStream.Close();
-                return (T) obj;
+
             }
+            catch (Exception exception)
+            {
+                Logger.Warn(exception);
+                if (File.Exists(fileName))
+                {
+                    File.Delete(fileName);
+                }
+            }
+            return default(T);
         }
 
 

@@ -44,7 +44,7 @@ namespace Iveely.CloudComputing.Worker
             if (!Directory.Exists(processFolder))
             {
                 Directory.CreateDirectory(processFolder);
-                CopyFile("Init", processFolder);
+                //CopyFile("Init", processFolder);
                 CopyDirectory("Init", processFolder + "\\");
             }
             CheckCrash();
@@ -209,7 +209,7 @@ namespace Iveely.CloudComputing.Worker
         {
             string folderName = srcdir.Substring(srcdir.LastIndexOf("\\") + 1);
 
-            string desfolderdir = desdir + "\\" + folderName;
+            string desfolderdir = desdir + "\\";
 
             if (desdir.LastIndexOf("\\") == (desdir.Length - 1))
             {

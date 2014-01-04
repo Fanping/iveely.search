@@ -56,7 +56,7 @@ namespace Iveely.Framework.Algorithm
             fragment.AddDocument("http://www.iveely.com/2", "我可以告诉你互联网上的一切");
             fragment.AddDocument("http://www.iveely.com/3", "真的那么准么？");
             fragment.AddDocument("http://www.iveely.com/4", "那是当然的！");
-            List<string> commonDocs = new List<string>(fragment.FindCommonDocumentByKeys(new[] { "的" }));
+            List<string> commonDocs = new List<string>(fragment.FindCommonDocumentByKeys(new[] { "的" },10));
             Assert.IsTrue(commonDocs.Any());
         }
 #endif

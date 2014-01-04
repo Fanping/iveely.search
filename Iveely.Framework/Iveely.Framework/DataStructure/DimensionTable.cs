@@ -237,7 +237,7 @@ namespace Iveely.Framework.DataStructure
             Assert.IsTrue(keys[1] == "_2");
             Assert.IsTrue(keys[0] == "_1");
 
-            List<Tuple<string, double>> keyValues = strStrTable["a"].GetAllKeyValue();
+            List<Tuple<string, double>> keyValues = strStrTable["a"].GetAllKeyValue(10);
             Assert.IsTrue(keyValues.Count == 3);
         }
 
