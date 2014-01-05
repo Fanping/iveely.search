@@ -123,50 +123,50 @@ namespace Iveely.SearchEngine
             }
             Urls.Add("http://www.baike.com");
 
-            //StartSearcher();
-            Thread searchThread = new Thread(StartSearcher);
-            searchThread.Start();
+            StartSearcher();
+            //Thread searchThread = new Thread(StartSearcher);
+            //searchThread.Start();
 
-            Thread.Sleep(10000);
+            //Thread.Sleep(10000);
 
-            //2. 循环数据采集
-            while (Urls.Count > 0)
-            {
-                List<Page> pages = new List<Page>();
-                try
-                {
-                    //2.1 爬虫开始运行
-                    Crawler(ref pages);
-                }
-                catch (Exception exception)
-                {
-                    Logger.Warn(exception);
-                }
+            ////2. 循环数据采集
+            //while (Urls.Count > 0)
+            //{
+            //    List<Page> pages = new List<Page>();
+            //    try
+            //    {
+            //        //2.1 爬虫开始运行
+            //        Crawler(ref pages);
+            //    }
+            //    catch (Exception exception)
+            //    {
+            //        Logger.Warn(exception);
+            //    }
 
-                //2.2 索引器开始运行
-                if (pages != null && pages.Count > 0)
-                {
-                    try
-                    {
-                        Indexer(ref pages);
-                    }
-                    catch (Exception exception)
-                    {
-                        Logger.Warn(exception);
-                    }
+            //    //2.2 索引器开始运行
+            //    if (pages != null && pages.Count > 0)
+            //    {
+            //        try
+            //        {
+            //            Indexer(ref pages);
+            //        }
+            //        catch (Exception exception)
+            //        {
+            //            Logger.Warn(exception);
+            //        }
 
-                }
+            //    }
 
-                //2.3 更新url
-                try
-                {
-                    Urls.AddRange(GetKeysByValueFromCache(false, 10, true));
-                }
-                catch (Exception exception)
-                {
-                    Logger.Warn(exception);
-                }
-            }
+            //    //2.3 更新url
+            //    try
+            //    {
+            //        Urls.AddRange(GetKeysByValueFromCache(false, 10, true));
+            //    }
+            //    catch (Exception exception)
+            //    {
+            //        Logger.Warn(exception);
+            //    }
+            //}
         }
 
         /// <summary>
@@ -343,10 +343,16 @@ namespace Iveely.SearchEngine
 
                         string content = string.Empty;
                         string bestQuestion = string.Empty;
+                        decimal bestQuesVal = 0;
                         foreach (var doc in docs)
                         {
                             Template.Question question = DataStore.Read(int.Parse(doc));
-                            bestQuestion += question.GetBestQuestion(query) + ";";
+                            Tuple<string, decimal> tuple = question.GetBestQuestion(query);
+                            if (tuple.Item2 > bestQuesVal)
+                            {
+                                bestQuesVal = tuple.Item2;
+                                bestQuestion = tuple.Item1;
+                            }
                             content += question.ToString() + ";";
                         }
 
@@ -361,7 +367,7 @@ namespace Iveely.SearchEngine
                             }
                         }
 
-                        if (bestQuestion.Length > 0)
+                        if (bestQuestion.Length > 0 && bestQuesVal > (Decimal)0.1)
                         {
                             content = bestQuestion + ";" + content;
                         }

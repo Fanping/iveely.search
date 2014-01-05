@@ -63,7 +63,7 @@ namespace Iveely.Framework.Algorithm.AI
             /// </summary>
             /// <param name="input"></param>
             /// <returns></returns>
-            public string GetBestQuestion(string input)
+            public Tuple<string, decimal> GetBestQuestion(string input)
             {
                 string bestQuestion = string.Empty;
                 string bestAnswer = string.Empty;
@@ -78,11 +78,13 @@ namespace Iveely.Framework.Algorithm.AI
                         bestAnswer = desc.Item2;
                     }
                 }
-                if (val >= (decimal)0.8)
+                if (val > 0)
                 {
-                    return string.Format("{2}[1]您是想问：{0}吗？[|]答案可能是：{1}[|]参考自：<a href='{3}' about='blank'>{2}</a>", bestQuestion, bestAnswer, FromTitle, Reference);
+                    string question = string.Format("{2}[|]您是想问：{0}吗？<br/>答案可能是：{1}[|]-[|]{3}", bestQuestion, bestAnswer, "问答智能系统：" + FromTitle, Reference);
+                    Tuple<string, decimal> tuple = new Tuple<string, decimal>(question, val);
+                    return tuple;
                 }
-                return string.Empty;
+                return null;
             }
 
             public override string ToString()
