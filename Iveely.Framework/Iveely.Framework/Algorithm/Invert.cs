@@ -7,6 +7,7 @@
  *========================================*/
 
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using Iveely.Framework.DataStructure;
 using Iveely.Framework.Text.Segment;
@@ -109,20 +110,35 @@ namespace Iveely.Framework.Algorithm
         /// <returns> 返回按照频率的集合 </returns>
         public List<string> FindCommonDocumentByKeys(string[] keys, int maxCount)
         {
-            List<string> result = new List<string>();
+            IntTable<string, int> table = new IntTable<string, int>();
             foreach (string key in keys)
             {
                 List<string> temp = FindDocumentByKey(key, false);
                 if (temp != null)
                 {
-                    result.AddRange(temp);
+                    foreach (var t in temp)
+                    {
+                        table.Add(t, 1);
+                    }
                 }
             }
-            result.Sort();
-            if (result.Count > maxCount)
+
+            List<string> result = new List<string>();
+            ArrayList list = new ArrayList(table.Values);
+            list.Sort();
+            list.Reverse();
+            for (int i = 0; i < maxCount && i < list.Count; i++)
             {
-                result.RemoveRange(maxCount, result.Count - maxCount);
+                IDictionaryEnumerator ide = table.GetEnumerator();
+                while (ide.MoveNext())
+                {
+                    if (ide.Value == list[i])
+                    {
+                        result.Add(ide.Key.ToString());
+                    }
+                }
             }
+
             return result;
         }
 

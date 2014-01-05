@@ -80,14 +80,14 @@ namespace Iveely.Framework.Algorithm.AI
                 }
                 if (val >= (decimal)0.8)
                 {
-                    return string.Format("您是想问：{0}吗？\t答案可能是：{1}\t参考自：<a href='{3}' about='blank'>{2}</a>", bestQuestion, bestAnswer, FromTitle, Reference);
+                    return string.Format("{2}[1]您是想问：{0}吗？[|]答案可能是：{1}[|]参考自：<a href='{3}' about='blank'>{2}</a>", bestQuestion, bestAnswer, FromTitle, Reference);
                 }
                 return string.Empty;
             }
 
             public override string ToString()
             {
-                return string.Format("{0}\t{1}\t{2}\t{3}", FromTitle, Content, Entity.Count > 0 ? "主体" + Entity[0].Item1 : "", Reference);
+                return string.Format("{0}[|]{1}[|]{2}[|]{3}", FromTitle, Content, Entity.Count > 0 ? Entity[0].Item1 : "-", Reference);
             }
         }
 

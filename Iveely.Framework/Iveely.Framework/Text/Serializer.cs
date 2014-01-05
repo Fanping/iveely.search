@@ -90,7 +90,7 @@ namespace Iveely.Framework.Text
                         File.Delete(fileName);
                     }
                     //文件流创建
-                    FileStream fileStream = new FileStream(fileName, FileMode.OpenOrCreate);
+                    FileStream fileStream = new FileStream(fileName, FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.ReadWrite);
                     //二进制对象
                     var binaryFormatter = new BinaryFormatter();
                     //执行序列化
@@ -101,10 +101,6 @@ namespace Iveely.Framework.Text
             catch (Exception exception)
             {
                 Logger.Warn(exception);
-                if (File.Exists(fileName))
-                {
-                    File.Delete(fileName);
-                }
             }
         }
 
@@ -169,7 +165,7 @@ namespace Iveely.Framework.Text
                         throw new FileNotFoundException(fileName);
                     }
                     //文件流
-                    var fileStream = new FileStream(fileName, FileMode.Open, FileAccess.Read);
+                    var fileStream = new FileStream(fileName, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
                     //fs.Seek(0, SeekOrigin.Begin);
                     //二进制对象
                     var binaryFormatter = new BinaryFormatter();
@@ -184,13 +180,10 @@ namespace Iveely.Framework.Text
             catch (Exception exception)
             {
                 Logger.Warn(exception);
-                if (File.Exists(fileName))
-                {
-                    File.Delete(fileName);
-                }
             }
             return default(T);
         }
+
 
 
 #if DEBUG

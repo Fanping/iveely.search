@@ -85,7 +85,8 @@ namespace Iveely.SearchEngine
                         {
                             string outputResult = ca + keywords;
                             Console.WriteLine(outputResult);
-                            result += GetGlobalCache<string>(outputResult);
+                            string record = GetGlobalCache<string>(outputResult);
+                            result += record;
                         }
                         catch (Exception exception)
                         {
@@ -93,7 +94,6 @@ namespace Iveely.SearchEngine
                         }
 
                     }
-                    //Console.WriteLine("Finnal result :" + result);
                 }
 
             }

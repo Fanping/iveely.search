@@ -123,12 +123,11 @@ namespace Iveely.SearchEngine
             }
             Urls.Add("http://www.baike.com");
 
-
-            // StartSearcher();
+            //StartSearcher();
             Thread searchThread = new Thread(StartSearcher);
             searchThread.Start();
 
-            //Thread.Sleep(10000);
+            Thread.Sleep(10000);
 
             //2. 循环数据采集
             while (Urls.Count > 0)

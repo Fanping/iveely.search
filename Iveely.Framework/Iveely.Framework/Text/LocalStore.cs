@@ -102,31 +102,34 @@ namespace Iveely.Framework.Text
             public T Read(int hashCode)
             {
                 //获取文件编号和记录编号
-                string ids = _table[hashCode].ToString();
-                if (ids == null || !ids.Contains("."))
+                if (_table[hashCode] != null)
                 {
-                    return default(T);
-                }
-                string[] idStrings = ids.Split(new[] { '.' });
-                string fileId = idStrings[0];
-                int recredId = int.Parse(idStrings[1]) - 1;
-
-                //如果是还没存进文件的
-                if (_fileId.ToString() == fileId)
-                {
-                    if (_currentData.Count > recredId)
-                        return _currentData[recredId];
-                    return default(T);
-                }
-
-                //如果已经存到文件
-                string filePath = _dataStoreFolder + "\\" + fileId;
-                if (File.Exists(filePath))
-                {
-                    List<T> tempData = Serializer.DeserializeFromFile<List<T>>(filePath);
-                    if (tempData != null && tempData.Count > recredId)
+                    string ids = _table[hashCode].ToString();
+                    if (ids == null || !ids.Contains("."))
                     {
-                        return tempData[recredId];
+                        return default(T);
+                    }
+                    string[] idStrings = ids.Split(new[] { '.' });
+                    string fileId = idStrings[0];
+                    int recredId = int.Parse(idStrings[1]) - 1;
+
+                    //如果是还没存进文件的
+                    if (_fileId.ToString() == fileId)
+                    {
+                        if (_currentData.Count > recredId)
+                            return _currentData[recredId];
+                        return default(T);
+                    }
+
+                    //如果已经存到文件
+                    string filePath = _dataStoreFolder + "\\" + fileId;
+                    if (File.Exists(filePath))
+                    {
+                        List<T> tempData = Serializer.DeserializeFromFile<List<T>>(filePath);
+                        if (tempData != null && tempData.Count > recredId)
+                        {
+                            return tempData[recredId];
+                        }
                     }
                 }
                 return default(T);
