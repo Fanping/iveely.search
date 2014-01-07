@@ -333,6 +333,15 @@ namespace HtmlAgilityPack
         }
 
         /// <summary>
+        /// »ñÈ¡ÍøÒ³Ô´Âë
+        /// </summary>
+        /// <returns></returns>
+        public string GetHtmlCode()
+        {
+            return _text;
+        }
+
+        /// <summary>
         /// Creates an HTML attribute with the specified name.
         /// </summary>
         /// <param name="name">The name of the attribute. May not be null.</param>

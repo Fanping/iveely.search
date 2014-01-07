@@ -204,6 +204,11 @@ namespace Iveely.Framework.Text
                 return "";
             }
 
+            public virtual DateTime GetPublishDate()
+            {
+                return DateTime.MinValue;
+            }
+
             /// <summary>
             /// 是否是HTML类型
             /// </summary>
@@ -328,13 +333,165 @@ namespace Iveely.Framework.Text
             {
                 try
                 {
-                    string content = Html.DocumentNode.SelectNodes("/html/body")[0].InnerHtml;
-                    return new HtmlParser(content).Text();
+
+                    return GetArticle();
+                    //string content = Html.DocumentNode.SelectNodes("/html/body")[0].InnerHtml;
+                    //return new HtmlParser(content).Text();
                 }
                 catch
                 {
                     return "";
                 }
+            }
+
+           public override DateTime GetPublishDate()
+           {
+               string html = Html.GetHtmlCode();
+                // 过滤html标签，防止标签对日期提取产生影响
+                string text = Regex.Replace(html, "(?is)<.*?>", "");
+                Match match = Regex.Match(
+                    text,
+                    @"((\d{4}|\d{2})(\-|\/)\d{1,2}\3\d{1,2})(\s?\d{2}:\d{2})?|(\d{4}年\d{1,2}月\d{1,2}日)(\s?\d{2}:\d{2})?",
+                    RegexOptions.IgnoreCase);
+
+                DateTime result = new DateTime(1900, 1, 1);
+                if (match.Success)
+                {
+                    try
+                    {
+                        string dateStr = "";
+                        for (int i = 0; i < match.Groups.Count; i++)
+                        {
+                            dateStr = match.Groups[i].Value;
+                            if (!String.IsNullOrEmpty(dateStr))
+                            {
+                                break;
+                            }
+                        }
+                        // 对中文日期的处理
+                        if (dateStr.Contains("年"))
+                        {
+                            StringBuilder sb = new StringBuilder();
+                            foreach (var ch in dateStr)
+                            {
+                                if (ch == '年' || ch == '月')
+                                {
+                                    sb.Append("/");
+                                    continue;
+                                }
+                                if (ch == '日')
+                                {
+                                    sb.Append(' ');
+                                    continue;
+                                }
+                                sb.Append(ch);
+                            }
+                            dateStr = sb.ToString();
+                        }
+                        result = Convert.ToDateTime(dateStr);
+                    }
+                    catch (Exception)
+                    { }
+                    if (result.Year < 1900)
+                    {
+                        result = new DateTime(1900, 1, 1);
+                    }
+                }
+                return result;
+            }
+
+            public string GetArticle()
+            {
+                string[] orgLines = null;   // 保存原始内容，按行存储
+                string[] lines = null;      // 保存干净的文本内容，不包含标签
+                string content = string.Empty;
+                int _depth = 6;
+                int _limitCount = 180;
+                int _headEmptyLines = 2;
+                int _endLimitCharCount = 20;
+                bool _appendMode = false;
+
+                orgLines = Html.GetHtmlCode().Split('\n');
+                lines = new string[orgLines.Length];
+                // 去除每行的空白字符,剔除标签
+                for (int i = 0; i < orgLines.Length; i++)
+                {
+                    string lineInfo = orgLines[i];
+                    // 处理回车，使用[crlf]做为回车标记符，最后统一处理
+                    lineInfo = Regex.Replace(lineInfo, "(?is)</p>|<br.*?/>", "[crlf]");
+                    lines[i] = Regex.Replace(lineInfo, "(?is)<.*?>", "").Trim();
+                }
+
+                StringBuilder sb = new StringBuilder();
+                StringBuilder orgSb = new StringBuilder();
+
+                int preTextLen = 0;         // 记录上一次统计的字符数量
+                int startPos = -1;          // 记录文章正文的起始位置
+                for (int i = 0; i < lines.Length - _depth; i++)
+                {
+                    int len = 0;
+                    for (int j = 0; j < _depth; j++)
+                    {
+                        len += lines[i + j].Length;
+                    }
+
+                    if (startPos == -1)     // 还没有找到文章起始位置，需要判断起始位置
+                    {
+                        if (preTextLen > _limitCount && len > 0)    // 如果上次查找的文本数量超过了限定字数，且当前行数字符数不为0，则认为是开始位置
+                        {
+                            // 查找文章起始位置, 如果向上查找，发现2行连续的空行则认为是头部
+                            int emptyCount = 0;
+                            for (int j = i - 1; j > 0; j--)
+                            {
+                                if (String.IsNullOrEmpty(lines[j]))
+                                {
+                                    emptyCount++;
+                                }
+                                else
+                                {
+                                    emptyCount = 0;
+                                }
+                                if (emptyCount == _headEmptyLines)
+                                {
+                                    startPos = j + _headEmptyLines;
+                                    break;
+                                }
+                            }
+                            // 如果没有定位到文章头，则以当前查找位置作为文章头
+                            if (startPos == -1)
+                            {
+                                startPos = i;
+                            }
+                            // 填充发现的文章起始部分
+                            for (int j = startPos; j <= i; j++)
+                            {
+                                sb.Append(lines[j]);
+                                orgSb.Append(orgLines[j]);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        //if (len == 0 && preTextLen == 0)    // 当前长度为0，且上一个长度也为0，则认为已经结束
+                        if (len <= _endLimitCharCount && preTextLen < _endLimitCharCount)    // 当前长度为0，且上一个长度也为0，则认为已经结束
+                        {
+                            if (!_appendMode)
+                            {
+                                break;
+                            }
+                            startPos = -1;
+                        }
+                        sb.Append(lines[i]);
+                        orgSb.Append(orgLines[i]);
+                    }
+                    preTextLen = len;
+                }
+
+                string result = sb.ToString();
+                // 处理回车符，更好的将文本格式化输出
+                content = result.Replace("[crlf]", Environment.NewLine);
+                content = System.Web.HttpUtility.HtmlDecode(content);
+                return content;
             }
         }
 
@@ -664,6 +821,11 @@ namespace Iveely.Framework.Text
         /// </summary>
         public string SourceCode { get; private set; }
 
+        /// <summary>
+        /// 发布日期
+        /// </summary>
+        public DateTime PublishDate { get; private set; }
+
         public List<Uri> ChildrenLink { get; private set; }
 
         private static IProcessor[] _processors;
@@ -696,6 +858,7 @@ namespace Iveely.Framework.Text
                         Html html = new Html();
                         html.Title = crawlerContent.GetTitle();
                         html.Content = crawlerContent.GetContent();
+                        html.PublishDate = crawlerContent.GetPublishDate();
                         //html.SourceCode = crawlerContent.Text;
                         html.ChildrenLink = new List<Uri>(ProcessContent(crawlerContent, uri));
                         return html;
