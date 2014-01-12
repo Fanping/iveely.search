@@ -87,6 +87,20 @@ namespace Iveely.Framework.Algorithm.AI
                 return null;
             }
 
+            /// <summary>
+            /// 获取所有问题
+            /// </summary>
+            /// <returns></returns>
+            public List<string> GetAllQuestions()
+            {
+                List<string> allQuestions = new List<string>();
+                foreach (Tuple<string, string> tuple in Description)
+                {
+                    allQuestions.Add(tuple.Item1 + "\t" + tuple.Item2);
+                }
+                return allQuestions;
+            }
+
             public override string ToString()
             {
                 return string.Format("{0}[|]{1}[|]{2}[|]{3}", FromTitle, Content, Entity.Count > 0 ? Entity[0].Item1 : "-", Reference);

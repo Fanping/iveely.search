@@ -89,7 +89,15 @@ namespace Iveely.Framework.Text
 
                     if (_currentData.Count >= _fileSize)
                     {
-                        Serializer.SerializeToFile(_currentData, _dataStoreFolder + "\\" + _fileId);
+                        if (obj is string)
+                        {
+                            List<string> allLines = _currentData.ConvertAll(innerObj => string.Format("{0}", innerObj));
+                            File.WriteAllLines(_dataStoreFolder + "\\" + _fileId, allLines.ToArray());
+                        }
+                        else
+                        {
+                            Serializer.SerializeToFile(_currentData, _dataStoreFolder + "\\" + _fileId);
+                        }
                         _fileId++;
                         _recoredId = 0;
                         _currentData.Clear();
