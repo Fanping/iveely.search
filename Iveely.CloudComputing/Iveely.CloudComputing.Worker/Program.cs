@@ -16,6 +16,7 @@ using Iveely.Framework.Network;
 using Iveely.Framework.Network.Synchronous;
 using Iveely.Framework.Text;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Runtime.InteropServices; 
 
 namespace Iveely.CloudComputing.Worker
 {
@@ -30,6 +31,20 @@ namespace Iveely.CloudComputing.Worker
         private static string _machineName;
 
         private static int _servicePort;
+
+        public struct MEMINFO //这个结构用于获得系统信息
+        {
+            internal uint dwLength;
+            internal uint dwMemoryLoad;
+            internal uint dwTotalPhys;
+            internal uint dwAvailPhys;
+            internal uint dwTotalPageFile;
+            internal uint dwAvailPageFile;
+            internal uint dwTotalVirtual;
+            internal uint dwAvailVirtual;
+        }
+        [DllImport("kernel32.dll")]
+        public static extern void GlobalMemoryStatus(ref MEMINFO meminfo);
 
         public static void Main(string[] args)
         {
@@ -194,6 +209,38 @@ namespace Iveely.CloudComputing.Worker
                 {
                     File.Move(fileName, fileNewName);
                 }
+            }
+
+            //如果是查看硬盘空间
+            if (packet.ExcuteType == ExcutePacket.Type.Disk)
+            {
+                Logger.Info("Get command Disk Storage Information");
+                DriveInfo[] dis = DriveInfo.GetDrives();
+
+                long DiskStorage = 0;
+                foreach (DriveInfo di in dis)
+                {
+                    DiskStorage += di.TotalFreeSpace / (1024 * 1024);
+                }
+
+                int WorkerCount = Serializer.DeserializeFromBytes<int>(packet.Data);
+
+                return Serializer.SerializeToBytes(DiskStorage / WorkerCount);
+            }
+
+            //如果是查看内存
+            if (packet.ExcuteType == ExcutePacket.Type.Memory)
+            {
+                Logger.Info("Get command Memory Information");
+
+                MEMINFO MemInfo = new MEMINFO();//实例化结构
+                GlobalMemoryStatus(ref MemInfo);//给此结构赋值
+                string useinfo = Convert.ToString(MemInfo.dwAvailPhys / 1024 / 1024) + "MB";//获得已用内存量
+                string allinfo = Convert.ToString(MemInfo.dwTotalPhys / 1024 / 1024) + "MB";//获得内存总量
+                string result = "Total Size: " + allinfo + " || useinfo " + useinfo;
+                Console.WriteLine(result);
+
+                return Serializer.SerializeToBytes(result);
             }
             return null;
         }

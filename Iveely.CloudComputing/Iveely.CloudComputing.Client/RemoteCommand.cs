@@ -14,6 +14,7 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading;
+using System.Collections;
 using Iveely.CloudComputing.StateAPI;
 using Iveely.Framework.Log;
 using Iveely.Framework.Network;
@@ -534,6 +535,104 @@ namespace Iveely.CloudComputing.Client
                 }
             }
 
+        }
+    }
+
+    public class DiskCmd : RemoteCommand
+    {
+        public override void ProcessCmd(string[] args)
+        {
+            if (args.Length != 1)
+            {
+                UnknowCommand();
+                return;
+            }
+
+            List<string> Workers = new List<string>(StateHelper.GetChildren("ISE://system/state/worker"));
+
+            Hashtable IpCollection = new Hashtable();
+            for (int i = 0; i < Workers.Count; i++)
+            {
+                string[] ip = Workers[i].Substring(Workers[i].LastIndexOf('/') + 1,
+                    Workers[i].Length - Workers[i].LastIndexOf('/') - 1)
+                    .Split(',');
+                if (!IpCollection.Contains(ip[0]))
+                {
+                    IpCollection[ip[0]] = 1;
+                }
+                else
+                {
+                    IpCollection[ip[0]] = int.Parse(IpCollection[ip[0]].ToString()) + 1;
+                }
+            }
+
+            foreach (string eachWorker in Workers)
+            {
+                string[] ip = eachWorker.Substring(eachWorker.LastIndexOf('/') + 1,
+                    eachWorker.Length - eachWorker.LastIndexOf('/') - 1)
+                    .Split(',');
+                Framework.Network.Synchronous.Client transfer = new Framework.Network.Synchronous.Client(ip[0],
+                    int.Parse(ip[1]));
+                ExcutePacket codePacket = new ExcutePacket(Encoding.UTF8.GetBytes(IpCollection[ip[0]].ToString()), string.Empty,
+                    string.Empty, string.Empty,
+                    ExcutePacket.Type.Disk);
+                codePacket.SetReturnAddress(Dns.GetHostName(), 8800);
+                codePacket.WaiteCallBack = true;
+                List<string> result = transfer.Send<List<string>>(codePacket);
+                foreach (string s in result)
+                {
+                    Console.WriteLine("    " + s);
+                }
+
+            }
+        }
+    }
+
+    public class MemCmd : RemoteCommand
+    {
+        public override void ProcessCmd(string[] args)
+        {
+            if (args.Length != 1)
+            {
+                UnknowCommand();
+                return;
+            }
+
+            List<string> Workers = new List<string>(StateHelper.GetChildren("ISE://system/state/worker"));
+
+            Hashtable IpCollection = new Hashtable();
+            for (int i = 0; i < Workers.Count; i++)
+            {
+                string[] ip = Workers[i].Substring(Workers[i].LastIndexOf('/') + 1,
+                    Workers[i].Length - Workers[i].LastIndexOf('/') - 1)
+                    .Split(',');
+                if (!IpCollection.Contains(ip[0]))
+                {
+                    IpCollection[ip[0]] = 1;
+                }
+                else
+                {
+                    IpCollection[ip[0]] = int.Parse(IpCollection[ip[0]].ToString()) + 1;
+                }
+            }
+
+            foreach (string eachWorker in Workers)
+            {
+                string[] ip = eachWorker.Substring(eachWorker.LastIndexOf('/') + 1,
+                    eachWorker.Length - eachWorker.LastIndexOf('/') - 1)
+                    .Split(',');
+                Framework.Network.Synchronous.Client transfer = new Framework.Network.Synchronous.Client(ip[0],
+                    int.Parse(ip[1]));
+                ExcutePacket codePacket = new ExcutePacket(Encoding.UTF8.GetBytes(IpCollection[ip[0]].ToString()), string.Empty,
+                    string.Empty, string.Empty,
+                    ExcutePacket.Type.Memory);
+                codePacket.SetReturnAddress(Dns.GetHostName(), 8800);
+                codePacket.WaiteCallBack = true;
+
+                String result = transfer.Send<String>(codePacket);
+                Console.WriteLine("     " + result);
+
+            }
         }
     }
 }

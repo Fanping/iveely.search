@@ -135,6 +135,20 @@ namespace Iveely.CloudComputing.Client
                 command.ProcessCmd(args);
             }
 
+            //10. 如果是显示可用磁盘空间
+            else if (cmd == "disk")
+            {
+                command = new DiskCmd();
+                command.ProcessCmd(args);
+            }
+
+            //11. 如果是显示可用内存空间
+            else if (cmd == "memory")
+            {
+                command = new MemCmd();
+                command.ProcessCmd(args);
+            }
+
             else
             {
                 //Example_Data_Sort dataSort = new Example_Data_Sort();

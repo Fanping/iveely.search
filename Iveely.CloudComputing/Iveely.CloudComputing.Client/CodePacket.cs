@@ -23,7 +23,9 @@ namespace Iveely.CloudComputing.Client
             Download,
             Delete,
             Rename,
-            List
+            List,
+            Disk,
+            Memory
         }
 
         public string ClassName
