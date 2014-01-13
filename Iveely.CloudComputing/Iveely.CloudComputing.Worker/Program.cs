@@ -220,7 +220,7 @@ namespace Iveely.CloudComputing.Worker
                 long DiskStorage = 0;
                 foreach (DriveInfo di in dis)
                 {
-                    DiskStorage += di.TotalFreeSpace / (1024 * 1024);
+                        DiskStorage += di.TotalFreeSpace / (1024 * 1024);
                 }
 
                 int WorkerCount = Serializer.DeserializeFromBytes<int>(packet.Data);
@@ -235,9 +235,9 @@ namespace Iveely.CloudComputing.Worker
 
                 MEMINFO MemInfo = new MEMINFO();//实例化结构
                 GlobalMemoryStatus(ref MemInfo);//给此结构赋值
-                string useinfo = Convert.ToString(MemInfo.dwAvailPhys / 1024 / 1024) + "MB";//获得已用内存量
+                string availinfo = Convert.ToString(MemInfo.dwAvailPhys / 1024 / 1024) + "MB";//获得已用内存量
                 string allinfo = Convert.ToString(MemInfo.dwTotalPhys / 1024 / 1024) + "MB";//获得内存总量
-                string result = "Total Size: " + allinfo + " || useinfo " + useinfo;
+                string result = Dns.GetHostName() + " Total: " + allinfo + " || Available: " + availinfo;
                 Console.WriteLine(result);
 
                 return Serializer.SerializeToBytes(result);

@@ -334,9 +334,9 @@ namespace Iveely.Framework.Text
                 try
                 {
 
-                    return GetArticle();
-                    //string content = Html.DocumentNode.SelectNodes("/html/body")[0].InnerHtml;
-                    //return new HtmlParser(content).Text();
+                    //return GetArticle();
+                    string content = Html.DocumentNode.SelectNodes("/html/body")[0].InnerHtml;
+                    return new HtmlParser(content).Text();
                 }
                 catch
                 {

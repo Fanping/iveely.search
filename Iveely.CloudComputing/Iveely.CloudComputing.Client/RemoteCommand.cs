@@ -34,6 +34,8 @@ namespace Iveely.CloudComputing.Client
             Console.WriteLine("             split [filepath] [remotepath]");
             Console.WriteLine("             split [filepath] [remotepath] splitstring key1 key2 key3...");
             Console.WriteLine("             download [remotepath] [filepath]");
+            Console.WriteLine("             disk");
+            Console.WriteLine("             meomory");
             Console.WriteLine("             delete [remotepath]");
             Console.WriteLine("             rename [filepath] [newfileName]");
             Console.WriteLine("             list [/folder]");
