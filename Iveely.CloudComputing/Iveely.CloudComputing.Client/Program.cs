@@ -27,7 +27,7 @@ namespace Iveely.CloudComputing.Client
         /// <param name="args"></param>
         static void Main(string[] args)
         {
-            Console.Title = "Iveely Cloud Computting Platform";
+            Console.Title = "Iveely Cloud Computing Platform";
             while (true)
             {
                 try
