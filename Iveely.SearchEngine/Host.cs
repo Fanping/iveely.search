@@ -29,6 +29,8 @@ namespace Iveely.SearchEngine
 
         public static void Main(string[] args)
         {
+            QuestionGetter getter = new QuestionGetter();
+            getter.Run(new object[] { 8001, 8001, 8001, 8001, 8001, 8001 });
 
             if (args.Length > 0)
             {
