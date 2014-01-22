@@ -74,6 +74,7 @@
     <Compile Include="Network\Packet.cs" />
     <Compile Include="Network\Synchronous\Client.cs" />
     <Compile Include="Network\Synchronous\Server.cs" />
+    <Compile Include="NLP\Semantic.cs" />
     <Compile Include="Process\ParallelHelper.cs" />
     <Compile Include="Process\RunningState.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
