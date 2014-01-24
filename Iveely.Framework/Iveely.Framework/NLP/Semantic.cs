@@ -148,5 +148,15 @@ namespace Iveely.Framework.NLP
             }
             return string.Empty;
         }
+
+        /// <summary>
+        /// 获取相似词汇
+        /// </summary>
+        /// <param name="word"></param>
+        /// <returns></returns>
+        public List<string> GetSimilarWords(string word)
+        {
+            return null;
+        }
     }
 }

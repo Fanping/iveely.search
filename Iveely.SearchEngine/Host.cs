@@ -29,19 +29,24 @@ namespace Iveely.SearchEngine
 
         public static void Main(string[] args)
         {
-            QuestionGetter getter = new QuestionGetter();
-            getter.Run(new object[] { 8001, 8001, 8001, 8001, 8001, 8001 });
+            Iveely.Framework.NLP.Semantic semantic = Iveely.Framework.NLP.Semantic.GetInstance();
+            semantic.GetSimilarContext("我喜欢中国");
+            Console.WriteLine(semantic.GetWordExplain("刘"));
+            Console.WriteLine(semantic.GetWordExplain("李"));
 
-            if (args.Length > 0)
-            {
-                Host host = new Host();
-                host.Run(null);
-            }
-            else
-            {
-                Backstage backstage = new Backstage();
-                backstage.Run(new object[] { 8001, 8001, 8001, 8001, 8001, 8001 });
-            }
+            //QuestionGetter getter = new QuestionGetter();
+            //getter.Run(new object[] { 8001, 8001, 8001, 8001, 8001, 8001 });
+
+            //if (args.Length > 0)
+            //{
+            //    Host host = new Host();
+            //    host.Run(null);
+            //}
+            //else
+            //{
+            //    Backstage backstage = new Backstage();
+            //    backstage.Run(new object[] { 8001, 8001, 8001, 8001, 8001, 8001 });
+            //}
             Console.ReadKey();
         }
 
