@@ -30,10 +30,19 @@ namespace Iveely.SearchEngine
         public static void Main(string[] args)
         {
             Iveely.Framework.NLP.Semantic semantic = Iveely.Framework.NLP.Semantic.GetInstance();
-            semantic.GetSimilarContext("我喜欢中国");
-            Console.WriteLine(semantic.GetWordExplain("刘"));
-            Console.WriteLine(semantic.GetWordExplain("李"));
-
+            string[] allLines = File.ReadAllLines("语义.txt", Encoding.UTF8);
+            StringBuilder builder = new StringBuilder();
+            foreach (string line in allLines)
+            {
+                string[] context = line.Split(new[] { '\t' }, StringSplitOptions.RemoveEmptyEntries);
+                semantic.GetSimilarContext(context[2]);
+                Console.WriteLine();
+                semantic.GetSimilarContext(context[3]);
+                builder.AppendLine(line + "    " + semantic.TextSimilarity(context[2], context[3]));
+                Console.WriteLine();
+            }
+            File.WriteAllText("语义-分词-义原-结果.txt", builder.ToString(), Encoding.UTF8);
+            Console.WriteLine("end");
             //QuestionGetter getter = new QuestionGetter();
             //getter.Run(new object[] { 8001, 8001, 8001, 8001, 8001, 8001 });
 
