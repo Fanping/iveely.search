@@ -21,6 +21,11 @@ namespace Iveely.Framework.NLP
     public class Semantic
     {
         /// <summary>
+        /// 所有语义属性权重
+        /// </summary>
+        private Hashtable _SemanticAttributes;
+
+        /// <summary>
         /// 词语解释
         /// </summary>
         internal class Explain
@@ -767,10 +772,16 @@ namespace Iveely.Framework.NLP
         private Semantic()
         {
             _dictionary = new Hashtable();
+            _SemanticAttributes = new Hashtable();
             LoadDictionary("Chinese Dictionary.txt");
+            LoadSemanticRank("Init\\SemanticAttribute.txt");
             segment = Text.Segment.IctclasSegment.GetInstance();
         }
 
+        /// <summary>
+        /// 加载汉语词典
+        /// </summary>
+        /// <param name="dicPath"></param>
         private void LoadDictionary(string dicPath)
         {
             string[] lines = File.ReadAllLines(dicPath);
@@ -797,6 +808,23 @@ namespace Iveely.Framework.NLP
                         }
                     }
                     _dictionary.Add(text[0], explain);
+                }
+            }
+        }
+
+        /// <summary>
+        /// 加载语义权重
+        /// </summary>
+        /// <param name="filePath"></param>
+        private void LoadSemanticRank(string filePath)
+        {
+            string[] allLines = File.ReadAllLines(filePath, Encoding.UTF8);
+            foreach(string line in allLines)
+            {
+                string[] context = line.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+                if(context.Length==3)
+                {
+                    _SemanticAttributes.Add(context[0], double.Parse(context[2]));
                 }
             }
         }
@@ -853,10 +881,10 @@ namespace Iveely.Framework.NLP
         /// <returns></returns>
         public double TextSimilarity(string sentence1, string sentence2)
         {
-            Iveely.Framework.Text.Segment.IctclasSegment segment = Text.Segment.IctclasSegment.GetInstance();
+            Iveely.Framework.Text.Segment.IctclasSegment ictclasSegment = Text.Segment.IctclasSegment.GetInstance();
             List<string> list1 = new List<string>();
             List<string> speech1 = new List<string>();
-            List<WordResult[]> results1 = segment.SplitToArray(sentence1);
+            List<WordResult[]> results1 = ictclasSegment.SplitToArray(sentence1);
             for (int i = 0; i < results1.Count; i++)
             {
                 for (int j = 1; j < results1[i].Length - 1; j++)
@@ -868,7 +896,7 @@ namespace Iveely.Framework.NLP
 
             List<string> list2 = new List<string>();
             List<string> speech2 = new List<string>();
-            List<WordResult[]> results2 = segment.SplitToArray(sentence2);
+            List<WordResult[]> results2 = ictclasSegment.SplitToArray(sentence2);
             for (int i = 0; i < results2.Count; i++)
             {
                 for (int j = 1; j < results2[i].Length - 1; j++)
@@ -882,6 +910,17 @@ namespace Iveely.Framework.NLP
         }
 
         /// <summary>
+        /// 判断两句话翻译时候相同
+        /// </summary>
+        /// <param name="sentence1"></param>
+        /// <param name="sentence2"></param>
+        /// <returns></returns>
+        public bool IsSameMeaning(string sentence1,string sentence2)
+        {
+            return TextSimilarity(sentence1, sentence2) > 0.9;
+        }
+
+        /// <summary>
         /// 词性逻辑相似度
         /// </summary>
         /// <param name="speech1"></param>
@@ -889,67 +928,64 @@ namespace Iveely.Framework.NLP
         /// <returns></returns>
         private double SpeechSimilarity(List<string> speech1, List<string> list1, List<string> speech2, List<string> list2)
         {
-
-            //获取1 R-V-N[D]
-            List<string> nr1 = new List<string>();
-            List<string> v1 = new List<string>();
-            List<string> n1 = new List<string>();
-            for (int i = 0; i < speech1.Count; i++)
-            {
-                //人名
-                if (speech1[i] == "r")
-                {
-                    nr1.Add(list1[i]);
-                }
-
-                //动词 
-                if (speech1[i] == "v")
-                {
-                    v1.Add(list1[i]);
-                }
-
-                //名词
-                if (speech1[i] == "n")
-                {
-                    n1.Add(list1[i]);
-                }
-
-            }
-
-
-            //获取1 R-V-N[D]
-            List<string> nr2 = new List<string>();
-            List<string> v2 = new List<string>();
-            List<string> n2 = new List<string>();
-            for (int i = 0; i < speech2.Count; i++)
-            {
-                //人名
-                if (speech2[i] == "r")
-                {
-                    nr2.Add(list2[i]);
-                }
-
-                //动词 
-                if (speech2[i] == "v")
-                {
-                    v2.Add(list2[i]);
-                }
-
-                //名词
-                if (speech2[i] == "n")
-                {
-                    n2.Add(list2[i]);
-                }
-
-            }
-
             WordSimilarity similarity = WordSimilarity.GetInstance();
+            Hashtable table1 = GetSemanticFlags(speech1, list1);
+            Hashtable table2 = GetSemanticFlags(speech2, list2);
 
-            //人名主题相似度
-            double nrSim = similarity.SimList(nr1, nr2);
-            double vSim = similarity.SimList(v1, v2);
-            double nSim = similarity.SimList(n1, n2);
-            return nrSim*0.5 + vSim*0.3 + nSim*0.2;
+            //相似度计算
+            double similarValue = 0;
+            double totalValue = 0;
+            foreach (DictionaryEntry entry1 in table1)
+            {
+                if (_SemanticAttributes.ContainsKey(entry1.Key))
+                {
+                    double flagRank = (double) _SemanticAttributes[entry1.Key];
+                    totalValue += flagRank;
+                    if (table2.ContainsKey(entry1.Key))
+                    {
+                        similarValue +=
+                            similarity.SimList((List<string>) entry1.Value, (List<string>) table2[entry1.Key])*
+                            flagRank;
+                        table2.Remove(entry1.Key);
+                    }
+                }
+            }
+
+            foreach (DictionaryEntry dictionaryEntry in table2)
+            {
+                if(_SemanticAttributes.ContainsKey(dictionaryEntry.Key))
+                totalValue += (double)_SemanticAttributes[dictionaryEntry.Key];
+            }
+            if(totalValue>0)
+                return similarValue/totalValue;
+            return 0;
+        }
+
+        /// <summary>
+        /// 获取语义成分
+        /// </summary>
+        /// <param name="speeches"></param>
+        /// <param name="words"></param>
+        /// <returns></returns>
+        private Hashtable GetSemanticFlags(List<string> speeches, List<string> words)
+        {
+            Hashtable table = new Hashtable();
+            for (int i = 0; i < speeches.Count; i++)
+            { 
+                if(table.ContainsKey(speeches[i]))
+                {
+                    List<string> sWords = (List<string>)table[speeches[i]];
+                    sWords.Add(words[i]);
+                    table[speeches[i]] = sWords;
+                }
+                else
+                {
+                    List<string> sWords = new List<string>();
+                    sWords.Add(words[i]);
+                    table.Add(speeches[i], sWords);
+                }
+            }
+            return table;
         }
     }
 }

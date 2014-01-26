@@ -93,7 +93,40 @@ namespace Iveely.Framework.Text.Segment
             return buffer;
         }
 
-        ///// <summary>
+        public string SplitToSemantic(string sentence)
+        {
+            List<WordResult[]> results = SplitToArray(sentence);
+            string textResult = string.Empty;
+            for (int i = 0; i < results.Count; i++)
+            {
+                for (int j = 1; j < results[i].Length - 1; j++)
+                {
+                   textResult+=results[i][j].sWord + " " + Utility.GetPOSString(results[i][j].nPOS)+" ";
+                }
+            }
+            return textResult.Trim();
+        }
+
+        /// <summary>
+        /// 获取分词后的词性标注
+        /// </summary>
+        /// <param name="sentence"></param>
+        /// <returns></returns>
+        public List<string> GetSemantic(string sentence)
+        {
+            List<WordResult[]> results = SplitToArray(sentence);
+            List<string> semanticList = new List<string>();
+            for (int i = 0; i < results.Count; i++)
+            {
+                for (int j = 1; j < results[i].Length - 1; j++)
+                {
+                    semanticList.Add(Utility.GetPOSString(results[i][j].nPOS));
+                }
+            }
+            return semanticList;
+        }
+
+            ///// <summary>
         ///// 中间结果输出
         ///// </summary>
         ///// <param name="sender"></param>
