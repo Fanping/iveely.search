@@ -114,12 +114,16 @@ namespace Iveely.Framework.Algorithm
             foreach (string key in keys)
             {
                 List<string> temp = FindDocumentByKey(key, false);
-                if (temp != null)
+                if (temp != null && temp.Count > 0)
                 {
                     foreach (var t in temp)
                     {
                         table.Add(t, 1);
                     }
+                }
+                else
+                {
+                    return null;
                 }
             }
 
@@ -132,7 +136,7 @@ namespace Iveely.Framework.Algorithm
                 IDictionaryEnumerator ide = table.GetEnumerator();
                 while (ide.MoveNext())
                 {
-                    if (ide.Value == list[i])
+                    if (ide.Value == list[i] && int.Parse(list[i].ToString()) == keys.Length)
                     {
                         result.Add(ide.Key.ToString());
                     }

@@ -859,7 +859,7 @@ namespace Iveely.Framework.Text
                         html.Title = crawlerContent.GetTitle();
                         html.Content = crawlerContent.GetContent();
                         html.PublishDate = crawlerContent.GetPublishDate();
-                        //html.SourceCode = crawlerContent.Text;
+                        html.SourceCode = crawlerContent.Text;
                         html.ChildrenLink = new List<Uri>(ProcessContent(crawlerContent, uri));
                         return html;
                     }

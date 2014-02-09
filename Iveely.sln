@@ -1,8 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.21005.1
-MinimumVisualStudioVersion = 10.0.40219.1
+# Visual Studio 2012
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Iveely.CloudComputing", "Iveely.CloudComputing", "{456AA3BF-F2BE-4979-9CC6-FF1BE180FDAD}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Dependency", "Dependency", "{B40A826B-7BE9-4629-BE4A-69809B06560D}"
@@ -48,6 +46,10 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharpICTCLAS", "Dependency\SharpICTCLAS\SharpICTCLAS.csproj", "{E27DB382-5785-40F9-B671-197FD5B77569}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Iveely.CloudComputing.Supervisor", "Iveely.CloudComputing\Iveely.CloudComputing.Supervisor\Iveely.CloudComputing.Supervisor.csproj", "{BD096844-700D-4EB4-9EF3-5A6DDB887270}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Iveely.Demo", "Iveely.Demo\Iveely.Demo\Iveely.Demo.csproj", "{85F211A2-A2D4-49D9-8417-DFE8D8E511D6}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tools", "Tools", "{98C81AE2-C180-4991-87B1-3E46BE9626AB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -139,6 +141,10 @@ Global
 		{BD096844-700D-4EB4-9EF3-5A6DDB887270}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BD096844-700D-4EB4-9EF3-5A6DDB887270}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BD096844-700D-4EB4-9EF3-5A6DDB887270}.Release|Any CPU.Build.0 = Release|Any CPU
+		{85F211A2-A2D4-49D9-8417-DFE8D8E511D6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{85F211A2-A2D4-49D9-8417-DFE8D8E511D6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{85F211A2-A2D4-49D9-8417-DFE8D8E511D6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{85F211A2-A2D4-49D9-8417-DFE8D8E511D6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -163,5 +169,6 @@ Global
 		{4B6993D5-995D-4AAA-BBCE-423D1B5451F6} = {B40A826B-7BE9-4629-BE4A-69809B06560D}
 		{88AB738F-7A36-4C93-B808-B6CE2D3444B2} = {B40A826B-7BE9-4629-BE4A-69809B06560D}
 		{E27DB382-5785-40F9-B671-197FD5B77569} = {B40A826B-7BE9-4629-BE4A-69809B06560D}
+		{85F211A2-A2D4-49D9-8417-DFE8D8E511D6} = {98C81AE2-C180-4991-87B1-3E46BE9626AB}
 	EndGlobalSection
 EndGlobal

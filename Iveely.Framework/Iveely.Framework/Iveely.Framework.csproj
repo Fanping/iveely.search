@@ -74,7 +74,10 @@
     <Compile Include="Network\Packet.cs" />
     <Compile Include="Network\Synchronous\Client.cs" />
     <Compile Include="Network\Synchronous\Server.cs" />
+    <Compile Include="NLP\InformationExtracter.cs" />
+    <Compile Include="NLP\InformationChecker.cs" />
     <Compile Include="NLP\QuestionChecker.cs" />
+    <Compile Include="NLP\QuestionExtracter.cs" />
     <Compile Include="NLP\Semantic.cs" />
     <Compile Include="Process\ParallelHelper.cs" />
     <Compile Include="Process\RunningState.cs" />

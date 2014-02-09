@@ -1,7 +1,7 @@
 ﻿/*==========================================
  *创建人：刘凡平
  *邮  箱：liufanping@iveely.com
- *电  话：13896622743
+ *电  话：
  *版  本：0.1.0
  *Iveely=I void everything,except love you!
  *========================================*/
@@ -23,7 +23,7 @@ namespace Iveely.Framework.NLP
         /// <summary>
         /// 所有语义属性权重
         /// </summary>
-        private Hashtable _SemanticAttributes;
+        private readonly Hashtable _semanticAttributes;
 
         /// <summary>
         /// 词语解释
@@ -360,14 +360,8 @@ namespace Iveely.Framework.NLP
             private void LoadGlossary()
             {
                 string[] allLines = File.ReadAllLines("Init\\glossary.txt", Encoding.UTF8);
-                int i = allLines.Length;
                 foreach (string line in allLines)
                 {
-                    i--;
-                    if (i % 1000 == 0)
-                    {
-                        Console.WriteLine(i);
-                    }
                     string[] content = line.Split(new char[] { '\t' }, StringSplitOptions.RemoveEmptyEntries);
                     if (content.Length == 3)
                     {
@@ -772,7 +766,7 @@ namespace Iveely.Framework.NLP
         private Semantic()
         {
             _dictionary = new Hashtable();
-            _SemanticAttributes = new Hashtable();
+            _semanticAttributes = new Hashtable();
             LoadDictionary("Chinese Dictionary.txt");
             LoadSemanticRank("Init\\SemanticAttribute.txt");
             segment = Text.Segment.IctclasSegment.GetInstance();
@@ -819,12 +813,12 @@ namespace Iveely.Framework.NLP
         private void LoadSemanticRank(string filePath)
         {
             string[] allLines = File.ReadAllLines(filePath, Encoding.UTF8);
-            foreach(string line in allLines)
+            foreach (string line in allLines)
             {
                 string[] context = line.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
-                if(context.Length==3)
+                if (context.Length == 3)
                 {
-                    _SemanticAttributes.Add(context[0], double.Parse(context[2]));
+                    _semanticAttributes.Add(context[0], double.Parse(context[2]));
                 }
             }
         }
@@ -836,14 +830,14 @@ namespace Iveely.Framework.NLP
         /// <returns></returns>
         public string GetSimilarContext(string context)
         {
-            List<WordResult[]> results = segment.SplitToArray(context);
-            for (int i = 0; i < results.Count; i++)
-            {
-                for (int j = 1; j < results[i].Length - 1; j++)
-                {
-                    Console.Write(results[i][j].sWord + " " + Utility.GetPOSString(results[i][j].nPOS));
-                }
-            }
+            //List<WordResult[]> results = segment.SplitToArray(context);
+            //for (int i = 0; i < results.Count; i++)
+            //{
+            //    for (int j = 1; j < results[i].Length - 1; j++)
+            //    {
+            //        Console.Write(results[i][j].sWord + " " + Utility.GetPOSString(results[i][j].nPOS));
+            //    }
+            //}
             return string.Empty;
         }
 
@@ -869,7 +863,18 @@ namespace Iveely.Framework.NLP
         /// <returns></returns>
         public List<string> GetSimilarWords(string word)
         {
-            return null;
+            List<string> result = new List<string>();
+            foreach (DictionaryEntry de in _dictionary)
+            {
+                if (word != de.Key.ToString())
+                {
+                    if (TextSimilarity(word, de.Key.ToString()) > 0.89)
+                    {
+                        result.Add(de.Key.ToString());
+                    }
+                }
+            }
+            return result;
         }
 
         /// <summary>
@@ -882,31 +887,10 @@ namespace Iveely.Framework.NLP
         public double TextSimilarity(string sentence1, string sentence2)
         {
             Iveely.Framework.Text.Segment.IctclasSegment ictclasSegment = Text.Segment.IctclasSegment.GetInstance();
-            List<string> list1 = new List<string>();
-            List<string> speech1 = new List<string>();
-            List<WordResult[]> results1 = ictclasSegment.SplitToArray(sentence1);
-            for (int i = 0; i < results1.Count; i++)
-            {
-                for (int j = 1; j < results1[i].Length - 1; j++)
-                {
-                    list1.Add(results1[i][j].sWord);
-                    speech1.Add(Utility.GetPOSString(results1[i][j].nPOS));
-                }
-            }
+            Tuple<string[], string[]> tuple1 = ictclasSegment.SplitToArray(sentence1);
+            Tuple<string[], string[]> tuple2 = ictclasSegment.SplitToArray(sentence2);
 
-            List<string> list2 = new List<string>();
-            List<string> speech2 = new List<string>();
-            List<WordResult[]> results2 = ictclasSegment.SplitToArray(sentence2);
-            for (int i = 0; i < results2.Count; i++)
-            {
-                for (int j = 1; j < results2[i].Length - 1; j++)
-                {
-                    list2.Add(results2[i][j].sWord);
-                    speech2.Add(Utility.GetPOSString(results2[i][j].nPOS));
-                }
-            }
-
-            return SpeechSimilarity(speech1, list1, speech2, list2);
+            return SpeechSimilarity(tuple1, tuple2);
         }
 
         /// <summary>
@@ -915,7 +899,7 @@ namespace Iveely.Framework.NLP
         /// <param name="sentence1"></param>
         /// <param name="sentence2"></param>
         /// <returns></returns>
-        public bool IsSameMeaning(string sentence1,string sentence2)
+        public bool IsSameMeaning(string sentence1, string sentence2)
         {
             return TextSimilarity(sentence1, sentence2) > 0.9;
         }
@@ -926,25 +910,25 @@ namespace Iveely.Framework.NLP
         /// <param name="speech1"></param>
         /// <param name="speech2"></param>
         /// <returns></returns>
-        private double SpeechSimilarity(List<string> speech1, List<string> list1, List<string> speech2, List<string> list2)
+        private double SpeechSimilarity(Tuple<string[], string[]> tuple1, Tuple<string[], string[]> tuple2)
         {
             WordSimilarity similarity = WordSimilarity.GetInstance();
-            Hashtable table1 = GetSemanticFlags(speech1, list1);
-            Hashtable table2 = GetSemanticFlags(speech2, list2);
+            Hashtable table1 = GetSemanticFlags(tuple1.Item2, tuple1.Item1);
+            Hashtable table2 = GetSemanticFlags(tuple2.Item2, tuple2.Item1);
 
             //相似度计算
             double similarValue = 0;
             double totalValue = 0;
             foreach (DictionaryEntry entry1 in table1)
             {
-                if (_SemanticAttributes.ContainsKey(entry1.Key))
+                if (_semanticAttributes.ContainsKey(entry1.Key))
                 {
-                    double flagRank = (double) _SemanticAttributes[entry1.Key];
+                    double flagRank = (double)_semanticAttributes[entry1.Key];
                     totalValue += flagRank;
                     if (table2.ContainsKey(entry1.Key))
                     {
                         similarValue +=
-                            similarity.SimList((List<string>) entry1.Value, (List<string>) table2[entry1.Key])*
+                            similarity.SimList((List<string>)entry1.Value, (List<string>)table2[entry1.Key]) *
                             flagRank;
                         table2.Remove(entry1.Key);
                     }
@@ -953,11 +937,11 @@ namespace Iveely.Framework.NLP
 
             foreach (DictionaryEntry dictionaryEntry in table2)
             {
-                if(_SemanticAttributes.ContainsKey(dictionaryEntry.Key))
-                totalValue += (double)_SemanticAttributes[dictionaryEntry.Key];
+                if (_semanticAttributes.ContainsKey(dictionaryEntry.Key))
+                    totalValue += (double)_semanticAttributes[dictionaryEntry.Key];
             }
-            if(totalValue>0)
-                return similarValue/totalValue;
+            if (totalValue > 0)
+                return similarValue / totalValue;
             return 0;
         }
 
@@ -967,12 +951,12 @@ namespace Iveely.Framework.NLP
         /// <param name="speeches"></param>
         /// <param name="words"></param>
         /// <returns></returns>
-        private Hashtable GetSemanticFlags(List<string> speeches, List<string> words)
+        private Hashtable GetSemanticFlags(string[] speeches, string[] words)
         {
             Hashtable table = new Hashtable();
-            for (int i = 0; i < speeches.Count; i++)
-            { 
-                if(table.ContainsKey(speeches[i]))
+            for (int i = 0; i < speeches.Length; i++)
+            {
+                if (table.ContainsKey(speeches[i]))
                 {
                     List<string> sWords = (List<string>)table[speeches[i]];
                     sWords.Add(words[i]);
@@ -987,5 +971,50 @@ namespace Iveely.Framework.NLP
             }
             return table;
         }
+
+#if DEBUG
+
+        /// <summary>
+        /// 测试相似语义分析
+        /// </summary>
+        public void Debug_GetSimilarSemantic()
+        {
+            Framework.NLP.Semantic semantic = Framework.NLP.Semantic.GetInstance();
+            // Console.WriteLine(semantic.TextSimilarity("姚明多高", "姚明身高多少"));
+            string[] allLines = File.ReadAllLines("语义.txt", Encoding.UTF8);
+            StringBuilder builder = new StringBuilder();
+            foreach (string line in allLines)
+            {
+                string[] context = line.Split(new[] { '\t' }, StringSplitOptions.RemoveEmptyEntries);
+                semantic.GetSimilarContext(context[2]);
+                Console.WriteLine();
+                semantic.GetSimilarContext(context[3]);
+                builder.AppendLine(line + "    " + semantic.TextSimilarity(context[2], context[3]));
+                Console.WriteLine();
+            }
+            File.WriteAllText("语义_result.txt", builder.ToString(), Encoding.UTF8);
+        }
+
+        public void Debug_BuildSimiarWordsTable()
+        {
+            StringBuilder builder = new StringBuilder();
+            int i = 0;
+            foreach (DictionaryEntry deA in _dictionary)
+            {
+                if (i++ % 100 == 0)
+                {
+                    Console.WriteLine(i);
+                }
+                List<string> similarWords = GetSimilarWords(deA.Key.ToString());
+                if (similarWords.Count > 0)
+                {
+                    string result = string.Join(":", similarWords);
+                    builder.AppendLine(deA.Key.ToString() + " " + result);
+                }
+            }
+            File.WriteAllText("SimilarWords.txt", builder.ToString());
+        }
+
+#endif
     }
 }

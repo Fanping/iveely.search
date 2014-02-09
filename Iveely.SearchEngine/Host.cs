@@ -19,6 +19,7 @@ using Iveely.Framework.Algorithm.AI.Library;
 using Iveely.Framework.DataStructure;
 using Iveely.Framework.Network;
 using Iveely.Framework.Network.Synchronous;
+using Iveely.Framework.NLP;
 using Iveely.Framework.Text;
 using Iveely.Framework.Text.Segment;
 
@@ -30,67 +31,10 @@ namespace Iveely.SearchEngine
 
         public static void Main(string[] args)
         {
-            Framework.NLP.QuestionChecker checker = Framework.NLP.QuestionChecker.GetInstance();
 
+            #region 信息抽取
 
-            Iveely.Framework.Text.Segment.IctclasSegment semantic =
-            Iveely.Framework.Text.Segment.IctclasSegment.GetInstance();
-            string[] allLines = File.ReadAllLines("Init\\question.txt", Encoding.UTF8);
-            StringBuilder builder = new StringBuilder();
-            int fi = 0;
-            int ti = 0;
-            foreach (string line in allLines)
-            {
-                bool isQ = checker.IsQuestion(line);
-                if (isQ)
-                    ti++;
-                else
-                {
-                    fi++;
-                }
-                builder.AppendLine(line+" "+isQ);
-            }
-
-            File.WriteAllText("question_checker.txt", builder.ToString(), Encoding.UTF8);
-            Console.WriteLine(ti*1.0/(fi+ti));
-
-            //Console.WriteLine(checker.IsQuestion("你好吗?"));
-            //Console.WriteLine(checker.IsQuestion("今天是周一"));
-            //Console.WriteLine(checker.IsQuestion("今天是周一吗?"));
-            //Console.WriteLine(checker.IsQuestion("别哭了，好吗?"));
-            //Console.WriteLine(checker.IsQuestion("别哭了，好吗"));
-
-            //Iveely.Framework.Text.Segment.IctclasSegment semantic =
-            //    Iveely.Framework.Text.Segment.IctclasSegment.GetInstance();
-            //string[] allLines = File.ReadAllLines("Init\\question.txt", Encoding.UTF8);
-            //StringBuilder builder = new StringBuilder();
-            //foreach (string line in allLines)
-            //{
-            //    builder.AppendLine(semantic.SplitToSemantic(line));
-            //}
-
-            //File.WriteAllText("question_result.txt",builder.ToString(),Encoding.UTF8);
-          //  Iveely.Framework.NLP.Semantic semantic = Iveely.Framework.NLP.Semantic.GetInstance();
-
-            //时间疑问句
-
-
-            //Console.WriteLine(semantic.TextSimilarity("你是班长", "你的确是班长"));
-
-            //string[] allLines = File.ReadAllLines("语义.txt", Encoding.UTF8);
-            //StringBuilder builder = new StringBuilder();
-            //foreach (string line in allLines)
-            //{
-            //    string[] context = line.Split(new[] { '\t' }, StringSplitOptions.RemoveEmptyEntries);
-            //    semantic.GetSimilarContext(context[2]);
-            //    Console.WriteLine();
-            //    semantic.GetSimilarContext(context[3]);
-            //    builder.AppendLine(line + "    " + semantic.TextSimilarity(context[2], context[3]));
-            //    Console.WriteLine();
-            //}
-            //File.WriteAllText("语义-分词-义原-结果.txt", builder.ToString(), Encoding.UTF8);
-
-
+            #endregion
 
             Console.WriteLine("end");
             //QuestionGetter getter = new QuestionGetter();

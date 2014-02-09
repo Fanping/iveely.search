@@ -1,8 +1,11 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Security.Policy;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Iveely.Framework.Text.Segment;
 
@@ -11,111 +14,203 @@ namespace Iveely.Framework.NLP
     /// <summary>
     /// 问题检测
     /// </summary>
-    public class QuestionChecker : HMM
+    public class QuestionChecker
     {
         /// <summary>
         /// 问题类型
         /// </summary>
         public enum Type
         {
-            //时间疑问句(你几点钟睡觉)
-            ForTime,
+            /// <summary>
+            /// 问什么类型的问题
+            /// </summary>
+            What,
 
-            //地点疑问句(你在哪儿上学)
-            ForLocation,
+            /// <summary>
+            /// 问地点类型的问题
+            /// </summary>
+            Where,
 
-            //过程疑问句(蛋炒饭怎么做)
-            ForProccess,
+            /// <summary>
+            /// 问世间类型的问题
+            /// </summary>
+            When,
 
-            //人物疑问句(唐朝第一个皇帝是谁)
-            ForWhom,
+            /// <summary>
+            /// 问为什么类型的问题
+            /// </summary>
+            Why,
 
-            //选择疑问句(你累不累？钓鱼岛是不是中国的？)
-            ForSelect,
+            /// <summary>
+            /// 问人物类型的问题
+            /// </summary>
+            Who,
 
-            //属性疑问句(你今年多大了)
-            ForAttribute,
+            /// <summary>
+            /// 问怎么类型的问题
+            /// </summary>
+            How,
 
-            //状态疑问句(水烧开了吗)
-            ForStatus
+            /// <summary>
+            /// 其它复合疑问句
+            /// </summary>
+            Other,
+
+            //不是疑问句
+            Unknown
         }
 
-        /// <summary>
-        /// 状态集
-        /// </summary>
-        private readonly string[] _states = { "Head", "Middle", "End" };
+        private static QuestionChecker _checker;
 
-        private static QuestionChecker checker;
+        private Hashtable _questionRules;
 
         public static QuestionChecker GetInstance()
         {
-            if (checker == null)
+            if (_checker == null)
             {
-                checker = new QuestionChecker();
+                _checker = new QuestionChecker();
             }
-            return checker;
+            return _checker;
         }
 
         private QuestionChecker()
         {
-            TrainStudy();
+            _questionRules = new Hashtable();
+            Learn();
         }
 
-        private void TrainStudy()
+        /// <summary>
+        /// 学习规律
+        /// </summary>
+        private void Learn()
         {
-            SetState(_states);
-            string lastwordType = _states[0];
-            string currentWordType = string.Empty;
-            string[] allLines = File.ReadAllLines("Init\\question_study.txt", Encoding.UTF8);
+            string[] allLines = File.ReadAllLines("Init\\QuestionRule.txt", Encoding.UTF8);
             foreach (string line in allLines)
             {
-                string[] context = line.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
-                for (int i = 1; i < context.Length; i = i + 2)
+                string[] context = line.Split(new[] {'\t'}, StringSplitOptions.RemoveEmptyEntries);
+                if (context.Length == 3)
                 {
-                    //添加观察者
-                    AddObserver(context[i]);
-                    if (i == 1)
-                    {
-                        currentWordType = _states[0];
-                    }
-
-                    else if (i < context.Length - 1)
-                    {
-                        currentWordType = _states[1];
-                    }
-
-                    else
-                    {
-                        currentWordType = _states[2];
-                    }
-
-                    //初始状态转移矩阵
-                    AddInitialStateProbability(currentWordType, 1);
-                    //观察状态转移矩阵
-                    AddComplexProbability(currentWordType, context[1]);
-                    //隐含状态转移矩阵
-                    AddTransferProbability(lastwordType, currentWordType, 1);
-                    lastwordType = currentWordType;
+                    _questionRules.Add(context[0],(Type)int.Parse(context[1]));
                 }
             }
         }
 
         /// <summary>
-        /// 判断是否是一个疑问句
+        /// 获取问题类型
         /// </summary>
         /// <param name="sentence"></param>
         /// <returns></returns>
-        public bool IsQuestion(string sentence)
+        public List<Type> GetQuestionTypes(string sentence)
         {
-            List<string> semanticList = Text.Segment.IctclasSegment.GetInstance().GetSemantic(sentence);
-            if (semanticList.Count == 0)
+            List<Type> qTypes = new List<Type>();
+            bool isOther = false;
+            Framework.Text.Segment.IctclasSegment ictclasSegment = IctclasSegment.GetInstance();
+            string[] sentenceSemantic= ictclasSegment.SplitToArray(sentence).Item2;
+            if (sentenceSemantic != null && sentenceSemantic.Length > 0)
             {
-                return false;
+                string text = string.Join(" ", sentenceSemantic);
+                Regex regex;
+                foreach (DictionaryEntry dictionaryEntry in _questionRules)
+                {
+                    regex = new Regex(dictionaryEntry.Key.ToString());
+                    if (regex.IsMatch(text))
+                    {
+                        Type type = (Type)dictionaryEntry.Value;
+                        if (type != Type.Other)
+                        {
+                            qTypes.Add(type);
+                        }
+                        else
+                        {
+                            isOther = true;
+                        }
+                    }
+                }
             }
-            double pro = 0;
-            int[] path=Decode(semanticList.ToArray(), out pro);
-            //Console.WriteLine(path.Length);
-            return pro < 0.1;
+            if (qTypes.Count == 0 && isOther)
+            {
+                qTypes.Add(Type.Other);
+            }
+            if (qTypes.Count == 0)
+            {
+                qTypes.Add(Type.Unknown);
+            }
+            return qTypes;
         }
+
+#if DEBUG
+
+        /// <summary>
+        /// 疑问句提取
+        /// </summary>
+        public void Debug_GetQuestionFromQuery()
+        {
+            Framework.Text.Segment.IctclasSegment ictclasSegment = Framework.Text.Segment.IctclasSegment.GetInstance();
+            Framework.NLP.QuestionChecker checker = Framework.NLP.QuestionChecker.GetInstance();
+            string[] allLines = File.ReadAllLines("Query.txt", Encoding.UTF8);
+            StringBuilder builder = new StringBuilder();
+            int known = 0;
+            int unknown = 0;
+            int index = 0;
+            foreach (string line in allLines)
+            {
+                if (index++ % 10000 == 0)
+                {
+                    Console.WriteLine(index);
+                }
+                List<Framework.NLP.QuestionChecker.Type> types = checker.GetQuestionTypes(line);
+
+                if (types[0] != Framework.NLP.QuestionChecker.Type.Unknown)
+                {
+                    known++;
+                    string result = string.Join(" ", types.ToArray());
+                    builder.AppendLine(ictclasSegment.SplitToString(line) + " " + result);
+                }
+                else
+                {
+                    unknown++;
+                }
+
+            }
+
+            File.WriteAllText("question_extract.txt", builder.ToString(), Encoding.UTF8);
+            Console.WriteLine("Known:" + known + "  Unknown:" + unknown);
+            Console.ReadLine();
+        }
+
+        /// <summary>
+        /// 疑问句类型分析
+        /// </summary>
+        public void Debug_GetQuestionType()
+        {
+            Framework.Text.Segment.IctclasSegment ictclasSegment = Framework.Text.Segment.IctclasSegment.GetInstance();
+            Framework.NLP.QuestionChecker checker = Framework.NLP.QuestionChecker.GetInstance();
+            string[] allLines = File.ReadAllLines("Init\\question.txt", Encoding.UTF8);
+            StringBuilder builder = new StringBuilder();
+            int known = 0;
+            int unknown = 0;
+            foreach (string line in allLines)
+            {
+                List<Framework.NLP.QuestionChecker.Type> types = checker.GetQuestionTypes(line);
+
+                if (types[0] != Framework.NLP.QuestionChecker.Type.Unknown)
+                {
+                    known++;
+                }
+                else
+                {
+                    unknown++;
+                }
+
+                string result = string.Join(" ", types.ToArray());
+                builder.AppendLine(ictclasSegment.splitWithSemantic(line) + " " + result + "                                   " + ictclasSegment.SplitToGetSemantic(line));
+
+            }
+
+            File.WriteAllText("question_checker.txt", builder.ToString(), Encoding.UTF8);
+            Console.WriteLine("Known:" + known + "  Unknown:" + unknown);
+        }
+
+#endif
     }
 }

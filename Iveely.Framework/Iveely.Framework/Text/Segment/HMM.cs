@@ -170,7 +170,7 @@ namespace Iveely.Framework.Text.Segment
                     path[m] = s[path[m + 1], m + 1];
                 }
             }
-                //词性分析
+            //词性分析
             else if(type == 0)
             {
                 for(int i = 0; i < inputLength; i++)
