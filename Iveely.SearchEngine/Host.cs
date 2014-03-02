@@ -22,6 +22,7 @@ using Iveely.Framework.Network.Synchronous;
 using Iveely.Framework.NLP;
 using Iveely.Framework.Text;
 using Iveely.Framework.Text.Segment;
+using System.Collections;
 
 namespace Iveely.SearchEngine
 {
@@ -29,10 +30,35 @@ namespace Iveely.SearchEngine
     {
         private Library library = new Library();
 
+        public class Temp
+        {
+            public string Name;
+
+            public override int GetHashCode()
+            {
+                Name = "123";
+                int val = Name.GetHashCode();
+                return val;
+            }
+        }
+
         public static void Main(string[] args)
         {
 
             #region 信息抽取
+
+            InvertEntity invert = new InvertEntity();
+            string[] times = { "1998年" };
+            string[] places = { "台湾" };
+            string[] whoms = { "马英九", "国民政府" };
+            string[] events = { "加入" };
+            invert.Add(times, places, whoms, events);
+            string[] mywhom = { "马英九" };
+            List<string> result= invert.Query(Common.Sentence.Time, null, places, mywhom, events);
+            foreach(string str in result)
+            {
+                Console.WriteLine(str);
+            }
 
             #endregion
 

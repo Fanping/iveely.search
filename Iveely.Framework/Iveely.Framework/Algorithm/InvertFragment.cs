@@ -17,7 +17,7 @@ namespace Iveely.Framework.Algorithm
     [TestClass]
 #endif
     [Serializable]
-    public class InvertFragment : Invert<string>
+    public class InvertFragment : Invert<string,string>
     {
         public InvertFragment(string folder="")
         {

@@ -11,6 +11,7 @@
     <AssemblyName>Iveely.Framework</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -20,6 +21,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -28,6 +30,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
@@ -74,10 +77,10 @@
     <Compile Include="Network\Packet.cs" />
     <Compile Include="Network\Synchronous\Client.cs" />
     <Compile Include="Network\Synchronous\Server.cs" />
-    <Compile Include="NLP\InformationExtracter.cs" />
-    <Compile Include="NLP\InformationChecker.cs" />
-    <Compile Include="NLP\QuestionChecker.cs" />
-    <Compile Include="NLP\QuestionExtracter.cs" />
+    <Compile Include="NLP\Common.cs" />
+    <Compile Include="NLP\Entity.cs" />
+    <Compile Include="NLP\InvertTable.cs" />
+    <Compile Include="NLP\Relation.cs" />
     <Compile Include="NLP\Semantic.cs" />
     <Compile Include="Process\ParallelHelper.cs" />
     <Compile Include="Process\RunningState.cs" />
@@ -100,6 +103,7 @@
     <Compile Include="Text\Segment\State.cs" />
     <Compile Include="Text\Segment\Transition.cs" />
     <Compile Include="Text\Serializer.cs" />
+    <Compile Include="Text\StringCrypt.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Network\Asynchronous\" />
@@ -116,10 +120,6 @@
     <ProjectReference Include="..\..\Dependency\NDatabase\NDatabase.csproj">
       <Project>{4b6993d5-995d-4aaa-bbce-423d1b5451f6}</Project>
       <Name>NDatabase</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Dependency\Newtonsoft.Json\Newtonsoft.Json.csproj">
-      <Project>{eeea67f9-9089-481d-a4dc-0966dec9fd7d}</Project>
-      <Name>Newtonsoft.Json</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Dependency\SharpICTCLAS\SharpICTCLAS.csproj">
       <Project>{e27db382-5785-40f9-b671-197fd5b77569}</Project>

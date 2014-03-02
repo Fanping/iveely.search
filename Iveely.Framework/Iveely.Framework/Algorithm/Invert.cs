@@ -15,7 +15,7 @@ using Iveely.Framework.Text.Segment;
 namespace Iveely.Framework.Algorithm
 {
     [Serializable]
-    public abstract class Invert<T>
+    public abstract class Invert<TKey,TValue>
     {
         #region 属性或字段
 
@@ -28,7 +28,7 @@ namespace Iveely.Framework.Algorithm
         /// 倒排表
         /// </summary>
         //private ListTable<double> table;
-        public readonly DimensionTable<string, string, T> Table;
+        public readonly DimensionTable<TKey, TKey, TValue> Table;
 
         #endregion
 
@@ -39,7 +39,7 @@ namespace Iveely.Framework.Algorithm
         /// </summary>
         protected Invert(string folder = "")
         {
-            Table = new DimensionTable<string, string, T>();
+            Table = new DimensionTable<TKey, TKey, TValue>();
             Participle = IctclasSegment.GetInstance();
         }
 
@@ -79,7 +79,7 @@ namespace Iveely.Framework.Algorithm
         /// <param name="key"> 关键字 </param>
         /// <param name="asc"> 是否为升序 </param>
         /// <returns> 返回按照频率的集合 </returns>
-        public List<string> FindDocumentByKey(string key, bool asc)
+        public List<TKey> FindDocumentByKey(TKey key, bool asc)
         {
             return Table[key].GetAllKeys();
         }
@@ -89,12 +89,12 @@ namespace Iveely.Framework.Algorithm
         //    return this.table.GetValueByName(key);
         //}
 
-        public List<T> FindValueByKey(string[] keys)
+        public List<TValue> FindValueByKey(TKey[] keys)
         {
-            List<T> result = new List<T>();
-            foreach (string key in keys)
+            List<TValue> result = new List<TValue>();
+            foreach (TKey key in keys)
             {
-                List<T> temp = Table.GetValueByName(key);
+                List<TValue> temp = Table.GetValueByName(key);
                 result.AddRange(temp);
             }
             return result;
@@ -108,12 +108,12 @@ namespace Iveely.Framework.Algorithm
         /// </example>
         /// </summary>
         /// <returns> 返回按照频率的集合 </returns>
-        public List<string> FindCommonDocumentByKeys(string[] keys, int maxCount)
+        public List<TValue> FindCommonDocumentByKeys(TKey[] keys, int maxCount)
         {
             IntTable<string, int> table = new IntTable<string, int>();
-            foreach (string key in keys)
+            foreach (TKey key in keys)
             {
-                List<string> temp = FindDocumentByKey(key, false);
+                List<TKey> temp = FindDocumentByKey(key, false);
                 if (temp != null && temp.Count > 0)
                 {
                     foreach (var t in temp)
@@ -127,7 +127,7 @@ namespace Iveely.Framework.Algorithm
                 }
             }
 
-            List<string> result = new List<string>();
+            List<TValue> result = new List<TValue>();
             ArrayList list = new ArrayList(table.Values);
             list.Sort();
             list.Reverse();
@@ -138,7 +138,7 @@ namespace Iveely.Framework.Algorithm
                 {
                     if (ide.Value == list[i] && int.Parse(list[i].ToString()) == keys.Length)
                     {
-                        result.Add(ide.Key.ToString());
+                        result.Add((TValue)ide.Key);
                     }
                 }
             }

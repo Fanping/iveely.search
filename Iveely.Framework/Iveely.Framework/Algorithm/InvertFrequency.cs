@@ -24,7 +24,7 @@ namespace Iveely.Framework.Algorithm
 #endif
 
     [Serializable]
-    public class InvertFrequency : Invert<double>
+    public class InvertFrequency : Invert<string,double>
     {
         public override void ProcessWords(string[] words, object docId)
         {

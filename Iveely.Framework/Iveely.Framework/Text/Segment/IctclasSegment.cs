@@ -131,7 +131,7 @@ namespace Iveely.Framework.Text.Segment
             private static bool _Init = false;
             private static bool _NWIStart = false;
             private static bool _NWIComplete = false;
-            private const string rootDir = @"Init\Corpus";
+            private const string rootDir = @"Init\";
             #endregion
 
             #region 对函数进行声明和包装

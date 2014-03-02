@@ -46,7 +46,7 @@ namespace Newtonsoft.Json.Utilities
     private readonly IDictionary _dictionary;
     private readonly IDictionary<TKey, TValue> _genericDictionary;
 #if !(NET40 || NET35 || NET20 || SILVERLIGHT || WINDOWS_PHONE || PORTABLE40)
-    private readonly IReadOnlyDictionary<TKey, TValue> _readOnlyDictionary; 
+    private readonly KeyValuePair<TKey, TValue> _readOnlyDictionary; 
 #endif
     private object _syncRoot;
 
@@ -65,7 +65,7 @@ namespace Newtonsoft.Json.Utilities
     }
 
 #if !(NET40 || NET35 || NET20 || SILVERLIGHT || WINDOWS_PHONE || PORTABLE40)
-    public DictionaryWrapper(IReadOnlyDictionary<TKey, TValue> dictionary)
+    public DictionaryWrapper(KeyValuePair<TKey, TValue> dictionary)
     {
       ValidationUtils.ArgumentNotNull(dictionary, "dictionary");
 
