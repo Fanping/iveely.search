@@ -26,12 +26,23 @@ namespace Iveely.Framework.Text.Segment
             }
         }
 
+        /// <summary>
+        /// 分词
+        /// </summary>
+        /// <param name="text">需要分词的文本</param>
+        /// <param name="delimeter">分词后的分隔符</param>
+        /// <returns></returns>
         public string Split(string text, string delimeter = "/")
         {
             string result = model.Split(text, delimeter);
             return result;
         }
 
+        /// <summary>
+        /// 带词性的分词
+        /// </summary>
+        /// <param name="sentence"></param>
+        /// <returns></returns>
         public Tuple<string[], string[]> SplitToArray(string sentence)
         {
             return model.SplitToArray(sentence);
