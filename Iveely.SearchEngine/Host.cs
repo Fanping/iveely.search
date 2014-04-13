@@ -45,31 +45,41 @@ namespace Iveely.SearchEngine
 
         public static void Main(string[] args)
         {
-            if (args.Length > 0)
+            MetastasisSegment segment = new MetastasisSegment();
+            while (true)
             {
-                Host host = new Host();
-                host.Run(null);
+                Console.Write("==>");
+                string data = Console.ReadLine();
+                Console.WriteLine(segment.SplitWithSemantic(data, "/"));
+
             }
-            else
-            {
-                Backstage backstage = new Backstage();
-                backstage.Run(new object[] { 8001, 8001, 8001, 8001, 8001, 8001 });
-            }
+
+            //if (args.Length > 0)
+            //{
+            //    Host host = new Host();
+            //    host.Run(null);
+            //}
+            //else
+            //{
+            //    Backstage backstage = new Backstage();
+            //    backstage.Run(new object[] { 8001, 8001, 8001, 8001, 8001, 8001 });
+            //}
             Console.ReadKey();
         }
 
         public override void Run(object[] args)
         {
-            while (true)
-            {
-                Console.Write("Text Query Words:");
-                string query = Console.ReadLine();
-                Console.WriteLine(library.TextQuery(query));
+            DicSplit.GetInstance();
+            //while (true)
+            //{
+            //    Console.Write("Text Query Words:");
+            //    string query = Console.ReadLine();
+            //    Console.WriteLine(library.TextQuery(query));
 
-                Console.Write("Relative Query Word:");
-                query = Console.ReadLine();
-                Console.WriteLine(library.RelativeQuery(query));
-            }
+            //    Console.Write("Relative Query Word:");
+            //    query = Console.ReadLine();
+            //    Console.WriteLine(library.RelativeQuery(query));
+            //}
         }
     }
 }

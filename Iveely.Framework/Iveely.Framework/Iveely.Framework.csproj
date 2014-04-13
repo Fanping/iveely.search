@@ -99,6 +99,7 @@
     <Compile Include="Text\LevenshteinDistance.cs" />
     <Compile Include="Text\LocalStore.cs" />
     <Compile Include="Text\Segment\Complex.cs" />
+    <Compile Include="Text\Segment\DicSplit.cs" />
     <Compile Include="Text\Segment\HMM.cs" />
     <Compile Include="Text\Segment\InitialStateProbability.cs" />
     <Compile Include="Text\Segment\Matrix.cs" />

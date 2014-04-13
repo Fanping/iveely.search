@@ -277,6 +277,7 @@ namespace Iveely.Framework.Text.Segment
 
         public string[] SplitToStrings(string sentence)
         {
+            return DicSplit.GetInstance().Do(sentence);
             //获取概率矩阵
             List<Word> probabilityMatrix = new List<Word>();
             for (int i = 0; i < sentence.Length; i++)
@@ -348,13 +349,13 @@ namespace Iveely.Framework.Text.Segment
 
         public string Split(string sentence, string delimeter)
         {
-            string[] results = this.SplitToStrings(sentence);
+            string[] results = DicSplit.GetInstance().Do(sentence); ;//this.SplitToStrings(sentence);
             return string.Join(delimeter, results);
         }
 
         public Tuple<string[], string[]> SplitToArray(string sentence)
         {
-            string[] words = this.SplitToStrings(sentence);
+            string[] words = DicSplit.GetInstance().Do(sentence);//this.SplitToStrings(sentence);
             string[] sems = _semantic.GetSemanticSeq(words);
             Tuple<string[], string[]> tuple = new Tuple<string[], string[]>(words, sems);
             return tuple;
