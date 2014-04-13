@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net.Mime;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
@@ -26,7 +27,7 @@ using System.Collections;
 
 namespace Iveely.SearchEngine
 {
-    public class Host : Application
+    public partial class Host : Application
     {
         private Library library = new Library();
 
@@ -44,38 +45,16 @@ namespace Iveely.SearchEngine
 
         public static void Main(string[] args)
         {
-
-            #region 信息抽取
-
-            InvertEntity invert = new InvertEntity();
-            string[] times = { "1998年" };
-            string[] places = { "台湾" };
-            string[] whoms = { "马英九", "国民政府" };
-            string[] events = { "加入" };
-            invert.Add(times, places, whoms, events);
-            string[] mywhom = { "马英九" };
-            List<string> result= invert.Query(Common.Sentence.Time, null, places, mywhom, events);
-            foreach(string str in result)
+            if (args.Length > 0)
             {
-                Console.WriteLine(str);
+                Host host = new Host();
+                host.Run(null);
             }
-
-            #endregion
-
-            Console.WriteLine("end");
-            //QuestionGetter getter = new QuestionGetter();
-            //getter.Run(new object[] { 8001, 8001, 8001, 8001, 8001, 8001 });
-
-            //if (args.Length > 0)
-            //{
-            //    Host host = new Host();
-            //    host.Run(null);
-            //}
-            //else
-            //{
-            //    Backstage backstage = new Backstage();
-            //    backstage.Run(new object[] { 8001, 8001, 8001, 8001, 8001, 8001 });
-            //}
+            else
+            {
+                Backstage backstage = new Backstage();
+                backstage.Run(new object[] { 8001, 8001, 8001, 8001, 8001, 8001 });
+            }
             Console.ReadKey();
         }
 

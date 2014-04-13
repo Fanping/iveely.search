@@ -71,6 +71,8 @@ namespace Iveely.SearchEngine
         /// </summary>
         public static DimensionTable<string, string, double> RelativeTable;
 
+        public static Framework.Text.Segment.MetastasisSegment segment = new MetastasisSegment();
+
         public static LocalStore<Template.Question> DataStore;
 
         /// <summary>
@@ -337,7 +339,7 @@ namespace Iveely.SearchEngine
                     {
                         string query = GetGlobalCache<string>(currentTextQuery);
                         WriteToConsole("Get Text Query:" + query);
-                        string[] keywords = IctclasSegment.GetInstance().SplitToString(query).Split(new[] { ' ' });
+                        string[] keywords = segment.Split(query).Split(new[] { '/' });
                         List<string> docs = TextFragment.FindCommonDocumentByKeys(keywords, 10);
 
 
