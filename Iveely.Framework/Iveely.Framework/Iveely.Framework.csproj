@@ -95,6 +95,7 @@
     <Compile Include="Text\Database.cs" />
     <Compile Include="Text\FileBlock.cs" />
     <Compile Include="Text\Html.cs" />
+    <Compile Include="Text\Html2Article.cs" />
     <Compile Include="Text\LevenshteinDistance.cs" />
     <Compile Include="Text\LocalStore.cs" />
     <Compile Include="Text\Segment\Complex.cs" />
