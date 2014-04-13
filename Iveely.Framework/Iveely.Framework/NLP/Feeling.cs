@@ -12,7 +12,7 @@ namespace Iveely.Framework.NLP
     {
         private static Hashtable _corpus;
 
-        public Feeling(string filePath)
+        public Feeling(string filePath="")
         {
             string serFile = "Init\\Feeling.ser";
             if (_corpus == null && !File.Exists(serFile))

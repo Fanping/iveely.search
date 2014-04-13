@@ -29,7 +29,7 @@ namespace Iveely.Framework.NLP
             classifier = null;
         }
 
-        public static Classifier GetInstance(string corpusFolder)
+        public static Classifier GetInstance(string corpusFolder = "")
         {
             string serFile = "Init\\Classifier.ser";
             if (classifier == null && File.Exists(serFile))
