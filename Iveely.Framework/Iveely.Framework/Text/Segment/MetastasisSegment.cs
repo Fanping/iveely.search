@@ -28,13 +28,24 @@ namespace Iveely.Framework.Text.Segment
 
         public string Split(string text, string delimeter = "/")
         {
-            string result = model.Split(text);
+            string result = model.Split(text, delimeter);
             return result;
         }
 
         public Tuple<string[], string[]> SplitToArray(string sentence)
         {
-            return null;
+            return model.SplitToArray(sentence);
+        }
+
+        public string SplitWithSemantic(string sentence, string delimeter = " ")
+        {
+            Tuple<string[], string[]> tuple = model.SplitToArray(sentence);
+            string str = "";
+            for (int i = 0; i < tuple.Item1.Length; i++)
+            {
+                str += tuple.Item1[i] + "/" + tuple.Item2[i] + delimeter;
+            }
+            return str.TrimEnd();
         }
 
     }
