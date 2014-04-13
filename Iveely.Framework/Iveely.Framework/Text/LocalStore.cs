@@ -107,6 +107,11 @@ namespace Iveely.Framework.Text
                 }
             }
 
+            public void ForceStore()
+            {
+                Serializer.SerializeToFile(_currentData, _dataStoreFolder + "\\force_" + _fileId);
+            }
+
             public T Read(int hashCode)
             {
                 //获取文件编号和记录编号
@@ -133,11 +138,21 @@ namespace Iveely.Framework.Text
                     string filePath = _dataStoreFolder + "\\" + fileId;
                     if (File.Exists(filePath))
                     {
+
                         List<T> tempData = Serializer.DeserializeFromFile<List<T>>(filePath);
-                        if (tempData != null && tempData.Count > recredId)
+                        if (tempData != null && tempData.Count >= recredId)
                         {
                             return tempData[recredId];
                         }
+                        else
+                        {
+                            string[] lines = File.ReadAllLines(filePath);
+                            if (lines.Length > recredId)
+                            {
+                                return (T)Convert.ChangeType(lines[recredId], typeof(T));
+                            }
+                        }
+
                     }
                 }
                 return default(T);
@@ -222,6 +237,11 @@ namespace Iveely.Framework.Text
         public T Read(int objHashCode)
         {
             return fileIndex.Read(objHashCode);
+        }
+
+        public void ForceStore()
+        {
+            fileIndex.ForceStore();
         }
 
 #if DEBUG

@@ -52,7 +52,7 @@ namespace Iveely.Framework.Text.Segment
         {
             SetState(_states);
             _delimiter = ".*?([，。,；！？…：●—－\r\n]+) ><=!@#%^&*";
-            Train(File.ReadAllText("msr_train.txt", Encoding.UTF8));
+            Train(File.ReadAllText("Init\\msr_train.txt", Encoding.UTF8));
             _result = "";
         }
 
@@ -101,9 +101,9 @@ namespace Iveely.Framework.Text.Segment
         /// 获取实例
         /// </summary>
         /// <returns> </returns>
-        public static Participle GetInstance(string dir = "")
+        public static Participle GetInstance()
         {
-            string serializedFile = dir + "participle.Ser.global";
+            string serializedFile = "Init\\HMMParticiple.ser";
             if (_participle == null && File.Exists(serializedFile))
             {
                 _participle = Serializer.DeserializeFromFile<Participle>(serializedFile);

@@ -12,7 +12,6 @@ using System.Linq;
 using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
-using SharpICTCLAS;
 
 namespace Iveely.Framework.Algorithm.AI
 {
@@ -79,20 +78,20 @@ namespace Iveely.Framework.Algorithm.AI
             {
                 //    HashSet<string> signs = new HashSet<string>();
                 Signs.Add("nr");
-                Signs.Add("nr1");
-                Signs.Add("nr2");
-                Signs.Add("nrj");
-                Signs.Add("nrf");
-                Signs.Add("nz");
+                //Signs.Add("nr1");
+                //Signs.Add("nr2");
+                //Signs.Add("nrj");
+                //Signs.Add("nrf");
+                //Signs.Add("nz");
+                //Signs.Add("nt");
 
+                //NextBanSigns.Add("n");
 
-                NextBanSigns.Add("n");
-
-                FrontAllowSigns.Add("no-type");
-                FrontAllowSigns.Add("v");
-                FrontAllowSigns.Add("w");
-                FrontAllowSigns.Add("p");
-                FrontAllowSigns.Add("n");
+                //FrontAllowSigns.Add("no-type");
+                //FrontAllowSigns.Add("v");
+                //FrontAllowSigns.Add("w");
+                //FrontAllowSigns.Add("p");
+                //FrontAllowSigns.Add("n");
             }
         }
 
@@ -107,24 +106,24 @@ namespace Iveely.Framework.Algorithm.AI
                 Signs.Add("ns");
                 Signs.Add("nsf");
 
-                //后面禁止出现的词性
-                NextBanSigns.Add("p");
+                ////后面禁止出现的词性
+                //NextBanSigns.Add("p");
 
-                //后面允许出现的词性
-                NextContinueSigns.Add("n");
-                NextContinueSigns.Add("ns");
-                //NextContinueSigns.Add("p");
+                ////后面允许出现的词性
+                //NextContinueSigns.Add("n");
+                //NextContinueSigns.Add("ns");
+                ////NextContinueSigns.Add("p");
 
-                //前面允许出现的词性
-                FrontAllowSigns.Add("p");
-                FrontAllowSigns.Add("w");
-                FrontAllowSigns.Add("ns");
-                FrontAllowSigns.Add("nsf");
-                FrontAllowSigns.Add("no-type");
-                FrontAllowSigns.Add("b");
-                FrontAllowSigns.Add("uj");
-                FrontAllowSigns.Add("v");
-                FrontAllowSigns.Add("f");
+                ////前面允许出现的词性
+                //FrontAllowSigns.Add("p");
+                //FrontAllowSigns.Add("w");
+                //FrontAllowSigns.Add("ns");
+                //FrontAllowSigns.Add("nsf");
+                //FrontAllowSigns.Add("no-type");
+                //FrontAllowSigns.Add("b");
+                //FrontAllowSigns.Add("uj");
+                //FrontAllowSigns.Add("v");
+                //FrontAllowSigns.Add("f");
             }
         }
 
@@ -138,16 +137,16 @@ namespace Iveely.Framework.Algorithm.AI
                 //寻找的词性
                 Signs.Add("nt");
                 Signs.Add("nz");
-                Signs.Add("nl");
-                Signs.Add("nrj");
-                Signs.Add("ng");
+                //Signs.Add("nl");
+                //Signs.Add("nrj");
+                //Signs.Add("ng");
 
-                //后面不允许出现的词性
-                NextBanSigns.Add("n");
+                ////后面不允许出现的词性
+                //NextBanSigns.Add("n");
 
-                //前面允许出现的词性
-                FrontAllowSigns.Add("no-type");
-                FrontAllowSigns.Add("v");
+                ////前面允许出现的词性
+                //FrontAllowSigns.Add("no-type");
+                //FrontAllowSigns.Add("v");
             }
         }
 
@@ -158,31 +157,31 @@ namespace Iveely.Framework.Algorithm.AI
         {
             public override void InitSigns()
             {
-                //添加寻找的词性
+                ////添加寻找的词性
                 Signs.Add("n");
-                Signs.Add("j");
+                //Signs.Add("j");
 
-                //后面不允许存在的词性
-                NextBanSigns.Add("d");
-                NextBanSigns.Add("v");
-                NextBanSigns.Add("w");
-                NextBanSigns.Add("uj");
-                NextBanSigns.Add("ad");
-                NextBanSigns.Add("m");
-                NextBanSigns.Add("f");
-                NextBanSigns.Add("c");
-                NextBanSigns.Add("w");
+                ////后面不允许存在的词性
+                //NextBanSigns.Add("d");
+                //NextBanSigns.Add("v");
+                //NextBanSigns.Add("w");
+                //NextBanSigns.Add("uj");
+                //NextBanSigns.Add("ad");
+                //NextBanSigns.Add("m");
+                //NextBanSigns.Add("f");
+                //NextBanSigns.Add("c");
+                //NextBanSigns.Add("w");
 
-                //前面允许出现的词性
-                FrontAllowSigns.Add("v");
-                FrontAllowSigns.Add("j");
-                //FrontAllowSigns.Add("ng");
-                FrontAllowSigns.Add("no-type");
+                ////前面允许出现的词性
+                //FrontAllowSigns.Add("v");
+                //FrontAllowSigns.Add("j");
+                ////FrontAllowSigns.Add("ng");
+                //FrontAllowSigns.Add("no-type");
 
-                //后面允许的词性
-                NextContinueSigns.Add("n");
-                NextContinueSigns.Add("j");
-                NextContinueSigns.Add("vn");
+                ////后面允许的词性
+                //NextContinueSigns.Add("n");
+                //NextContinueSigns.Add("j");
+                //NextContinueSigns.Add("vn");
             }
         }
 
@@ -197,16 +196,16 @@ namespace Iveely.Framework.Algorithm.AI
                 Signs.Add("t");
                 Signs.Add("tg");
 
-                //后面不允许出现的词性
-                NextBanSigns.Add("ns");
-                NextBanSigns.Add("u");
+                ////后面不允许出现的词性
+                //NextBanSigns.Add("ns");
+                //NextBanSigns.Add("u");
 
-                //后面允许继续出现的词性
-                NextContinueSigns.Add("t");
-                NextContinueSigns.Add("tg");
-                NextContinueSigns.Add("f");
-                //NextContinueSigns.Add("m");
-                NextContinueSigns.Add("q");
+                ////后面允许继续出现的词性
+                //NextContinueSigns.Add("t");
+                //NextContinueSigns.Add("tg");
+                //NextContinueSigns.Add("f");
+                ////NextContinueSigns.Add("m");
+                //NextContinueSigns.Add("q");
 
                 //前面允许出现的词性
                 FrontAllowSigns.Add("v");
@@ -223,7 +222,7 @@ namespace Iveely.Framework.Algorithm.AI
         /// </summary>
         /// <param name="words"></param>
         /// <returns></returns>
-        public string[] GetNames(List<WordResult[]> words)
+        public string[] GetNames(Tuple<string[], string[]> words)
         {
             return GetValuesByRules(words, new NameExtractor());
         }
@@ -233,7 +232,7 @@ namespace Iveely.Framework.Algorithm.AI
         /// </summary>
         /// <param name="words"></param>
         /// <returns></returns>
-        public string[] GetLocations(List<WordResult[]> words)
+        public string[] GetLocations(Tuple<string[], string[]> words)
         {
             return GetValuesByRules(words, new LocationExtractor());
         }
@@ -243,7 +242,7 @@ namespace Iveely.Framework.Algorithm.AI
         /// </summary>
         /// <param name="words"></param>
         /// <returns></returns>
-        public string[] GetAgency(List<WordResult[]> words)
+        public string[] GetAgency(Tuple<string[], string[]> words)
         {
             return GetValuesByRules(words, new AgencyExtrator());
         }
@@ -253,7 +252,7 @@ namespace Iveely.Framework.Algorithm.AI
         /// </summary>
         /// <param name="words"></param>
         /// <returns></returns>
-        public string[] GetTime(List<WordResult[]> words)
+        public string[] GetTime(Tuple<string[], string[]> words)
         {
             return GetValuesByRules(words, new TimeExtrator());
         }
@@ -263,78 +262,27 @@ namespace Iveely.Framework.Algorithm.AI
         /// </summary>
         /// <param name="words"></param>
         /// <returns></returns>
-        public string[] GetEvent(List<WordResult[]> words)
+        public string[] GetEvent(Tuple<string[], string[]> words)
         {
             return GetValuesByRules(words, new EventExtrator());
         }
 
-        private string[] GetValuesByRules(List<WordResult[]> words, Extractor extractor)
+        private string[] GetValuesByRules(Tuple<string[],string[]> words, Extractor extractor)
         {
             HashSet<string> bodys = new HashSet<string>();
-            string answer = string.Empty;
-            bool shoudContine = false;
-            string lastType = "no-type";
-
-            for (int i = 0; i < words.Count; i++)
+      
+            for (int i = 0; i < words.Item1.Length; i++)
             {
-                for (int j = 1; j < words[i].Length - 1; j++)
+                for (int j = 1; j < words.Item1.Length - 1; j++)
                 {
-                    string type = Utility.GetPOSString(words[i][j].nPOS).Trim();
-                    if ((extractor.Signs.Contains(type) && extractor.FrontAllowSigns.Contains(lastType)) || shoudContine)
+                    string type =words.Item2[i];//Utility.GetPOSString([i][j].nPOS).Trim();
+                    if (extractor.Signs.Contains(type))
                     {
-                        if (j < words[i].Length - 2)
+                        if (!bodys.Contains(words.Item1[i]))
                         {
-                            string nextType = Utility.GetPOSString(words[i][j + 1].nPOS);
-
-                            if (extractor.NextContinueSigns.Contains(nextType))
-                            {
-                                if (!shoudContine)
-                                {
-                                    lastType = type;
-                                }
-                                answer += words[i][j].sWord;
-                                shoudContine = true;
-                                continue;
-                            }
-                            if (!extractor.NextBanSigns.Contains(nextType))
-                            {
-                                answer += words[i][j].sWord;
-                                if (answer != string.Empty && !bodys.Contains(answer))
-                                {
-                                    bodys.Add(answer);
-                                    answer = string.Empty;
-                                    shoudContine = false;
-                                    continue;
-                                }
-                            }
-                            else
-                            {
-                                if (answer != string.Empty && !bodys.Contains(answer))
-                                {
-                                    bodys.Add(answer);
-                                    answer = string.Empty;
-                                    shoudContine = false;
-                                }
-                                continue;
-                            }
-                        }
-                        shoudContine = false;
-                        answer += words[i][j].sWord;
-                        if (answer != string.Empty && !bodys.Contains(answer))
-                        {
-                            bodys.Add(answer);
-                            answer = string.Empty;
-                            continue;
+                            bodys.Add(words.Item1[i]);
                         }
                     }
-                    if (answer != string.Empty && !bodys.Contains(answer))
-                    {
-                        bodys.Add(answer);
-                        answer = string.Empty;
-                    }
-
-                    shoudContine = false;
-                    lastType = type;
 
                 }
             }

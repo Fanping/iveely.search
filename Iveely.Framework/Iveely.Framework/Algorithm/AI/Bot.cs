@@ -13,7 +13,6 @@ using System.Linq;
 using System.Xml;
 using Iveely.Framework.Algorithm.AI.Library;
 using Iveely.Framework.DataStructure;
-using SharpICTCLAS;
 
 namespace Iveely.Framework.Algorithm.AI
 {
@@ -384,12 +383,12 @@ namespace Iveely.Framework.Algorithm.AI
                 return questions;
             }
 
-
-            Tuple<List<Tuple<string, string>>, List<Tuple<string, string>>> result = interrogative.Understand(input);
-            questions.Description = result.Item1;
-            questions.Entity = result.Item2;
-            questions.FromTitle = references[0];
-            questions.Reference = references[1];
+            //TODO:??
+            //Tuple<List<Tuple<string, string>>, List<Tuple<string, string>>> result = interrogative.Understand(input);
+            //questions.Description = result.Item1;
+            //questions.Entity = result.Item2;
+            //questions.FromTitle = references[0];
+            //questions.Reference = references[1];
             return questions;
         }
     }

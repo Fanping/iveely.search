@@ -11,13 +11,14 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
-using SharpICTCLAS;
+using Iveely.Framework.Text.Segment;
 
 namespace Iveely.Framework.NLP
 {
     /// <summary>
     /// 语义分析
     /// </summary>
+    [Serializable]
     public class Semantic
     {
         /// <summary>
@@ -28,6 +29,7 @@ namespace Iveely.Framework.NLP
         /// <summary>
         /// 词语解释
         /// </summary>
+        [Serializable]
         internal class Explain
         {
             /// <summary>
@@ -68,6 +70,7 @@ namespace Iveely.Framework.NLP
         /// <summary>
         /// 词汇
         /// </summary>
+        [Serializable]
         public class Word
         {
             /// <summary>
@@ -193,6 +196,7 @@ namespace Iveely.Framework.NLP
         /// <summary>
         /// 词汇类型
         /// </summary>
+        [Serializable]
         internal enum WordType
         {
             PREFIX, PREP, ECHO, EXPR, SUFFIX, PUNC, N, ADV, CLAS, COOR, CONJ, V, STRU, PP, P, ADJ, PRON, AUX, NUM
@@ -201,6 +205,7 @@ namespace Iveely.Framework.NLP
         /// <summary>
         /// 义原
         /// </summary>
+        [Serializable]
         internal class Primitive
         {
             /// <summary>
@@ -296,6 +301,7 @@ namespace Iveely.Framework.NLP
         /// <summary>
         /// 词汇相似度度量
         /// </summary>
+        [Serializable]
         internal class WordSimilarity
         {
             /// <summary>
@@ -756,20 +762,30 @@ namespace Iveely.Framework.NLP
         /// </summary>
         private static Semantic _semantic;
 
-        private static Text.Segment.IctclasSegment segment;
+        private static Text.Segment.MetastasisSegment segment;
 
         public static Semantic GetInstance()
         {
-            return _semantic ?? (_semantic = new Semantic());
+            string serFile = "Init\\Semantic.ser";
+            if (_semantic == null && File.Exists(serFile))
+            {
+                _semantic = Text.Serializer.DeserializeFromFile<Semantic>(serFile);
+            }
+            else if (_semantic == null)
+            {
+                _semantic = new Semantic();
+                Text.Serializer.SerializeToFile(_semantic, serFile);
+            }
+            return _semantic;
         }
 
         private Semantic()
         {
             _dictionary = new Hashtable();
             _semanticAttributes = new Hashtable();
-            LoadDictionary("Chinese Dictionary.txt");
+            LoadDictionary("Init\\Chinese Dictionary.txt");
             LoadSemanticRank("Init\\SemanticAttribute.txt");
-            segment = Text.Segment.IctclasSegment.GetInstance();
+            segment = new MetastasisSegment();
         }
 
         /// <summary>
@@ -886,9 +902,8 @@ namespace Iveely.Framework.NLP
         /// <returns></returns>
         public double TextSimilarity(string sentence1, string sentence2)
         {
-            Iveely.Framework.Text.Segment.IctclasSegment ictclasSegment = Text.Segment.IctclasSegment.GetInstance();
-            Tuple<string[], string[]> tuple1 = ictclasSegment.SplitToArray(sentence1);
-            Tuple<string[], string[]> tuple2 = ictclasSegment.SplitToArray(sentence2);
+            Tuple<string[], string[]> tuple1 = segment.SplitToArray(sentence1);
+            Tuple<string[], string[]> tuple2 = segment.SplitToArray(sentence2);
 
             return SpeechSimilarity(tuple1, tuple2);
         }

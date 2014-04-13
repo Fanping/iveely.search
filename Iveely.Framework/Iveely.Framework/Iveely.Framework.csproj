@@ -77,9 +77,15 @@
     <Compile Include="Network\Packet.cs" />
     <Compile Include="Network\Synchronous\Client.cs" />
     <Compile Include="Network\Synchronous\Server.cs" />
+    <Compile Include="NLP\Category.cs" />
+    <Compile Include="NLP\Classifier.cs" />
     <Compile Include="NLP\Common.cs" />
     <Compile Include="NLP\Entity.cs" />
+    <Compile Include="NLP\ExcludedPhrases.cs" />
+    <Compile Include="NLP\Feeling.cs" />
+    <Compile Include="NLP\IClassifier.cs" />
     <Compile Include="NLP\InvertTable.cs" />
+    <Compile Include="NLP\PhraseCount.cs" />
     <Compile Include="NLP\Relation.cs" />
     <Compile Include="NLP\Semantic.cs" />
     <Compile Include="Process\ParallelHelper.cs" />
@@ -93,9 +99,10 @@
     <Compile Include="Text\LocalStore.cs" />
     <Compile Include="Text\Segment\Complex.cs" />
     <Compile Include="Text\Segment\HMM.cs" />
-    <Compile Include="Text\Segment\IctclasSegment.cs" />
     <Compile Include="Text\Segment\InitialStateProbability.cs" />
     <Compile Include="Text\Segment\Matrix.cs" />
+    <Compile Include="Text\Segment\MetastasisModel.cs" />
+    <Compile Include="Text\Segment\MetastasisSegment.cs" />
     <Compile Include="Text\Segment\NGram.cs" />
     <Compile Include="Text\Segment\Observed.cs" />
     <Compile Include="Text\Segment\Participle.cs" />
@@ -120,10 +127,6 @@
     <ProjectReference Include="..\..\Dependency\NDatabase\NDatabase.csproj">
       <Project>{4b6993d5-995d-4aaa-bbce-423d1b5451f6}</Project>
       <Name>NDatabase</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Dependency\SharpICTCLAS\SharpICTCLAS.csproj">
-      <Project>{e27db382-5785-40f9-b671-197fd5b77569}</Project>
-      <Name>SharpICTCLAS</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Dependency\SharpSerializer\SharpSerializer.Library.csproj">
       <Project>{88ab738f-7a36-4c93-b808-b6ce2d3444b2}</Project>

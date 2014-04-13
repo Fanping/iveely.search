@@ -15,14 +15,14 @@ using Iveely.Framework.Text.Segment;
 namespace Iveely.Framework.Algorithm
 {
     [Serializable]
-    public abstract class Invert<TKey,TValue>
+    public abstract class Invert<TKey, TValue>
     {
         #region 属性或字段
 
         /// <summary>
         /// 分词组件
         /// </summary>
-        protected readonly IctclasSegment Participle;
+        protected readonly MetastasisSegment Participle;
 
         /// <summary>
         /// 倒排表
@@ -37,10 +37,10 @@ namespace Iveely.Framework.Algorithm
         /// <summary>
         /// 构造方法
         /// </summary>
-        protected Invert(string folder = "")
+        protected Invert()
         {
             Table = new DimensionTable<TKey, TKey, TValue>();
-            Participle = IctclasSegment.GetInstance();
+            Participle = new MetastasisSegment();
         }
 
         /// <summary>
@@ -55,7 +55,7 @@ namespace Iveely.Framework.Algorithm
         public void AddDocument(object id, string doc, bool split = false)
         {
             // 获取此文档的词频集合
-            string[] words = split ? doc.Split(' ') : IctclasSegment.GetInstance().SplitToString(doc).Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+            string[] words = split ? doc.Split(' ') : Participle.Split(doc).Split(new[] { '/' }, StringSplitOptions.RemoveEmptyEntries);
             ProcessWords(words, id);
         }
 
@@ -63,7 +63,6 @@ namespace Iveely.Framework.Algorithm
         {
             ProcessWords(arrayInDoc, id);
         }
-
 
 
         /// <summary>
@@ -118,14 +117,12 @@ namespace Iveely.Framework.Algorithm
                 {
                     foreach (var t in temp)
                     {
-                        table.Add(t, 1);
+                        table.Add(t.ToString(), 1, true);
                     }
                 }
-                else
-                {
-                    return null;
-                }
             }
+            if (table.Count < 1)
+                return null;
 
             List<TValue> result = new List<TValue>();
             ArrayList list = new ArrayList(table.Values);
@@ -136,7 +133,8 @@ namespace Iveely.Framework.Algorithm
                 IDictionaryEnumerator ide = table.GetEnumerator();
                 while (ide.MoveNext())
                 {
-                    if (ide.Value == list[i] && int.Parse(list[i].ToString()) == keys.Length)
+                    // TValue k= (TValue)ide.Key;
+                    if (ide.Value == list[i]) // && int.Parse(list[i].ToString()) == keys.Length)
                     {
                         result.Add((TValue)ide.Key);
                     }
