@@ -1,0 +1,6 @@
+﻿nr .* vi p ns	0,1 2,3
+nr wkz t wp t wky	0,生于,2
+nr wkz t wp t wky	0,卒于,4
+nr .* nt n	0,2,1
+f v n b n nr	0 1 2,3 4,5
+nr vshi .+	0,1,.+

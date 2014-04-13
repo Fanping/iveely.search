@@ -1,0 +1,67 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Iveely Search Engine</title>
+    <link rel="Bookmark" type="image/x-icon" href="Images/favicon.ico" />
+    <link rel="shortcut icon" type="image/x-icon" href="Images/favicon.ico" />
+    <link rel="stylesheet" href="CSS/result.css" />
+    <link rel="stylesheet" href="CSS/Default.css" />
+    <script language="JavaScript" src="JS/Search.js"></script>
+</head>
+
+<body bgcolor="#fff" link="#0041d5" vlink="#800080">
+    <div class="iveely_top">
+        <div class="box navi">
+            <span>
+                <label>网页</label>
+            </span>
+        </div>
+        <div class="box head">
+            <a href="#" class="logo">
+                <img src="Images/logo.jpg" width="129" height="30" />
+            </a>
+            <div class="sbox">
+                <form action="Result.html" class="searchbox" id="sbox1">
+                    <span class="txt">
+                        <span>
+                            <input align="middle" name="query" id="q1" value="@@qeruy@@" maxlength="100" size="50" autocomplete="off" />
+                        </span>
+                    </span><span class="btn"><span><input align="middle" value="" type="submit" /></span></span>
+                </form>
+            </div>
+            <div class="s_info"></div>
+        </div>
+    </div>
+
+    <div class="iveely_content">
+        <div class="iveely_left">
+            <div class="box navi">
+               @Navi@
+            </div>
+        </div>
+        <div class="content" id="content">
+            <ul class="results">
+                @@Result@@
+            </ul>
+
+            <div class="sbox">
+                <form action="Result.html" class="searchbox" id="sbox2">
+                    <span class="txt">
+                        <span>
+                            <input align="middle" name="query" id="q1" value="@@qeruy@@" maxlength="100" size="50" autocomplete="off" />
+                        </span>
+                    </span><span class="btn"><span><input align="middle" value="" type="submit" /></span></span>
+                </form>
+            </div>
+        </div>
+        <div class="iveely_right">
+            <ul class="results">
+                @@Search@@
+            </ul>
+        </div>
+    </div>
+    <div class="iveely_foot" id="foot">Copyright © 2014 Iveely. Org.</div>
+</body>
+</html>
