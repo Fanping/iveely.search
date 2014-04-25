@@ -73,6 +73,7 @@
     <Compile Include="DataStructure\MultiTree.cs" />
     <Compile Include="DataStructure\SortedList.cs" />
     <Compile Include="Log\Logger.cs" />
+    <Compile Include="Network\Emailer.cs" />
     <Compile Include="Network\FileTransfer.cs" />
     <Compile Include="Network\Packet.cs" />
     <Compile Include="Network\Synchronous\Client.cs" />
