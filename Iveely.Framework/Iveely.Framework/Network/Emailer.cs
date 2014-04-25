@@ -78,9 +78,10 @@ namespace Iveely.Framework.Network
             }
 
             emailMessage.Subject = subject;
+            emailMessage.Body = message;
             emailMessage.IsBodyHtml = true;
             emailMessage.SubjectEncoding = System.Text.Encoding.Default;
-            emailMessage.BodyEncoding = System.Text.Encoding.Default;
+            emailMessage.BodyEncoding = System.Text.Encoding.UTF8;
             emailMessage.Headers.Add("X-Priority", "3");
             emailMessage.Headers.Add("X-MSMail-Priority", "Normal");
             emailMessage.Headers.Add("X-Mailer", "Microsoft Outlook Express 6.00.2900.2869");
