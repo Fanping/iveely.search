@@ -32,6 +32,8 @@ namespace Iveely.Framework.Text
             /// </summary>
             public DateTime PublishDate { get; set; }
 
+            public string Timestamp { get; set; }
+
             /// <summary>
             /// 包含的字链接
             /// </summary>
@@ -99,19 +101,27 @@ namespace Iveely.Framework.Text
         #endregion
 
 
-        public static ArticleDocument GetArticle(string url)
+        public static ArticleDocument GetArticle(string url, ref bool isGetContentSuccess)
         {
             try
             {
                 Html html = Html.CreatHtml(new Uri(url));
+                if (html == null)
+                {
+                    return null;
+                }
                 ArticleDocument doc = GetRequestArticle(html.SourceCode);
+                isGetContentSuccess = doc.Content.Length > 0;
                 if (doc != null)
                 {
                     doc.Url = url;
+                    doc.Content = doc.Content.Length > 0 ? doc.Content : html.Content;
+                    doc.Timestamp = html.Timestamp;
                     doc.Site = GetSiteName(html.Title);
                     doc.ChildrenLink = html.ChildrenLink.Select(o => o.ToString()).ToList();
 
                 }
+
                 return doc;
             }
             catch (Exception exception)
@@ -125,7 +135,7 @@ namespace Iveely.Framework.Text
         {
             if (siteTitle.Contains("-"))
             {
-                string[] infos = siteTitle.Split(new char[] {'-', '_', ' '}, StringSplitOptions.RemoveEmptyEntries);
+                string[] infos = siteTitle.Split(new char[] { '-', '_', ' ' }, StringSplitOptions.RemoveEmptyEntries);
                 if (infos.Length >= 1)
                 {
                     return infos[infos.Length - 1];
@@ -176,17 +186,61 @@ namespace Iveely.Framework.Text
 
             string content;
             string contentWithTags;
-            GetContent(body, out content, out contentWithTags);
-
+            string title1;
+            GetContent(body, out content, out title1, out contentWithTags);
+            string title2 = GetTitle(html);
+            string title = GetMostProTitle(title1, title2, content);
             ArticleDocument article = new ArticleDocument
             {
-                Title = GetTitle(html),
+                Title = title,
                 PublishDate = GetPublishDate(html),
                 Content = content,
                 ContentWithTags = contentWithTags
             };
 
             return article;
+        }
+
+        /// <summary>
+        /// 获取最大可能的标题
+        /// </summary>
+        /// <param name="title1"></param>
+        /// <param name="title2"></param>
+        /// <param name="body"></param>
+        /// <returns></returns>
+        private static string GetMostProTitle(string title1, string title2, string body)
+        {
+            // 如果任意一个为empty，则返回另外一个
+            if (string.IsNullOrEmpty(title1)) { return title2; }
+            if (string.IsNullOrEmpty(title2)) { return title1; }
+
+            // 计算title1积分
+            char[] titleArray = title1.ToArray();
+            int count1 = 0;
+            foreach (char c in titleArray)
+            {
+                if (body.Contains(c.ToString()))
+                {
+                    count1++;
+                }
+            }
+
+            // 计算title2积分
+            titleArray = title2.ToArray();
+            int count2 = 0;
+            foreach (char c in titleArray)
+            {
+                if (body.Contains(c.ToString()))
+                {
+                    count2++;
+                }
+            }
+
+            if (count1 > count2)
+            {
+                return title1;
+            }
+            return title2;
         }
 
         /// <summary>
@@ -215,8 +269,8 @@ namespace Iveely.Framework.Text
         /// <returns></returns>
         private static string GetTitle(string html)
         {
+            //默认标题
             string titleFilter = @"<title>[\s\S]*?</title>";
-            string h1Filter = @"<h1.*?>.*?</h1>";
             string clearFilter = @"<.*?>";
 
             string title = "";
@@ -226,16 +280,20 @@ namespace Iveely.Framework.Text
                 title = Regex.Replace(match.Groups[0].Value, clearFilter, "");
             }
 
-            // 正文的标题一般在h1中，比title中的标题更干净
+            //尝试1： 正文的标题一般在h1中，比title中的标题更干净
+            string h1Filter = @"<h1.*?>.*?</h1>";
             match = Regex.Match(html, h1Filter, RegexOptions.IgnoreCase);
             if (match.Success)
             {
                 string h1 = Regex.Replace(match.Groups[0].Value, clearFilter, "");
                 if (!String.IsNullOrEmpty(h1) && title.StartsWith(h1))
                 {
-                    title = h1;
+                    return h1;
                 }
             }
+
+            title = title.Split(new char[] { '-', '_' }, StringSplitOptions.RemoveEmptyEntries)[0];
+            title = title.Replace("\r\n", "").Trim();
             return title;
         }
 
@@ -306,11 +364,11 @@ namespace Iveely.Framework.Text
         /// <param name="bodyText">只过滤了script和style标签的body文本内容</param>
         /// <param name="content">返回文本正文，不包含标签</param>
         /// <param name="contentWithTags">返回文本正文包含标签</param>
-        private static void GetContent(string bodyText, out string content, out string contentWithTags)
+        private static void GetContent(string bodyText, out string content, out string title, out string contentWithTags)
         {
             string[] orgLines = null; // 保存原始内容，按行存储
             string[] lines = null; // 保存干净的文本内容，不包含标签
-
+            title = "";
             orgLines = bodyText.Split('\n');
             lines = new string[orgLines.Length];
             // 去除每行的空白字符,剔除标签
@@ -363,6 +421,10 @@ namespace Iveely.Framework.Text
                             startPos = i;
                         }
                         // 填充发现的文章起始部分
+                        if (startPos > 2)
+                        {
+                            title = lines[startPos - 3];
+                        }
                         for (int j = startPos; j <= i; j++)
                         {
                             sb.Append(lines[j]);
@@ -390,6 +452,9 @@ namespace Iveely.Framework.Text
             string result = sb.ToString();
             // 处理回车符，更好的将文本格式化输出
             content = result.Replace("[crlf]", Environment.NewLine);
+            content = content.Replace("&nbsp;", "");
+            content = content.Replace("&ldquo;", "");
+            content = content.Replace("&rdquo;", "");
             content = System.Web.HttpUtility.HtmlDecode(content);
             // 输出带标签文本
             contentWithTags = orgSb.ToString();

@@ -29,145 +29,133 @@ namespace Iveely.Framework.Text.Segment
     internal class Semantic
     {
 
+        /// <summary>
+        /// 点边集合
+        /// </summary>
+        protected Hashtable points;
+
+        private WordSemantic wordSema;
+
+        /// <summary>
+        /// 边定义
+        /// </summary>
         [Serializable]
-        private class SemManager
+        internal class Edge : IComparable
         {
-            public IntTable<string, int> table
+            public string From { get; private set; }
+
+            public string To { get; private set; }
+
+            public int Weight { get; set; }
+
+
+            public Edge(string from, string to)
             {
-                get;
-                private set;
+                this.From = from;
+                this.To = to;
+                this.Weight = 1;
             }
 
-            public void Add(string obj)
+            public override string ToString()
             {
-                table.Add(obj, 1, true);
+                return From + "|" + To;
             }
 
-            public SemManager()
+            public int CompareTo(object obj)
             {
-                table = new IntTable<string, int>();
+                if (((Edge)obj).Weight > this.Weight)
+                {
+                    return 1;
+                }
+                return 0;
             }
         }
 
-        /// <summary>
-        /// 每个词拥有的词性集合
-        /// </summary>
-        private Hashtable wordSemantic = new Hashtable();
-
-        /// <summary>
-        /// 词性关联关系集合
-        /// </summary>
-        private Hashtable semanticRelation = new Hashtable();
-
-        public void AddNextSemantic(string fromSem, string toSem)
+        public Semantic()
         {
-            if (semanticRelation.ContainsKey(fromSem))
+            points = new Hashtable();
+        }
+
+        public virtual void Add(string from, string to)
+        {
+            // 边
+            if (points.ContainsKey(from))
             {
-                SemManager semManager = (SemManager)semanticRelation[fromSem];
-                semManager.Add(toSem);
+                List<Edge> cedges = (List<Edge>)points[from];
+                bool hasFind = false;
+                foreach (var cedge in cedges)
+                {
+                    if (cedge.To == to)
+                    {
+                        cedge.Weight++;
+                        hasFind = true;
+                        cedges.Sort();
+                        break;
+                    }
+                }
+                if (!hasFind)
+                {
+                    Edge edge = new Edge(from, to);
+                    cedges.Add(edge);
+                }
             }
             else
             {
-                SemManager semManager = new SemManager();
-                semManager.Add(toSem);
-                semanticRelation[fromSem] = semManager;
+                List<Edge> cedges = new List<Edge>();
+                Edge edge = new Edge(from, to);
+                cedges.Add(edge);
+                points.Add(from, cedges);
             }
         }
 
-        public void AddWordSemantic(string word, string semantic)
+        public List<string> GetFollows(string from)
         {
-            if (wordSemantic.ContainsKey(word))
-            {
-                SemManager semManager = (SemManager)wordSemantic[word];
-                semManager.Add(semantic);
-            }
-            else
-            {
-                SemManager semManager = new SemManager();
-                semManager.Add(semantic);
-                wordSemantic[word] = semManager;
-            }
-        }
-
-        /// <summary>
-        /// 获取词性序列
-        /// </summary>
-        /// <param name="words"></param>
-        /// <returns></returns>
-        public string[] GetSemanticSeq(string[] words)
-        {
-            List<string> semResult = new List<string>();
-            string lastSem = string.Empty;
-            for (int i = 0; i < words.Length; i++)
-            {
-                string[] sems = SortSem(words[i]);
-                if (sems == null)
-                {
-                    semResult.Add("Unknow");
-                }
-                else
-                {
-                    if (i == 0)
-                    {
-                        lastSem = sems[0];
-                        semResult.Add(lastSem);
-                    }
-                    else
-                    {
-                        if (semanticRelation.ContainsKey(lastSem))
-                        {
-                            SemManager semManager = (SemManager)semanticRelation[lastSem];
-                            bool isHere = false;
-                            foreach (var sem in sems)
-                            {
-                                if (semManager.table.ContainsKey(sem))
-                                {
-                                    lastSem = sem;
-                                    semResult.Add(lastSem);
-                                    isHere = true;
-                                    break;
-                                }
-                            }
-                            if (!isHere)
-                            {
-                                lastSem = sems[0];
-                                semResult.Add(lastSem);
-                            }
-                        }
-                        else
-                        {
-                            lastSem = sems[0];
-                            semResult.Add(lastSem);
-                        }
-                    }
-                }
-            }
-            return semResult.ToArray();
-        }
-
-        private string[] SortSem(string word)
-        {
-            if (!wordSemantic.ContainsKey(word))
-            {
-                return null;
-            }
-            SemManager semManager = (SemManager)wordSemantic[word];
             List<string> result = new List<string>();
-            ArrayList list = new ArrayList(semManager.table.Values);
-            list.Sort();
-            list.Reverse();
-            foreach (int svalue in list)
+            if (points.ContainsKey(from))
             {
-                IDictionaryEnumerator ide = semManager.table.GetEnumerator();
-                while (ide.MoveNext())
+                List<Edge> edges = (List<Edge>)points[from];
+                foreach (var edge in edges)
                 {
-                    if ((int)ide.Value == svalue)
+                    result.Add(edge.To);
+                }
+                return result;
+            }
+            return result;
+        }
+    }
+
+    [Serializable]
+    internal class WordSemantic : Semantic
+    {
+        public override void Add(string @from, string to)
+        {
+            if (points.ContainsKey(from))
+            {
+                List<Edge> cedges = (List<Edge>)points[from];
+                bool hasFind = false;
+                foreach (var cedge in cedges)
+                {
+                    if (cedge.To == to)
                     {
-                        result.Add(ide.Key.ToString());
+                        cedge.Weight++;
+                        hasFind = true;
+                        cedges.Sort();
+                        break;
                     }
                 }
+                if (!hasFind)
+                {
+                    Edge edge = new Edge(from, to);
+                    cedges.Add(edge);
+                }
             }
-            return result.ToArray();
+            else
+            {
+                List<Edge> cedges = new List<Edge>();
+                Edge edge = new Edge(from, to);
+                cedges.Add(edge);
+                points.Add(from, cedges);
+            }
         }
     }
 
@@ -241,6 +229,8 @@ namespace Iveely.Framework.Text.Segment
         /// </summary>
         private readonly Semantic _semantic = new Semantic();
 
+        private readonly WordSemantic _wordSemantic = new WordSemantic();
+
         public void Learn(string corpusFolder)
         {
             string[] dirs = Directory.GetDirectories(corpusFolder);
@@ -261,12 +251,12 @@ namespace Iveely.Framework.Text.Segment
                             Analyze(text[0]);
 
                             //词与词性
-                            _semantic.AddWordSemantic(text[0], text[1]);
+                            _wordSemantic.Add(text[0], text[1]);
 
                             //词性与词性
                             if (lastSem != string.Empty)
                             {
-                                _semantic.AddNextSemantic(lastSem, text[1]);
+                                _semantic.Add(lastSem, text[1]);
                             }
                             lastSem = text[1];
                         }
@@ -356,7 +346,7 @@ namespace Iveely.Framework.Text.Segment
         public Tuple<string[], string[]> SplitToArray(string sentence)
         {
             string[] words = DicSplit.GetInstance().Do(sentence);//this.SplitToStrings(sentence);
-            string[] sems = _semantic.GetSemanticSeq(words);
+            string[] sems = GetSemanticSeq(words);
             Tuple<string[], string[]> tuple = new Tuple<string[], string[]>(words, sems);
             return tuple;
         }
@@ -396,6 +386,24 @@ namespace Iveely.Framework.Text.Segment
                 word.AddState(state);
                 _table[keyword] = word;
             }
+        }
+
+        private string[] GetSemanticSeq(string[] words)
+        {
+            List<string> result = new List<string>();
+            foreach (var word in words)
+            {
+                List<string> list = _wordSemantic.GetFollows(word);
+                if (list.Count > 0)
+                {
+                    result.Add(list[0]);
+                }
+                else
+                {
+                    result.Add("Unkown");
+                }
+            }
+            return result.ToArray();
         }
     }
 }

@@ -73,6 +73,7 @@
     <Compile Include="DataStructure\MultiTree.cs" />
     <Compile Include="DataStructure\SortedList.cs" />
     <Compile Include="Log\Logger.cs" />
+    <Compile Include="Network\Downloader.cs" />
     <Compile Include="Network\Emailer.cs" />
     <Compile Include="Network\FileTransfer.cs" />
     <Compile Include="Network\Packet.cs" />
@@ -91,9 +92,9 @@
     <Compile Include="NLP\Semantic.cs" />
     <Compile Include="Process\ParallelHelper.cs" />
     <Compile Include="Process\RunningState.cs" />
+    <Compile Include="Process\ThreadManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Text\CodeCompiler.cs" />
-    <Compile Include="Text\Database.cs" />
     <Compile Include="Text\FileBlock.cs" />
     <Compile Include="Text\Html.cs" />
     <Compile Include="Text\Html2Article.cs" />
@@ -114,6 +115,7 @@
     <Compile Include="Text\Segment\Transition.cs" />
     <Compile Include="Text\Serializer.cs" />
     <Compile Include="Text\StringCrypt.cs" />
+    <Compile Include="Text\ThemeGetter.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Network\Asynchronous\" />
@@ -127,13 +129,13 @@
       <Project>{181fe707-e161-4722-9f38-6aaab6faa106}</Project>
       <Name>log4net</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Dependency\NDatabase\NDatabase.csproj">
-      <Project>{4b6993d5-995d-4aaa-bbce-423d1b5451f6}</Project>
-      <Name>NDatabase</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\Dependency\SharpSerializer\SharpSerializer.Library.csproj">
       <Project>{88ab738f-7a36-4c93-b808-b6ce2d3444b2}</Project>
       <Name>SharpSerializer.Library</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Dependency\STSdb4\STSdb4.csproj">
+      <Project>{be6c9ff2-7817-4ef4-bd8f-6f78126878d3}</Project>
+      <Name>STSdb4</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

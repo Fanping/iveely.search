@@ -344,9 +344,9 @@ namespace Iveely.Framework.Text
                 }
             }
 
-           public override DateTime GetPublishDate()
-           {
-               string html = Html.GetHtmlCode();
+            public override DateTime GetPublishDate()
+            {
+                string html = Html.GetHtmlCode();
                 // 过滤html标签，防止标签对日期提取产生影响
                 string text = Regex.Replace(html, "(?is)<.*?>", "");
                 Match match = Regex.Match(
@@ -822,6 +822,11 @@ namespace Iveely.Framework.Text
         public string SourceCode { get; private set; }
 
         /// <summary>
+        /// 服务器返回时间戳
+        /// </summary>
+        public string Timestamp { get; private set; }
+
+        /// <summary>
         /// 发布日期
         /// </summary>
         public DateTime PublishDate { get; private set; }
@@ -852,17 +857,30 @@ namespace Iveely.Framework.Text
                 //获取响应
                 using (var response = (HttpWebResponse)request.GetResponse())
                 {
-                    //处理获取到得响应结果
-                    using (var crawlerContent = ProcessFactory.Create(uri, response))
+                    // 只取文本数据
+                    if (response.ContentType.Contains("text/html"))
                     {
-                        Html html = new Html();
-                        html.Title = crawlerContent.GetTitle();
-                        //html.Content = crawlerContent.GetContent();
-                        //html.PublishDate = crawlerContent.GetPublishDate();
-                        html.SourceCode = crawlerContent.Text;
-                        html.ChildrenLink = new List<Uri>(ProcessContent(crawlerContent, uri));
-                        return html;
+                        //处理获取到得响应结果
+                        using (var crawlerContent = ProcessFactory.Create(uri, response))
+                        {
+                            Html html = new Html();
+                            html.Title = crawlerContent.GetTitle();
+                            // response.Headers[]
+                            for (int i = 0; i < response.Headers.Count; ++i)
+                            {
+                                if (response.Headers.Keys[i] == "Expires")
+                                {
+                                    html.Timestamp = response.Headers[i];
+                                    break;
+                                }
+                            }
+                            html.Content = crawlerContent.GetContent();
+                            html.SourceCode = crawlerContent.Text;
+                            html.ChildrenLink = new List<Uri>(ProcessContent(crawlerContent, uri));
+                            return html;
+                        }
                     }
+                    return null;
                 }
             }
             catch (Exception exception)

@@ -24,6 +24,8 @@ using Iveely.Framework.NLP;
 using Iveely.Framework.Text;
 using Iveely.Framework.Text.Segment;
 using System.Collections;
+using System.Net;
+using Iveely.Framework.Process;
 
 namespace Iveely.SearchEngine
 {
@@ -45,16 +47,31 @@ namespace Iveely.SearchEngine
 
         public static void Main(string[] args)
         {
-            if (args.Length > 0)
-            {
-                Host host = new Host();
-                host.Run(null);
-            }
-            else
-            {
-                Backstage backstage = new Backstage();
-                backstage.Run(new object[] { 8001, 8001, 8001, 8001, 8001, 8001 });
-            }
+            //using (Iveely.Database.IStorageEngine engine = Iveely.Database.STSdb.FromNetwork("localhost"))
+            //{
+            //    Iveely.Database.ITable<int, string> table = engine.OpenXTablePortable<int, string>("table");
+
+            //    foreach (var row in table) //table.Forward(), table.Backward()
+            //    {
+            //        Console.WriteLine("{0} {1}", row.Key, row.Value);
+            //    }
+            //}
+            //Console.ReadLine();
+            ////return;
+
+            Crawler crawler = new Crawler();
+            crawler.Run(new object[] { 8001, 8001, 8001, 8001, 8001, 8001 });
+
+            //if (args.Length > 0)
+            //{
+            //    Host host = new Host();
+            //    host.Run(null);
+            //}
+            //else
+            //{
+            //    Backstage backstage = new Backstage();
+            //    backstage.Run(new object[] { 8001, 8001, 8001, 8001, 8001, 8001 });
+            //}
             Console.ReadKey();
         }
 

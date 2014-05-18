@@ -1,0 +1,251 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{BE6C9FF2-7817-4EF4-BD8F-6F78126878D3}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Iveely</RootNamespace>
+    <AssemblyName>Iveely.Database</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\..\Iveely.CloudComputing\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <CodeAnalysisLogFile>bin\Debug\STSdb4.dll.CodeAnalysisLog.xml</CodeAnalysisLogFile>
+    <CodeAnalysisUseTypeNameInSuppression>true</CodeAnalysisUseTypeNameInSuppression>
+    <CodeAnalysisModuleSuppressionsFile>GlobalSuppressions.cs</CodeAnalysisModuleSuppressionsFile>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSetDirectories>;C:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\\Rule Sets</CodeAnalysisRuleSetDirectories>
+    <CodeAnalysisIgnoreBuiltInRuleSets>false</CodeAnalysisIgnoreBuiltInRuleSets>
+    <CodeAnalysisRuleDirectories>;C:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\FxCop\\Rules</CodeAnalysisRuleDirectories>
+    <CodeAnalysisIgnoreBuiltInRules>false</CodeAnalysisIgnoreBuiltInRules>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <CodeAnalysisLogFile>bin\Release\STSdb4.dll.CodeAnalysisLog.xml</CodeAnalysisLogFile>
+    <CodeAnalysisUseTypeNameInSuppression>true</CodeAnalysisUseTypeNameInSuppression>
+    <CodeAnalysisModuleSuppressionsFile>GlobalSuppressions.cs</CodeAnalysisModuleSuppressionsFile>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSetDirectories>;C:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\\Rule Sets</CodeAnalysisRuleSetDirectories>
+    <CodeAnalysisIgnoreBuiltInRuleSets>true</CodeAnalysisIgnoreBuiltInRuleSets>
+    <CodeAnalysisRuleDirectories>;C:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\FxCop\\Rules</CodeAnalysisRuleDirectories>
+    <CodeAnalysisIgnoreBuiltInRules>true</CodeAnalysisIgnoreBuiltInRules>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <PlatformTarget>x86</PlatformTarget>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <PlatformTarget>x86</PlatformTarget>
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Management" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Database\XTable.cs" />
+    <Compile Include="Data\DataToObjects.cs" />
+    <Compile Include="Data\Comparer.cs" />
+    <Compile Include="Data\Data.cs" />
+    <Compile Include="Data\DataComparer.cs" />
+    <Compile Include="Data\DataEqualityComparer.cs" />
+    <Compile Include="Data\DataIndexerPersist.cs" />
+    <Compile Include="Data\DataPersist.cs" />
+    <Compile Include="Data\DataToString.cs" />
+    <Compile Include="Data\DataTransformer.cs" />
+    <Compile Include="Data\Slots.cs" />
+    <Compile Include="Data\SlotsBuilder.cs" />
+    <Compile Include="Data\DataTypeUtils.cs" />
+    <Compile Include="Data\EqualityComparer.cs" />
+    <Compile Include="Data\IndexerPersist.cs" />
+    <Compile Include="Data\ITransformer.cs" />
+    <Compile Include="Data\Persist.cs" />
+    <Compile Include="Data\Transformer.cs" />
+    <Compile Include="Database\OrderedSetFactory.cs" />
+    <Compile Include="Database\OperationPersist.cs" />
+    <Compile Include="Database\OperationCollectionPersist.cs" />
+    <Compile Include="Database\IStorageEngine.cs" />
+    <Compile Include="Database\OperationCollectionFactory.cs" />
+    <Compile Include="General\Compression\DeltaCompression.cs" />
+    <Compile Include="General\Environment.cs" />
+    <Compile Include="General\Extensions\KeyValuePairExtensions.cs" />
+    <Compile Include="General\Extensions\ListExtensions.cs" />
+    <Compile Include="Remote\Commands\HeapCommands.cs" />
+    <Compile Include="Remote\Descriptor.cs" />
+    <Compile Include="Remote\Commands\CommandCode.cs" />
+    <Compile Include="Remote\Commands\CommandCollection.cs" />
+    <Compile Include="Remote\Commands\CommandCollectionPersist.cs" />
+    <Compile Include="Remote\Commands\ICommand.cs" />
+    <Compile Include="Remote\Commands\ICommandsPersist.cs" />
+    <Compile Include="Remote\Commands\CommandsPersist.Persist.cs" />
+    <Compile Include="Remote\Commands\StorageEngineCommands.cs" />
+    <Compile Include="Remote\Commands\XTableCommands.cs" />
+    <Compile Include="Database\STSdb.cs" />
+    <Compile Include="Data\DataExtensions.cs" />
+    <Compile Include="Data\ValueToObjects.cs" />
+    <Compile Include="Data\ValueToString.cs" />
+    <Compile Include="General\Comparers\SortOrder.cs" />
+    <Compile Include="General\Communication\ClientConnection.cs" />
+    <Compile Include="Remote\Heap\HeapServer.cs" />
+    <Compile Include="Remote\Heap\RemoteHeap.cs" />
+    <Compile Include="Remote\Heap\RemoteHeapCommands.cs" />
+    <Compile Include="Remote\StorageEngineClient.cs" />
+    <Compile Include="Remote\XTableRemote.cs" />
+    <Compile Include="General\Communication\ServerConnection.cs" />
+    <Compile Include="Remote\StorageEngineServer.cs" />
+    <Compile Include="General\Communication\TcpServer.cs" />
+    <Compile Include="WaterfallTree\TypeCache.cs" />
+    <Compile Include="WaterfallTree\TypeEngine.cs" />
+    <Compile Include="General\Collections\IOrderedSetFactory.cs" />
+    <Compile Include="WaterfallTree\IOperationCollectionFactory.cs" />
+    <Compile Include="Data\CompareOption.cs" />
+    <Compile Include="Database\XStreamApply.cs" />
+    <Compile Include="General\Buffers\BitUtils.cs" />
+    <Compile Include="General\Collections\Cache.cs" />
+    <Compile Include="General\Collections\IOrderedSet.cs" />
+    <Compile Include="General\Collections\OrderedSet.cs" />
+    <Compile Include="General\Comparers\BigEndianByteArrayComparer.cs" />
+    <Compile Include="General\Comparers\BigEndianByteArrayEqualityComparer.cs" />
+    <Compile Include="General\Comparers\ByteOrder.cs" />
+    <Compile Include="General\Comparers\CommonArray.cs" />
+    <Compile Include="General\Comparers\ComparerInvertor.cs" />
+    <Compile Include="General\Comparers\KeyValuePairComparer.cs" />
+    <Compile Include="General\Comparers\LittleEndianByteArrayComparer.cs" />
+    <Compile Include="General\Comparers\LittleEndianByteArrayEqualityComparer.cs" />
+    <Compile Include="General\Compression\CountCompression.cs" />
+    <Compile Include="General\Extensions\ArrayExtensions.cs" />
+    <Compile Include="General\Extensions\ByteArrayExtensions.cs" />
+    <Compile Include="General\Extensions\ExpressionExtensions.cs" />
+    <Compile Include="General\Extensions\IEnumerableExtensions.cs" />
+    <Compile Include="General\Extensions\IListExtensions.cs" />
+    <Compile Include="General\Extensions\SortedSetExtensions.cs" />
+    <Compile Include="General\Extensions\StopwatchExtensions.cs" />
+    <Compile Include="General\Extensions\StringExtensions.cs" />
+    <Compile Include="General\Extensions\TypeExtensions.cs" />
+    <Compile Include="General\IO\IOUtils.cs" />
+    <Compile Include="General\IO\OptimizedFileStream.cs" />
+    <Compile Include="General\Mathematics\MathUtils.cs" />
+    <Compile Include="General\Persist\BooleanIndexerPersist.cs" />
+    <Compile Include="General\Persist\ByteArrayIndexerPersist.cs" />
+    <Compile Include="General\Persist\DateTimeIndexerPersist.cs" />
+    <Compile Include="General\Persist\FloatIndexerPersist.cs" />
+    <Compile Include="General\Persist\IIndexerPersist.cs" />
+    <Compile Include="General\Persist\IntegerIndexerPersist.cs" />
+    <Compile Include="General\Persist\IPersist.cs" />
+    <Compile Include="General\Persist\StringIndexerPersist.cs" />
+    <Compile Include="General\Threading\Countdown.cs" />
+    <Compile Include="General\Communication\Packet.cs" />
+    <Compile Include="Remote\Message.cs" />
+    <Compile Include="Storage\AtomicHeader.cs" />
+    <Compile Include="Storage\Heap.cs" />
+    <Compile Include="Storage\Pointer.cs" />
+    <Compile Include="Storage\Ptr.cs" />
+    <Compile Include="Storage\Space.cs" />
+    <Compile Include="Database\ITable.cs" />
+    <Compile Include="WaterfallTree\SentinelPersistKey.cs" />
+    <Compile Include="Database\StructureType.cs" />
+    <Compile Include="Database\XTablePortableGeneric.cs" />
+    <Compile Include="Database\XStream.cs" />
+    <Compile Include="Data\DataType.cs" />
+    <Compile Include="WaterfallTree\IHeap.cs" />
+    <Compile Include="Database\XFile.cs" />
+    <Compile Include="Database\OrderedSetPersist.cs" />
+    <Compile Include="Database\Operations\OverallOperations.cs" />
+    <Compile Include="Database\Operations\PointOperations.cs" />
+    <Compile Include="Database\Operations\RangeOperations.cs" />
+    <Compile Include="Database\StorageEngine.cs" />
+    <Compile Include="Database\Operations\OperationCode.cs" />
+    <Compile Include="WaterfallTree\Locator.cs" />
+    <Compile Include="Database\XTablePortable.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Database\XTableApply.cs" />
+    <Compile Include="WaterfallTree\IOperationCollection.cs" />
+    <Compile Include="WaterfallTree\WTree.Branch.Fall.cs" />
+    <Compile Include="WaterfallTree\WTree.BranchCollection.cs" />
+    <Compile Include="WaterfallTree\WTree.Header.cs" />
+    <Compile Include="WaterfallTree\WTree.FullKey.cs" />
+    <Compile Include="Database\OperationCollection.cs" />
+    <Compile Include="WaterfallTree\WTree.Branch.cs" />
+    <Compile Include="WaterfallTree\WTree.BranchCache.cs" />
+    <Compile Include="WaterfallTree\WTree.BranchesOptimizator.cs" />
+    <Compile Include="WaterfallTree\WTree.InternalNode.Maintenance.cs" />
+    <Compile Include="WaterfallTree\WTree.Node.cs" />
+    <Compile Include="WaterfallTree\IApply.cs" />
+    <Compile Include="Data\IData.cs" />
+    <Compile Include="WaterfallTree\IOperation.cs" />
+    <Compile Include="WaterfallTree\IDataContainer.cs" />
+    <Compile Include="WaterfallTree\IDescriptor.cs" />
+    <Compile Include="WaterfallTree\WTree.cs" />
+    <Compile Include="WaterfallTree\WTree.InternalNode.cs" />
+    <Compile Include="WaterfallTree\WTree.LeafNode.cs" />
+    <Compile Include="WaterfallTree\Scheme.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Doc\version history.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Doc\STSdb4.DevelopersGuide.docx" />
+    <None Include="Doc\STSdb4.GettingStarted.docx" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

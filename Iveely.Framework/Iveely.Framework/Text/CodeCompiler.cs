@@ -38,6 +38,7 @@ namespace Iveely.Framework.Text
             CompilerParameters objCompilerParameters = new CompilerParameters();
             objCompilerParameters.ReferencedAssemblies.Add("System.dll");
             objCompilerParameters.ReferencedAssemblies.Add("System.Core.dll");
+            objCompilerParameters.ReferencedAssemblies.Add("System.Data.dll");
             if (references != null)
             {
                 foreach (var reference in references)
@@ -74,6 +75,7 @@ namespace Iveely.Framework.Text
             };
             compilerParameters.ReferencedAssemblies.Add("System.dll");
             compilerParameters.ReferencedAssemblies.Add("System.Core.dll");
+            compilerParameters.ReferencedAssemblies.Add("System.Data.dll");
             if (libraries != null)
             {
                 foreach (var library in libraries)

@@ -783,8 +783,8 @@ namespace Iveely.Framework.NLP
         {
             _dictionary = new Hashtable();
             _semanticAttributes = new Hashtable();
-            LoadDictionary("Init\\Chinese Dictionary.txt");
-            LoadSemanticRank("Init\\SemanticAttribute.txt");
+            //LoadDictionary("Init\\Chinese Dictionary.txt");
+            //LoadSemanticRank("Init\\SemanticAttribute.txt");
             segment = new MetastasisSegment();
         }
 
