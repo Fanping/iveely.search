@@ -222,7 +222,7 @@ namespace Iveely.Framework.Text.Segment
         /// <summary>
         /// 词
         /// </summary>
-        private readonly Hashtable _table = new Hashtable();
+        private Hashtable _table = new Hashtable();
 
         /// <summary>
         /// 词性
@@ -263,6 +263,11 @@ namespace Iveely.Framework.Text.Segment
                     }
                 }
             }
+        }
+
+        public void InitPos()
+        {
+            _table = Serializer.DeserializeFromFile<Hashtable>("Init\\WordPos.ser");
         }
 
         public string[] SplitToStrings(string sentence)
@@ -393,14 +398,23 @@ namespace Iveely.Framework.Text.Segment
             List<string> result = new List<string>();
             foreach (var word in words)
             {
-                List<string> list = _wordSemantic.GetFollows(word);
-                if (list.Count > 0)
+                //List<string> list = _wordSemantic.GetFollows(word);
+                //if (list.Count > 0)
+                //{
+                //    result.Add(list[0]);
+                //}
+                //else
+                //{
+                //    result.Add("Unkown");
+                //}
+
+                if(_table.ContainsKey(word))
                 {
-                    result.Add(list[0]);
+                    result.Add(_table[word].ToString());
                 }
                 else
                 {
-                    result.Add("Unkown");
+                    result.Add("Unkonw");
                 }
             }
             return result.ToArray();

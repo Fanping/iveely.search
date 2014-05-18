@@ -14,6 +14,9 @@ namespace Iveely.Framework.Text.Segment
     {
 
         private ArrayList m_seg;
+
+        //private Hashtable wordPos = new Hashtable();
+
         public int MaxLength;
         public int Count
         {

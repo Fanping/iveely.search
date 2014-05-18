@@ -40,7 +40,7 @@ namespace Iveely.SearchEngine
                     if (docs.Count > 50 || isForce)
                     {
                         string fileFlag = DateTime.Now.Year + "_" + DateTime.Now.Month + "_" + DateTime.Now.Day + "_" + Thread.CurrentThread.ManagedThreadId + ".db4";
-                        using (IStorageEngine engine = STSdb.FromNetwork("localhost"))
+                        using (IStorageEngine engine = STSdb.FromFile("Iveely.db4"))
                         {
                             // 插入数据
                             ITable<string, Page> table = engine.OpenXTable<string, Page>("WebPage");
@@ -67,14 +67,14 @@ namespace Iveely.SearchEngine
             Init(args);
             Console.WriteLine("Starting...");
             string fileFlag = DateTime.Now.Year + "_" + DateTime.Now.Month + "_" + DateTime.Now.Day + ".db4";
-          
+
 
             //1. 读取5w个链接
             string[] basicUrls = File.ReadAllLines(GetRootFolder() + "\\top5k.txt");
             Iveely.Framework.Process.ThreadManager<string> threadTasks = new ThreadManager<string>();
             threadTasks.SetData(new List<string>(basicUrls));
             threadTasks.SetFunction(GetData);
-            threadTasks.SetIsSingleThread(false);
+            threadTasks.SetIsSingleThread(true);
             threadTasks.Start();
         }
 
@@ -94,7 +94,7 @@ namespace Iveely.SearchEngine
 
             string[] urlInfo = url.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
             string schemaUrl = "http://" + urlInfo[0];
-            IconGetter iconGetter = new IconGetter(GetRootFolder()+"\\icons");
+            IconGetter iconGetter = new IconGetter(GetRootFolder() + "\\icons");
 
             //Uri可能转换失败
             try
@@ -180,11 +180,13 @@ namespace Iveely.SearchEngine
                     dataSaver.SavePage(ref docs, GetRootFolder());
                     docs.Clear();
                 }
+                File.WriteAllLines(GetRootFolder()+"\\Urls_" + hostUrl.Host + ".txt", VisitedUrls);
             }
             catch (Exception exception)
             {
                 Console.WriteLine(exception);
             }
+
             return true;
         }
     }

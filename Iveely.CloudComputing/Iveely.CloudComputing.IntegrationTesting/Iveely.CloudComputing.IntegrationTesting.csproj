@@ -71,6 +71,9 @@
     <None Include="Init\Semantic.ser">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="Init\WordPos.ser">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="IveelyWeb\Data\Default.Dat">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

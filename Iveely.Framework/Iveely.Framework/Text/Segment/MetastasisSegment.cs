@@ -13,17 +13,19 @@ namespace Iveely.Framework.Text.Segment
 
         public MetastasisSegment()
         {
-            string serializedFile = "Init\\MetastasisModel.ser";
-            if (model == null && File.Exists(serializedFile))
-            {
-                model = Serializer.DeserializeFromFile<MetastasisModel>(serializedFile);
-            }
-            else if (model == null)
-            {
-                model = new MetastasisModel();
-                model.Learn("Init\\2014_Segment_Corpus\\");
-                Serializer.SerializeToFile(model, serializedFile);
-            }
+            model = new MetastasisModel();
+            model.InitPos();
+            //string serializedFile = "Init\\MetastasisModel.ser";
+            //if (model == null && File.Exists(serializedFile))
+            //{
+            //    model = Serializer.DeserializeFromFile<MetastasisModel>(serializedFile);
+            //}
+            //else if (model == null)
+            //{
+            //    model = new MetastasisModel();
+            //    model.Learn("Init\\2014_Segment_Corpus\\");
+            //    Serializer.SerializeToFile(model, serializedFile);
+            //}
         }
 
         /// <summary>

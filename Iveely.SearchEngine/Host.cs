@@ -47,17 +47,6 @@ namespace Iveely.SearchEngine
 
         public static void Main(string[] args)
         {
-            //using (Iveely.Database.IStorageEngine engine = Iveely.Database.STSdb.FromNetwork("localhost"))
-            //{
-            //    Iveely.Database.ITable<int, string> table = engine.OpenXTablePortable<int, string>("table");
-
-            //    foreach (var row in table) //table.Forward(), table.Backward()
-            //    {
-            //        Console.WriteLine("{0} {1}", row.Key, row.Value);
-            //    }
-            //}
-            //Console.ReadLine();
-            ////return;
 
             Crawler crawler = new Crawler();
             crawler.Run(new object[] { 8001, 8001, 8001, 8001, 8001, 8001 });
@@ -75,6 +64,36 @@ namespace Iveely.SearchEngine
             Console.ReadKey();
         }
 
+
+        public static void Learn(string corpusFolder)
+        {
+            Hashtable table = new Hashtable();
+            string[] dirs = Directory.GetDirectories(corpusFolder);
+            foreach (string dir in dirs)
+            {
+                string[] files = Directory.GetFiles(dir);
+                foreach (string file in files)
+                {
+                    string[] context = File.ReadAllText(file).Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+                    string lastSem = string.Empty;
+                    for (int i = 0; i < context.Length; i++)
+                    {
+                        string[] text = context[i].Split(new char[] { '/' }, StringSplitOptions.RemoveEmptyEntries);
+
+                        if (text.Length == 2)
+                        {
+                            //词与词性
+                            if (!table.ContainsKey(text[0]))
+                            {
+                                table.Add(text[0], text[1]);
+                            }
+                            //_wordSemantic.Add(text[0], text[1]);
+                        }
+                    }
+                }
+            }
+            Serializer.SerializeToFile(table,"KeyAnd.ser");
+        }
         public override void Run(object[] args)
         {
             while (true)
