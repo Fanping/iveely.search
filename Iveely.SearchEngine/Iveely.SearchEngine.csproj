@@ -51,7 +51,6 @@
     <Compile Include="Backstage.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="IconGetter.cs" />
     <Compile Include="Library.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="QuestionGetter.cs">

@@ -1,4 +1,5 @@
-﻿using Iveely.Database;
+﻿using System.Text.RegularExpressions;
+using Iveely.Database;
 using Iveely.Framework.NLP;
 using Iveely.Framework.Process;
 using Iveely.Framework.Text;
@@ -39,8 +40,12 @@ namespace Iveely.SearchEngine
                 {
                     if (docs.Count > 50 || isForce)
                     {
-                        string fileFlag = DateTime.Now.Year + "_" + DateTime.Now.Month + "_" + DateTime.Now.Day + "_" + Thread.CurrentThread.ManagedThreadId + ".db4";
-                        using (IStorageEngine engine = STSdb.FromFile("Iveely.db4"))
+                        if (!Directory.Exists(folder))
+                        {
+                            Directory.CreateDirectory(folder);
+                        }
+                        string fileFlag = folder + DateTime.Now.Year + "_" + DateTime.Now.Month + "_" + DateTime.Now.Day + "_" + Thread.CurrentThread.ManagedThreadId + ".db4";
+                        using (IStorageEngine engine = STSdb.FromFile(fileFlag))
                         {
                             // 插入数据
                             ITable<string, Page> table = engine.OpenXTable<string, Page>("WebPage");
@@ -66,16 +71,20 @@ namespace Iveely.SearchEngine
         {
             Init(args);
             Console.WriteLine("Starting...");
-            string fileFlag = DateTime.Now.Year + "_" + DateTime.Now.Month + "_" + DateTime.Now.Day + ".db4";
-
 
             //1. 读取5w个链接
-            string[] basicUrls = File.ReadAllLines(GetRootFolder() + "\\top5k.txt");
-            Iveely.Framework.Process.ThreadManager<string> threadTasks = new ThreadManager<string>();
-            threadTasks.SetData(new List<string>(basicUrls));
-            threadTasks.SetFunction(GetData);
-            threadTasks.SetIsSingleThread(true);
-            threadTasks.Start();
+            string[] basicUrls = File.ReadAllLines(GetRootFolder() + "\\urls.txt");
+            foreach (var url in basicUrls)
+            {
+                try
+                {
+                    GetData(url);
+                }
+                catch (Exception exception)
+                {
+                    Console.WriteLine(exception);
+                }
+            }
         }
 
         public object GetData(string url)
@@ -132,7 +141,7 @@ namespace Iveely.SearchEngine
                             page.Title = document.Title;
                             page.Timestamp = DateTime.Now.ToString();// or UTC
                             docs.Add(page);
-                            dataSaver.SavePage(ref docs, GetRootFolder());
+                            dataSaver.SavePage(ref docs, GetRootFolder()+"\\RawData");
                         }
 
                         //3. 获取新链接
@@ -177,10 +186,15 @@ namespace Iveely.SearchEngine
                 }
                 if (docs.Count > 0)
                 {
-                    dataSaver.SavePage(ref docs, GetRootFolder());
+                    dataSaver.SavePage(ref docs, GetRootFolder()+"\\RawData");
                     docs.Clear();
                 }
-                File.WriteAllLines(GetRootFolder()+"\\Urls_" + hostUrl.Host + ".txt", VisitedUrls);
+                string recordFolder = GetRootFolder() + "\\urls_hisotry";
+                if (!Directory.Exists(recordFolder))
+                {
+                    Directory.CreateDirectory(recordFolder);
+                }
+                File.WriteAllLines(recordFolder + "\\Urls_" + hostUrl.Host + ".txt", VisitedUrls);
             }
             catch (Exception exception)
             {
@@ -188,6 +202,83 @@ namespace Iveely.SearchEngine
             }
 
             return true;
+        }
+    }
+
+    public class IconGetter
+    {
+
+        private string saveFolder;
+
+        /// <summary>
+        /// 下载器
+        /// </summary>
+        private Iveely.Framework.Network.Downloader downloader = new Framework.Network.Downloader();
+
+        /// <summary>
+        /// 获取网站集合的ICON
+        /// </summary>
+        /// <param name="urls"></param>
+        public void Extract(string[] urls)
+        {
+            ThreadManager<string> threadTasks = new ThreadManager<string>();
+            threadTasks.SetData(new List<string>(urls));
+            threadTasks.SetFunction(Extract);
+            threadTasks.Start();
+        }
+
+        public object Extract(string url)
+        {
+            try
+            {
+                //0. 规范化
+                if (url.Contains(" ") || url.Contains("\t"))
+                {
+                    url = url.Split(new[] { ' ', '\t' }, StringSplitOptions.RemoveEmptyEntries)[0];
+                }
+                if (!url.StartsWith("http://") && !url.StartsWith("https://"))
+                {
+                    url = "http://" + url;
+                }
+                Console.WriteLine(url);
+
+                //1. 默认路径host下的icon
+
+                Uri uri = new Uri(url);
+                string savePath = uri.Host + ".ico";
+                if (!downloader.SyncDownload(url + "/favicon.ico", this.saveFolder + "\\" + savePath))
+                {
+                    //2. 分析网页源码提取
+                    Iveely.Framework.Text.Html html = Iveely.Framework.Text.Html.CreatHtml(uri);
+                    if (html == null)
+                    {
+                        return false;
+                    }
+                    string sourceCode = html.SourceCode;
+                    Match match = Regex.Match(sourceCode, "(href=\").*?(.ico)");
+                    if (match.Success)
+                    {
+                        string strUrl = match.Value.Replace("href=\"", "");
+                        Uri icoUrl = new Uri(uri, strUrl);
+                        downloader.SyncDownload(icoUrl.ToString(), this.saveFolder + "\\" + savePath);
+                    }
+                }
+            }
+            catch (Exception exception)
+            {
+                Console.WriteLine(exception);
+                return false;
+            }
+            return true;
+        }
+
+        public IconGetter(string savefolder)
+        {
+            if (!Directory.Exists(saveFolder))
+            {
+                Directory.CreateDirectory(savefolder);
+            }
+            this.saveFolder = savefolder;
         }
     }
 }

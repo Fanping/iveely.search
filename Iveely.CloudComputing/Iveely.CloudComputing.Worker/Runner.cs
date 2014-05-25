@@ -48,11 +48,11 @@ namespace Iveely.CloudComputing.Worker
             _runningPath = "ISE://application/" + Status.Packet.TimeStamp + "/" + Status.Packet.AppName + "/" +
                            _machineName + "," + _servicePort;
             Logger.Info("Running path " + _runningPath);
-            _thread = new Thread(Excute);
+            _thread = new Thread(Execute);
             _thread.Start(sourceCode);
         }
 
-        private void Excute(object obj)
+        private void Execute(object obj)
         {
             try
             {

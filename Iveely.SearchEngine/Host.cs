@@ -48,19 +48,19 @@ namespace Iveely.SearchEngine
         public static void Main(string[] args)
         {
 
-            Crawler crawler = new Crawler();
-            crawler.Run(new object[] { 8001, 8001, 8001, 8001, 8001, 8001 });
+            //Crawler crawler = new Crawler();
+            //crawler.Run(new object[] { 8001, 8001, 8001, 8001, 8001, 8001 });
 
-            //if (args.Length > 0)
-            //{
-            //    Host host = new Host();
-            //    host.Run(null);
-            //}
-            //else
-            //{
-            //    Backstage backstage = new Backstage();
-            //    backstage.Run(new object[] { 8001, 8001, 8001, 8001, 8001, 8001 });
-            //}
+            if (args.Length > 0)
+            {
+                Host host = new Host();
+                host.Run(null);
+            }
+            else
+            {
+                Backstage backstage = new Backstage();
+                backstage.Run(new object[] { 8001, 8001, 8001, 8001, 8001, 8001 });
+            }
             Console.ReadKey();
         }
 
