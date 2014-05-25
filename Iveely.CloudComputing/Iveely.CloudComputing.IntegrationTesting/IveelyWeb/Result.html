@@ -38,7 +38,7 @@
     <div class="iveely_content">
         <div class="iveely_left">
             <div class="box navi">
-               @Navi@
+                @Navi@
             </div>
         </div>
         <div class="content" id="content">
@@ -50,7 +50,7 @@
                 <form action="Result.html" class="searchbox" id="sbox2">
                     <span class="txt">
                         <span>
-                            <input align="middle" name="query" id="q1" value="@@qeruy@@" maxlength="100" size="50" autocomplete="off" />
+                            <input align="middle" name="query" id="q2" value="@@qeruy@@" maxlength="100" size="50" autocomplete="off" />
                         </span>
                     </span><span class="btn"><span><input align="middle" value="" type="submit" /></span></span>
                 </form>
@@ -64,4 +64,42 @@
     </div>
     <div class="iveely_foot" id="foot">Copyright © 2014 Iveely. Org.</div>
 </body>
+
+<script language="JavaScript">
+    function getQueryString(name) {
+        // 如果链接没有参数，或者链接中不存在我们要获取的参数，直接返回空
+        if (location.href.indexOf("?") == -1 || location.href.indexOf(name + '=') == -1) {
+            return '';
+        }
+
+        // 获取链接中参数部分
+        var queryString = location.href.substring(location.href.indexOf("?") + 1);
+
+        // 分离参数对 ?key=value&key2=value2
+        var parameters = queryString.split("&");
+
+        var pos, paraName, paraValue;
+        for (var i = 0; i < parameters.length; i++) {
+            // 获取等号位置
+            pos = parameters[i].indexOf('=');
+            if (pos == -1) { continue; }
+
+            // 获取name 和 value
+            paraName = parameters[i].substring(0, pos);
+            paraValue = parameters[i].substring(pos + 1);
+
+            // 如果查询的name等于当前name，就返回当前值，同时，将链接中的+号还原成空格
+            if (paraName == name) {
+                //return unescape(paraValue.replace(/\+/g, " "));
+                return decodeURI(paraValue);
+            }
+        }
+        return '';
+    };
+    var q1 = document.getElementById("q1");
+    q1.value = getQueryString('query');
+    var q2 = document.getElementById("q2");
+    q2.value = q1.value;
+</script>
+
 </html>
