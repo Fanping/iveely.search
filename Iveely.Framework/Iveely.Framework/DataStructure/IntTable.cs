@@ -83,7 +83,7 @@ namespace Iveely.Framework.DataStructure
         private object Add(TValue num1, TValue num2)
         {
             //TODO:Fix ,should use lambda
-            return int.Parse(num1.ToString()) + int.Parse(num2.ToString());
+            return double.Parse(num1.ToString()) + double.Parse(num2.ToString());
         }
 
         #endregion

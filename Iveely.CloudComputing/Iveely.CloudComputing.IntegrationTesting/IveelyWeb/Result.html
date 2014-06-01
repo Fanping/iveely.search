@@ -86,7 +86,7 @@
 
     function ConnectServer() {
         try {
-            var SOCKECT_ADDR = "ws://localhost:1818/chat";
+            var SOCKECT_ADDR = "ws://192.168.109.1:4141/chat";
             ws = new WebSocket(SOCKECT_ADDR);
             ws.onopen = function (event) {
                 SendData();
@@ -94,7 +94,8 @@
 
             ws.onmessage = function (event) {
                 var contentul = document.getElementById("contentUL");
-                contentul.innerText = event.data;
+                //alert(event.data);
+                contentul.innerHTML = event.data;
             };
 
             ws.onclose = function (event) {

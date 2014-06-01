@@ -397,7 +397,20 @@ namespace Iveely.General.Collections
                 set = null;
 
                 for (int i = 0; i < count; i++)
-                    dictionary.Add(array[i].Key, array[i].Value);
+                {
+                    if (array[i].Key!=null)
+                    {
+                        try
+                        {
+                            dictionary.Add(array[i].Key, array[i].Value);
+                        }
+                        catch 
+                        {
+                          
+                        }
+                    }
+                }
+                   
             }
         }
 

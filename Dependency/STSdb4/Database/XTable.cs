@@ -184,8 +184,11 @@ namespace Iveely.Database
             foreach (var kv in Table.Forward())
             {
                 TKey key = ((Data<TKey>)kv.Key).Value;
-                TRecord rec = ((Data<TRecord>)kv.Value).Value;
-
+                TRecord rec = default(TRecord);
+                if (kv.Value != null)
+                {
+                    rec = ((Data<TRecord>)kv.Value).Value;
+                }
                 yield return new KeyValuePair<TKey, TRecord>(key, rec);
             }
         }

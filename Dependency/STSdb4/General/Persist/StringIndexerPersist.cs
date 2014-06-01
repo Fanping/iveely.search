@@ -131,7 +131,16 @@ namespace Iveely.General.Persist
                 writer.Write(buffer);
 
                 for (int i = 0; i < length; i++)
-                    writer.Write(array[i]);
+                {
+                    try
+                    {
+                        writer.Write(array[i]);
+                    }
+                    catch
+                    {
+                        // 无法识别的编码忽略
+                    }
+                }
             }
 
             public void Load(BinaryReader reader, Action<int, string> values, int count)
@@ -139,7 +148,17 @@ namespace Iveely.General.Persist
                 byte[] buffer = reader.ReadBytes((int)Math.Ceiling(count / 8.0));
 
                 for (int i = 0; i < count; i++)
-                    values(i, buffer.GetBit(i) == 1 ? reader.ReadString() : null);
+                {
+                    try
+                    {
+                        values(i, buffer.GetBit(i) == 1 ? reader.ReadString() : null);
+                    }
+                    catch 
+                    {
+                         
+                    }
+                }
+                   
             }
         }
 

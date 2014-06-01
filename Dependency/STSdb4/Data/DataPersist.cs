@@ -38,12 +38,28 @@ namespace Iveely.Data
 
         public void Write(BinaryWriter writer, IData item)
         {
-            write(writer, item);
+            try
+            {
+                write(writer, item);
+            }
+            catch 
+            {
+                
+            }
         }
 
         public IData Read(BinaryReader reader)
         {
-            return read(reader);
+            try
+            {
+                return read(reader);
+            }
+            catch
+            {
+
+                return null;
+            }
+            
         }
 
         private Expression<Action<BinaryWriter, IData>> CreateWriteMethod()

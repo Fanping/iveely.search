@@ -51,11 +51,13 @@
     <Compile Include="Backstage.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
+    <Compile Include="Index.cs" />
     <Compile Include="Library.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="QuestionGetter.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
+    <Compile Include="WebSocketServer.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Dependency\STSdb4\STSdb4.csproj">
