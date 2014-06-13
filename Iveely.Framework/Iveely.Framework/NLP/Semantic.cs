@@ -11,7 +11,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
-using Iveely.Framework.Text.Segment;
+using Iveely.Framework.Text;
 
 namespace Iveely.Framework.NLP
 {
@@ -762,7 +762,7 @@ namespace Iveely.Framework.NLP
         /// </summary>
         private static Semantic _semantic;
 
-        private static Text.Segment.MetastasisSegment segment;
+        private static Text.HMMSegment segment;
 
         public static Semantic GetInstance()
         {
@@ -785,7 +785,7 @@ namespace Iveely.Framework.NLP
             _semanticAttributes = new Hashtable();
             //LoadDictionary("Init\\Chinese Dictionary.txt");
             //LoadSemanticRank("Init\\SemanticAttribute.txt");
-            segment = new MetastasisSegment();
+            segment = HMMSegment.GetInstance();
         }
 
         /// <summary>

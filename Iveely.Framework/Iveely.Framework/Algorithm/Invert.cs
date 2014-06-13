@@ -10,7 +10,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Iveely.Framework.DataStructure;
-using Iveely.Framework.Text.Segment;
+using Iveely.Framework.Text;
 
 namespace Iveely.Framework.Algorithm
 {
@@ -22,7 +22,7 @@ namespace Iveely.Framework.Algorithm
         /// <summary>
         /// 分词组件
         /// </summary>
-        protected readonly MetastasisSegment Participle;
+        protected readonly Text.HMMSegment Participle;
 
         /// <summary>
         /// 倒排表
@@ -40,7 +40,7 @@ namespace Iveely.Framework.Algorithm
         protected Invert()
         {
             Table = new DimensionTable<TKey, TKey, TValue>();
-            Participle = new MetastasisSegment();
+            Participle =HMMSegment.GetInstance();
         }
 
         /// <summary>
@@ -55,7 +55,7 @@ namespace Iveely.Framework.Algorithm
         public void AddDocument(object id, string doc, bool split = false)
         {
             // 获取此文档的词频集合
-            string[] words = split ? doc.Split(' ') : Participle.Split(doc).Split(new[] { '/' }, StringSplitOptions.RemoveEmptyEntries);
+            string[] words = split ? doc.Split(' ') : Participle.Split(doc);//.Split(new[] { '/' }, StringSplitOptions.RemoveEmptyEntries);
             ProcessWords(words, id);
         }
 
