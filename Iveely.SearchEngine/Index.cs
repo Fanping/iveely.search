@@ -11,7 +11,7 @@ using Iveely.CloudComputing.Client;
 using Iveely.Data;
 using Iveely.Database;
 using Iveely.Framework.DataStructure;
-using Iveely.Framework.Text.Segment;
+using Iveely.Framework.Text;
 
 namespace Iveely.SearchEngine
 {
@@ -45,7 +45,7 @@ namespace Iveely.SearchEngine
         /// <summary>
         /// 分词组件
         /// </summary>
-        private static Iveely.Framework.Text.Segment.DicSplit segment;
+        private static Iveely.Framework.Text.HMMSegment segment;
 
         /// <summary>
         /// 正文锁
@@ -79,7 +79,7 @@ namespace Iveely.SearchEngine
         public override void Run(object[] args)
         {
             Init(args);
-            segment = DicSplit.GetInstance();
+            segment = HMMSegment.GetInstance();
             DataSaver dataSaver = new DataSaver();
 
             string rawDatafolder = GetRootFolder() + "\\RawData";
@@ -143,7 +143,7 @@ namespace Iveely.SearchEngine
                             {
                                 Console.WriteLine(page.Url);
                                 var frequency = new IntTable<string, int>();
-                                string[] results = segment.Do(page.Title + page.Title + page.Content);
+                                string[] results = segment.Split(page.Title + page.Title + page.Content);
                                 if (results.Length < 1)
                                 {
                                     continue;

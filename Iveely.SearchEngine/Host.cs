@@ -26,7 +26,6 @@ using Iveely.Framework.Network;
 using Iveely.Framework.Network.Synchronous;
 using Iveely.Framework.NLP;
 using Iveely.Framework.Text;
-using Iveely.Framework.Text.Segment;
 using System.Collections;
 using System.Net;
 using Iveely.Framework.Process;
@@ -36,9 +35,14 @@ namespace Iveely.SearchEngine
     public partial class Host
     {
         /// <summary>
-        /// 内存索引
+        /// 文本内存索引
         /// </summary>
         private static Hashtable TextIndexData = new Hashtable();
+
+        /// <summary>
+        /// 知识引擎内存索引
+        /// </summary>
+        private static Hashtable KnowledgeIndexData = new Hashtable();
 
         /// <summary>
         ///  网页数据
@@ -46,46 +50,102 @@ namespace Iveely.SearchEngine
         private static ITable<string, Crawler.Page> SearchDataTable;
 
         /// <summary>
+        /// 知识引擎数据
+        /// </summary>
+        private static ITable<long, KnowlegeIndex.KnowledgeEntity> KnowledgeDataTable;
+
+        /// <summary>
         /// 分词组件
         /// </summary>
-        private static Iveely.Framework.Text.Segment.DicSplit segment;
+        private static Iveely.Framework.Text.HMMSegment segment;
 
         private static void Main(string[] args)
         {
             //Index index = new Index();
             //object[] objects = new object[] { 8001, 8001, 8001, 8001, 8001, 8001, 8001, 8001, 8001 };
             //index.Run(objects);
+            //EntityExtrator inforExtrator = new EntityExtrator();
+            //while (true)
+            //{
+            //    Console.WriteLine("input:");
+            //    string[] infors = inforExtrator.GetInfo(Console.ReadLine());
+            //    if (infors != null && infors.Count() > 0)
+            //    {
+            //        foreach (var infor in infors)
+            //        {
+            //            Console.WriteLine(infor);
+            //        }
+            //    }
+            //}
+            //string fileFlag = "Baike_data.db4";
+            //using (IStorageEngine engine = STSdb.FromFile(fileFlag))
+            //{
+            //    // 插入数据
+            //    ITable<string, BaikeDataCrawler.Page> table = engine.OpenXTable<string, BaikeDataCrawler.Page>("WebPage");
+            //    foreach (var kv in table)
+            //    {
+            //        Console.WriteLine(kv.Key);
+            //    }
+            //}
 
+            //百科拉去
+            //BaikeDataCrawler crawler = new BaikeDataCrawler();
+            //crawler.Run(new object[] { 8001, 8001, 8001, 8001, 8001, 8001, 8001, 8001, 8001, 8001 });
+            //Console.ReadLine();
             //return;
+
+            //搜索服务
             Init();
-            WebSocketServer webSocket = new WebSocketServer(GetTextResult);
+            WebSocketServer webSocket = new WebSocketServer(GetResult);
             webSocket.StartServer();
+
         }
 
         private static void Init()
         {
             // 加载分词组件
-            segment = DicSplit.GetInstance();
+            Console.WriteLine("[1/6]正在加载分词组件...");
+            segment = HMMSegment.GetInstance();
 
             // 加载文本索引文件
+            Console.WriteLine("[2/6]正在加载文本索引数据...");
             LoadTextIndex();
 
             // 加载数据文件
+            Console.WriteLine("[3/6]正在预加载文本数据...");
             LoadRawData();
+
+            // 加载知识引擎数据
+            Console.WriteLine("[4/6]正在加载知识引擎数据...");
+            LoadKnowledgeData();
+
+            // 加载知识引擎索引数据
+            Console.WriteLine("[5/6]正在加载知识索引数据...");
+            LoadKnowledgeIndex();
         }
 
-        private static string GetTextResult(string query)
+        private static string GetResult(string query)
         {
-            if (string.IsNullOrEmpty(query))
+            if (query.Trim().Length < 1)
             {
-                return string.Empty;
+                return "您的输入过短.";
             }
+            string[] keywords = segment.Split(query);
+            string knowledgeResult = GetKnownledgeResult(keywords);
+            string textResult = GetTextResult(keywords);
+            string result = knowledgeResult + textResult;
+            if (result.Trim().Length < 1)
+            {
+                return "未找到任何结果.";
+            }
+            return result;
+        }
+
+        private static string GetTextResult(string[] keywords)
+        {
             try
             {
-                // 1.分词
-                string[] keywords = segment.Do(query);
-
-                // 2.获取相应文档集合
+                // 1.获取相应文档集合
                 IntTable<string, double> docsTable = new IntTable<string, double>();
                 foreach (var keyword in keywords)
                 {
@@ -104,26 +164,45 @@ namespace Iveely.SearchEngine
                     }
                 }
 
-                // 3.文档排序
-
-                // 4.提取文档数据
-                List<Crawler.Page> list = new List<Crawler.Page>();
-                foreach (string url in docsTable.Keys)
+                // 2.文档排序
+                List<string> sortedList = new List<string>();
+                ArrayList list = new ArrayList(docsTable.Values);
+                list.Sort();
+                list.Reverse();
+                int maxCount = 9;
+                foreach (double svalue in list)
                 {
-                    Crawler.Page page = SearchDataTable.Find(url);
-                    if (page != null)
+                    maxCount--;
+                    if (maxCount < 0)
                     {
-                        list.Add(page);
-                        if (list.Count > 9)
+                        break;
+                    }
+                    IDictionaryEnumerator ide = docsTable.GetEnumerator();
+                    while (ide.MoveNext())
+                    {
+                        if (Math.Abs((double)ide.Value - svalue) < 0.00000001)
                         {
-                            break;
+                            sortedList.Add(ide.Key.ToString());
                         }
                     }
                 }
 
-                // 5.截取摘要返回
+                // 3.提取文档数据
+                List<Crawler.Page> doclist = new List<Crawler.Page>();
+                HashSet<string> filter = new HashSet<string>();
+                foreach (string url in sortedList)
+                {
+                    Crawler.Page page = SearchDataTable.Find(url);
+                    if (page != null && !filter.Contains(page.Url))
+                    {
+                        doclist.Add(page);
+                        filter.Add(page.Url);
+                    }
+                }
+
+                // 4.截取摘要返回
                 string result = "";
-                foreach (var page in list)
+                foreach (var page in doclist)
                 {
                     result += BuildTextResult(ChangeColor(keywords, page.Title), CheckContent(page.Content, keywords),
                         page.Url, page.Timestamp, "");
@@ -140,8 +219,7 @@ namespace Iveely.SearchEngine
 
         private static void LoadTextIndex()
         {
-            string indexFilePath =
-                @"C:\Private\Iveely\项目\Iveely\Iveely.CloudComputing\Release\8001\ISE\Iveely_Search_Engine_TextIndex.db4";
+            string indexFilePath = "TextSearch\\ISE_Pages_Index.db4";
             using (IStorageEngine textIndexEngine = STSdb.FromFile(indexFilePath))
             {
                 ITable<string, List<Iveely.Data.Slots<string, double>>> indexTable = textIndexEngine.OpenXTable<string, List<Iveely.Data.Slots<string, double>>>("WebPage");
@@ -155,23 +233,106 @@ namespace Iveely.SearchEngine
             }
         }
 
+        private static void LoadKnowledgeIndex()
+        {
+            string indexFilePath = "Baike\\Baike_question_index.db4";
+            using (IStorageEngine textIndexEngine = STSdb.FromFile(indexFilePath))
+            {
+                ITable<string, List<Iveely.Data.Slots<long, double>>> indexTable = textIndexEngine.OpenXTable<string, List<Iveely.Data.Slots<long, double>>>("WebPage");
+                foreach (var kv in indexTable)
+                {
+                    if (!KnowledgeIndexData.ContainsKey(kv.Key))
+                    {
+                        KnowledgeIndexData[kv.Key] = kv.Value;
+                    }
+                }
+            }
+        }
+
+        private static void LoadKnowledgeData()
+        {
+            string dataPath = "Baike\\Baike_question.db4";
+            IStorageEngine dataEngine = STSdb.FromFile(dataPath);
+            dataEngine.OpenXFile(dataPath);
+            KnowledgeDataTable = dataEngine.OpenXTable<long, KnowlegeIndex.KnowledgeEntity>("WebPage");
+        }
+
         private static void LoadRawData()
         {
-            string dataPath =
-               @"C:\Private\Iveely\项目\Iveely\Iveely.CloudComputing\Release\8001\ISE\Iveely_Search_Engine_Pages.db4";
+            string dataPath = "TextSearch\\ISE_Pages.db4";
             IStorageEngine dataEngine = STSdb.FromFile(dataPath);//.OpenXFile(indexFilePath);
             dataEngine.OpenXFile(dataPath);
             SearchDataTable = dataEngine.OpenXTable<string, Crawler.Page>("WebPage");
         }
 
-        private static string GetRelativeResult(string query)
+        private static string GetKnownledgeResult(string[] keywords)
         {
-            return "this is relatice.";
-        }
+            // 1.获取相应文档集合
+            IntTable<long, double> docsTable = new IntTable<long, double>();
+            foreach (var keyword in keywords)
+            {
+                object obj = KnowledgeIndexData[keyword];
+                if (obj == null)
+                {
+                    continue;
+                }
+                List<Iveely.Data.Slots<long, double>> dataIndexs = (List<Iveely.Data.Slots<long, double>>)obj;
+                if (dataIndexs != null)
+                {
+                    foreach (var slotse in dataIndexs)
+                    {
+                        docsTable.Add(slotse.Slot0, slotse.Slot1);
+                    }
+                }
+            }
 
-        private static string GetKnownledgeResult(string query)
-        {
-            return "this is knownledge.";
+            // 2.文档排序
+            List<long> sortedList = new List<long>();
+            ArrayList list = new ArrayList(docsTable.Values);
+            list.Sort();
+            list.Reverse();
+            int maxCount = 5;
+            foreach (double svalue in list)
+            {
+                maxCount--;
+                if (maxCount < 0)
+                {
+                    break;
+                }
+                IDictionaryEnumerator ide = docsTable.GetEnumerator();
+                while (ide.MoveNext())
+                {
+                    if (Math.Abs((double)ide.Value - svalue) < 0.00000001)
+                    {
+                        sortedList.Add((long)ide.Key);
+                    }
+                }
+            }
+
+            // 3.提取文档数据
+            List<KnowlegeIndex.KnowledgeEntity> doclist = new List<KnowlegeIndex.KnowledgeEntity>();
+            int cou = 1;
+            HashSet<long> filter = new HashSet<long>();
+            foreach (long url in sortedList)
+            {
+                KnowlegeIndex.KnowledgeEntity entity = KnowledgeDataTable.Find(url);
+                if (entity != null && !filter.Contains(entity.Id) && cou > 0)
+                {
+                    doclist.Add(entity);
+                    filter.Add(entity.Id);
+                    cou--;
+                }
+            }
+
+            // 4.截取摘要返回
+            string result = "";
+            foreach (var page in doclist)
+            {
+                result += BuildTextResult(ChangeColor(keywords, "[知]"+page.QuestionDesc), "答案:" + page.Answer,
+                    page.RefUrl, page.EffectTime, "");
+            }
+
+            return result;
         }
 
 
@@ -239,10 +400,10 @@ namespace Iveely.SearchEngine
         {
             string formatInfor =
              string.Format(
-                 "<h3 class='title'><a href='" + url + "'  target='_blank'>{0}</a></h3><span class='url'>{2}</span></br><div class='desc'>{1}<div><span class='date'>发布日期:{3}  所属领域:{4}</span>",
+                 "<h3 class='title'><a href='" + url + "'  target='_blank'>{0}</a></h3><span class='url'>{2}</span></br><div class='desc'>{1}<div><span class='date'>发布日期:{3}</span>",
                  title,
                  content,
-                 url.Trim().Length > 80 ? url.Trim().Substring(0, 79) + "..." : url.Trim(),
+                 url.Trim().Length > 120 ? url.Trim().Substring(0, 119) + "..." : url.Trim(),
                  date,
                  classify);
             return "<li class='record'>" + formatInfor + "</li>";

@@ -10,6 +10,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
+using Iveely.Framework.Log;
 
 namespace Iveely.SearchEngine
 {
@@ -322,7 +323,7 @@ namespace Iveely.SearchEngine
             }
             catch (Exception ex)
             {
-
+                Console.WriteLine(ex);
             }
         }
 
@@ -366,65 +367,74 @@ namespace Iveely.SearchEngine
 
         public void ManageHandshake(IAsyncResult status)
         {
-            string header = "Sec-WebSocket-Version:";
-            int HandshakeLength = (int)status.AsyncState;
-            byte[] last8Bytes = new byte[8];
-
-            System.Text.UTF8Encoding decoder = new System.Text.UTF8Encoding();
-            String rawClientHandshake = decoder.GetString(receivedDataBuffer, 0, HandshakeLength);
-
-            Array.Copy(receivedDataBuffer, HandshakeLength - 8, last8Bytes, 0, 8);
-
-            //现在使用的是比较新的Websocket协议
-            if (rawClientHandshake.IndexOf(header) != -1)
+            try
             {
-                this.isDataMasked = true;
-                string[] rawClientHandshakeLines = rawClientHandshake.Split(new string[] { Environment.NewLine }, System.StringSplitOptions.RemoveEmptyEntries);
-                string acceptKey = "";
-                foreach (string Line in rawClientHandshakeLines)
+
+
+                string header = "Sec-WebSocket-Version:";
+                int HandshakeLength = (int)status.AsyncState;
+                byte[] last8Bytes = new byte[8];
+
+                System.Text.UTF8Encoding decoder = new System.Text.UTF8Encoding();
+                String rawClientHandshake = decoder.GetString(receivedDataBuffer, 0, HandshakeLength);
+
+                Array.Copy(receivedDataBuffer, HandshakeLength - 8, last8Bytes, 0, 8);
+
+                //现在使用的是比较新的Websocket协议
+                if (rawClientHandshake.IndexOf(header) != -1)
                 {
-                    Console.WriteLine(Line);
-                    if (Line.Contains("Sec-WebSocket-Key:"))
+                    this.isDataMasked = true;
+                    string[] rawClientHandshakeLines = rawClientHandshake.Split(new string[] { Environment.NewLine }, System.StringSplitOptions.RemoveEmptyEntries);
+                    string acceptKey = "";
+                    foreach (string Line in rawClientHandshakeLines)
                     {
-                        acceptKey = ComputeWebSocketHandshakeSecurityHash09(Line.Substring(Line.IndexOf(":") + 2));
+                        //Console.WriteLine(Line);
+                        if (Line.Contains("Sec-WebSocket-Key:"))
+                        {
+                            acceptKey = ComputeWebSocketHandshakeSecurityHash09(Line.Substring(Line.IndexOf(":") + 2));
+                        }
                     }
+
+                    New_Handshake = string.Format(New_Handshake, acceptKey);
+                    byte[] newHandshakeText = Encoding.UTF8.GetBytes(New_Handshake);
+                    ConnectionSocket.BeginSend(newHandshakeText, 0, newHandshakeText.Length, 0, HandshakeFinished, null);
+                    return;
                 }
 
-                New_Handshake = string.Format(New_Handshake, acceptKey);
-                byte[] newHandshakeText = Encoding.UTF8.GetBytes(New_Handshake);
-                ConnectionSocket.BeginSend(newHandshakeText, 0, newHandshakeText.Length, 0, HandshakeFinished, null);
-                return;
+                string ClientHandshake = decoder.GetString(receivedDataBuffer, 0, HandshakeLength - 8);
+
+                string[] ClientHandshakeLines = ClientHandshake.Split(new string[] { Environment.NewLine }, System.StringSplitOptions.RemoveEmptyEntries);
+
+
+                // Welcome the new client
+                foreach (string Line in ClientHandshakeLines)
+                {
+                    if (Line.Contains("Sec-WebSocket-Key1:"))
+                        BuildServerPartialKey(1, Line.Substring(Line.IndexOf(":") + 2));
+                    if (Line.Contains("Sec-WebSocket-Key2:"))
+                        BuildServerPartialKey(2, Line.Substring(Line.IndexOf(":") + 2));
+                    if (Line.Contains("Origin:"))
+                        try
+                        {
+                            Handshake = string.Format(Handshake, Line.Substring(Line.IndexOf(":") + 2));
+                        }
+                        catch
+                        {
+                            Handshake = string.Format(Handshake, "null");
+                        }
+                }
+                // Build the response for the client
+                byte[] HandshakeText = Encoding.UTF8.GetBytes(Handshake);
+                byte[] serverHandshakeResponse = new byte[HandshakeText.Length + 16];
+                byte[] serverKey = BuildServerFullKey(last8Bytes);
+                Array.Copy(HandshakeText, serverHandshakeResponse, HandshakeText.Length);
+                Array.Copy(serverKey, 0, serverHandshakeResponse, HandshakeText.Length, 16);
+                ConnectionSocket.BeginSend(serverHandshakeResponse, 0, HandshakeText.Length + 16, 0, HandshakeFinished, null);
             }
-
-            string ClientHandshake = decoder.GetString(receivedDataBuffer, 0, HandshakeLength - 8);
-
-            string[] ClientHandshakeLines = ClientHandshake.Split(new string[] { Environment.NewLine }, System.StringSplitOptions.RemoveEmptyEntries);
-
-
-            // Welcome the new client
-            foreach (string Line in ClientHandshakeLines)
+            catch (Exception exception)
             {
-                if (Line.Contains("Sec-WebSocket-Key1:"))
-                    BuildServerPartialKey(1, Line.Substring(Line.IndexOf(":") + 2));
-                if (Line.Contains("Sec-WebSocket-Key2:"))
-                    BuildServerPartialKey(2, Line.Substring(Line.IndexOf(":") + 2));
-                if (Line.Contains("Origin:"))
-                    try
-                    {
-                        Handshake = string.Format(Handshake, Line.Substring(Line.IndexOf(":") + 2));
-                    }
-                    catch
-                    {
-                        Handshake = string.Format(Handshake, "null");
-                    }
+                Console.WriteLine(exception);
             }
-            // Build the response for the client
-            byte[] HandshakeText = Encoding.UTF8.GetBytes(Handshake);
-            byte[] serverHandshakeResponse = new byte[HandshakeText.Length + 16];
-            byte[] serverKey = BuildServerFullKey(last8Bytes);
-            Array.Copy(HandshakeText, serverHandshakeResponse, HandshakeText.Length);
-            Array.Copy(serverKey, 0, serverHandshakeResponse, HandshakeText.Length, 16);
-            ConnectionSocket.BeginSend(serverHandshakeResponse, 0, HandshakeText.Length + 16, 0, HandshakeFinished, null);
         }
 
         public static String ComputeWebSocketHandshakeSecurityHash09(String secWebSocketKey)
@@ -540,11 +550,8 @@ namespace Iveely.SearchEngine
 
             Listener = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.IP);
             Listener.Bind(new IPEndPoint(getLocalmachineIPAddress(), ServerPort));
-
             Listener.Listen(ConnectionsQueueLength);
-
-
-            Console.WriteLine(string.Format("WebSocket服务器地址: ws://{0}:{1}/chat", getLocalmachineIPAddress(), ServerPort));
+            Console.WriteLine(string.Format("[6/6]启动完毕，WebSocket: ws://{0}:{1}/chat", getLocalmachineIPAddress(), ServerPort));
 
             while (true)
             {
@@ -572,6 +579,7 @@ namespace Iveely.SearchEngine
         /// <param name="message"></param>
         public void DataRecivedCallBack(Object sender, string message, EventArgs e)
         {
+            Logger.Info("Get Query:" + message);
             SocketConnection item = sender as SocketConnection;
             if (!item.ConnectionSocket.Connected) return;
             string msg = processMessage(message);

@@ -13,7 +13,6 @@ using Iveely.Framework.Log;
 using Iveely.Framework.Network;
 using Iveely.Framework.Network.Synchronous;
 using Iveely.Framework.Text;
-using Iveely.Framework.Text.Segment;
 
 
 namespace Iveely.SearchEngine
@@ -71,7 +70,7 @@ namespace Iveely.SearchEngine
         /// </summary>
         public static DimensionTable<string, string, double> RelativeTable;
 
-        public static Framework.Text.Segment.MetastasisSegment segment = new MetastasisSegment();
+        public static Framework.Text.HMMSegment segment = HMMSegment.GetInstance();
 
         public static LocalStore<Template.Question> DataStore;
 
@@ -339,7 +338,7 @@ namespace Iveely.SearchEngine
                     {
                         string query = GetGlobalCache<string>(currentTextQuery);
                         WriteToConsole("Get Text Query:" + query);
-                        string[] keywords = segment.Split(query).Split(new[] { '/' });
+                        string[] keywords = segment.Split(query);
                         List<string> docs = TextFragment.FindCommonDocumentByKeys(keywords, 10);
 
 
