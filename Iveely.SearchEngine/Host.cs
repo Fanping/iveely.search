@@ -61,39 +61,6 @@ namespace Iveely.SearchEngine
 
         private static void Main(string[] args)
         {
-            //Index index = new Index();
-            //object[] objects = new object[] { 8001, 8001, 8001, 8001, 8001, 8001, 8001, 8001, 8001 };
-            //index.Run(objects);
-            //EntityExtrator inforExtrator = new EntityExtrator();
-            //while (true)
-            //{
-            //    Console.WriteLine("input:");
-            //    string[] infors = inforExtrator.GetInfo(Console.ReadLine());
-            //    if (infors != null && infors.Count() > 0)
-            //    {
-            //        foreach (var infor in infors)
-            //        {
-            //            Console.WriteLine(infor);
-            //        }
-            //    }
-            //}
-            //string fileFlag = "Baike_data.db4";
-            //using (IStorageEngine engine = STSdb.FromFile(fileFlag))
-            //{
-            //    // 插入数据
-            //    ITable<string, BaikeDataCrawler.Page> table = engine.OpenXTable<string, BaikeDataCrawler.Page>("WebPage");
-            //    foreach (var kv in table)
-            //    {
-            //        Console.WriteLine(kv.Key);
-            //    }
-            //}
-
-            //百科拉去
-            //BaikeDataCrawler crawler = new BaikeDataCrawler();
-            //crawler.Run(new object[] { 8001, 8001, 8001, 8001, 8001, 8001, 8001, 8001, 8001, 8001 });
-            //Console.ReadLine();
-            //return;
-
             //搜索服务
             Init();
             WebSocketServer webSocket = new WebSocketServer(GetResult);

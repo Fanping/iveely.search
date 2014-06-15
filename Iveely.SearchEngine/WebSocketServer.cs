@@ -1,15 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 using System.Net;
 using System.Net.Sockets;
-using System.Net.WebSockets;
 using System.Security.Cryptography;
 using System.Text;
-using System.Text.RegularExpressions;
 using System.Threading;
-using System.Threading.Tasks;
 using Iveely.Framework.Log;
 
 namespace Iveely.SearchEngine
@@ -20,10 +15,10 @@ namespace Iveely.SearchEngine
 
     public class DataFrame
     {
-        DataFrameHeader _header;
-        private byte[] _extend = new byte[0];
-        private byte[] _mask = new byte[0];
-        private byte[] _content = new byte[0];
+        readonly DataFrameHeader _header;
+        private readonly byte[] _extend = new byte[0];
+        private readonly byte[] _mask = new byte[0];
+        private readonly byte[] _content = new byte[0];
 
         public DataFrame(byte[] buffer)
         {
@@ -57,7 +52,7 @@ namespace Iveely.SearchEngine
             }
             else if (_extend.Length == 2)
             {
-                int contentLength = (int)_extend[0] * 256 + (int)_extend[1];
+                int contentLength = _extend[0] * 256 + _extend[1];
                 _content = new byte[contentLength];
                 Buffer.BlockCopy(buffer, _extend.Length + _mask.Length + 2, _content, 0, contentLength > 1024 * 100 ? 1024 * 100 : contentLength);
             }
@@ -67,7 +62,7 @@ namespace Iveely.SearchEngine
                 int n = 1;
                 for (int i = 7; i >= 0; i--)
                 {
-                    len += (int)_extend[i] * n;
+                    len += _extend[i] * n;
                     n *= 256;
                 }
                 _content = new byte[len];
@@ -149,21 +144,21 @@ namespace Iveely.SearchEngine
 
     public class DataFrameHeader
     {
-        private bool _fin;
-        private bool _rsv1;
-        private bool _rsv2;
-        private bool _rsv3;
-        private sbyte _opcode;
-        private bool _maskcode;
-        private sbyte _payloadlength;
+        private readonly bool _fin;
+        private readonly bool _rsv1;
+        private readonly bool _rsv2;
+        private readonly bool _rsv3;
+        private readonly sbyte _opcode;
+        private readonly bool _maskcode;
+        private readonly sbyte _payloadlength;
 
-        public bool FIN { get { return _fin; } }
+        public bool Fin { get { return _fin; } }
 
-        public bool RSV1 { get { return _rsv1; } }
+        public bool Rsv1 { get { return _rsv1; } }
 
-        public bool RSV2 { get { return _rsv2; } }
+        public bool Rsv2 { get { return _rsv2; } }
 
-        public bool RSV3 { get { return _rsv3; } }
+        public bool Rsv3 { get { return _rsv3; } }
 
         public sbyte OpCode { get { return _opcode; } }
 
@@ -205,26 +200,20 @@ namespace Iveely.SearchEngine
         //返回帧头字节
         public byte[] GetBytes()
         {
-            byte[] buffer = new byte[2] { 0, 0 };
-
+            byte[] buffer = { 0, 0 };
             if (_fin) buffer[0] ^= 0x80;
             if (_rsv1) buffer[0] ^= 0x40;
             if (_rsv2) buffer[0] ^= 0x20;
             if (_rsv3) buffer[0] ^= 0x10;
-
             buffer[0] ^= (byte)_opcode;
-
             if (_maskcode) buffer[1] ^= 0x80;
-
             buffer[1] ^= (byte)_payloadlength;
-
             return buffer;
         }
     }
 
     public class SocketConnection
     {
-
         private string name;
         public string Name
         {
@@ -232,81 +221,74 @@ namespace Iveely.SearchEngine
             set { name = value; }
         }
 
-        private Boolean isDataMasked;
+        private Boolean _isDataMasked;
         public Boolean IsDataMasked
         {
-            get { return isDataMasked; }
-            set { isDataMasked = value; }
+            get { return _isDataMasked; }
+            set { _isDataMasked = value; }
         }
 
         public Socket ConnectionSocket;
 
-        private int MaxBufferSize;
-        private string Handshake;
-        private string New_Handshake;
+        private readonly int _maxBufferSize;
+        private string _handshake;
+        private string _newHandshake;
 
-        public byte[] receivedDataBuffer;
-        private byte[] FirstByte;
-        private byte[] LastByte;
-        private byte[] ServerKey1;
-        private byte[] ServerKey2;
+        public byte[] ReceivedDataBuffer;
+        private readonly byte[] _firstByte;
+        private readonly byte[] _lastByte;
+        private byte[] _serverKey1;
+        private byte[] _serverKey2;
 
         public event DataReceivedEventHandler DataReceived;
 
         public SocketConnection()
         {
-            MaxBufferSize = 1024 * 100;
-            receivedDataBuffer = new byte[MaxBufferSize];
-            FirstByte = new byte[MaxBufferSize];
-            LastByte = new byte[MaxBufferSize];
-            FirstByte[0] = 0x00;
-            LastByte[0] = 0xFF;
+            _maxBufferSize = 1024 * 100;
+            ReceivedDataBuffer = new byte[_maxBufferSize];
+            _firstByte = new byte[_maxBufferSize];
+            _lastByte = new byte[_maxBufferSize];
+            _firstByte[0] = 0x00;
+            _lastByte[0] = 0xFF;
 
-            Handshake = "HTTP/1.1 101 Web Socket Protocol Handshake" + Environment.NewLine;
-            Handshake += "Upgrade: WebSocket" + Environment.NewLine;
-            Handshake += "Connection: Upgrade" + Environment.NewLine;
-            Handshake += "Sec-WebSocket-Origin: " + "{0}" + Environment.NewLine;
-            Handshake += string.Format("Sec-WebSocket-Location: " + "ws://{0}:4141/chat" + Environment.NewLine, WebSocketServer.getLocalmachineIPAddress());
-            Handshake += Environment.NewLine;
+            _handshake = "HTTP/1.1 101 Web Socket Protocol Handshake" + Environment.NewLine;
+            _handshake += "Upgrade: WebSocket" + Environment.NewLine;
+            _handshake += "Connection: Upgrade" + Environment.NewLine;
+            _handshake += "Sec-WebSocket-Origin: " + "{0}" + Environment.NewLine;
+            _handshake += string.Format("Sec-WebSocket-Location: " + "ws://{0}:4141/chat" + Environment.NewLine, WebSocketServer.GetLocalmachineIPAddress());
+            _handshake += Environment.NewLine;
 
-            New_Handshake = "HTTP/1.1 101 Switching Protocols" + Environment.NewLine;
-            New_Handshake += "Upgrade: WebSocket" + Environment.NewLine;
-            New_Handshake += "Connection: Upgrade" + Environment.NewLine;
-            New_Handshake += "Sec-WebSocket-Accept: {0}" + Environment.NewLine;
-            New_Handshake += Environment.NewLine;
+            _newHandshake = "HTTP/1.1 101 Switching Protocols" + Environment.NewLine;
+            _newHandshake += "Upgrade: WebSocket" + Environment.NewLine;
+            _newHandshake += "Connection: Upgrade" + Environment.NewLine;
+            _newHandshake += "Sec-WebSocket-Accept: {0}" + Environment.NewLine;
+            _newHandshake += Environment.NewLine;
         }
 
         private void Read(IAsyncResult status)
         {
             if (!ConnectionSocket.Connected) return;
-            string messageReceived = string.Empty;
-            DataFrame dr = new DataFrame(receivedDataBuffer);
-
+            DataFrame dr = new DataFrame(ReceivedDataBuffer);
             try
             {
-                if (!this.isDataMasked)
+                string messageReceived;
+                if (!_isDataMasked)
                 {
-                    // Web Socket protocol: messages are sent with 0x00 and 0xFF as padding bytes
-                    System.Text.UTF8Encoding decoder = new System.Text.UTF8Encoding();
+                    UTF8Encoding decoder = new UTF8Encoding();
                     int startIndex = 0;
                     int endIndex = 0;
-
-                    // Search for the start byte
-                    while (receivedDataBuffer[startIndex] == FirstByte[0]) startIndex++;
-                    // Search for the end byte
+                    while (ReceivedDataBuffer[startIndex] == _firstByte[0]) startIndex++;
                     endIndex = startIndex + 1;
-                    while (receivedDataBuffer[endIndex] != LastByte[0] && endIndex != MaxBufferSize - 1) endIndex++;
-                    if (endIndex == MaxBufferSize - 1) endIndex = MaxBufferSize;
-
-                    // Get the message
-                    messageReceived = decoder.GetString(receivedDataBuffer, startIndex, endIndex - startIndex);
+                    while (ReceivedDataBuffer[endIndex] != _lastByte[0] && endIndex != _maxBufferSize - 1) endIndex++;
+                    if (endIndex == _maxBufferSize - 1) endIndex = _maxBufferSize;
+                    messageReceived = decoder.GetString(ReceivedDataBuffer, startIndex, endIndex - startIndex);
                 }
                 else
                 {
                     messageReceived = dr.Text;
                 }
 
-                if ((messageReceived.Length == MaxBufferSize && messageReceived[0] == Convert.ToChar(65533)) ||
+                if ((messageReceived.Length == _maxBufferSize && messageReceived[0] == Convert.ToChar(65533)) ||
                     messageReceived.Length == 0)
                 {
 
@@ -317,8 +299,8 @@ namespace Iveely.SearchEngine
                     {
                         DataReceived(this, messageReceived, EventArgs.Empty);
                     }
-                    Array.Clear(receivedDataBuffer, 0, receivedDataBuffer.Length);
-                    ConnectionSocket.BeginReceive(receivedDataBuffer, 0, receivedDataBuffer.Length, 0, new AsyncCallback(Read), null);
+                    Array.Clear(ReceivedDataBuffer, 0, ReceivedDataBuffer.Length);
+                    ConnectionSocket.BeginReceive(ReceivedDataBuffer, 0, ReceivedDataBuffer.Length, 0, new AsyncCallback(Read), null);
                 }
             }
             catch (Exception ex)
@@ -343,25 +325,25 @@ namespace Iveely.SearchEngine
                 currentKey = BitConverter.GetBytes((int)(Int64.Parse(partialServerKey) / spacesNum));
                 if (BitConverter.IsLittleEndian) Array.Reverse(currentKey);
 
-                if (keyNum == 1) ServerKey1 = currentKey;
-                else ServerKey2 = currentKey;
+                if (keyNum == 1) _serverKey1 = currentKey;
+                else _serverKey2 = currentKey;
             }
             catch
             {
-                if (ServerKey1 != null) Array.Clear(ServerKey1, 0, ServerKey1.Length);
-                if (ServerKey2 != null) Array.Clear(ServerKey2, 0, ServerKey2.Length);
+                if (_serverKey1 != null) Array.Clear(_serverKey1, 0, _serverKey1.Length);
+                if (_serverKey2 != null) Array.Clear(_serverKey2, 0, _serverKey2.Length);
             }
         }
 
         private byte[] BuildServerFullKey(byte[] last8Bytes)
         {
             byte[] concatenatedKeys = new byte[16];
-            Array.Copy(ServerKey1, 0, concatenatedKeys, 0, 4);
-            Array.Copy(ServerKey2, 0, concatenatedKeys, 4, 4);
+            Array.Copy(_serverKey1, 0, concatenatedKeys, 0, 4);
+            Array.Copy(_serverKey2, 0, concatenatedKeys, 4, 4);
             Array.Copy(last8Bytes, 0, concatenatedKeys, 8, 8);
 
             // MD5 Hash
-            System.Security.Cryptography.MD5 MD5Service = System.Security.Cryptography.MD5.Create();
+            MD5 MD5Service = MD5.Create();
             return MD5Service.ComputeHash(concatenatedKeys);
         }
 
@@ -369,67 +351,58 @@ namespace Iveely.SearchEngine
         {
             try
             {
-
-
                 string header = "Sec-WebSocket-Version:";
-                int HandshakeLength = (int)status.AsyncState;
+                int handshakeLength = (int)status.AsyncState;
                 byte[] last8Bytes = new byte[8];
 
-                System.Text.UTF8Encoding decoder = new System.Text.UTF8Encoding();
-                String rawClientHandshake = decoder.GetString(receivedDataBuffer, 0, HandshakeLength);
+                UTF8Encoding decoder = new UTF8Encoding();
+                String rawClientHandshake = decoder.GetString(ReceivedDataBuffer, 0, handshakeLength);
 
-                Array.Copy(receivedDataBuffer, HandshakeLength - 8, last8Bytes, 0, 8);
+                Array.Copy(ReceivedDataBuffer, handshakeLength - 8, last8Bytes, 0, 8);
 
                 //现在使用的是比较新的Websocket协议
-                if (rawClientHandshake.IndexOf(header) != -1)
+                if (rawClientHandshake.IndexOf(header, StringComparison.Ordinal) != -1)
                 {
-                    this.isDataMasked = true;
-                    string[] rawClientHandshakeLines = rawClientHandshake.Split(new string[] { Environment.NewLine }, System.StringSplitOptions.RemoveEmptyEntries);
+                    _isDataMasked = true;
+                    string[] rawClientHandshakeLines = rawClientHandshake.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
                     string acceptKey = "";
-                    foreach (string Line in rawClientHandshakeLines)
+                    foreach (string line in rawClientHandshakeLines)
                     {
-                        //Console.WriteLine(Line);
-                        if (Line.Contains("Sec-WebSocket-Key:"))
+                        if (line.Contains("Sec-WebSocket-Key:"))
                         {
-                            acceptKey = ComputeWebSocketHandshakeSecurityHash09(Line.Substring(Line.IndexOf(":") + 2));
+                            acceptKey = ComputeWebSocketHandshakeSecurityHash09(line.Substring(line.IndexOf(":", StringComparison.Ordinal) + 2));
                         }
                     }
 
-                    New_Handshake = string.Format(New_Handshake, acceptKey);
-                    byte[] newHandshakeText = Encoding.UTF8.GetBytes(New_Handshake);
+                    _newHandshake = string.Format(_newHandshake, acceptKey);
+                    byte[] newHandshakeText = Encoding.UTF8.GetBytes(_newHandshake);
                     ConnectionSocket.BeginSend(newHandshakeText, 0, newHandshakeText.Length, 0, HandshakeFinished, null);
                     return;
                 }
-
-                string ClientHandshake = decoder.GetString(receivedDataBuffer, 0, HandshakeLength - 8);
-
-                string[] ClientHandshakeLines = ClientHandshake.Split(new string[] { Environment.NewLine }, System.StringSplitOptions.RemoveEmptyEntries);
-
-
-                // Welcome the new client
-                foreach (string Line in ClientHandshakeLines)
+                string clientHandshake = decoder.GetString(ReceivedDataBuffer, 0, handshakeLength - 8);
+                string[] clientHandshakeLines = clientHandshake.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
+                foreach (string line in clientHandshakeLines)
                 {
-                    if (Line.Contains("Sec-WebSocket-Key1:"))
-                        BuildServerPartialKey(1, Line.Substring(Line.IndexOf(":") + 2));
-                    if (Line.Contains("Sec-WebSocket-Key2:"))
-                        BuildServerPartialKey(2, Line.Substring(Line.IndexOf(":") + 2));
-                    if (Line.Contains("Origin:"))
+                    if (line.Contains("Sec-WebSocket-Key1:"))
+                        BuildServerPartialKey(1, line.Substring(line.IndexOf(":", StringComparison.Ordinal) + 2));
+                    if (line.Contains("Sec-WebSocket-Key2:"))
+                        BuildServerPartialKey(2, line.Substring(line.IndexOf(":", StringComparison.Ordinal) + 2));
+                    if (line.Contains("Origin:"))
                         try
                         {
-                            Handshake = string.Format(Handshake, Line.Substring(Line.IndexOf(":") + 2));
+                            _handshake = string.Format(_handshake, line.Substring(line.IndexOf(":", StringComparison.Ordinal) + 2));
                         }
                         catch
                         {
-                            Handshake = string.Format(Handshake, "null");
+                            _handshake = string.Format(_handshake, "null");
                         }
                 }
-                // Build the response for the client
-                byte[] HandshakeText = Encoding.UTF8.GetBytes(Handshake);
-                byte[] serverHandshakeResponse = new byte[HandshakeText.Length + 16];
+                byte[] handshakeText = Encoding.UTF8.GetBytes(_handshake);
+                byte[] serverHandshakeResponse = new byte[handshakeText.Length + 16];
                 byte[] serverKey = BuildServerFullKey(last8Bytes);
-                Array.Copy(HandshakeText, serverHandshakeResponse, HandshakeText.Length);
-                Array.Copy(serverKey, 0, serverHandshakeResponse, HandshakeText.Length, 16);
-                ConnectionSocket.BeginSend(serverHandshakeResponse, 0, HandshakeText.Length + 16, 0, HandshakeFinished, null);
+                Array.Copy(handshakeText, serverHandshakeResponse, handshakeText.Length);
+                Array.Copy(serverKey, 0, serverHandshakeResponse, handshakeText.Length, 16);
+                ConnectionSocket.BeginSend(serverHandshakeResponse, 0, handshakeText.Length + 16, 0, HandshakeFinished, null);
             }
             catch (Exception exception)
             {
@@ -439,67 +412,65 @@ namespace Iveely.SearchEngine
 
         public static String ComputeWebSocketHandshakeSecurityHash09(String secWebSocketKey)
         {
-            const String MagicKEY = "258EAFA5-E914-47DA-95CA-C5AB0DC85B11";
-            String secWebSocketAccept = String.Empty;
-            // 1. Combine the request Sec-WebSocket-Key with magic key.
-            String ret = secWebSocketKey + MagicKEY;
-            // 2. Compute the SHA1 hash
+            const String magicKey = "258EAFA5-E914-47DA-95CA-C5AB0DC85B11";
+            String ret = secWebSocketKey + magicKey;
             SHA1 sha = new SHA1CryptoServiceProvider();
             byte[] sha1Hash = sha.ComputeHash(Encoding.UTF8.GetBytes(ret));
-            // 3. Base64 encode the hash
-            secWebSocketAccept = Convert.ToBase64String(sha1Hash);
+            string secWebSocketAccept = Convert.ToBase64String(sha1Hash);
             return secWebSocketAccept;
         }
 
         private void HandshakeFinished(IAsyncResult status)
         {
             ConnectionSocket.EndSend(status);
-            ConnectionSocket.BeginReceive(receivedDataBuffer, 0, receivedDataBuffer.Length, 0, new AsyncCallback(Read), null);
+            ConnectionSocket.BeginReceive(ReceivedDataBuffer, 0, ReceivedDataBuffer.Length, 0, new AsyncCallback(Read), null);
         }
     }
 
     public class WebSocketServer : IDisposable
     {
-        private bool AlreadyDisposed;
-        private Socket Listener;
-        private int ConnectionsQueueLength;
-        private int MaxBufferSize;
-        private string Handshake;
-        private StreamReader ConnectionReader;
-        private StreamWriter ConnectionWriter;
-        private byte[] FirstByte;
-        private byte[] LastByte;
-        private byte[] ServerKey1;
-        private byte[] ServerKey2;
+        private bool _alreadyDisposed;
+        private Socket _listener;
+        private int _connectionsQueueLength;
+        private int _maxBufferSize;
+        private byte[] _firstByte;
+        private byte[] _lastByte;
 
-        List<SocketConnection> connectionSocketList = new List<SocketConnection>();
+        private readonly List<SocketConnection> _connectionSocketList = new List<SocketConnection>();
 
         public ServerStatusLevel Status { get; private set; }
         public int ServerPort { get; set; }
         public string ServerLocation { get; set; }
         public string ConnectionOrigin { get; set; }
         public event DataReceivedEventHandler DataReceived;
+
+        protected virtual void OnDataReceived(string message)
+        {
+            DataReceivedEventHandler handler = DataReceived;
+            if (handler != null) handler(this, message, EventArgs.Empty);
+        }
+
         public delegate string ProcessMessage(string msg);
 
-        private ProcessMessage processMessage;
+        private readonly ProcessMessage _processMessage;
         private void Initialize()
         {
-            AlreadyDisposed = false;
+            _alreadyDisposed = false;
 
             Status = ServerStatusLevel.Off;
-            ConnectionsQueueLength = 500;
-            MaxBufferSize = 1024 * 100;
-            FirstByte = new byte[MaxBufferSize];
-            LastByte = new byte[MaxBufferSize];
-            FirstByte[0] = 0x00;
-            LastByte[0] = 0xFF;
+            _connectionsQueueLength = 500;
+            _maxBufferSize = 1024 * 100;
+            _firstByte = new byte[_maxBufferSize];
+            _lastByte = new byte[_maxBufferSize];
+            _firstByte[0] = 0x00;
+            _lastByte[0] = 0xFF;
         }
 
         public WebSocketServer(ProcessMessage pm)
         {
-            this.processMessage = pm;
+            _processMessage = pm;
             ServerPort = 4141;
-            ServerLocation = string.Format("ws://{0}:4141/chat", getLocalmachineIPAddress());
+            ServerLocation = string.Format("ws://{0}:4141/chat", GetLocalmachineIPAddress());
             Initialize();
         }
 
@@ -516,20 +487,20 @@ namespace Iveely.SearchEngine
 
         private void Close()
         {
-            if (!AlreadyDisposed)
+            if (!_alreadyDisposed)
             {
-                AlreadyDisposed = true;
-                if (Listener != null) Listener.Close();
-                foreach (SocketConnection item in connectionSocketList)
+                _alreadyDisposed = true;
+                if (_listener != null) _listener.Close();
+                foreach (SocketConnection item in _connectionSocketList)
                 {
                     item.ConnectionSocket.Close();
                 }
-                connectionSocketList.Clear();
+                _connectionSocketList.Clear();
                 GC.SuppressFinalize(this);
             }
         }
 
-        public static IPAddress getLocalmachineIPAddress()
+        public static IPAddress GetLocalmachineIPAddress()
         {
             string strHostName = Dns.GetHostName();
             IPHostEntry ipEntry = Dns.GetHostEntry(strHostName);
@@ -548,26 +519,26 @@ namespace Iveely.SearchEngine
         {
             Char char1 = Convert.ToChar(65533);
 
-            Listener = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.IP);
-            Listener.Bind(new IPEndPoint(getLocalmachineIPAddress(), ServerPort));
-            Listener.Listen(ConnectionsQueueLength);
-            Console.WriteLine(string.Format("[6/6]启动完毕，WebSocket: ws://{0}:{1}/chat", getLocalmachineIPAddress(), ServerPort));
+            _listener = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.IP);
+            _listener.Bind(new IPEndPoint(GetLocalmachineIPAddress(), ServerPort));
+            _listener.Listen(_connectionsQueueLength);
+            Console.WriteLine(string.Format("[6/6]启动完毕，WebSocket: ws://{0}:{1}/chat", GetLocalmachineIPAddress(), ServerPort));
 
             while (true)
             {
-                Socket sc = Listener.Accept();
+                Socket sc = _listener.Accept();
 
                 if (sc != null)
                 {
-                    System.Threading.Thread.Sleep(100);
+                    Thread.Sleep(100);
                     SocketConnection socketConn = new SocketConnection();
                     socketConn.ConnectionSocket = sc;
-                    socketConn.DataReceived += new DataReceivedEventHandler(DataRecivedCallBack);
-                    socketConn.ConnectionSocket.BeginReceive(socketConn.receivedDataBuffer,
-                                                             0, socketConn.receivedDataBuffer.Length,
-                                                             0, new AsyncCallback(socketConn.ManageHandshake),
+                    socketConn.DataReceived += DataRecivedCallBack;
+                    socketConn.ConnectionSocket.BeginReceive(socketConn.ReceivedDataBuffer,
+                                                             0, socketConn.ReceivedDataBuffer.Length,
+                                                             0, socketConn.ManageHandshake,
                                                              socketConn.ConnectionSocket.Available);
-                    connectionSocketList.Add(socketConn);
+                    _connectionSocketList.Add(socketConn);
                 }
             }
         }
@@ -575,14 +546,15 @@ namespace Iveely.SearchEngine
         /// <summary>
         /// 单点发送
         /// </summary>
-        /// <param name="item"></param>
+        /// <param name="sender"></param>
         /// <param name="message"></param>
+        /// <param name="e"></param>
         public void DataRecivedCallBack(Object sender, string message, EventArgs e)
         {
             Logger.Info("Get Query:" + message);
             SocketConnection item = sender as SocketConnection;
             if (!item.ConnectionSocket.Connected) return;
-            string msg = processMessage(message);
+            string msg = _processMessage(message);
             try
             {
                 if (item.IsDataMasked)
@@ -592,9 +564,9 @@ namespace Iveely.SearchEngine
                 }
                 else
                 {
-                    item.ConnectionSocket.Send(FirstByte);
+                    item.ConnectionSocket.Send(_firstByte);
                     item.ConnectionSocket.Send(Encoding.UTF8.GetBytes(msg));
-                    item.ConnectionSocket.Send(LastByte);
+                    item.ConnectionSocket.Send(_lastByte);
                 }
             }
             catch (Exception ex)
