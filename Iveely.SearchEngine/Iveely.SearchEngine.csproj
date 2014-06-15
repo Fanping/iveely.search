@@ -53,7 +53,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Index.cs" />
-    <Compile Include="EntityExtrator.cs" />
     <Compile Include="KnowlegeIndex.cs" />
     <Compile Include="Library.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

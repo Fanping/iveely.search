@@ -68,21 +68,21 @@ namespace Iveely.SearchEngine
         /// <summary>
         /// 分词组件
         /// </summary>
-        private Iveely.Framework.Text.HMMSegment segment;
+        private readonly HMMSegment segment;
 
         /// <summary>
         /// 知识匹配模式集合
         /// </summary>
-        private List<string> knowledgePatterns = new List<string>();
+        private readonly List<string> knowledgePatterns = new List<string>();
 
         /// <summary>
         /// 知识匹配模式集合
         /// </summary>
-        private List<string> questionPatterns = new List<string>();
+        private readonly List<string> questionPatterns = new List<string>();
 
         public QuestionGetter()
         {
-            segment = Iveely.Framework.Text.HMMSegment.GetInstance();
+            segment = HMMSegment.GetInstance();
             string[] lines = File.ReadAllLines("Init\\pattern.txt");
             foreach (var line in lines)
             {

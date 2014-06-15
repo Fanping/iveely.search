@@ -2,11 +2,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Iveely.Data;
 using Iveely.Database;
 using Iveely.Framework.DataStructure;
+using Iveely.Framework.Text;
 
 namespace Iveely.SearchEngine
 {
@@ -69,38 +68,38 @@ namespace Iveely.SearchEngine
         /// <summary>
         /// 分词组件
         /// </summary>
-        private static Iveely.Framework.Text.HMMSegment segment;
+        private static HMMSegment _segment;
 
         /// <summary>
         /// 问题提取
         /// </summary>
-        private QuestionGetter questionGetter;
+        private readonly QuestionGetter _questionGetter;
 
         /// <summary>
         /// 实体集
         /// </summary>
-        private List<KnowledgeEntity> entities;
+        private readonly List<KnowledgeEntity> entities;
 
         /// <summary>
         /// 最长长度
         /// </summary>
-        private const int MAXCOUNT = 100;
+        private const int Maxcount = 100;
 
         /// <summary>
         /// 当前编号
         /// </summary>
-        private long currentId = 0;
+        private long _currentId;
 
         /// <summary>
         /// 临时存放文本索引数据
         /// </summary>
-        private static List<KeywordIndex> indexs = new List<KeywordIndex>();
+        private static readonly List<KeywordIndex> Indexs = new List<KeywordIndex>();
 
         public KnowlegeIndex()
         {
-            questionGetter = new QuestionGetter();
+            _questionGetter = new QuestionGetter();
             entities = new List<KnowledgeEntity>();
-            segment = Iveely.Framework.Text.HMMSegment.GetInstance();
+            _segment = HMMSegment.GetInstance();
         }
 
         public void Start()
@@ -114,10 +113,10 @@ namespace Iveely.SearchEngine
                 foreach (var keyValuePair in table)
                 {
                     Console.WriteLine(totalCount--);
-                    BaikeDataCrawler.Page page = (BaikeDataCrawler.Page)keyValuePair.Value;
+                    BaikeDataCrawler.Page page = keyValuePair.Value;
 
                     // 2.提取问题
-                    List<QuestionGetter.QuestionEntity> questionEntities = questionGetter.GetKnowledge(page.Content);
+                    List<QuestionGetter.QuestionEntity> questionEntities = _questionGetter.GetKnowledge(page.Content);
                     if (questionEntities != null && questionEntities.Count > 0)
                     {
                         foreach (var questionEntity in questionEntities)
@@ -128,15 +127,15 @@ namespace Iveely.SearchEngine
                             entity.QuestionDesc = questionEntity.QuestionDesc;
                             entity.Answer = questionEntity.Answer;
                             entity.Relation = questionEntity.Relation;
-                            entity.EffectTime = System.DateTime.Now.ToShortDateString();
+                            entity.EffectTime = DateTime.Now.ToShortDateString();
                             entity.RefUrl = page.Url;
-                            entity.Id = currentId++;
+                            entity.Id = _currentId++;
                             entities.Add(entity);
                         }
                     }
 
                     // 3.存储数据
-                    if (entities.Count > MAXCOUNT)
+                    if (entities.Count > Maxcount)
                     {
                         IEnumerable<KnowledgeEntity> ces = entities.Distinct();
                         if (ces.Count() > 0)
@@ -174,7 +173,7 @@ namespace Iveely.SearchEngine
         {
             string dataPath = "Baike\\Baike_question_index.db4";
             var frequency = new IntTable<string, int>();
-            string[] results = segment.Split(text);
+            string[] results = _segment.Split(text);
             if (results.Length < 1)
             {
                 return;
@@ -186,34 +185,34 @@ namespace Iveely.SearchEngine
                 keywordIndex.Keyword = de.Key.ToString();
                 keywordIndex.Weight = int.Parse(de.Value.ToString()) * 1.0 / results.Length;
                 keywordIndex.Id = id;
-                indexs.Add(keywordIndex);
+                Indexs.Add(keywordIndex);
             }
-            if (indexs.Count > 0)
+            if (Indexs.Count > 0)
             {
                 using (IStorageEngine engine = STSdb.FromFile(dataPath))
                 {
-                    ITable<string, List<Iveely.Data.Slots<long, double>>> table = engine.OpenXTable<string, List<Iveely.Data.Slots<long, double>>>("WebPage");
-                    foreach (var keywordIndex in indexs)
+                    ITable<string, List<Slots<long, double>>> table = engine.OpenXTable<string, List<Slots<long, double>>>("WebPage");
+                    foreach (var keywordIndex in Indexs)
                     {
                         // 如果包含则追加
-                        List<Iveely.Data.Slots<long, double>> list = table.Find(keywordIndex.Keyword);
+                        List<Slots<long, double>> list = table.Find(keywordIndex.Keyword);
                         if (list != null && list.Count > 0)
                         {
-                            Iveely.Data.Slots<long, double> slot = new Slots<long, double>(keywordIndex.Id, keywordIndex.Weight);
+                            Slots<long, double> slot = new Slots<long, double>(keywordIndex.Id, keywordIndex.Weight);
                             list.Add(slot);
                         }
                         // 否则新增
                         else
                         {
                             list = new List<Slots<long, double>>();
-                            Iveely.Data.Slots<long, double> slot = new Slots<long, double>(keywordIndex.Id, keywordIndex.Weight);
+                            Slots<long, double> slot = new Slots<long, double>(keywordIndex.Id, keywordIndex.Weight);
                             list.Add(slot);
                             table[keywordIndex.Keyword] = list;
                         }
                     }
                     engine.Commit();
                 }
-                indexs.Clear();
+                Indexs.Clear();
             }
         }
     }

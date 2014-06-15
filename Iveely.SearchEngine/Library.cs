@@ -65,7 +65,7 @@ namespace Iveely.SearchEngine
                         {
                             sendIndex += (int.Parse(workerInfo[1]) % 100);
                             Client client = new Client(ip, sendIndex);
-                            Packet dataPacket = new Packet(System.Text.Encoding.UTF8.GetBytes(data))
+                            Packet dataPacket = new Packet(Encoding.UTF8.GetBytes(data))
                             {
                                 WaiteCallBack = true
                             };
