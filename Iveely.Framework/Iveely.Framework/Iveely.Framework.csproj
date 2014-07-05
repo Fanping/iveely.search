@@ -67,6 +67,7 @@
     <Compile Include="Algorithm\InvertFrequency.cs" />
     <Compile Include="Algorithm\Kmeans.cs" />
     <Compile Include="Algorithm\QuickSort.cs" />
+    <Compile Include="DataStructure\DictionaryTree.cs" />
     <Compile Include="DataStructure\DimensionTable.cs" />
     <Compile Include="DataStructure\IntTable.cs" />
     <Compile Include="DataStructure\ListTable.cs" />
