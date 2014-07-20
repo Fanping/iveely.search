@@ -38,7 +38,7 @@
     <div class="iveely_content">
         <div class="iveely_left">
             <div class="box navi">
-                @Navi@
+               
             </div>
         </div>
         <div class="content" id="content">
@@ -56,7 +56,7 @@
         </div>
         <div class="iveely_right">
             <ul class="results">
-                @@Search@@
+               
             </ul>
         </div>
     </div>
@@ -86,7 +86,7 @@
 
     function ConnectServer() {
         try {
-            var SOCKECT_ADDR = "ws://192.168.109.1:4141/chat";
+            var SOCKECT_ADDR = "ws://www.iveely.com:4141/chat";
             ws = new WebSocket(SOCKECT_ADDR);
             ws.onopen = function (event) {
                 SendData();
