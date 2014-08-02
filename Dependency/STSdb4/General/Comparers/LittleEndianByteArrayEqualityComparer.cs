@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Iveely.General.Extensions;
+using Iveely.STSdb4.General.Extensions;
 using System.Runtime.InteropServices;
 
-namespace Iveely.General.Comparers
+namespace Iveely.STSdb4.General.Comparers
 {
     public class LittleEndianByteArrayEqualityComparer : IEqualityComparer<byte[]>
     {

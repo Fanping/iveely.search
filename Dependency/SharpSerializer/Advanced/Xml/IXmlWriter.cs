@@ -29,7 +29,7 @@
 using System;
 using System.IO;
 
-namespace Polenter.Serialization.Advanced.Xml
+namespace Iveely.Dependency.Polenter.Serialization.Advanced.Xml
 {
     /// <summary>
     ///   Writes data to xml or other node oriented format

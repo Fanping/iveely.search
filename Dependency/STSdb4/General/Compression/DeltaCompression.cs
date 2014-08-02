@@ -4,10 +4,10 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
-using Iveely.General.Buffers;
-using Iveely.General.Comparers;
+using Iveely.STSdb4.General.Buffers;
+using Iveely.STSdb4.General.Comparers;
 
-namespace Iveely.General.Compression
+namespace Iveely.STSdb4.General.Compression
 {
     public static class DeltaCompression
     {

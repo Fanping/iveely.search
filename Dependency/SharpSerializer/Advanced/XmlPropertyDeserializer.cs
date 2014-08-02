@@ -30,12 +30,12 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
-using Polenter.Serialization.Advanced.Deserializing;
-using Polenter.Serialization.Advanced.Xml;
-using Polenter.Serialization.Core;
-using Polenter.Serialization.Core.Xml;
+using Iveely.Dependency.Polenter.Serialization.Advanced.Deserializing;
+using Iveely.Dependency.Polenter.Serialization.Advanced.Xml;
+using Iveely.Dependency.Polenter.Serialization.Core;
+using Iveely.Dependency.Polenter.Serialization.Core.Xml;
 
-namespace Polenter.Serialization.Advanced
+namespace Iveely.Dependency.Polenter.Serialization.Advanced
 {
     /// <summary>
     ///   Contains logic to read data stored with XmlPropertySerializer

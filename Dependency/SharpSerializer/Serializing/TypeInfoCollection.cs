@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 
-namespace Polenter.Serialization.Serializing
+namespace Iveely.Dependency.Polenter.Serialization.Serializing
 {
     ///<summary>
     ///</summary>

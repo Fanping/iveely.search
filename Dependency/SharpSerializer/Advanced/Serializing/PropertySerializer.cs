@@ -28,10 +28,10 @@
 
 using System;
 using System.IO;
-using Polenter.Serialization.Core;
-using Polenter.Serialization.Serializing;
+using Iveely.Dependency.Polenter.Serialization.Core;
+using Iveely.Dependency.Polenter.Serialization.Serializing;
 
-namespace Polenter.Serialization.Advanced.Serializing
+namespace Iveely.Dependency.Polenter.Serialization.Advanced.Serializing
 {
     /// <summary>
     ///   Base class for all Serializers (Xml, Binary, ...). XmlPropertySerializer inherits from this class

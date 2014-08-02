@@ -1,12 +1,12 @@
-﻿using Iveely.Data;
-using Iveely.General.Persist;
+﻿using Iveely.STSdb4.Data;
+using Iveely.STSdb4.General.Persist;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Iveely.WaterfallTree
+namespace Iveely.STSdb4.WaterfallTree
 {
     public class TypeEngine
     {

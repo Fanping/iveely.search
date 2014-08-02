@@ -29,7 +29,7 @@
 using System;
 using System.IO;
 
-namespace Polenter.Serialization.Advanced.Binary
+namespace Iveely.Dependency.Polenter.Serialization.Advanced.Binary
 {
     /// <summary>
     ///   Reads from a binary format

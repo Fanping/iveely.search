@@ -1,13 +1,13 @@
-﻿using Iveely.General.Comparers;
+﻿using Iveely.STSdb4.General.Comparers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 using System.Text;
-using Iveely.General.Extensions;
+using Iveely.STSdb4.General.Extensions;
 
-namespace Iveely.Data
+namespace Iveely.STSdb4.Data
 {
     public class Transformer<T1, T2> : ITransformer<T1, T2>
     {

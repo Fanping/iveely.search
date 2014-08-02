@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.IO;
 
-namespace Iveely.General.IO
+namespace Iveely.STSdb4.General.IO
 {
     /// <summary>
     /// An optimized FileStram - optimizes calls to Seek & Size methods

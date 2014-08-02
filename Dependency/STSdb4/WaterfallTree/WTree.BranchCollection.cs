@@ -5,12 +5,12 @@ using System.Text;
 using System.Diagnostics;
 using System.IO;
 using System.Threading;
-using Iveely.General.Compression;
-using Iveely.General.Collections;
-using Iveely.General.Comparers;
-using Iveely.General.Extensions;
+using Iveely.STSdb4.General.Compression;
+using Iveely.STSdb4.General.Collections;
+using Iveely.STSdb4.General.Comparers;
+using Iveely.STSdb4.General.Extensions;
 
-namespace Iveely.WaterfallTree
+namespace Iveely.STSdb4.WaterfallTree
 {
     public partial class WTree
     {

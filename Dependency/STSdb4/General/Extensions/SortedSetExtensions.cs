@@ -6,7 +6,7 @@ using System.Linq.Expressions;
 using System.Reflection;
 using System.Text;
 
-namespace Iveely.General.Extensions
+namespace Iveely.STSdb4.General.Extensions
 {
     public class SortedSetHelper<T>
     {

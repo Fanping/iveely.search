@@ -1,10 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using Iveely.Data;
-using Iveely.WaterfallTree;
+using Iveely.STSdb4.Data;
+using Iveely.STSdb4.WaterfallTree;
 using System;
 
-namespace Iveely.Database
+namespace Iveely.STSdb4.Database
 {
     public class XTablePortable<TKey, TRecord> : ITable<TKey, TRecord>
     {

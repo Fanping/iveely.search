@@ -1,5 +1,5 @@
-﻿using Iveely.Data;
-using Iveely.Database;
+﻿using Iveely.STSdb4.Data;
+using Iveely.STSdb4.Database;
 using System;
 using System.Collections;
 using System.Collections.Concurrent;
@@ -9,7 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 
-namespace Iveely.WaterfallTree
+namespace Iveely.STSdb4.WaterfallTree
 {
     public class Scheme : IEnumerable<KeyValuePair<long, Locator>>
     {

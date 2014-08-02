@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
-using Iveely.General.Persist;
-using Iveely.Data;
+using Iveely.STSdb4.General.Persist;
+using Iveely.STSdb4.Data;
 
-namespace Iveely.Remote.Commands
+namespace Iveely.STSdb4.Remote.Commands
 {
     public class CommandCollectionPersist : ICommandCollectionPersist
     {

@@ -6,7 +6,7 @@ using System.Reflection;
 using System.Reflection.Emit;
 using System.Text;
 
-namespace Iveely.Data
+namespace Iveely.STSdb4.Data
 {
     public class SlotsBuilder
     {

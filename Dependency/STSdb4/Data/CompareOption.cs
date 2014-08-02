@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Iveely.General.Collections;
-using Iveely.General.Comparers;
-using Iveely.General.Extensions;
+using Iveely.STSdb4.General.Collections;
+using Iveely.STSdb4.General.Comparers;
+using Iveely.STSdb4.General.Extensions;
 using System.IO;
 using System.Reflection;
 
-namespace Iveely.Data
+namespace Iveely.STSdb4.Data
 {
     public class CompareOption : IEquatable<CompareOption>
     {

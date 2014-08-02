@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using Iveely.General.Compression;
-using Iveely.General.Mathematics;
+using Iveely.STSdb4.General.Compression;
+using Iveely.STSdb4.General.Mathematics;
 
-namespace Iveely.General.Persist
+namespace Iveely.STSdb4.General.Persist
 {
     public class SingleIndexerPersist : IIndexerPersist<Single>
     {

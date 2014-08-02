@@ -27,9 +27,9 @@
 #endregion
 
 using System.Text;
-using Polenter.Serialization.Core;
+using Iveely.Dependency.Polenter.Serialization.Core;
 
-namespace Polenter.Serialization
+namespace Iveely.Dependency.Polenter.Serialization
 {
     /// <summary>
     ///   All the most important settings for binary serialization

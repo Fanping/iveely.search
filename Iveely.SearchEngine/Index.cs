@@ -2,33 +2,28 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Net.Mime;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 using Iveely.CloudComputing.Client;
-using Iveely.Data;
-using Iveely.Database;
+using Iveely.STSdb4.Data;
+using Iveely.STSdb4.Database;
 using Iveely.Framework.DataStructure;
 using Iveely.Framework.Text;
 
 namespace Iveely.SearchEngine
 {
-    //public class Crawler
-    //{
-    //    /// <summary>
-    //    /// 页面基本信息
-    //    /// </summary>
-    //    public class Page
-    //    {
-    //        public string Url;
-    //        public string Timestamp;
-    //        public string Content;
-    //        public string Title;
-    //        public string Site;
-    //    }
-    //}
+    public class Crawler
+    {
+        /// <summary>
+        /// 页面基本信息
+        /// </summary>
+        public class Page
+        {
+            public string Url;
+            public string Timestamp;
+            public string Content;
+            public string Title;
+            public string Site;
+        }
+    }
 
     public class Index : Application
     {
@@ -45,32 +40,32 @@ namespace Iveely.SearchEngine
         /// <summary>
         /// 分词组件
         /// </summary>
-        private static HMMSegment _segment;
+        private static Iveely.Framework.Text.HMMSegment segment;
 
         /// <summary>
         /// 正文锁
         /// </summary>
-        private static readonly object PageObj = new object();
+        private static object PageObj = new object();
 
         /// <summary>
         /// 索引锁
         /// </summary>
-        private static readonly object IndexObj = new object();
+        private static object IndexObj = new object();
 
         /// <summary>
         /// 临时存放网页数据
         /// </summary>
-        private static List<Crawler.Page> _pages = new List<Crawler.Page>();
+        private static List<Crawler.Page> pages = new List<Crawler.Page>();
 
         /// <summary>
         /// 临时存放文本索引数据
         /// </summary>
-        private static List<TextIndex> _indexs = new List<TextIndex>();
+        private static List<TextIndex> indexs = new List<TextIndex>();
 
         /// <summary>
         /// 已经访问过的原始文件
         /// </summary>
-        private readonly HashSet<string> _fileVisited = new HashSet<string>();
+        private HashSet<string> fileVisited = new HashSet<string>();
 
         /// <summary>
         /// 执行索引程序入口
@@ -79,7 +74,7 @@ namespace Iveely.SearchEngine
         public override void Run(object[] args)
         {
             Init(args);
-            _segment = HMMSegment.GetInstance();
+            segment = HMMSegment.GetInstance();
             DataSaver dataSaver = new DataSaver();
 
             string rawDatafolder = GetRootFolder() + "\\RawData";
@@ -94,9 +89,9 @@ namespace Iveely.SearchEngine
                 //}
                 for (int i = 0; i < files.Length; i++)
                 {
-                    if (!_fileVisited.Contains(files[i]))
+                    if (!fileVisited.Contains(files[i]))
                     {
-                        _fileVisited.Add(files[i]);
+                        fileVisited.Add(files[i]);
                         try
                         {
                             Console.WriteLine(i + "/" + files.Length);
@@ -122,7 +117,6 @@ namespace Iveely.SearchEngine
             /// 分析原始网页数据
             /// </summary>
             /// <param name="folder"></param>
-            /// <param name="filePath"></param>
             public void AnalysisData(string folder, string filePath)
             {
                 // 如果有多余的，需要存放到数据库
@@ -139,12 +133,12 @@ namespace Iveely.SearchEngine
                         ITable<string, Crawler.Page> table = engine.OpenXTable<string, Crawler.Page>("WebPage");
                         foreach (var keyValuePair in table)
                         {
-                            Crawler.Page page = keyValuePair.Value;
+                            Crawler.Page page = (Crawler.Page)keyValuePair.Value;
                             if (page != null && page.Content.Trim().Length > 0)
                             {
                                 Console.WriteLine(page.Url);
                                 var frequency = new IntTable<string, int>();
-                                string[] results = _segment.Split(page.Title + page.Title + page.Content);
+                                string[] results = segment.Split(page.Title + page.Title + page.Content);
                                 if (results.Length < 1)
                                 {
                                     continue;
@@ -156,18 +150,18 @@ namespace Iveely.SearchEngine
                                     textIndex.Keyword = de.Key.ToString();
                                     textIndex.Weight = int.Parse(de.Value.ToString()) * 1.0 / results.Length;
                                     textIndex.Url = page.Url;
-                                    _indexs.Add(textIndex);
-                                    SaveIndex(ref _indexs, folder);
+                                    indexs.Add(textIndex);
+                                    SaveIndex(ref indexs, folder, false);
                                 }
-                                _pages.Add(page);
-                                SaveContent(ref _pages, folder);
+                                pages.Add(page);
+                                SaveContent(ref pages, folder, false);
                             }
                         }
 
                     }
                 }
-                SaveIndex(ref _indexs, folder, true);
-                SaveContent(ref _pages, folder, true);
+                SaveIndex(ref indexs, folder, true);
+                SaveContent(ref pages, folder, true);
             }
 
             /// <summary>
@@ -235,21 +229,21 @@ namespace Iveely.SearchEngine
                             using (IStorageEngine engine = STSdb.FromFile(fileFlag))
                             {
                                 // 插入数据
-                                ITable<string, List<Slots<string, double>>> table = engine.OpenXTable<string, List<Slots<string, double>>>("WebPage");
+                                ITable<string, List<Iveely.STSdb4.Data.Slots<string, double>>> table = engine.OpenXTable<string, List<Iveely.STSdb4.Data.Slots<string, double>>>("WebPage");
                                 for (int i = 0; i < indexDocs.Count; i++)
                                 {
                                     // 如果包含则追加
-                                    List<Slots<string, double>> list = table.Find(indexDocs[i].Keyword);
+                                    List<Iveely.STSdb4.Data.Slots<string, double>> list = table.Find(indexDocs[i].Keyword);
                                     if (list != null && list.Count > 0)
                                     {
-                                        Slots<string, double> slot=new Slots<string, double>(indexDocs[i].Url,indexDocs[i].Weight);
+                                        Iveely.STSdb4.Data.Slots<string, double> slot=new Slots<string, double>(indexDocs[i].Url,indexDocs[i].Weight);
                                         list.Add(slot);
                                     }
                                     // 否则新增
                                     else
                                     {
                                         list = new List<Slots<string, double>>();
-                                        Slots<string, double> slot = new Slots<string, double>(indexDocs[i].Url, indexDocs[i].Weight);
+                                        Iveely.STSdb4.Data.Slots<string, double> slot = new Slots<string, double>(indexDocs[i].Url, indexDocs[i].Weight);
                                         list.Add(slot);
                                         table[indexDocs[i].Keyword] = list;
                                     }

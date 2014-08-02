@@ -4,7 +4,7 @@ using System.Text;
 using System.Collections;
 using System.Diagnostics;
 
-namespace Iveely.General.Collections
+namespace Iveely.STSdb4.General.Collections
 {
     public class Cache<TKey, TValue> : IEnumerable<KeyValuePair<TKey, TValue>>
         //where TKey : IEquatable<TKey>//, IComparable<TKey>

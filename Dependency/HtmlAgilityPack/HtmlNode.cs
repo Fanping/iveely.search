@@ -7,7 +7,7 @@ using System.IO;
 using System.Xml;
 using System.Xml.XPath;
 
-namespace HtmlAgilityPack
+namespace Iveely.Dependency.HtmlAgilityPack
 {
     /// <summary>
     /// Represents an HTML node.

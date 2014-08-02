@@ -1,4 +1,4 @@
-﻿using Iveely.General.Persist;
+﻿using Iveely.STSdb4.General.Persist;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -7,7 +7,7 @@ using System.Linq.Expressions;
 using System.Reflection;
 using System.Text;
 
-namespace Iveely.Data
+namespace Iveely.STSdb4.Data
 {
     public class DataPersist : IPersist<IData>
     {

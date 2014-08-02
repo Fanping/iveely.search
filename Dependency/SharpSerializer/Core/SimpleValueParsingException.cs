@@ -33,7 +33,7 @@ using System;
     using System.Runtime.Serialization;
 #endif
 
-namespace Polenter.Serialization.Core
+namespace Iveely.Dependency.Polenter.Serialization.Core
 {
     /// <summary>
     ///   Occures if the simple value can not be restored from its text representation

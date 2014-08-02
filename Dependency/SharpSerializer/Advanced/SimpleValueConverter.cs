@@ -28,11 +28,11 @@
 
 using System;
 using System.Globalization;
-using Polenter.Serialization.Advanced.Serializing;
-using Polenter.Serialization.Advanced.Xml;
-using Polenter.Serialization.Core;
+using Iveely.Dependency.Polenter.Serialization.Advanced.Serializing;
+using Iveely.Dependency.Polenter.Serialization.Advanced.Xml;
+using Iveely.Dependency.Polenter.Serialization.Core;
 
-namespace Polenter.Serialization.Advanced
+namespace Iveely.Dependency.Polenter.Serialization.Advanced
 {
     /// <summary>
     ///   Converts simple types to/from their text representation

@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Iveely.General.Extensions;
+using Iveely.STSdb4.General.Extensions;
 
-namespace Iveely.Remote.Commands
+namespace Iveely.STSdb4.Remote.Commands
 {
     public class CommandCollection : List<ICommand>
     {

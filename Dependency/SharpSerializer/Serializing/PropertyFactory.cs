@@ -30,10 +30,10 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
-using Polenter.Serialization.Advanced;
-using Polenter.Serialization.Core;
+using Iveely.Dependency.Polenter.Serialization.Advanced;
+using Iveely.Dependency.Polenter.Serialization.Core;
 
-namespace Polenter.Serialization.Serializing
+namespace Iveely.Dependency.Polenter.Serialization.Serializing
 {
     /// <summary>
     ///   Decomposes object to a Property and its Subproperties

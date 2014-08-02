@@ -1,13 +1,13 @@
-﻿using Iveely.Data;
-using Iveely.General.Compression;
-using Iveely.WaterfallTree;
+﻿using Iveely.STSdb4.Data;
+using Iveely.STSdb4.General.Compression;
+using Iveely.STSdb4.WaterfallTree;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
 
-namespace Iveely.Remote.Commands
+namespace Iveely.STSdb4.Remote.Commands
 {
     public partial class CommandPersist
     {

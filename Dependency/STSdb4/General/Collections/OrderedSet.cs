@@ -4,13 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Collections;
 using System.Diagnostics;
-using Iveely.General.Extensions;
-using Iveely.General.Comparers;
+using Iveely.STSdb4.General.Extensions;
+using Iveely.STSdb4.General.Comparers;
 using System.IO;
-using Iveely.General.Persist;
+using Iveely.STSdb4.General.Persist;
 using System.Threading.Tasks;
 
-namespace Iveely.General.Collections
+namespace Iveely.STSdb4.General.Collections
 {
     public class OrderedSet<TKey, TValue> : IOrderedSet<TKey, TValue>
     {

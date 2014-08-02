@@ -4,7 +4,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 
-namespace Iveely.General.Extensions
+namespace Iveely.STSdb4.General.Extensions
 {
     public delegate void SetKeyDelegate<TKey, TValue>(ref KeyValuePair<TKey, TValue> kv, TKey key);
     public delegate void SetValueDelegate<TKey, TValue>(ref KeyValuePair<TKey, TValue> kv, TValue value);

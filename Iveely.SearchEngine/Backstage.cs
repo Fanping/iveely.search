@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
-using System.Net.Mime;
-using System.Text;
 using System.Threading;
 using Iveely.CloudComputing.Client;
 using Iveely.Framework.Algorithm;
@@ -71,7 +69,7 @@ namespace Iveely.SearchEngine
         /// </summary>
         public static DimensionTable<string, string, double> RelativeTable;
 
-        public static HMMSegment segment = HMMSegment.GetInstance();
+        public static Framework.Text.HMMSegment segment = HMMSegment.GetInstance();
 
         public static LocalStore<Template.Question> DataStore;
 
@@ -329,7 +327,7 @@ namespace Iveely.SearchEngine
             try
             {
                 Packet packet = Serializer.DeserializeFromBytes<Packet>(bytes);
-                string type = Encoding.UTF8.GetString(packet.Data);
+                string type = System.Text.Encoding.UTF8.GetString(packet.Data);
 
                 //如果是文本搜索
                 if (type == "Text-Query")

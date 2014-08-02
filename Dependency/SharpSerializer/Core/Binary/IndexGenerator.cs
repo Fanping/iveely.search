@@ -28,7 +28,7 @@
 
 using System.Collections.Generic;
 
-namespace Polenter.Serialization.Core.Binary
+namespace Iveely.Dependency.Polenter.Serialization.Core.Binary
 {
     /// <summary>
     ///   Is used to store types and property names in lists. Contains only unique elements and gives index of the item back.

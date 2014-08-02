@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.IO;
-using Iveely.General.Extensions;
+using Iveely.STSdb4.General.Extensions;
 
-namespace Iveely.General.Persist
+namespace Iveely.STSdb4.General.Persist
 {
     public class StringIndexerPersist : IIndexerPersist<String>
     {

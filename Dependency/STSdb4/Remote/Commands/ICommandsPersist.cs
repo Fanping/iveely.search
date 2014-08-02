@@ -4,7 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 
-namespace Iveely.Remote.Commands
+namespace Iveely.STSdb4.Remote.Commands
 {
     public interface ICommandCollectionPersist
     {

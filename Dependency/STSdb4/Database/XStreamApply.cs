@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Diagnostics;
-using Iveely.General.Collections;
-using Iveely.Data;
-using Iveely.Database.Operations;
-using Iveely.WaterfallTree;
-using Iveely.Database.Operations;
+using Iveely.STSdb4.General.Collections;
+using Iveely.STSdb4.Data;
+using Iveely.STSdb4.Database.Operations;
+using Iveely.STSdb4.WaterfallTree;
+using Iveely.STSdb4.Database.Operations;
 
-namespace Iveely.Database
+namespace Iveely.STSdb4.Database
 {
     public class XStreamApply : IApply
     {

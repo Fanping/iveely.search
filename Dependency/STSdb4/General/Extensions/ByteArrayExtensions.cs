@@ -1,10 +1,10 @@
-﻿using Iveely.General.Comparers;
+﻿using Iveely.STSdb4.General.Comparers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Iveely.General.Extensions
+namespace Iveely.STSdb4.General.Extensions
 {
     public static class ByteArrayExtensions
     {

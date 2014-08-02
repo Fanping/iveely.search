@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Diagnostics;
 
-namespace Iveely.WaterfallTree
+namespace Iveely.STSdb4.WaterfallTree
 {
     public partial class WTree
     {

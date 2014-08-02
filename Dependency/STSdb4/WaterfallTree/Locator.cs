@@ -1,8 +1,8 @@
-﻿using Iveely.Data;
-using Iveely.Database;
-using Iveely.General.Collections;
-using Iveely.General.Compression;
-using Iveely.General.Persist;
+﻿using Iveely.STSdb4.Data;
+using Iveely.STSdb4.Database;
+using Iveely.STSdb4.General.Collections;
+using Iveely.STSdb4.General.Compression;
+using Iveely.STSdb4.General.Persist;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -10,7 +10,7 @@ using System.IO;
 using System.Linq;
 using System.Runtime.Serialization.Formatters.Binary;
 
-namespace Iveely.WaterfallTree
+namespace Iveely.STSdb4.WaterfallTree
 {
     public class Locator : IDescriptor, IComparable<Locator>, IEquatable<Locator>
     {
@@ -49,7 +49,7 @@ namespace Iveely.WaterfallTree
 
         static Locator()
         {
-            MIN = new Locator(0, null, Iveely.Database.StructureType.RESERVED, DataType.Boolean, DataType.Boolean, null, null);
+            MIN = new Locator(0, null, Iveely.STSdb4.Database.StructureType.RESERVED, DataType.Boolean, DataType.Boolean, null, null);
             MIN.keyPersist = SentinelPersistKey.Instance;
         }
 
@@ -72,8 +72,8 @@ namespace Iveely.WaterfallTree
             //apply
             switch (structureType)
             {
-                case Iveely.Database.StructureType.XTABLE: Apply = new XTableApply(this); break;
-                case Iveely.Database.StructureType.XFILE: Apply = new XStreamApply(this); break;
+                case Iveely.STSdb4.Database.StructureType.XTABLE: Apply = new XTableApply(this); break;
+                case Iveely.STSdb4.Database.StructureType.XFILE: Apply = new XStreamApply(this); break;
             }
 
             KeyDataType = keyDataType;

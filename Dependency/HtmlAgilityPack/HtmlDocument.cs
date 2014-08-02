@@ -8,7 +8,7 @@ using System.Text.RegularExpressions;
 using System.Xml;
 using System.Xml.XPath;
 
-namespace HtmlAgilityPack
+namespace Iveely.Dependency.HtmlAgilityPack
 {
     /// <summary>
     /// Represents a complete HTML document.

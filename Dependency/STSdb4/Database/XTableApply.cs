@@ -1,11 +1,11 @@
 ﻿using System;
-using Iveely.General.Collections;
-using Iveely.Data;
-using Iveely.Database.Operations;
-using Iveely.WaterfallTree;
+using Iveely.STSdb4.General.Collections;
+using Iveely.STSdb4.Data;
+using Iveely.STSdb4.Database.Operations;
+using Iveely.STSdb4.WaterfallTree;
 using System.Collections.Generic;
 
-namespace Iveely.Database
+namespace Iveely.STSdb4.Database
 {
     public sealed class XTableApply : IApply
     {

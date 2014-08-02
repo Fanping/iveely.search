@@ -1,12 +1,12 @@
-﻿using Iveely.Data;
-using Iveely.WaterfallTree;
+﻿using Iveely.STSdb4.Data;
+using Iveely.STSdb4.WaterfallTree;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
 
-namespace Iveely.Database
+namespace Iveely.STSdb4.Database
 {
     public interface IStorageEngine : IEnumerable<IDescriptor>, IDisposable
     {

@@ -8,8 +8,7 @@
 
 using System;
 using System.Collections.Generic;
-using Iveely.Data;
-using Iveely.Database;
+using Iveely.STSdb4.Database;
 using Iveely.Framework.DataStructure;
 using Iveely.Framework.Text;
 using System.Collections;
@@ -21,30 +20,63 @@ namespace Iveely.SearchEngine
         /// <summary>
         /// 文本内存索引
         /// </summary>
-        private static readonly Hashtable TextIndexData = new Hashtable();
+        private static Hashtable TextIndexData = new Hashtable();
 
         /// <summary>
         /// 知识引擎内存索引
         /// </summary>
-        private static readonly Hashtable KnowledgeIndexData = new Hashtable();
+        private static Hashtable KnowledgeIndexData = new Hashtable();
 
         /// <summary>
         ///  网页数据
         /// </summary>
-        private static ITable<string, Crawler.Page> _searchDataTable;
+        private static ITable<string, Crawler.Page> SearchDataTable;
 
         /// <summary>
         /// 知识引擎数据
         /// </summary>
-        private static ITable<long, KnowlegeIndex.KnowledgeEntity> _knowledgeDataTable;
+        private static ITable<long, KnowlegeIndex.KnowledgeEntity> KnowledgeDataTable;
 
         /// <summary>
         /// 分词组件
         /// </summary>
-        private static HMMSegment segment;
+        private static Iveely.Framework.Text.HMMSegment segment;
 
         private static void Main(string[] args)
         {
+            //Index index = new Index();
+            //object[] objects = new object[] { 8001, 8001, 8001, 8001, 8001, 8001, 8001, 8001, 8001 };
+            //index.Run(objects);
+            //EntityExtrator inforExtrator = new EntityExtrator();
+            //while (true)
+            //{
+            //    Console.WriteLine("input:");
+            //    string[] infors = inforExtrator.GetInfo(Console.ReadLine());
+            //    if (infors != null && infors.Count() > 0)
+            //    {
+            //        foreach (var infor in infors)
+            //        {
+            //            Console.WriteLine(infor);
+            //        }
+            //    }
+            //}
+            //string fileFlag = "Baike_data.db4";
+            //using (IStorageEngine engine = STSdb.FromFile(fileFlag))
+            //{
+            //    // 插入数据
+            //    ITable<string, BaikeDataCrawler.Page> table = engine.OpenXTable<string, BaikeDataCrawler.Page>("WebPage");
+            //    foreach (var kv in table)
+            //    {
+            //        Console.WriteLine(kv.Key);
+            //    }
+            //}
+
+            //百科拉去
+            //BaikeDataCrawler crawler = new BaikeDataCrawler();
+            //crawler.Run(new object[] { 8001, 8001, 8001, 8001, 8001, 8001, 8001, 8001, 8001, 8001 });
+            //Console.ReadLine();
+            //return;
+
             //搜索服务
             Init();
             WebSocketServer webSocket = new WebSocketServer(GetResult);
@@ -105,7 +137,7 @@ namespace Iveely.SearchEngine
                     {
                         continue;
                     }
-                    List<Slots<string, double>> textIndexs = (List<Slots<string, double>>)obj;
+                    List<Iveely.STSdb4.Data.Slots<string, double>> textIndexs = (List<Iveely.STSdb4.Data.Slots<string, double>>)obj;
                     if (textIndexs != null)
                     {
                         foreach (var slotse in textIndexs)
@@ -143,7 +175,7 @@ namespace Iveely.SearchEngine
                 HashSet<string> filter = new HashSet<string>();
                 foreach (string url in sortedList)
                 {
-                    Crawler.Page page = _searchDataTable.Find(url);
+                    Crawler.Page page = SearchDataTable.Find(url);
                     if (page != null && !filter.Contains(page.Url))
                     {
                         doclist.Add(page);
@@ -173,7 +205,7 @@ namespace Iveely.SearchEngine
             string indexFilePath = "TextSearch\\ISE_Pages_Index.db4";
             using (IStorageEngine textIndexEngine = STSdb.FromFile(indexFilePath))
             {
-                ITable<string, List<Slots<string, double>>> indexTable = textIndexEngine.OpenXTable<string, List<Slots<string, double>>>("WebPage");
+                ITable<string, List<Iveely.STSdb4.Data.Slots<string, double>>> indexTable = textIndexEngine.OpenXTable<string, List<Iveely.STSdb4.Data.Slots<string, double>>>("WebPage");
                 foreach (var kv in indexTable)
                 {
                     if (!TextIndexData.ContainsKey(kv.Key))
@@ -189,7 +221,7 @@ namespace Iveely.SearchEngine
             string indexFilePath = "Baike\\Baike_question_index.db4";
             using (IStorageEngine textIndexEngine = STSdb.FromFile(indexFilePath))
             {
-                ITable<string, List<Slots<long, double>>> indexTable = textIndexEngine.OpenXTable<string, List<Slots<long, double>>>("WebPage");
+                ITable<string, List<Iveely.STSdb4.Data.Slots<long, double>>> indexTable = textIndexEngine.OpenXTable<string, List<Iveely.STSdb4.Data.Slots<long, double>>>("WebPage");
                 foreach (var kv in indexTable)
                 {
                     if (!KnowledgeIndexData.ContainsKey(kv.Key))
@@ -205,7 +237,7 @@ namespace Iveely.SearchEngine
             string dataPath = "Baike\\Baike_question.db4";
             IStorageEngine dataEngine = STSdb.FromFile(dataPath);
             dataEngine.OpenXFile(dataPath);
-            _knowledgeDataTable = dataEngine.OpenXTable<long, KnowlegeIndex.KnowledgeEntity>("WebPage");
+            KnowledgeDataTable = dataEngine.OpenXTable<long, KnowlegeIndex.KnowledgeEntity>("WebPage");
         }
 
         private static void LoadRawData()
@@ -213,7 +245,7 @@ namespace Iveely.SearchEngine
             string dataPath = "TextSearch\\ISE_Pages.db4";
             IStorageEngine dataEngine = STSdb.FromFile(dataPath);//.OpenXFile(indexFilePath);
             dataEngine.OpenXFile(dataPath);
-            _searchDataTable = dataEngine.OpenXTable<string, Crawler.Page>("WebPage");
+            SearchDataTable = dataEngine.OpenXTable<string, Crawler.Page>("WebPage");
         }
 
         private static string GetKnownledgeResult(string[] keywords)
@@ -227,7 +259,7 @@ namespace Iveely.SearchEngine
                 {
                     continue;
                 }
-                List<Slots<long, double>> dataIndexs = (List<Slots<long, double>>)obj;
+                List<Iveely.STSdb4.Data.Slots<long, double>> dataIndexs = (List<Iveely.STSdb4.Data.Slots<long, double>>)obj;
                 if (dataIndexs != null)
                 {
                     foreach (var slotse in dataIndexs)
@@ -266,7 +298,7 @@ namespace Iveely.SearchEngine
             HashSet<long> filter = new HashSet<long>();
             foreach (long url in sortedList)
             {
-                KnowlegeIndex.KnowledgeEntity entity = _knowledgeDataTable.Find(url);
+                KnowlegeIndex.KnowledgeEntity entity = KnowledgeDataTable.Find(url);
                 if (entity != null && !filter.Contains(entity.Id) && cou > 0)
                 {
                     doclist.Add(entity);

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Reflection;
 
-namespace Polenter.Serialization.Advanced
+namespace Iveely.Dependency.Polenter.Serialization.Advanced
 {
     ///<summary>
     ///</summary>

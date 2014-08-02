@@ -30,7 +30,7 @@ using System;
 using System.Collections.Generic;
 using System.Reflection;
 
-namespace Polenter.Serialization.Core
+namespace Iveely.Dependency.Polenter.Serialization.Core
 {
     /// <summary>
     ///   Gives information about actually analysed array (from the constructor)

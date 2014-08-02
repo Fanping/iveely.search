@@ -27,9 +27,9 @@
 #endregion
 
 using System;
-using Polenter.Serialization.Core;
+using Iveely.Dependency.Polenter.Serialization.Core;
 
-namespace Polenter.Serialization.Serializing
+namespace Iveely.Dependency.Polenter.Serialization.Serializing
 {
     /// <summary>
     ///   Contains info about property and its type.

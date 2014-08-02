@@ -2,12 +2,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Iveely.Data;
-using Iveely.Database;
-using Iveely.Remote.Commands;
-using Iveely.WaterfallTree;
+using Iveely.STSdb4.Data;
+using Iveely.STSdb4.Database;
+using Iveely.STSdb4.Remote.Commands;
+using Iveely.STSdb4.WaterfallTree;
 
-namespace Iveely.Remote
+namespace Iveely.STSdb4.Remote
 {
     public class XTableRemote : ITable<IData, IData>
     {

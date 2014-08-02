@@ -1,12 +1,12 @@
-﻿using Iveely.Data;
-using Iveely.Database;
-using Iveely.General.Collections;
+﻿using Iveely.STSdb4.Data;
+using Iveely.STSdb4.Database;
+using Iveely.STSdb4.General.Collections;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Iveely.WaterfallTree
+namespace Iveely.STSdb4.WaterfallTree
 {
     public interface IApply
     {

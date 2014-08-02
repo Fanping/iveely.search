@@ -1,5 +1,5 @@
-﻿using Iveely.General.IO;
-using Iveely.WaterfallTree;
+﻿using Iveely.STSdb4.General.IO;
+using Iveely.STSdb4.WaterfallTree;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -7,7 +7,7 @@ using System.IO;
 using System.IO.Compression;
 using System.Linq;
 
-namespace Iveely.Storage
+namespace Iveely.STSdb4.Storage
 {
     public class Heap : IHeap
     {

@@ -29,9 +29,9 @@
 using System;
 using System.Collections.Generic;
 using System.Reflection;
-using Polenter.Serialization.Core;
+using Iveely.Dependency.Polenter.Serialization.Core;
 
-namespace Polenter.Serialization.Deserializing
+namespace Iveely.Dependency.Polenter.Serialization.Deserializing
 {
     /// <summary>
     ///   Takes Property and converts it to an object

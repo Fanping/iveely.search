@@ -1,5 +1,7 @@
-﻿using Iveely.General.Communication;
-using Iveely.WaterfallTree;
+﻿using Iveely.STSdb4.General.Communication;
+using Iveely.STSdb4.General.Communication;
+using Iveely.STSdb4.WaterfallTree;
+using Iveely.STSdb4.WaterfallTree;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -8,7 +10,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Iveely.Remote.Heap
+namespace Iveely.STSdb4.Remote.Heap
 {
     public class HeapServer
     {

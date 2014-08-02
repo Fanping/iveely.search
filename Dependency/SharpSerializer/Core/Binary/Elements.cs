@@ -28,7 +28,7 @@
 
 using System;
 
-namespace Polenter.Serialization.Core.Binary
+namespace Iveely.Dependency.Polenter.Serialization.Core.Binary
 {
     /// <summary>
     ///   These elements are used during the binary serialization. They should be unique from SubElements and Attributes.

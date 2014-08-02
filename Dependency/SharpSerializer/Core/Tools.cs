@@ -29,7 +29,7 @@
 using System;
 using System.Collections;
 
-namespace Polenter.Serialization.Core
+namespace Iveely.Dependency.Polenter.Serialization.Core
 {
     /// <summary>
     ///   Some help functions for the serializing framework. As these functions are complexer

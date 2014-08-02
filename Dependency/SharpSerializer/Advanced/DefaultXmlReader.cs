@@ -30,10 +30,10 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Xml;
-using Polenter.Serialization.Advanced.Serializing;
-using Polenter.Serialization.Advanced.Xml;
+using Iveely.Dependency.Polenter.Serialization.Advanced.Serializing;
+using Iveely.Dependency.Polenter.Serialization.Advanced.Xml;
 
-namespace Polenter.Serialization.Advanced
+namespace Iveely.Dependency.Polenter.Serialization.Advanced
 {
     /// <summary>
     ///   Reads data which was stored with DefaultXmlWriter

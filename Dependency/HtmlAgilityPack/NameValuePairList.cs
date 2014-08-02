@@ -3,7 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 
-namespace HtmlAgilityPack
+namespace Iveely.Dependency.HtmlAgilityPack
 {
     internal class NameValuePairList
     {

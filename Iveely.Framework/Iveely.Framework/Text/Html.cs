@@ -16,7 +16,7 @@ using System.Net;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Web;
-using HtmlAgilityPack;
+using Iveely.Dependency.HtmlAgilityPack;
 using Iveely.Framework.Log;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 

@@ -2,7 +2,7 @@
 using System.IO;
 using System.Diagnostics;
 
-namespace Iveely.General.Persist
+namespace Iveely.STSdb4.General.Persist
 {
     public class DateTimeIndexerPersist : IIndexerPersist<DateTime>
     {

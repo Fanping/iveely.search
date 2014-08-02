@@ -1,9 +1,9 @@
 ﻿using System;
 using System.IO;
 using System.Collections.Generic;
-using Iveely.General.Compression;
+using Iveely.STSdb4.General.Compression;
 
-namespace Iveely.General.Persist
+namespace Iveely.STSdb4.General.Persist
 {
     public class ByteArrayIndexerPersist : IIndexerPersist<Byte[]>
     {

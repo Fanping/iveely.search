@@ -5,13 +5,15 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Iveely.General.Collections;
-using Iveely.General.Extensions;
-using Iveely.Data;
-using Iveely.Database.Operations;
-using Iveely.WaterfallTree;
+using Iveely.STSdb4.General.Collections;
+using Iveely.STSdb4.General.Extensions;
+using Iveely.STSdb4.Data;
+using Iveely.STSdb4.Database.Operations;
+using Iveely.STSdb4.Data;
+using Iveely.STSdb4.WaterfallTree;
+using Iveely.STSdb4.WaterfallTree;
 
-namespace Iveely.Database
+namespace Iveely.STSdb4.Database
 {
     public class XTablePortable : ITable<IData, IData>
     {

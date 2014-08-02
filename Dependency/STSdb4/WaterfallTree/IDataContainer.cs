@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Collections;
-using Iveely.Data;
-using Iveely.General.Collections;
+using Iveely.STSdb4.Data;
+using Iveely.STSdb4.General.Collections;
 
-namespace Iveely.WaterfallTree
+namespace Iveely.STSdb4.WaterfallTree
 {
     public interface IDataContainer : IOrderedSet<IData, IData>
     {

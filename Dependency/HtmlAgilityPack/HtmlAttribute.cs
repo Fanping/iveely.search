@@ -7,7 +7,7 @@ using System.Diagnostics;
 
 #endregion
 
-namespace HtmlAgilityPack
+namespace Iveely.Dependency.HtmlAgilityPack
 {
     /// <summary>
     /// Represents an HTML attribute.

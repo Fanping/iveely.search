@@ -28,7 +28,7 @@
 
 using System;
 
-namespace Polenter.Serialization
+namespace Iveely.Dependency.Polenter.Serialization
 {
     /// <summary>
     ///   All labeled with that Attribute object properties are ignored during the serialization. See PropertyProvider

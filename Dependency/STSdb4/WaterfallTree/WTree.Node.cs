@@ -6,9 +6,9 @@ using System.Diagnostics;
 using System.Threading;
 using System.IO;
 using System.IO.Compression;
-using Iveely.General.Compression;
+using Iveely.STSdb4.General.Compression;
 
-namespace Iveely.WaterfallTree
+namespace Iveely.STSdb4.WaterfallTree
 {
     public partial class WTree
     {

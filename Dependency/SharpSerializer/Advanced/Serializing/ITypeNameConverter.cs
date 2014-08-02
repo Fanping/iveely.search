@@ -28,7 +28,7 @@
 
 using System;
 
-namespace Polenter.Serialization.Advanced.Serializing
+namespace Iveely.Dependency.Polenter.Serialization.Advanced.Serializing
 {
     /// <summary>
     ///   Converts Type to its string representation and vice versa. The default instance used in the Framework is TypeNameConverter

@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 
-namespace Iveely.General.Communication
+namespace Iveely.STSdb4.General.Communication
 {
     ///--------------------- Packet Exchange Protocol
     ///

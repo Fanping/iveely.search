@@ -5,7 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 
-namespace Iveely.Storage
+namespace Iveely.STSdb4.Storage
 {
     /// <summary>
     /// Strategies for free space allocation.

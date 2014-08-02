@@ -30,11 +30,11 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
-using Polenter.Serialization.Advanced.Binary;
-using Polenter.Serialization.Advanced.Serializing;
-using Polenter.Serialization.Core.Binary;
+using Iveely.Dependency.Polenter.Serialization.Advanced.Binary;
+using Iveely.Dependency.Polenter.Serialization.Advanced.Serializing;
+using Iveely.Dependency.Polenter.Serialization.Core.Binary;
 
-namespace Polenter.Serialization.Advanced
+namespace Iveely.Dependency.Polenter.Serialization.Advanced
 {
     /// <summary>
     ///   Reads data which was stored with SizeOptimizedBinaryWriter

@@ -2,7 +2,7 @@
 using System;
 using System.Collections;
 
-namespace HtmlAgilityPack
+namespace Iveely.Dependency.HtmlAgilityPack
 {
     /// <summary>
     /// Represents a list of mixed code fragments.

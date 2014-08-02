@@ -6,7 +6,7 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 
-namespace Iveely.Storage
+namespace Iveely.STSdb4.Storage
 {
     [StructLayout(LayoutKind.Sequential)]
     public struct Ptr : IEquatable<Ptr>, IComparable<Ptr>

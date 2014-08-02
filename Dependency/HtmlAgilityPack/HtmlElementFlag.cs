@@ -1,7 +1,7 @@
 // HtmlAgilityPack V1.0 - Simon Mourier <simon underscore mourier at hotmail dot com>
 using System;
 
-namespace HtmlAgilityPack
+namespace Iveely.Dependency.HtmlAgilityPack
 {
     /// <summary>
     /// Flags that describe the behavior of an Element node.

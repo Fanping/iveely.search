@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 using System.Collections.Concurrent;
 using System.IO;
 using System.Diagnostics;
-using Iveely.General.Threading;
-using Iveely.Data;
-using Iveely.Database;
-using Iveely.General.Collections;
+using Iveely.STSdb4.General.Threading;
+using Iveely.STSdb4.Data;
+using Iveely.STSdb4.Database;
+using Iveely.STSdb4.General.Collections;
 
-namespace Iveely.WaterfallTree
+namespace Iveely.STSdb4.WaterfallTree
 {
     public partial class WTree : IDisposable
     {

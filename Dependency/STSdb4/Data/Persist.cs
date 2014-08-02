@@ -1,17 +1,17 @@
-﻿using Iveely.General.Persist;
+﻿using Iveely.STSdb4.General.Persist;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 using System.Text;
-using Iveely.General.Extensions;
+using Iveely.STSdb4.General.Extensions;
 using System.Diagnostics;
 using System.IO;
-using Iveely.General.Compression;
-using Iveely.General.Comparers;
+using Iveely.STSdb4.General.Compression;
+using Iveely.STSdb4.General.Comparers;
 
-namespace Iveely.Data
+namespace Iveely.STSdb4.Data
 {
     public class Persist<T> : IPersist<T>
     {

@@ -13,7 +13,7 @@ using System.Linq;
 using System.Runtime.Serialization.Formatters.Binary;
 using Iveely.Framework.Log;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Polenter.Serialization;
+using Iveely.Dependency.Polenter.Serialization;
 
 namespace Iveely.Framework.Text
 {

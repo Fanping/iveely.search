@@ -1,4 +1,4 @@
-﻿using Iveely.General.Compression;
+﻿using Iveely.STSdb4.General.Compression;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Iveely.Remote.Heap
+namespace Iveely.STSdb4.Remote.Heap
 {
     public class HeapCommand
     {

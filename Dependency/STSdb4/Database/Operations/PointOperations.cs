@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Iveely.WaterfallTree;
+using Iveely.STSdb4.WaterfallTree;
 using System.Threading;
-using Iveely.Data;
+using Iveely.STSdb4.Data;
 
-namespace Iveely.Database.Operations
+namespace Iveely.STSdb4.Database.Operations
 {
     public abstract class PointOperation : IOperation
     {

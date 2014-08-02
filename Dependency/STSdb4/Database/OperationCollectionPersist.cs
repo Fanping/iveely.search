@@ -1,16 +1,16 @@
-﻿using Iveely.General.Compression;
-using Iveely.Data;
-using Iveely.Database.Operations;
-using Iveely.WaterfallTree;
+﻿using Iveely.STSdb4.General.Compression;
+using Iveely.STSdb4.Data;
+using Iveely.STSdb4.Database.Operations;
+using Iveely.STSdb4.WaterfallTree;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
-using Iveely.General.Collections;
-using Iveely.General.Persist;
+using Iveely.STSdb4.General.Collections;
+using Iveely.STSdb4.General.Persist;
 
-namespace Iveely.Database
+namespace Iveely.STSdb4.Database
 {
     public class OperationCollectionPersist : IPersist<IOperationCollection>
     {

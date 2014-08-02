@@ -39,8 +39,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Iveely.SearchEngine", "Ivee
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Iveely.CloudComputing.Cacher", "Iveely.CloudComputing\Iveely.CloudComputing.Cacher\Iveely.CloudComputing.Cacher.csproj", "{35D11049-986E-4DFC-9445-61C87DFAE923}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharpSerializer.Library", "Dependency\SharpSerializer\SharpSerializer.Library.csproj", "{88AB738F-7A36-4C93-B808-B6CE2D3444B2}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Iveely.CloudComputing.Supervisor", "Iveely.CloudComputing\Iveely.CloudComputing.Supervisor\Iveely.CloudComputing.Supervisor.csproj", "{BD096844-700D-4EB4-9EF3-5A6DDB887270}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Iveely.Demo", "Iveely.Demo\Iveely.Demo\Iveely.Demo.csproj", "{85F211A2-A2D4-49D9-8417-DFE8D8E511D6}"
@@ -50,6 +48,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "STSdb4", "Dependency\STSdb4\STSdb4.csproj", "{BE6C9FF2-7817-4EF4-BD8F-6F78126878D3}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Iveely.CloudComputing.Database", "Iveely.CloudComputing\Iveely.CloudComputing.Database\Iveely.CloudComputing.Database.csproj", "{686519B1-B6E4-40CD-9BF8-5727CB9E88BF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharpSerializer.Library", "Dependency\SharpSerializer\SharpSerializer.Library.csproj", "{88AB738F-7A36-4C93-B808-B6CE2D3444B2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -189,14 +189,6 @@ Global
 		{35D11049-986E-4DFC-9445-61C87DFAE923}.Release|Any CPU.Build.0 = Release|Any CPU
 		{35D11049-986E-4DFC-9445-61C87DFAE923}.Release|x64.ActiveCfg = Release|Any CPU
 		{35D11049-986E-4DFC-9445-61C87DFAE923}.Release|x86.ActiveCfg = Release|Any CPU
-		{88AB738F-7A36-4C93-B808-B6CE2D3444B2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{88AB738F-7A36-4C93-B808-B6CE2D3444B2}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{88AB738F-7A36-4C93-B808-B6CE2D3444B2}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{88AB738F-7A36-4C93-B808-B6CE2D3444B2}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{88AB738F-7A36-4C93-B808-B6CE2D3444B2}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{88AB738F-7A36-4C93-B808-B6CE2D3444B2}.Release|Any CPU.Build.0 = Release|Any CPU
-		{88AB738F-7A36-4C93-B808-B6CE2D3444B2}.Release|x64.ActiveCfg = Release|Any CPU
-		{88AB738F-7A36-4C93-B808-B6CE2D3444B2}.Release|x86.ActiveCfg = Release|Any CPU
 		{BD096844-700D-4EB4-9EF3-5A6DDB887270}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{BD096844-700D-4EB4-9EF3-5A6DDB887270}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BD096844-700D-4EB4-9EF3-5A6DDB887270}.Debug|x64.ActiveCfg = Debug|Any CPU
@@ -233,6 +225,14 @@ Global
 		{686519B1-B6E4-40CD-9BF8-5727CB9E88BF}.Release|Any CPU.Build.0 = Release|Any CPU
 		{686519B1-B6E4-40CD-9BF8-5727CB9E88BF}.Release|x64.ActiveCfg = Release|Any CPU
 		{686519B1-B6E4-40CD-9BF8-5727CB9E88BF}.Release|x86.ActiveCfg = Release|Any CPU
+		{88AB738F-7A36-4C93-B808-B6CE2D3444B2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{88AB738F-7A36-4C93-B808-B6CE2D3444B2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{88AB738F-7A36-4C93-B808-B6CE2D3444B2}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{88AB738F-7A36-4C93-B808-B6CE2D3444B2}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{88AB738F-7A36-4C93-B808-B6CE2D3444B2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{88AB738F-7A36-4C93-B808-B6CE2D3444B2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{88AB738F-7A36-4C93-B808-B6CE2D3444B2}.Release|x64.ActiveCfg = Release|Any CPU
+		{88AB738F-7A36-4C93-B808-B6CE2D3444B2}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -254,8 +254,8 @@ Global
 		{686519B1-B6E4-40CD-9BF8-5727CB9E88BF} = {456AA3BF-F2BE-4979-9CC6-FF1BE180FDAD}
 		{181FE707-E161-4722-9F38-6AAAB6FAA106} = {B40A826B-7BE9-4629-BE4A-69809B06560D}
 		{193BB801-054F-4729-9D5D-FCE1E32594BF} = {B40A826B-7BE9-4629-BE4A-69809B06560D}
-		{88AB738F-7A36-4C93-B808-B6CE2D3444B2} = {B40A826B-7BE9-4629-BE4A-69809B06560D}
 		{BE6C9FF2-7817-4EF4-BD8F-6F78126878D3} = {B40A826B-7BE9-4629-BE4A-69809B06560D}
+		{88AB738F-7A36-4C93-B808-B6CE2D3444B2} = {B40A826B-7BE9-4629-BE4A-69809B06560D}
 		{85F211A2-A2D4-49D9-8417-DFE8D8E511D6} = {98C81AE2-C180-4991-87B1-3E46BE9626AB}
 	EndGlobalSection
 EndGlobal

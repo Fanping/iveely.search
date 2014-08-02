@@ -1,4 +1,4 @@
-﻿using Iveely.General.Persist;
+﻿using Iveely.STSdb4.General.Persist;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -6,11 +6,11 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 using System.Text;
-using Iveely.General.Extensions;
+using Iveely.STSdb4.General.Extensions;
 using System.Threading.Tasks;
-using Iveely.General.Compression;
+using Iveely.STSdb4.General.Compression;
 
-namespace Iveely.Data
+namespace Iveely.STSdb4.Data
 {
     public class DataIndexerPersist : IIndexerPersist<IData>
     {

@@ -1,15 +1,15 @@
-﻿using Iveely.Data;
-using Iveely.Database;
-using Iveely.General.Communication;
-using Iveely.Remote.Commands;
-using Iveely.WaterfallTree;
+﻿using Iveely.STSdb4.Data;
+using Iveely.STSdb4.Database;
+using Iveely.STSdb4.General.Communication;
+using Iveely.STSdb4.Remote.Commands;
+using Iveely.STSdb4.WaterfallTree;
 using System;
 using System.Collections;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.IO;
 
-namespace Iveely.Remote
+namespace Iveely.STSdb4.Remote
 {
     public class StorageEngineClient : IStorageEngine
     {

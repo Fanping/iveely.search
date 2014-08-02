@@ -27,9 +27,9 @@
 #endregion
 
 using System.IO;
-using Polenter.Serialization.Core;
+using Iveely.Dependency.Polenter.Serialization.Core;
 
-namespace Polenter.Serialization.Advanced.Serializing
+namespace Iveely.Dependency.Polenter.Serialization.Advanced.Serializing
 {
     /// <summary>
     ///   Serializes property to a stream

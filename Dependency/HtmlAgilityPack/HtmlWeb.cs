@@ -16,7 +16,7 @@ using Microsoft.Win32;
 
 #endregion
 
-namespace HtmlAgilityPack
+namespace Iveely.Dependency.HtmlAgilityPack
 {
     /// <summary>
     /// A utility class to get HTML document from HTTP.

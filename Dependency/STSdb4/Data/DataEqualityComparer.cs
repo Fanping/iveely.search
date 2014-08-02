@@ -4,10 +4,10 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 using System.Text;
-using Iveely.General.Extensions;
-using Iveely.General.Comparers;
+using Iveely.STSdb4.General.Extensions;
+using Iveely.STSdb4.General.Comparers;
 
-namespace Iveely.Data
+namespace Iveely.STSdb4.Data
 {
     public class DataEqualityComparer : IEqualityComparer<IData>
     {

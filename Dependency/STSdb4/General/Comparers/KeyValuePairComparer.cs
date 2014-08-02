@@ -1,10 +1,10 @@
-﻿using Iveely.General.Collections;
+﻿using Iveely.STSdb4.General.Collections;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Iveely.General.Comparers
+namespace Iveely.STSdb4.General.Comparers
 {
     public class KeyValuePairComparer<TKey, TValue> : IComparer<KeyValuePair<TKey, TValue>>
     {

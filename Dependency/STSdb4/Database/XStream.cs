@@ -1,10 +1,10 @@
 ﻿using System;
 using System.IO;
-using Iveely.General.Extensions;
-using Iveely.Data;
-using Iveely.WaterfallTree;
+using Iveely.STSdb4.General.Extensions;
+using Iveely.STSdb4.Data;
+using Iveely.STSdb4.WaterfallTree;
 
-namespace Iveely.Database
+namespace Iveely.STSdb4.Database
 {
     public class XStream : Stream
     {

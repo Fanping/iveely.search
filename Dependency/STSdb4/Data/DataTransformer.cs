@@ -6,7 +6,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading;
 
-namespace Iveely.Data
+namespace Iveely.STSdb4.Data
 {
     public class DataTransformer<T> : ITransformer<T, IData>
     {

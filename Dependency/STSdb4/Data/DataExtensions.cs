@@ -4,7 +4,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 
-namespace Iveely.Data
+namespace Iveely.STSdb4.Data
 {
     public static class DataExtensions
     {

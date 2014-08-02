@@ -30,9 +30,9 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Reflection;
-using Polenter.Serialization.Serializing;
+using Iveely.Dependency.Polenter.Serialization.Serializing;
 
-namespace Polenter.Serialization.Advanced
+namespace Iveely.Dependency.Polenter.Serialization.Advanced
 {
     /// <summary>
     /// Provides properties to serialize from source object. Implements the strategy 

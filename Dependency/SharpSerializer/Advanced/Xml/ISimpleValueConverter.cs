@@ -28,7 +28,7 @@
 
 using System;
 
-namespace Polenter.Serialization.Advanced.Xml
+namespace Iveely.Dependency.Polenter.Serialization.Advanced.Xml
 {
     /// <summary>
     ///   Converts values of SimpleProperty to/from string

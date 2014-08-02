@@ -33,7 +33,7 @@ using System;
 using System.Runtime.Serialization;
 #endif
 
-namespace Polenter.Serialization.Core
+namespace Iveely.Dependency.Polenter.Serialization.Core
 {
     /// <summary>
     ///   Can occure during deserialization

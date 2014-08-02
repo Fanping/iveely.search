@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Iveely.General.Extensions;
+using Iveely.STSdb4.General.Extensions;
 using System.Globalization;
 using System.Linq.Expressions;
 using System.Reflection;
 
-namespace Iveely.Data
+namespace Iveely.STSdb4.Data
 {
     public class ValueToString<T>
     {

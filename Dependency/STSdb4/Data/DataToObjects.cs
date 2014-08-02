@@ -4,9 +4,9 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 using System.Text;
-using Iveely.General.Extensions;
+using Iveely.STSdb4.General.Extensions;
 
-namespace Iveely.Data
+namespace Iveely.STSdb4.Data
 {
     public class DataToObjects
     {

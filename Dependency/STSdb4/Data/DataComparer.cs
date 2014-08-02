@@ -5,7 +5,7 @@ using System.Linq.Expressions;
 using System.Reflection;
 using System.Text;
 
-namespace Iveely.Data
+namespace Iveely.STSdb4.Data
 {
     public class DataComparer : IComparer<IData>
     {

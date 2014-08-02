@@ -28,7 +28,7 @@
 
 using System;
 
-namespace Polenter.Serialization.Core.Xml
+namespace Iveely.Dependency.Polenter.Serialization.Core.Xml
 {
     /// <summary>
     ///   These elements are used as tags during the xml serialization.

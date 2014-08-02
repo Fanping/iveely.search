@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Diagnostics;
-using Iveely.Database;
+using Iveely.STSdb4.Database;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Collections;
 using System.IO;
 
-namespace Iveely.WaterfallTree
+namespace Iveely.STSdb4.WaterfallTree
 {
     public partial class WTree
     {

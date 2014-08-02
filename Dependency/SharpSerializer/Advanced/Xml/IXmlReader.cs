@@ -30,7 +30,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 
-namespace Polenter.Serialization.Advanced.Xml
+namespace Iveely.Dependency.Polenter.Serialization.Advanced.Xml
 {
     /// <summary>
     ///   Reads data from Xml or other node oriented format

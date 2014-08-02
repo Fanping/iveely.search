@@ -9,8 +9,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Iveely.CloudComputing.Client;
 using Iveely.Framework.Network;
 using Iveely.Framework.Network.Synchronous;
@@ -65,7 +63,7 @@ namespace Iveely.SearchEngine
                         {
                             sendIndex += (int.Parse(workerInfo[1]) % 100);
                             Client client = new Client(ip, sendIndex);
-                            Packet dataPacket = new Packet(Encoding.UTF8.GetBytes(data))
+                            Packet dataPacket = new Packet(System.Text.Encoding.UTF8.GetBytes(data))
                             {
                                 WaiteCallBack = true
                             };

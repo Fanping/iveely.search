@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
-using Iveely.General.Persist;
-using Iveely.Data;
-using Iveely.WaterfallTree;
+using Iveely.STSdb4.General.Persist;
+using Iveely.STSdb4.Data;
+using Iveely.STSdb4.WaterfallTree;
 
-namespace Iveely.WaterfallTree
+namespace Iveely.STSdb4.WaterfallTree
 {
     public class SentinelPersistKey : IPersist<IData>
     {

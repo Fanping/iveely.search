@@ -27,13 +27,13 @@
 #endregion
 
 using System.Xml;
-using Polenter.Serialization.Advanced;
-using Polenter.Serialization.Advanced.Serializing;
-using Polenter.Serialization.Advanced.Xml;
+using Iveely.Dependency.Polenter.Serialization.Advanced;
+using Iveely.Dependency.Polenter.Serialization.Advanced.Serializing;
+using Iveely.Dependency.Polenter.Serialization.Advanced.Xml;
 using System.Collections.Generic;
 using System;
 
-namespace Polenter.Serialization.Core
+namespace Iveely.Dependency.Polenter.Serialization.Core
 {
     /// <summary>
     ///   Base class for the settings of the SharpSerializer. Is passed to its constructor.
@@ -54,7 +54,7 @@ namespace Polenter.Serialization.Core
         }
 
         /// <summary>
-        ///   Contains mostly classes from the namespace Polenter.Serialization.Advanced
+        ///   Contains mostly classes from the namespace Iveely.Dependency.Polenter.Serialization.Advanced
         /// </summary>
         public T AdvancedSettings
         {

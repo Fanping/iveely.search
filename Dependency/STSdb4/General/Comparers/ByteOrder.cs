@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Iveely.General.Comparers
+namespace Iveely.STSdb4.General.Comparers
 {
     public enum ByteOrder : byte
     {

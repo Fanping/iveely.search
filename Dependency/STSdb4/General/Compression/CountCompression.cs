@@ -3,7 +3,7 @@ using System.IO;
 using System.Diagnostics;
 using System.Collections.Generic;
 
-namespace Iveely.General.Compression
+namespace Iveely.STSdb4.General.Compression
 {
     public static class CountCompression
     {

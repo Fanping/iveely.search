@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Text;
 
-namespace Iveely.General.Extensions
+namespace Iveely.STSdb4.General.Extensions
 {
     public static class IListExtensions
     {

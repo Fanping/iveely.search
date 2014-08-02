@@ -9,15 +9,6 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Iveely.CloudComputing.Client;
-using Iveely.Framework.Algorithm;
-using Iveely.Framework.Algorithm.AI;
-using Iveely.Framework.DataStructure;
-using Iveely.Framework.Log;
-using Iveely.Framework.Text;
 
 namespace Iveely.SearchEngine
 {
@@ -68,21 +59,21 @@ namespace Iveely.SearchEngine
         /// <summary>
         /// 分词组件
         /// </summary>
-        private readonly HMMSegment segment;
+        private Iveely.Framework.Text.HMMSegment segment;
 
         /// <summary>
         /// 知识匹配模式集合
         /// </summary>
-        private readonly List<string> knowledgePatterns = new List<string>();
+        private List<string> knowledgePatterns = new List<string>();
 
         /// <summary>
         /// 知识匹配模式集合
         /// </summary>
-        private readonly List<string> questionPatterns = new List<string>();
+        private List<string> questionPatterns = new List<string>();
 
         public QuestionGetter()
         {
-            segment = HMMSegment.GetInstance();
+            segment = Iveely.Framework.Text.HMMSegment.GetInstance();
             string[] lines = File.ReadAllLines("Init\\pattern.txt");
             foreach (var line in lines)
             {

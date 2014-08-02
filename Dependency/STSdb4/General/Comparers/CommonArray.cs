@@ -4,7 +4,7 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 
-namespace Iveely.General.Comparers
+namespace Iveely.STSdb4.General.Comparers
 {
     [StructLayout(LayoutKind.Explicit)]
     public struct CommonArray

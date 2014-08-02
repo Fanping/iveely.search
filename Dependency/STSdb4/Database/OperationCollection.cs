@@ -2,14 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Iveely.Database.Operations;
-using Iveely.WaterfallTree;
+using Iveely.STSdb4.Database.Operations;
+using Iveely.STSdb4.WaterfallTree;
 using System.Collections;
-using Iveely.Data;
+using Iveely.STSdb4.Data;
 using System.Diagnostics;
-using Iveely.General.Extensions;
+using Iveely.STSdb4.General.Extensions;
 
-namespace Iveely.Database
+namespace Iveely.STSdb4.Database
 {
     public class OperationCollection : List<IOperation>, IOperationCollection
     {

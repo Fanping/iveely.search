@@ -29,7 +29,7 @@
 using System;
 using System.IO;
 
-namespace Polenter.Serialization.Core.Binary
+namespace Iveely.Dependency.Polenter.Serialization.Core.Binary
 {
     /// <summary>
     ///   Some methods which are used by IBinaryWriter

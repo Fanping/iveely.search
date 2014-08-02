@@ -1,16 +1,16 @@
-﻿using Iveely.Data;
-using Iveely.Database;
-using Iveely.General.Compression;
-using Iveely.General.Persist;
-using Iveely.WaterfallTree;
+﻿using Iveely.STSdb4.Data;
+using Iveely.STSdb4.Database;
+using Iveely.STSdb4.General.Compression;
+using Iveely.STSdb4.General.Persist;
+using Iveely.STSdb4.WaterfallTree;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
-using Iveely.Remote.Commands;
+using Iveely.STSdb4.Remote.Commands;
 
-namespace Iveely.Remote
+namespace Iveely.STSdb4.Remote
 {
     public class Descriptor : IDescriptor
     {
@@ -22,7 +22,7 @@ namespace Iveely.Remote
         }
 
         public Descriptor(long id, string name, DataType keyDataType, DataType recordDataType)
-            : this(id, name, Iveely.Database.StructureType.XTABLE, keyDataType, recordDataType, DataTypeUtils.BuildType(keyDataType), DataTypeUtils.BuildType(recordDataType), DateTime.Now, DateTime.Now, DateTime.Now, null)
+            : this(id, name, Iveely.STSdb4.Database.StructureType.XTABLE, keyDataType, recordDataType, DataTypeUtils.BuildType(keyDataType), DataTypeUtils.BuildType(recordDataType), DateTime.Now, DateTime.Now, DateTime.Now, null)
         {
         }
 

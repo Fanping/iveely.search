@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Iveely.General.Extensions;
+using Iveely.STSdb4.General.Extensions;
 
-namespace Iveely.General.Comparers
+namespace Iveely.STSdb4.General.Comparers
 {
     public class BigEndianByteArrayEqualityComparer : IEqualityComparer<byte[]>
     {

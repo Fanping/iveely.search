@@ -4,7 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 
-namespace Iveely.Storage
+namespace Iveely.STSdb4.Storage
 {
     public class AtomicHeader
     {

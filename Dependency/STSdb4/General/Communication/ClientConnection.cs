@@ -1,6 +1,6 @@
-﻿using Iveely.Database;
-using Iveely.Remote;
-using Iveely.WaterfallTree;
+﻿using Iveely.STSdb4.Database;
+using Iveely.STSdb4.Remote;
+using Iveely.STSdb4.WaterfallTree;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -10,7 +10,7 @@ using System.Net.Sockets;
 using System.Text;
 using System.Threading;
 
-namespace Iveely.General.Communication
+namespace Iveely.STSdb4.General.Communication
 {
     public class ClientConnection
     {

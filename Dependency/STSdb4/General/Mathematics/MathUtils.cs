@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Iveely.General.Mathematics
+namespace Iveely.STSdb4.General.Mathematics
 {
     public static class MathUtils
     {

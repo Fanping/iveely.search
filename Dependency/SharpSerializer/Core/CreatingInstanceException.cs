@@ -34,7 +34,7 @@ using System;
 using System.Runtime.Serialization;
 #endif
 
-namespace Polenter.Serialization.Core
+namespace Iveely.Dependency.Polenter.Serialization.Core
 {
     /// <summary>
     ///   Occurs if no instance of a type can be created. Maybe the type lacks on a public standard (parameterless) constructor?

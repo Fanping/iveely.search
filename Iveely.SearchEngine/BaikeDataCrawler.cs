@@ -1,5 +1,4 @@
-﻿using Iveely.CloudComputing.Client;
-using Iveely.Database;
+﻿using Iveely.STSdb4.Database;
 using Iveely.Framework.Text;
 using System;
 using System.Collections.Generic;
@@ -12,7 +11,7 @@ namespace Iveely.SearchEngine
     /// <summary>
     /// 爬虫
     /// </summary>
-    public class BaikeDataCrawler : Application
+    public class BaikeDataCrawler : Iveely.CloudComputing.Client.Application
     {
         public class Page
         {
@@ -23,7 +22,7 @@ namespace Iveely.SearchEngine
             public string Site;
         }
 
-        private static readonly object obj = new object();
+        private static object obj = new object();
         public class DataSaver
         {
             public void SavePage(ref List<Page> docs, string folder, bool isForce = false)
@@ -81,44 +80,45 @@ namespace Iveely.SearchEngine
             List<Page> docs = new List<Page>();
 
             // 当前需要爬行的链接
-            List<string> currentUrls = new List<string>();
+            List<string> CurrentUrls = new List<string>();
 
             // 已经爬行过的链接
-            HashSet<string> visitedUrls = new HashSet<string>();
+            HashSet<string> VisitedUrls = new HashSet<string>();
 
 
-            string[] urlInfo = url.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+            string[] urlInfo = url.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
             string schemaUrl = "http://" + urlInfo[0];
 
             //Uri可能转换失败
-            int hasVisited = 0;
             try
             {
                 Uri hostUrl = new Uri(schemaUrl);
-                currentUrls.Add(schemaUrl);
+                CurrentUrls.Add(schemaUrl);
                 string site = string.Empty;
+                int hasVisited = 0;
+                int hasUrlsCount = 1;
 
                 //如果当前拥有则爬行
-                while (currentUrls.Count > 0)
+                while (CurrentUrls.Count > 0)
                 {
                     hasVisited++;
                     HashSet<string> newLinks = new HashSet<string>();
                     try
                     {
                         //2. 获取网页信息
-                        Console.WriteLine(DateTime.Now + "[" + Thread.CurrentThread.ManagedThreadId + "]" + ":Visit " + currentUrls[0]);
-                        visitedUrls.Add(currentUrls[0]);
+                        Console.WriteLine(DateTime.Now.ToString() + "[" + Thread.CurrentThread.ManagedThreadId + "]" + ":Visit " + CurrentUrls[0]);
+                        VisitedUrls.Add(CurrentUrls[0]);
                         bool isGetContentSuc = false;
-                        Html2Article.ArticleDocument document = Html2Article.GetArticle(currentUrls[0], ref isGetContentSuc);
+                        Html2Article.ArticleDocument document = Html2Article.GetArticle(CurrentUrls[0], ref isGetContentSuc);
                         if (document != null && document.Content.Length > 10)
                         {
                             if (string.IsNullOrEmpty(site))
                             {
-                                string[] titleArray = document.Title.Split(new[] { '-', '_' }, StringSplitOptions.RemoveEmptyEntries);
+                                string[] titleArray = document.Title.Split(new char[] { '-', '_' }, StringSplitOptions.RemoveEmptyEntries);
                                 site = titleArray[titleArray.Length - 1];
                             }
                             Page page = new Page();
-                            page.Url = currentUrls[0];
+                            page.Url = CurrentUrls[0];
                             page.Site = site;
                             page.Content = document.Content;
                             page.Title = document.Title;
@@ -137,7 +137,7 @@ namespace Iveely.SearchEngine
                                     string link = document.ChildrenLink[j];
                                     if (link.Contains("#"))
                                     {
-                                        link = link.Substring(0, link.IndexOf("#", StringComparison.Ordinal) - 1);
+                                        link = link.Substring(0, link.IndexOf("#", System.StringComparison.Ordinal) - 1);
                                     }
                                     if (link.EndsWith("/"))
                                     {
@@ -145,11 +145,11 @@ namespace Iveely.SearchEngine
                                     }
                                     string host = (new Uri(document.ChildrenLink[j])).Host;
                                     if (host == hostUrl.Host && !newLinks.Contains(link) &&
-                                        !visitedUrls.Contains(link))
+                                        !VisitedUrls.Contains(link))
                                     {
 
                                         newLinks.Add(link);
-                                        visitedUrls.Add(link);
+                                        VisitedUrls.Add(link);
                                     }
                                 }
                                 catch (Exception exception)
@@ -164,10 +164,11 @@ namespace Iveely.SearchEngine
                     {
                         Console.WriteLine(exception);
                     }
-                    currentUrls.RemoveAt(0);
+                    CurrentUrls.RemoveAt(0);
                     if (newLinks.Count > 0)
                     {
-                        currentUrls.AddRange(newLinks.ToArray());
+                        CurrentUrls.AddRange(newLinks.ToArray());
+                        hasUrlsCount += newLinks.Count;
                     }
                 }
                 if (docs.Count > 0)
@@ -193,7 +194,7 @@ namespace Iveely.SearchEngine
                 ITable<string, Page> table = engine.OpenXTable<string, Page>("WebPage");
                 foreach (var kv in table)
                 {
-                    Page page = kv.Value;
+                    Page page = (Page)kv.Value;
                     Console.WriteLine(kv.Key+" "+page.Url);
                 }
             }

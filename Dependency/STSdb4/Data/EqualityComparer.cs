@@ -1,5 +1,5 @@
-﻿using Iveely.General.Comparers;
-using Iveely.General.Extensions;
+﻿using Iveely.STSdb4.General.Comparers;
+using Iveely.STSdb4.General.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -8,7 +8,7 @@ using System.Linq.Expressions;
 using System.Reflection;
 using System.Text;
 
-namespace Iveely.Data
+namespace Iveely.STSdb4.Data
 {
     public class EqualityComparer<T> : IEqualityComparer<T>
     {

@@ -1,14 +1,16 @@
-﻿using Iveely.General.Communication;
-using Iveely.General.IO;
-using Iveely.Remote;
-using Iveely.Storage;
-using Iveely.WaterfallTree;
+﻿using Iveely.STSdb4.General.Communication;
+using Iveely.STSdb4.General.IO;
+using Iveely.STSdb4.Remote;
+using Iveely.STSdb4.Storage;
+using Iveely.STSdb4.General.Communication;
+using Iveely.STSdb4.Remote;
+using Iveely.STSdb4.WaterfallTree;
 using System;
 using System.IO;
 using System.Linq;
 using System.Text;
 
-namespace Iveely.Database
+namespace Iveely.STSdb4.Database
 {
     public static class STSdb
     {

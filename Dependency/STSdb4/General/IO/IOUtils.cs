@@ -4,7 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 
-namespace Iveely.General.IO
+namespace Iveely.STSdb4.General.IO
 {
     public static class IOUtils
     {

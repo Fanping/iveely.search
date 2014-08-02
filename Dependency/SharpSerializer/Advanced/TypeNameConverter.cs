@@ -29,9 +29,9 @@
 using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
-using Polenter.Serialization.Advanced.Serializing;
+using Iveely.Dependency.Polenter.Serialization.Advanced.Serializing;
 
-namespace Polenter.Serialization.Advanced
+namespace Iveely.Dependency.Polenter.Serialization.Advanced
 {
     /// <summary>
     ///   Converts Type to its text representation and vice versa. Since v.2.12 all types serialize to the AssemblyQualifiedName.

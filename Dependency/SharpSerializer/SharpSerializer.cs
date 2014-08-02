@@ -29,17 +29,17 @@
 using System;
 using System.IO;
 using System.Xml;
-using Polenter.Serialization.Advanced;
-using Polenter.Serialization.Advanced.Binary;
-using Polenter.Serialization.Advanced.Deserializing;
-using Polenter.Serialization.Advanced.Serializing;
-using Polenter.Serialization.Advanced.Xml;
-using Polenter.Serialization.Core;
-using Polenter.Serialization.Deserializing;
-using Polenter.Serialization.Serializing;
+using Iveely.Dependency.Polenter.Serialization.Advanced;
+using Iveely.Dependency.Polenter.Serialization.Advanced.Binary;
+using Iveely.Dependency.Polenter.Serialization.Advanced.Deserializing;
+using Iveely.Dependency.Polenter.Serialization.Advanced.Serializing;
+using Iveely.Dependency.Polenter.Serialization.Advanced.Xml;
+using Iveely.Dependency.Polenter.Serialization.Core;
+using Iveely.Dependency.Polenter.Serialization.Deserializing;
+using Iveely.Dependency.Polenter.Serialization.Serializing;
 using System.Runtime.CompilerServices;
 
-namespace Polenter.Serialization
+namespace Iveely.Dependency.Polenter.Serialization
 {
     /// <summary>
     ///   This is the main class of SharpSerializer. It serializes and deserializes objects.

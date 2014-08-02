@@ -1,8 +1,8 @@
 ﻿using System;
 using System.IO;
-using Iveely.General.Extensions;
+using Iveely.STSdb4.General.Extensions;
 
-namespace Iveely.General.Persist
+namespace Iveely.STSdb4.General.Persist
 {
     public class BooleanIndexerPersist : IIndexerPersist<Boolean>
     {

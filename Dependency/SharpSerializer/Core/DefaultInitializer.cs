@@ -29,11 +29,11 @@
 using System.Globalization;
 using System.Text;
 using System.Xml;
-using Polenter.Serialization.Advanced;
-using Polenter.Serialization.Advanced.Serializing;
-using Polenter.Serialization.Advanced.Xml;
+using Iveely.Dependency.Polenter.Serialization.Advanced;
+using Iveely.Dependency.Polenter.Serialization.Advanced.Serializing;
+using Iveely.Dependency.Polenter.Serialization.Advanced.Xml;
 
-namespace Polenter.Serialization.Core
+namespace Iveely.Dependency.Polenter.Serialization.Core
 {
     /// <summary>
     ///   Gives standard settings for the framework. Is used only internally.

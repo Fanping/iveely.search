@@ -30,13 +30,13 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
-using Polenter.Serialization.Advanced.Binary;
-using Polenter.Serialization.Advanced.Serializing;
-using Polenter.Serialization.Core;
-using Polenter.Serialization.Core.Binary;
-using Polenter.Serialization.Serializing;
+using Iveely.Dependency.Polenter.Serialization.Advanced.Binary;
+using Iveely.Dependency.Polenter.Serialization.Advanced.Serializing;
+using Iveely.Dependency.Polenter.Serialization.Core;
+using Iveely.Dependency.Polenter.Serialization.Core.Binary;
+using Iveely.Dependency.Polenter.Serialization.Serializing;
 
-namespace Polenter.Serialization.Advanced
+namespace Iveely.Dependency.Polenter.Serialization.Advanced
 {
     /// <summary>
     ///   Contains logic to serialize data to a binary format. Format varies according to the used IBinaryWriter. 

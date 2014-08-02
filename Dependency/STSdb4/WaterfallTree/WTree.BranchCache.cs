@@ -5,9 +5,9 @@ using System.Text;
 using System.Collections;
 using System.IO;
 using System.Diagnostics;
-using Iveely.Database;
+using Iveely.STSdb4.Database;
 
-namespace Iveely.WaterfallTree
+namespace Iveely.STSdb4.WaterfallTree
 {
     public partial class WTree
     {

@@ -3,7 +3,7 @@ using System;
 using System.Collections;
 using System.Text;
 
-namespace HtmlAgilityPack
+namespace Iveely.Dependency.HtmlAgilityPack
 {
     /// <summary>
     /// A utility class to replace special characters by entities and vice-versa.

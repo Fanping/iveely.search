@@ -1,11 +1,11 @@
-﻿using Iveely.General.Persist;
+﻿using Iveely.STSdb4.General.Persist;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
 
-namespace Iveely.General.Collections
+namespace Iveely.STSdb4.General.Collections
 {
     public interface IOrderedSet<TKey, TValue> : IEnumerable<KeyValuePair<TKey, TValue>>
     {

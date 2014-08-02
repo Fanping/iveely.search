@@ -2,7 +2,7 @@
 using System;
 using System.Diagnostics;
 
-namespace HtmlAgilityPack
+namespace Iveely.Dependency.HtmlAgilityPack
 {
     internal class HtmlConsoleListener : TraceListener
     {

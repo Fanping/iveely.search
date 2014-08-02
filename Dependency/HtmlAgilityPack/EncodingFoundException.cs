@@ -2,7 +2,7 @@
 using System;
 using System.Text;
 
-namespace HtmlAgilityPack
+namespace Iveely.Dependency.HtmlAgilityPack
 {
     internal class EncodingFoundException : Exception
     {

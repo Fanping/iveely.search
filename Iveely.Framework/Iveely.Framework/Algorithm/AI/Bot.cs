@@ -11,7 +11,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Xml;
-using Iveely.Framework.Algorithm.AI.Library;
 using Iveely.Framework.DataStructure;
 
 namespace Iveely.Framework.Algorithm.AI

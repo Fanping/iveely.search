@@ -5,7 +5,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 
-namespace Iveely.General.Buffers
+namespace Iveely.STSdb4.General.Buffers
 {
     public static class BitUtils
     {

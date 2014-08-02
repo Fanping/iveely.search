@@ -1,14 +1,14 @@
-﻿using Iveely.Data;
-using Iveely.General.Collections;
-using Iveely.General.Compression;
-using Iveely.General.Extensions;
-using Iveely.General.Persist;
+﻿using Iveely.STSdb4.Data;
+using Iveely.STSdb4.General.Collections;
+using Iveely.STSdb4.General.Compression;
+using Iveely.STSdb4.General.Extensions;
+using Iveely.STSdb4.General.Persist;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 
-namespace Iveely.Database
+namespace Iveely.STSdb4.Database
 {
     public class OrderedSetPersist : IPersist<IOrderedSet<IData, IData>>
     {

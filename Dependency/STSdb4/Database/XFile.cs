@@ -1,7 +1,7 @@
-﻿using Iveely.Data;
+﻿using Iveely.STSdb4.Data;
 using System;
 
-namespace Iveely.Database
+namespace Iveely.STSdb4.Database
 {
     public class XFile : XStream
     {

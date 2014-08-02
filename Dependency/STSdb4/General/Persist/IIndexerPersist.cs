@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 
-namespace Iveely.General.Persist
+namespace Iveely.STSdb4.General.Persist
 {
     public interface IIndexerPersist
     {

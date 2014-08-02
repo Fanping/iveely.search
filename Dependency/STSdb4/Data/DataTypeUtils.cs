@@ -1,14 +1,14 @@
-﻿using Iveely.General.Comparers;
+﻿using Iveely.STSdb4.General.Comparers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using Iveely.General.Extensions;
+using Iveely.STSdb4.General.Extensions;
 using System.Text;
 using System.Collections.Concurrent;
 using System.Diagnostics;
 
-namespace Iveely.Data
+namespace Iveely.STSdb4.Data
 {
     public static class DataTypeUtils
     {

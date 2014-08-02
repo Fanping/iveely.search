@@ -2,14 +2,14 @@
 using System.IO;
 using System.Linq;
 using System.Text;
-using Iveely.Data;
+using Iveely.STSdb4.Data;
 using System.Collections.Generic;
-using Iveely.WaterfallTree;
-using Iveely.Database;
-using Iveely.General.Persist;
-using Iveely.Remote.Commands;
+using Iveely.STSdb4.WaterfallTree;
+using Iveely.STSdb4.Database;
+using Iveely.STSdb4.General.Persist;
+using Iveely.STSdb4.Remote.Commands;
 
-namespace Iveely.Remote
+namespace Iveely.STSdb4.Remote
 {
     ///<summary>
     ///--------------------- Message Exchange Protocol
