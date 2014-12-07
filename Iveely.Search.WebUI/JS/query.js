@@ -33,7 +33,7 @@ function getDiffTime(date) {
 }
 
 function processImageSearch(records) {
-    var imageResult = "&nbsp;<strong><font color='#B210B6'>图片精选</strong></font><br /><div class='img' id='img'><ul>";
+    var imageResult = "<strong><font color='#B210B6'>图片精选</font></strong><br /><div class='img' id='img'><ul>";
     var index = 0;
     for (var i = 0; i < records.length; i++) {
         var imageSet = records[i] + "";
