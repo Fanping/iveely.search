@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta http-equiv="content-type" content="text/html" charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=2">
+    <link rel="stylesheet" href="css/jquery.mobile-1.3.2.min.css" />
+    <link rel="stylesheet" href="css/result.css" />
+    <script src="javascript/jquery-1.8.3.min.js"></script>
+    <script src="javascript/jquery.mobile-1.3.2.min.js"></script>
+    <script type="text/javascript" src="javascript/query.js"></script>
+    <title>Iveely Search Engine</title>
+    <style>
+        #searchall
+        {
+            width: 20%;
+            text-align: right;
+        }
+        #shared
+        {
+            width: 20%;
+            text-align: center;
+        }
+        #askforhelp
+        {
+            width: 20%;
+            text-align: left;
+        }
+    </style>
+  
+ 
+  <!--  <style>
+        #mm
+        {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            height: 40px;
+            padding-right: 1px;
+            z-index: 1;
+        }
+        
+        #mm .inner
+        {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+        
+        #mm .bg
+        {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-color: #000;
+            opacity: .2;
+            filter: alpha(opacity=20);
+        }
+        
+        #mm .cont
+        {
+            position: absolute;
+            z-index: 1;
+            right: 0;
+            border: 1px solid #f00;
+        }
+    </style>-->
+</head>
+<body>
+    <br />
+    <img src="images/u2.png" style="width: 50%; margin-left: 25%;" />
+    <input type="search" name="q" id="q" placeholder="您最想知道什么？" onkeypress="if(event.keyCode==13) sendQuery(this.value);" />
+    <div data-role="content">
+        <div id='answer'>
+        </div>
+        <ul class="results" id="search_result">
+        </ul>
+    </div>
+    <div data-role="footer" data-position="fixed">
+        <div data-role="navbar">
+            <ul>
+                <li><a id="login" data-icon="images/u24.png">登陆</a></li>
+                <li><a id="message" data-icon="images/u28.png">消息</a></li>
+                <li><a id="knowledge" data-icon="images/u32.png">我知道</a></li>
+                <li><a id="settings" data-icon="images/u48.png">设置</a></li>
+            </ul>
+        </div>
+    </div>
+    <script type="text/javascript">
+        setTimeout(function () {
+            var query = getQueryString('q');
+            if (query != '') {
+                //alert(query);
+                sendQuery(query);
+                var docEle = document.getElementById('q');
+                docEle.value = query;
+            }
+        }, 1000); 
+    </script>
+</body>
+</html>

@@ -1,0 +1,31 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+        <script type="text/javascript" src="JS\jquery-1.4.3.min.js"></script>
+    <script type="text/javascript" src="JS/query.js"></script>
+</head>
+<body>
+</body>
+<script type="text/javascript">
+    function recoredSocre() {
+        var link = getQueryString('url');
+        var server = getQueryString('from');
+        var id = getQueryString('id');
+        var query = getQueryString('q');
+        if (link.substring(0, 4).toLowerCase() != 'http') {
+            link = 'http://' + link;
+        }
+        var scoreInfo = "[SCORE]:" + server + '_' + query + '_' + id + '_1';
+        window.location = link;
+//        if (sendSearchMessage(scoreInfo)) {
+//            window.location = link;
+//        } else {
+//            setTimeout(recoredSocre, 500);
+//        }
+    }
+
+    recoredSocre();
+
+</script>
+</html>

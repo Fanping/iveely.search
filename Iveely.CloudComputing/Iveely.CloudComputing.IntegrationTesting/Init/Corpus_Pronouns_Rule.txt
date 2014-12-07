@@ -1,7 +1,0 @@
-﻿nrf	0	rr	first	人称代词
-nr	0	rr	first	人称代词
-vn vn	1	rz	near	指示代词
-nr	1	rz	first	指示代词
-ns	3	rzs	near	处所指示代词
-ns	3	rzv	near	处所指示代词
-nrf	5	r	near	代词

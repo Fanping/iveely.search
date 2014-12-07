@@ -1,0 +1,160 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Iveely Search Engine</title>
+    <link rel="Bookmark" type="image/x-icon" href="Images/favicon.ico" />
+    <link rel="shortcut icon" type="image/x-icon" href="Images/favicon.ico" />
+    <script type="text/javascript" src="JS\jquery-1.4.3.min.js"></script>
+    <link href="CSS\index-autosuggestion.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="CSS/result.css" />
+    <link rel="stylesheet" href="CSS/Default.css" />
+    <script language="JavaScript" src="JS/query.js"></script>
+    <script type="text/javascript">
+
+        function selectChange(obj) {
+            if (obj.value != '') {
+                sendScore(obj.value);
+            }
+        }
+
+        function sendQuery() {
+            scroll(0, 0);
+            var query = document.getElementById('sq').value;
+            if (query != '') {
+                // Text search local store.
+                if (window.localStorage && getCookie("xtext_" + query).length > 5) {
+                    var textData = localStorage.getItem("text_" + query);
+                    if (textData != null && textData.length > 100) {
+                        var content = document.getElementById('search_result');
+                        content.innerHTML = textData;
+                    } else {
+                        sendSearchMessage('[SEARCH]:' + query);
+                    }
+                } else {
+                    sendSearchMessage('[SEARCH]:' + query);
+                }
+
+                // Image search local store.
+                if (window.localStorage && getCookie("ximage_" + query).length > 5) {
+                    var imageData = localStorage.getItem("image_" + query);
+                    if (imageData != null) {
+                        var imageDiv = document.getElementById('ImageResult');
+                        imageDiv.innerHTML = imageData;
+                    } else {
+                        sendSearchMessage('[IMAGE]:' + query);
+                    }
+                } else {
+                    sendSearchMessage('[IMAGE]:' + query);
+                }
+
+                //sendPluginMessage(query);
+                document.title = query + " | Iveely 搜索结果";
+            }
+        }
+
+        function drawImage(ImgD, iwidth, iheight) {
+            //参数(图片,允许的宽度,允许的高度)   
+            var image = new Image();
+            image.src = ImgD.src;
+            if (image.width > 0 && image.height > 0) {
+                if (image.width / image.height >= iwidth / iheight) {
+                    if (image.width > iwidth) {
+                        ImgD.width = iwidth;
+                        ImgD.height = (image.height * iwidth) / image.width;
+                    } else {
+                        ImgD.width = image.width;
+                        ImgD.height = image.height;
+                    }
+                } else {
+                    if (image.height > iheight) {
+                        ImgD.height = iheight;
+                        ImgD.width = (image.width * iheight) / image.height;
+                    } else {
+                        ImgD.width = image.width;
+                        ImgD.height = image.height;
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body bgcolor="#FFFFFF" link="#0041d5" vlink="#800080">
+    <div id="mm">
+        <div class="inner">
+            <div class="iveely_top">
+                <div class="box navi">
+                    <span>
+                        <label>
+                            网页</label>
+                    </span>
+                </div>
+                <div class="box head">
+                    <a href="http://www.iveely.com" class="logo">
+                        <img src="Images/logo.png" width="129" height="30" />
+                    </a>
+                    <div class="sbox">
+                        <div class="searchbox" id="sbox1">
+                            <span class="txt"><span>
+                                <input align="middle" name="q" id="sq" value="" maxlength="100" size="50" onkeypress="if(event.keyCode==13) sendQuery();"
+                                    autocomplete="off" />
+                            </span></span><span class="btn"><span>
+                                <input align="middle" value="" type="submit" /></span></span>
+                        </div>
+                    </div>
+                    <div class="s_info">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="extrabody">
+        <div class="iveely_content">
+            <div class="iveely_left">
+                <div class="box navi">
+                </div>
+            </div>
+            <div class="content" id="search_t">
+                <div id='ads'>
+                    <div style="background: #FBFBFF; margin-top: 18%">
+                        <div id='amazonAds'>
+                        </div>
+                    </div>
+                </div>
+                <div id='answer'>
+                </div>
+                <div id='plugin' style="font-size: 1.4em; line-height: 22px; padding-bottom: 2px;">
+                </div>
+                <ul class="results" id="search_result">
+                </ul>
+            </div>
+            <div class="iveely_right">
+                <div id='WikiResult' class="WikiResult">
+                </div>
+                <div id='ImageResult' class="ImageResult">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="iveely_foot" id="foot">
+        渝ICP备14002207号 Copyright &copy; 2014 Iveely</div>
+</body>
+<script type="text/javascript">
+    var query = getQueryString('q');
+    if (query != '') {
+        var docEle = document.getElementById('sq');
+        docEle.value = query;
+    }
+    var lastQuery = '';
+
+    function autoSearch() {
+        var dicEle = document.getElementById('sq');
+        if (lastQuery != dicEle.value) {
+            sendQuery();
+            lastQuery = dicEle.value;
+        }
+        //setTimeout(autoSearch, 1000);
+    }
+    setTimeout(autoSearch, 1000);
+</script>
+</html>
