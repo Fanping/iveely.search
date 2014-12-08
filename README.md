@@ -14,8 +14,17 @@ Iveely Search Engine 是由纯Java实现，依靠Iveely.Framework和Iveely.Compu
 > A. Iveely.Framework：基础模块。<br/>
 > B. Iveely.Computing：程序运行平台。<br/>
 > C. Iveely.Search:    搜索技术模块。<br/>
+> D. Iveely.Search.UI: 网页搜索模块。<br/>
+> E. Iveely.Search.Mobile: 移动客户端搜索模块。<br/>
 
-
-
-1.示例截图  
------------------------------------  
+#### 1.示例截图  
+> 1.1 文本检索
+  ![image](http://www.iveely.com/0.7.0/wenben1.png) <br/>
+> 1.2 图片检索
+  ![image](http://www.iveely.com/0.7.0/image1.png) <br/>
+> 1.3 百科检索
+  ![image](http://www.iveely.com/0.7.0/baike1.png) <br/>
+> 1.4 问答检索
+  ![image](http://www.iveely.com/0.7.0/wenda1.png) <br/>
+  
+  ![image](http://www.iveely.com/0.7.0/wenda2png.png) <br/>
