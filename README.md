@@ -95,6 +95,6 @@ Iveely Search Engine 是由纯Java实现，依靠Iveely.Framework和Iveely.Compu
 > cycle:daily <br/>
 > " <br/>
 > jar表示指定运行的jar，class是invoke方法所在的class，params是你想给他指定的参数，会是invoke的输入参数，cycle是运行周期，这里标识是每天运行一次。还有hourly,always,weekly。<br/>
-> 至此，您已经了解了最基本的信息，如果有疑问，欢迎您联系我liufanping@baidu.com,或是发现bug，请您直接在issue中描述，谢谢！
+> 至此，您已经了解了最基本的信息，如果有疑问，欢迎您联系我liufanping@iveely.com,或是发现bug，请您直接在issue中描述，谢谢！
 
 
