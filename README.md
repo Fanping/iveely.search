@@ -75,4 +75,26 @@ Iveely Search Engine 是由纯Java实现，依靠Iveely.Framework和Iveely.Compu
 > format:slaves ,表示查看所有Iveely.Computing上的运行机器结点。<br/>
 > 当然这是常用的指令，还有更多指令，期待您在代码中发现。
 
-  
+##### 2.4 运行示例中的搜索引擎 <br/>
+> 当Iveely.Computing的master和salve均启动起来之后，运行：<br/>
+> 第一步：run Iveely.Search.DataService <br/>
+> 第二步: run Iveely.Search.UIService 1 <br/>
+> 对于第二步，一定要注意后面有一个1，只需要在一个结点上运行。
+> 第三步：修改 https://github.com/Fanping/iveely/blob/master/Iveely.Search.WebUI/JS/query.js 中最顶层的地址，端口不变，服务器地址改为UIService运行结点的IP，怎么看？用list命令即可看到。<br/>
+> 如果从头运行，不需要示例中的准备数据，请删除文件夹下的Service_Text_Data和Service_Image_Data，然后部署好Iveely.Computing，运行命令：run Iveely.Search.Backstage.其次再运行上面的第一步、第二步、第三步。这点很重要。
+
+#### 3.怎么写基于Iveely.Computing的app？<br/>
+> 难以想象的简单：<br/>
+> 写一个类,添加一个函数：  public String invoke(String arg) { ... } 并打包成jar。<br/>
+> 程序被Iveely.Computing执行的时候会调此方法，但是如何让Iveely.Computing识别到它？<br/>
+> 在jar同在目录下，新建一个文件app.run这是程序的配置文件，配置信息大致如下：<br/>
+> " <br/>
+> jar:HelloWorld.jar <br/>
+> class:helloworld.MyHelloWorld <br/>
+> params:NULL <br/>
+> cycle:daily <br/>
+> " <br/>
+> jar表示指定运行的jar，class是invoke方法所在的class，params是你想给他指定的参数，会是invoke的输入参数，cycle是运行周期，这里标识是每天运行一次。还有hourly,always,weekly。<br/>
+> 至此，您已经了解了最基本的信息，如果有疑问，欢迎您联系我liufanping@baidu.com,或是发现bug，请您直接在issue中描述，谢谢！
+
+
