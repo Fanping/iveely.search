@@ -4,6 +4,7 @@ iveely
 
 Iveely Search Engine 是由纯Java实现，依靠Iveely.Framework和Iveely.Computing实现的分布式搜索（知识）引擎。<br/>
 当前最新版本：0.7.0 。<br/>
+如果能觉得可以，希望您能够通过支付宝（iveely@qq.com）、Paypal(liufanping@iveely.com)捐助我们,以使得我们做得更好，诚挚的谢意。<br/>
 ###### 主要包含以下功能模块：<br/>
 > A. 文本检索(Web & Mobile)。<br/>
 > B. 图片检索(Web only)。<br/>
