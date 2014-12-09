@@ -37,7 +37,7 @@ Iveely Search Engine 是由纯Java实现，依靠Iveely.Framework和Iveely.Compu
 > 编译工具可以采用任何编译器，但是上传的文件中是按照Netbeans开发上传，且JDK要求为1.8及其以上。<br/>
 
 ##### 2.2 部署（含多机器和单机部署-windows，linux类似） <br/>
-> 您可以在Iveely.Search.Release中下载对应版本的示例程序（Iveely Computing 0.7.0 Release demo.rar），下周解压之后：<br/>
+> 您可以在 https://onedrive.live.com/?cid=46338B55F029D384&id=46338B55F029D384%21140 中下载对应版本的示例程序（Iveely Computing 0.7.0 Release demo.rar），下周解压之后：<br/>
 > ![image](http://www.iveely.com/0.7.0/001.png) <br/>
 > 上图中各个文件夹的含义如下：<br/>
 > Console：   用户控制台。<br/>
