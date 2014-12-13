@@ -458,8 +458,10 @@ public class SCallback implements ICallback, Runnable {
 
             // 1. Get indexs.
             List<KnowledgeIndex> indexs = new ArrayList<>();
+
             for (String query : queries) {
-                KTermLocation location = knowledgeIndexs.get(query.hashCode());
+                Integer code = query.hashCode();
+                KTermLocation location = knowledgeIndexs.get(code);
                 if (location != null) {
                     List<KnowledgeIndex> list = TextDatabae.getInstance().getKnowledgeIndexs(location.getStartPostion(), location.getEndPostion(), 10);
                     indexs.addAll(list);
@@ -467,14 +469,18 @@ public class SCallback implements ICallback, Runnable {
             }
 
             // 2. Get same knowledge..
+            HashSet<Integer> queryHash = new HashSet<>();
             HashMap<Integer, List<KnowledgeIndex>> ids = new HashMap<>();
             indexs.stream().forEach((index) -> {
-                if (!ids.containsKey(index.getKnowledgeId())) {
-                    List<KnowledgeIndex> temp = new ArrayList<>();
-                    temp.add(index);
-                    ids.put(index.getKnowledgeId(), temp);
-                } else {
-                    ids.get(index.getKnowledgeId()).add(index);
+                if (!queryHash.contains(index.getTerm())) {
+                    queryHash.add(index.getTerm());
+                    if (!ids.containsKey(index.getKnowledgeId())) {
+                        List<KnowledgeIndex> temp = new ArrayList<>();
+                        temp.add(index);
+                        ids.put(index.getKnowledgeId(), temp);
+                    } else {
+                        ids.get(index.getKnowledgeId()).add(index);
+                    }
                 }
             });
 
