@@ -1,5 +1,5 @@
 亲爱的伙伴们，
-    我是您们的朋友Iveely Liu，非常感谢您使用Iveely Search Engine和Iveely Computing。您们的支持是对我们最温暖的关怀。Iveely是I void everything，except love you！的简写，用以表达我们对搜索技术的酷爱，Iveely Search Engine 的服务宗旨是：“您最想知道什么？”。
+    我 是您们的朋友Iveely Liu，非常感谢您使用Iveely Search Engine和Iveely Computing。您们的支持是对我们最温暖的关怀。Iveely是I void everything，except love you！的简写，用以表达我们对搜索技术的酷爱，Iveely Search Engine 的服务宗旨是：“您最想知道什么？”。
     我们是开源社区的免费开发者，我们努力实践于梦想的实现上，但是目前的经济能力限制了长期的实践。从过去一年，我们陆续发布了Iveely Search Engine的4个版本，开源主页访问量14065人次，2568人次的源码下载量(截至2014-01-05)，我们最近的0.5.0发布非常困难，原因在于与日俱增的数据量越来越大，我们自身的服务器已经不能继续支撑我们的开发，但是即使在这么苦难的情况下，我们艰难挺过，自购服务器，将Iveely Search Engine 0.5.0发布。因为我们真心渴望将Iveely.com运行起来，但长远来说，我们需要社区的支持。因此，我们恳请若您资助我们，我们定将心存感激。我们正如wiki一样，让每个人平等自由的获得知识，我们将继续致力于开源事业，我们坚信，在您的支持下，我们定会将Iveely.com正式运行起来。您的一分支持，是对我们十分的关爱！
     支付宝资助：iveely@qq.com
     服务器资助联系：liufanping@iveely.com
