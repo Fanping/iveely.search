@@ -1,6 +1,7 @@
 package com.iveely.framework.java;
 
 /**
+ * Ref object.
  *
  * @author liufanping@iveely.com
  * @param <T>

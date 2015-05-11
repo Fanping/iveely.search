@@ -74,6 +74,7 @@ public class Server {
                 executor.start();
             }
         } catch (IOException ex) {
+            ex.printStackTrace();
             logger.error(ex);
         }
     }

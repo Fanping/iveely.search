@@ -34,7 +34,7 @@ public class Document {
                             fq[0]++;
                         } else {
                             fq = new int[2];
-                            fq[0] = 1;
+                            fq[0] = doc1.length() - i;
                             fq[1] = 0;
                             AlgorithmMap.put(charIndex, fq);
                         }
@@ -53,7 +53,7 @@ public class Document {
                         } else {
                             fq = new int[2];
                             fq[0] = 0;
-                            fq[1] = 1;
+                            fq[1] = doc2.length() - i;
                             AlgorithmMap.put(charIndex, fq);
                         }
                     }

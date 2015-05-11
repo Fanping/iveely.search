@@ -2,8 +2,6 @@ package com.iveely.framework.net.websocket;
 
 import java.io.IOException;
 import java.net.ServerSocket;
-import java.net.Socket;
-import java.util.logging.Level;
 import org.apache.log4j.Logger;
 import org.eclipse.jetty.server.Server;
 

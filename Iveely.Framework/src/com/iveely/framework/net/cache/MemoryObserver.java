@@ -100,6 +100,9 @@ public class MemoryObserver implements Runnable {
      * @return
      */
     public String getValue(String key) {
+        if(data==null){
+            return null;
+        }
         return data.get(key);
     }
 

@@ -25,7 +25,7 @@ public class CyclingBuffer {
     /**
      * Buffer pool.
      */
-    private Object[] buffer;
+    private List<Object> buffer;
 
     /**
      * Quick search.
@@ -35,7 +35,7 @@ public class CyclingBuffer {
     public CyclingBuffer(int size) {
         if (size > 0) {
             this.capacity = size;
-            buffer = new Object[capacity];
+            buffer = new ArrayList<>(size);
             map = new TreeMap<>();
         }
     }
@@ -48,7 +48,7 @@ public class CyclingBuffer {
      */
     public void add(String key, Object value) {
         int cIndex = (latestIndex++ % capacity);
-        buffer[cIndex] = value;
+        buffer.add(cIndex, value);
         latestIndex %= capacity;
         map.put(key, cIndex);
     }
@@ -56,7 +56,7 @@ public class CyclingBuffer {
     public Object read(String key) {
         if (map.containsKey(key)) {
             int cIndex = map.get(key);
-            return buffer[cIndex];
+            return buffer.get(cIndex);
         }
         return null;
     }
@@ -67,7 +67,7 @@ public class CyclingBuffer {
      * @return
      */
     public Object getCurrentData() {
-        return latestIndex > 0 ? buffer[(latestIndex - 1) % capacity] : buffer[capacity - 1];
+        return latestIndex > 0 ? buffer.get((latestIndex - 1) % capacity) : buffer.get(capacity - 1);
     }
 
     /**
@@ -78,10 +78,10 @@ public class CyclingBuffer {
     public Object[] read() {
         List<Object> avaiableData = new ArrayList<>();
         for (int i = latestIndex % capacity; i > -1; i--) {
-            avaiableData.add(buffer[i]);
+            avaiableData.add(buffer.get(i));
         }
         for (int i = capacity - 1; i > latestIndex % capacity; i--) {
-            avaiableData.add(buffer[i]);
+            avaiableData.add(buffer.get(i));
         }
         return avaiableData.toArray();
     }

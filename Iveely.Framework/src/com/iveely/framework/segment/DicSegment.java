@@ -31,13 +31,13 @@ public class DicSegment {
 
     private DicSegment() {
         dictionary = new HashSet<>();
-        List<String> lines = Reader.readAllLine("Common/Dic.txt", "UTF-8");
+        List<String> lines = Reader.readAllLine("resources/dictionary.txt", "UTF-8");
         lines.stream().forEach((line) -> {
             dictionary.add(line);
         });
     }
 
-    public static DicSegment bug_getInstance() {
+    public static DicSegment getInstance() {
         if (segment == null) {
             logger.info("load dic.");
             segment = new DicSegment();
@@ -52,7 +52,7 @@ public class DicSegment {
         }
     }
 
-    public String[] bug_split(String input, boolean findChildWord) {
+    public String[] split(String input, boolean findChildWord) {
         try {
             List<String> result = new ArrayList<>();
             String[] inputStrings = input.split(" |\\t|\\n|�");

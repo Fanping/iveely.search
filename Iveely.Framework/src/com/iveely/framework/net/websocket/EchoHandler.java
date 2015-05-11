@@ -223,7 +223,7 @@ public class EchoHandler implements Runnable {
     private String getUserQuery(byte[] array) {
         ByteArrayInputStream byteIn = new ByteArrayInputStream(array);
         InputStreamReader reader = new InputStreamReader(byteIn, charset.newDecoder());
-        int b = 0;
+        int b;
         String res = "";
         try {
             while ((b = reader.read()) > 0) {

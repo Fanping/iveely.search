@@ -93,7 +93,7 @@ public class UrlMisc {
      * @param url
      * @return
      */
-    public static boolean idHostUrl(String url) {
+    public static boolean isHostUrl(String url) {
         String host = getHost(url);
         if (host == null) {
             return false;

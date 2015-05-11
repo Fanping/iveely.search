@@ -1,6 +1,7 @@
 package com.iveely.framework.net;
 
-import com.iveely.framework.database.Convertor;
+import com.iveely.framework.java.Convertor;
+import org.apache.log4j.Logger;
 
 /**
  * Internet packet.
@@ -9,6 +10,11 @@ import com.iveely.framework.database.Convertor;
  * @date 2014-10-18 19:17:38
  */
 public class InternetPacket {
+
+    /**
+     * Logger.
+     */
+    private static final Logger logger = Logger.getLogger(InternetPacket.class.getName());
 
     /**
      * Mime type.
@@ -106,20 +112,28 @@ public class InternetPacket {
      * @return
      */
     public InternetPacket toIPacket(byte[] bytes) {
-        byte[] executeTypeBytes = new byte[4];
-        System.arraycopy(bytes, 0, executeTypeBytes, 0, 4);
-        int exeType = Convertor.bytesToInt(executeTypeBytes);
-        setExecutType(exeType);
+        if (bytes.length < 8) {
+            return InternetPacket.getUnknowPacket();
+        }
+        try {
+            byte[] executeTypeBytes = new byte[4];
+            System.arraycopy(bytes, 0, executeTypeBytes, 0, 4);
+            int exeType = Convertor.bytesToInt(executeTypeBytes);
+            setExecutType(exeType);
 
-        byte[] mimeTypeBytes = new byte[4];
-        System.arraycopy(bytes, 4, mimeTypeBytes, 0, 4);
-        int mType = Convertor.bytesToInt(mimeTypeBytes);
-        setMimeType(mType);
+            byte[] mimeTypeBytes = new byte[4];
+            System.arraycopy(bytes, 4, mimeTypeBytes, 0, 4);
+            int mType = Convertor.bytesToInt(mimeTypeBytes);
+            setMimeType(mType);
 
-        byte[] dataBytes = new byte[bytes.length - 8];
-        System.arraycopy(bytes, 8, dataBytes, 0, dataBytes.length);
-        setData(dataBytes);
-        return this;
+            byte[] dataBytes = new byte[bytes.length - 8];
+            System.arraycopy(bytes, 8, dataBytes, 0, dataBytes.length);
+            setData(dataBytes);
+            return this;
+        } catch (Exception e) {
+          logger.error(e);
+        }
+        return getUnknowPacket();
     }
 
     /**

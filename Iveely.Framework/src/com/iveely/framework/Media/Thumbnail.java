@@ -15,6 +15,7 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.util.Base64;
 import javax.imageio.ImageIO;
+import org.apache.log4j.Logger;
 
 /**
  * Thumbnail for image.
@@ -23,6 +24,11 @@ import javax.imageio.ImageIO;
  * @date 2014-11-22 18:35:31
  */
 public class Thumbnail {
+
+    /**
+     * Logger.
+     */
+    private static final Logger logger = Logger.getLogger(Thumbnail.class.getName());
 
     /**
      * Build thumbnail from local file.
@@ -73,6 +79,7 @@ public class Thumbnail {
             byte[] bytes = outputStream.toByteArray();
             return Base64.getEncoder().encodeToString(bytes);
         } catch (IOException e) {
+            logger.error(e);
         }
         return null;
     }

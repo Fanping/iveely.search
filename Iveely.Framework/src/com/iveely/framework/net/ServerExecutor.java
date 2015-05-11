@@ -1,6 +1,6 @@
 package com.iveely.framework.net;
 
-import com.iveely.framework.database.Convertor;
+import com.iveely.framework.java.Convertor;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;

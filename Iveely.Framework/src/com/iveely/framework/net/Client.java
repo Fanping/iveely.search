@@ -1,6 +1,6 @@
 package com.iveely.framework.net;
 
-import com.iveely.framework.database.Convertor;
+import com.iveely.framework.java.Convertor;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -30,6 +30,11 @@ public class Client {
      */
     private final Logger logger = Logger.getLogger(Server.class.getName());
 
+    /**
+     * Socket client.
+     */
+    private Socket client;
+
     public Client(String hostAddres, int port) {
         this.hostAddress = hostAddres;
         this.port = port;
@@ -49,8 +54,13 @@ public class Client {
      */
     public InternetPacket send(InternetPacket message) {
         try {
-            Socket client = new Socket(this.hostAddress, this.port);
 
+            try {
+                this.client = new Socket(this.hostAddress, this.port);
+            } catch (IOException ex) {
+                logger.error(ex);
+                return InternetPacket.getUnknowPacket();
+            }
             // 1. Prepare.
             OutputStream outputStream = client.getOutputStream();
 
@@ -80,5 +90,15 @@ public class Client {
             logger.error(e);
         }
         return InternetPacket.getUnknowPacket();
+    }
+
+    public void close() {
+        if (this.client != null && !this.client.isClosed()) {
+            try {
+                this.client.close();
+            } catch (IOException ex) {
+                logger.error(ex);
+            }
+        }
     }
 }

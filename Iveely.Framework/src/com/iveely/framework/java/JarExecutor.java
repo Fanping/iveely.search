@@ -1,10 +1,13 @@
 package com.iveely.framework.java;
 
 import java.io.File;
+import java.io.UnsupportedEncodingException;
 import java.lang.reflect.InvocationTargetException;
-import java.net.MalformedURLException;
+import java.lang.reflect.Method;
 import java.net.URL;
 import java.net.URLClassLoader;
+import java.util.ArrayList;
+import java.util.List;
 import org.apache.log4j.Logger;
 
 /**
@@ -50,9 +53,23 @@ public class JarExecutor {
             logger.error(e);
             throw e;
         } finally {
-            clazz = null;
-            obj = null;
             loader = null;
+        }
+    }
+    
+    public String invokeJarMain(String jarName, String classFullName, String[] args) {
+        if (!load(jarName)) {
+            return jarName + " not found.";
+        }
+        try {
+            Class clazz = findClass(classFullName);
+            clazz.newInstance();
+            Method method = clazz.getMethod("main", String[].class);
+            method.invoke(null, (Object) args);
+            return "OK";
+        } catch (InstantiationException | IllegalAccessException | NoSuchMethodException | SecurityException | IllegalArgumentException | InvocationTargetException e) {
+            logger.error(e);
+            return e.getMessage();
         }
     }
 
@@ -68,13 +85,33 @@ public class JarExecutor {
             logger.error(jar + " not found.");
             return false;
         }
+        
+        String libJarPath = JarExecutor.class.getProtectionDomain().getCodeSource().getLocation().getFile();
         try {
-            loader = new URLClassLoader(new URL[]{file.toURI().toURL()}, this.getClass().getClassLoader());
-
-        } catch (MalformedURLException e) {
+            libJarPath = java.net.URLDecoder.decode(libJarPath, "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            System.out.println(e.toString());
+        }
+        File libFolder = new File(libJarPath).getParentFile();
+        List<URL> list = new ArrayList<>();
+        try {
+            list.add(new File(libJarPath).toURI().toURL());
+            list.add(file.toURI().toURL());
+            if (libFolder.isDirectory()) {
+                File[] files = libFolder.listFiles();
+                for (File libFile : files) {
+                    if (libFile.getName().toLowerCase().endsWith(".jar")) {
+                        list.add(libFile.toURI().toURL());
+                    }
+                }
+            }
+        } catch (Exception e) {
             logger.error(e);
             return false;
         }
+        URL[] urls = new URL[list.size()];
+        urls = list.toArray(urls);
+        loader = new URLClassLoader(urls, this.getClass().getClassLoader());
         return true;
     }
 

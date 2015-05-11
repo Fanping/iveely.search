@@ -70,7 +70,7 @@ public class Zip {
             ZipFile zipFile;
             zipFile = new ZipFile(file);
             try (ZipInputStream zipInputStream = new ZipInputStream(new FileInputStream(file), Charset.forName("UTF-8"))) {
-                ZipEntry zipEntry = null;
+                ZipEntry zipEntry;
                 while ((zipEntry = zipInputStream.getNextEntry()) != null) {
                     String fileName = zipEntry.getName();
                     File temp = new File(folder + "/" + fileName);
@@ -81,7 +81,7 @@ public class Zip {
                     if (isDirExist) {
                         os = new FileOutputStream(temp);
                         is = zipFile.getInputStream(zipEntry);
-                        int len = 0;
+                        int len;
                         while ((len = is.read()) != -1) {
                             os.write(len);
                         }
@@ -125,7 +125,7 @@ public class Zip {
                 zipFile(file, zos, dir + "\\" + inFile.getName());
             }
         } else {
-            String entryName = null;
+            String entryName;
             if (!"".equals(dir)) {
                 entryName = dir + "\\" + inFile.getName();
             } else {
@@ -134,7 +134,7 @@ public class Zip {
             ZipEntry entry = new ZipEntry(entryName);
             zos.putNextEntry(entry);
             try (InputStream is = new FileInputStream(inFile)) {
-                int len = 0;
+                int len;
                 while ((len = is.read()) != -1) {
                     zos.write(len);
                 }

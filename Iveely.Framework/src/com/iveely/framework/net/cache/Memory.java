@@ -85,6 +85,7 @@ public class Memory {
             return cacher.getServer(key);
         }
         return null;
+        //return "";
     }
 
     /**
@@ -131,7 +132,7 @@ public class Memory {
                 return StringUtils.getString(packet.getData());
             }
         }
-        return null;
+        return "";
     }
 
     /**

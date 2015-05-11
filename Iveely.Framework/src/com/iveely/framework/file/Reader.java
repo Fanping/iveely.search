@@ -74,7 +74,7 @@ public class Reader {
                 InputStreamReader read;
                 read = new InputStreamReader(new FileInputStream(file), encoding);
                 try (BufferedReader bufferedReader = new BufferedReader(read)) {
-                    String lineTxt = null;
+                    String lineTxt;
                     while ((lineTxt = bufferedReader.readLine()) != null) {
                         if (lineTxt.length() > 1) {
                             lines.add(lineTxt.trim());
@@ -87,7 +87,7 @@ public class Reader {
             }
         } catch (IOException e) {
             logger.error(e);
-         }
+        }
         return lines;
     }
 }
