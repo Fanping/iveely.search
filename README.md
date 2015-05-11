@@ -14,12 +14,12 @@ Iveely Search Engine 是由纯Java实现，依靠Iveely.Framework、Iveely.Compu
 
 示例截图：<br/>
 Iveely Computing 分布式实时计算系统.<br/>
-![image](http://www.iveely.com/0.8.0/icomputing.png)<br/>
+![Iveely Computing 分布式实时计算系统](http://www.iveely.com/0.8.0/icomputing.png)<br/>
 
 Iveely Database.<br/>
-![image](http://www.iveely.com/0.8.0/idb.png)<br/>
+![Iveely Database](http://www.iveely.com/0.8.0/idb.png)<br/>
 
 Iveely Search Engine. <br/>
-![image](http://www.iveely.com/0.8.0/isearch.png)<br/>
+![Iveely Search Engine](http://www.iveely.com/0.8.0/isearch.png)<br/>
 
 <br/> IveelySE是免费、开源的产品，如果您愿意帮助我们，可以通过支付宝（iveely@qq.com）、Paypal(liufanping@iveely.com)捐助我们,以使得我们做得更好，诚挚的谢意。<br/>
