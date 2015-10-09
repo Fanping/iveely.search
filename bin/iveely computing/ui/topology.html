@@ -1,0 +1,117 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Iveely Stream Computing - topology</title>
+    <link href="css/bootstrap-1.4.0.css" rel="stylesheet" type="text/css" />
+    <link href="css/style.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="js/request.js"></script>
+</head>
+<body>
+    <h1>
+        <a href="/computing">Iveely Stream Computing</a></h1>
+    <h2>
+        Topology summary</h2>
+    <div id="topology-summary">
+        <table class="zebra-striped" id="topology-summary-table">
+            <thead>
+                <tr>
+                    <th>
+                        <span class="tip right" title="The name given to the topology by when it was submitted. Click the name to view the Topology's information.">
+                            Name </span>
+                    </th>
+                    <th>
+                        <span class="tip right" title="The unique ID given to a Topology each time it is launched.">
+                            Id </span>
+                    </th>
+                    <th>
+                        <span class="tip above" title="The status can be one of ACTIVE, INACTIVE, KILLED, or REBALANCING.">
+                            Status </span>
+                    </th>
+                    <th>
+                        <span class="tip above" title="The time since the Topology was submitted.">Uptime
+                        </span>
+                    </th>
+                    <th>
+                        <span class="tip above" title="The number of Workers (processes).">Num workers </span>
+                    </th>
+                    <th>
+                        <span class="tip above" title="Executors are threads in a Worker process.">Num executors
+                        </span>
+                    </th>
+                    <th>
+                        <span class="tip above" title="A Task is an instance of a Bolt or Spout. The number of Tasks is almost always equal to the number of Executors.">
+                            Num tasks </span>
+                    </th>
+                </tr>
+            </thead>
+            <tbody id='topology-summary-tbody'>
+            </tbody>
+        </table>
+    </div>
+<h2>
+    Topology Action
+</h2>
+    <input id="Kill" onclick="killTopology();" type="button" value="Kill">
+	<input id="Rebalance" onclick="rebalanceTopology();" type="button" value="Restart">
+    <div id="spout-stats">
+        <h2>
+            Detail </h2>
+        <table class="zebra-striped" id="spout-stats-table">
+            <thead>
+                <tr>
+                    <th class="header">
+                        Task
+                    </th>
+                    <th class="header">
+                        Type
+                    </th>
+                    <th class="header">
+                       Connect String
+                    </th>
+                     <th class="header">
+                        Exception
+                    </th>
+                </tr>
+            </thead>
+            <tbody id='task-summary-tbody'>
+           
+            </tbody>
+        </table>
+    </div>
+    <div id="bolt-stats">
+        <h2>
+            Statistic </h2>
+        <table class="zebra-striped" id="bolt-stats-table">
+           <thead>
+                <tr>
+                    <th class="header">
+                        Task
+                    </th>
+                    <th class="header">
+                        Total Emit
+                    </th>
+                    <th class="header">
+                       Average Emit
+                    </th>
+                     <th class="header">
+                        Total Execute
+                    </th>
+                       <th class="header">
+                        Average Execute
+                    </th>
+                </tr>
+            </thead>
+            <tbody id='statistic-summary-tbody'>
+            </tbody>
+    </div>
+    <div id="topology-visualization">
+    </div>
+    <div id="topology-configuration">
+    </div>
+    <p id="toggle-switch" style="display: block;" class="js-only">
+    </p>
+    <div id="json-response-error">
+    </div>
+</body>
+</html>
