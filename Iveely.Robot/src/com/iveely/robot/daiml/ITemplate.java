@@ -15,7 +15,7 @@ import com.iveely.robot.mind.React.Status;
  * @author {Iveely Liu}
  *
  */
-public interface ITemplate {
+public abstract class ITemplate {
 
 	/**
 	 * All types of the template.
@@ -34,20 +34,35 @@ public interface ITemplate {
 	 *            The element of template.
 	 * @return true is successfully parse,or is not.
 	 */
-	public boolean parse(Element element);
+	public abstract boolean parse(Element element);
 
 	/**
 	 * Get status of the template.
 	 * 
 	 * @return the status of template.
 	 */
-	public Status getStatus();
+	public abstract Status getStatus();
 
 	/**
 	 * Get result by template.
 	 * 
 	 * @return the result.
 	 */
-	public String getResult(List<String> stars);
+	public abstract String getResult(List<String> stars);
+
+	/**
+	 * Replace star.
+	 * 
+	 * @param text
+	 * @param stars
+	 * @return
+	 */
+	public String replaceStar(String text, List<String> stars) {
+		String ret = text;
+		for (int i = stars.size() - 1; i > -1; i--) {
+			ret = ret.replace("%s" + (i + 1) + "%", stars.get(i));
+		}
+		return ret;
+	}
 
 }

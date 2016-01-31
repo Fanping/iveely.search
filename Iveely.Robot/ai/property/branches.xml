@@ -1,10 +1,10 @@
 <map>
   <entry>
-    <string>compute</string>
+    <string>example</string>
     <com.iveely.robot.environment.Branch>
       <ipAddress>127.0.0.1</ipAddress>
       <port>8001</port>
-      <isEnable>false</isEnable>
+      <isEnable>true</isEnable>
     </com.iveely.robot.environment.Branch>
   </entry>
 </map>

@@ -75,6 +75,7 @@ public class Category {
 						ret = ret && template.parse(children.get(0));
 					} else if (name.equals("request")) {
 						template = new RequestTemplate();
+						ret = ret && template.parse(ele);
 					} else if (name.equals("srai")) {
 						template = new SraiTemplate();
 						ret = ret && template.parse(children.get(0));

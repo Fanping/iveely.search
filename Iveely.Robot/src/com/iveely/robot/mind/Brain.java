@@ -193,4 +193,26 @@ public class Brain {
 			this._sessions.remove(sessionId);
 		}
 	}
+
+	/**
+	 * Check branch is exist by name of the branch.
+	 * 
+	 * @param name
+	 *            Branch's name.
+	 * @return true is exist,or is not.
+	 */
+	public boolean isBranchExist(String name) {
+		return this._branches.containsKey(name);
+	}
+
+	/**
+	 * Get branch by name.
+	 * 
+	 * @param name
+	 *            name of the branch.
+	 * @return branch instance.
+	 */
+	public Branch getBranch(String name) {
+		return this._branches.get(name);
+	}
 }

@@ -7,12 +7,17 @@ package com.iveely.robot.environment;
 
 import java.util.List;
 
+import com.iveely.robot.net.Packet;
+import com.iveely.robot.net.SyncClient;
+import com.iveely.robot.net.SyncServer;
+import com.iveely.robot.net.Packet.MimeType;
+
 /**
  * @author {Iveely Liu}
  *
  */
 public class Branch {
-	
+
 	/**
 	 * IP Address of the branch.
 	 */
@@ -56,5 +61,31 @@ public class Branch {
 	 */
 	public void setPort(int port) {
 		this.port = port;
+	}
+
+	/**
+	 * Client to connect the branch server.
+	 */
+	private SyncClient client;
+
+	/**
+	 * Send message to branch.
+	 * 
+	 * @param msg
+	 * @return
+	 */
+	public Packet send(String msg) {
+		if (this.client == null) {
+			synchronized (Branch.class) {
+				if (this.client == null) {
+					this.client = new SyncClient(this.ipAddress, this.port);
+				}
+			}
+		}
+		Packet packet = new Packet();
+		packet.setMimeType(MimeType.STRING.ordinal());
+		packet.setData(msg);
+		packet.setExecutType(1);
+		return this.client.send(packet);
 	}
 }

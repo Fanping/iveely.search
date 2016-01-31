@@ -15,6 +15,9 @@ import com.iveely.robot.environment.Variable;
  */
 public class Awareness {
 
+	/**
+	 * Start the brain consciousness, it must be kept in order to start.
+	 */
 	public static void wake() {
 		// 1. wake up brain.
 		Brain.getInstance();

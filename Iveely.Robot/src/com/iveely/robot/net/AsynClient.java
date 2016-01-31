@@ -22,7 +22,7 @@ import org.apache.mina.transport.socket.nio.NioSocketConnector;
  * @author {Iveely Liu}
  *
  */
-public class Client {
+public class AsynClient {
 
 	protected class InnerHanlder extends IoHandlerAdapter {
 
@@ -115,7 +115,7 @@ public class Client {
 	 */
 	public static final int DEFAULT_CONNECT_TIMEOUT = 5;
 
-	public Client(String ipAddress, int port, IHandler handler) {
+	public AsynClient(String ipAddress, int port, IHandler handler) {
 		this.ipAddress = ipAddress;
 		this.port = port;
 		this.handler = handler;

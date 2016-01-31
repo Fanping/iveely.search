@@ -15,7 +15,7 @@ import com.iveely.robot.mind.React.Status;
  * @author {Iveely Liu}
  *
  */
-public class SraiTemplate implements ITemplate {
+public class SraiTemplate extends ITemplate {
 
 	/**
 	 * Srai value.
@@ -62,11 +62,7 @@ public class SraiTemplate implements ITemplate {
 	 */
 	@Override
 	public String getResult(List<String> stars) {
-		String ret = this.val;
-		for (int i = stars.size() - 1; i > -1; i--) {
-			ret = ret.replace("%s+" + (i + 1) + "%", stars.get(i));
-		}
-		return ret;
+		return replaceStar(this.val, stars);
 	}
 
 }

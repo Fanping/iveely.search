@@ -20,7 +20,7 @@ import org.apache.mina.transport.socket.nio.NioSocketAcceptor;
  * @author {Iveely Liu}
  *
  */
-public class Server {
+public class AsynServer {
 
 	public interface IHandler {
 
@@ -31,7 +31,7 @@ public class Server {
 		 *            The received message.
 		 * @return process result.
 		 */
-		public String process(String info);
+		public Packet process(Packet packet);
 
 		/**
 		 * Exception caught.
@@ -52,8 +52,8 @@ public class Server {
 		@Override
 		public void messageReceived(IoSession session, Object message) throws Exception {
 			super.messageReceived(session, message);
-			String response = handler.process(message.toString());
-			session.write(response);
+			Packet packet = handler.process(new Packet().toPacket((byte[]) message));
+			session.write(packet);
 		}
 
 		@Override
@@ -107,7 +107,7 @@ public class Server {
 	 */
 	protected SocketAcceptor acceptor;
 
-	public Server(int port, IHandler handler) {
+	public AsynServer(int port, IHandler handler) {
 		this.port = port;
 		this.handler = handler;
 	}
@@ -117,7 +117,7 @@ public class Server {
 	 * 
 	 * @return
 	 */
-	public boolean Open() {
+	public boolean open() {
 		try {
 			if (acceptor == null) {
 				acceptor = new NioSocketAcceptor(Runtime.getRuntime().availableProcessors() + 1);
@@ -140,7 +140,7 @@ public class Server {
 	 * 
 	 * @return
 	 */
-	public boolean Close() {
+	public boolean close() {
 		if (acceptor != null) {
 			acceptor.dispose();
 			return true;

@@ -5,6 +5,7 @@
  */
 package com.iveely.robot.util;
 
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -165,5 +166,35 @@ public class StringUtil {
 	public static boolean isUrl(String val) {
 		return val.matches(
 				"^(http|https|ftp)\\://([a-zA-Z0-9\\.\\-]+(\\:[a-zA-Z0-9\\.&amp;%\\$\\-]+)*@)?((25[0-5]|2[0-4][0-9]|[0-1]{1}[0-9]{2}|[1-9]{1}[0-9]{1}|[1-9])\\.(25[0-5]|2[0-4][0-9]|[0-1]{1}[0-9]{2}|[1-9]{1}[0-9]{1}|[1-9]|0)\\.(25[0-5]|2[0-4][0-9]|[0-1]{1}[0-9]{2}|[1-9]{1}[0-9]{1}|[1-9]|0)\\.(25[0-5]|2[0-4][0-9]|[0-1]{1}[0-9]{2}|[1-9]{1}[0-9]{1}|[0-9])|([a-zA-Z0-9\\-]+\\.)*[a-zA-Z0-9\\-]+\\.[a-zA-Z]{2,4})(\\:[0-9]+)?(/[^/][a-zA-Z0-9\\.\\,\\?\\'\\\\/\\+&amp;%\\$#\\=~_\\-@]*)*$");
+	}
+
+	/**
+	 * Gets a string according to byte [].
+	 *
+	 * @param bytes
+	 * @return
+	 */
+	public static String getString(byte[] bytes) {
+		try {
+			return new String(bytes, "UTF-8").trim();
+		} catch (UnsupportedEncodingException ex) {
+			return new String(bytes).trim();
+		}
+	}
+
+	/**
+	 * Gets byte[] according to string.
+	 *
+	 * @param content
+	 * @return
+	 */
+	public static byte[] getBytes(String content) {
+		byte[] bytes = null;
+		try {
+			bytes = content.getBytes("UTF-8");
+		} catch (UnsupportedEncodingException ex) {
+			bytes = content.getBytes();
+		}
+		return bytes;
 	}
 }

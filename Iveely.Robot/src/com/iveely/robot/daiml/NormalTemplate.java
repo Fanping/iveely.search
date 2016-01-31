@@ -15,7 +15,7 @@ import com.iveely.robot.mind.React.Status;
  * @author {Iveely Liu}
  *
  */
-public class NormalTemplate implements ITemplate {
+public class NormalTemplate extends ITemplate {
 
 	/**
 	 * Text of the answer.
@@ -36,7 +36,6 @@ public class NormalTemplate implements ITemplate {
 	 * 
 	 * @see com.iveely.robot.daiml.ITemplate#getType()
 	 */
-	@Override
 	public Status getStatus() {
 		return status;
 	}
@@ -46,13 +45,8 @@ public class NormalTemplate implements ITemplate {
 	 * 
 	 * @see com.iveely.robot.daiml.ITemplate#getValue()
 	 */
-	@Override
 	public String getResult(List<String> stars) {
-		String ret = text;
-		for (int i = stars.size() - 1; i > -1; i--) {
-			ret = ret.replace("%s+" + (i + 1) + "%", stars.get(i));
-		}
-		return ret;
+		return replaceStar(this.text, stars);
 	}
 
 	/*
