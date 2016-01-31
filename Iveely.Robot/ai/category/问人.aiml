@@ -1,0 +1,389 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<aiml>
+  <category>
+    <pattern>
+      * 是 谁
+    </pattern>
+    <template>
+      {
+      "answer_type": "result",
+      "server_ask": [
+      { "command":"knowledge","parameter":"<star index='1'/>" }
+      ],
+      "result_express": "#s1#",
+      "result_script":" ",
+      "debug":"推理过程：<star index='1'/>"
+      }
+    </template>
+  </category>
+
+  <category>
+    <pattern>
+      * 创始人 是 谁
+    </pattern>
+    <template>
+      <srai>
+        <star index='1'/>创办人 是 谁
+      </srai>
+    </template>
+  </category>
+
+  <category>
+    <pattern>
+      * 创办人 是 谁
+    </pattern>
+    <template>
+      <srai>
+        <star index='1'/>创办人 是 谁
+      </srai>
+    </template>
+  </category>
+
+  <category>
+    <pattern>
+      * 公司 的 * 是 谁
+    </pattern>
+    <template>
+      <srai>
+        <star index='1'/><star index='2'/> 是 谁
+      </srai>
+    </template>
+  </category>
+
+  <category>
+    <pattern>
+      * 的 * 是 谁
+    </pattern>
+    <template>
+      <srai>
+        <star index='1'/><star index='2'/> 是 谁
+      </srai>
+    </template>
+  </category>
+
+  <category>
+    <pattern>
+      * 是 哪里 人
+    </pattern>
+    <template>
+      {
+      "answer_type": "result",
+      "server_ask": [
+      { "command":"knowledge","parameter":"<star index='1'/>籍贯" }
+      ],
+      "result_express": "#s1#",
+      "result_script":" ",
+      "debug":"推理过程：<star index='1'/>籍贯"
+      }
+    </template>
+  </category>
+
+  <category>
+    <pattern>
+      * 的 * 是 * <set>疑问尾词</set>
+    </pattern>
+    <template>
+      {
+      "answer_type": "result",
+      "server_ask": [
+      { "command":"knowledge","parameter":"<star index='1'/><star index='2'/>" }
+      ],
+      "result_express": "#s1#",
+      "result_script":"if(\"#result_express#\".contains(\"unknown\")){return \"未找到可以比较的数据。\";} return \"是#result_express#\";",
+      "debug":"推理过程：<star index='1'/>"
+      }
+    </template>
+  </category>
+
+  <category>
+    <pattern>
+      * 叫 什么 名字
+    </pattern>
+    <template>
+      <srai>
+        <star index='1' /> 是 谁
+      </srai>
+    </template>
+  </category>
+  <category>
+    <pattern>
+      * 叫 什么
+    </pattern>
+    <template>
+      <srai>
+        <star index='1' /> 是 谁
+      </srai>
+    </template>
+  </category>
+  <category>
+    <pattern>
+      * 叫 什么 呢
+    </pattern>
+    <template>
+      <srai>
+        <star index='1' /> 是 谁
+      </srai>
+    </template>
+  </category>
+  <category>
+    <pattern>
+      * 的 大名 是 *
+    </pattern>
+    <template>
+      <srai>
+        <star index='1' /> 是 谁
+      </srai>
+    </template>
+  </category>
+  <category>
+    <pattern>
+      * 简介
+    </pattern>
+    <template>
+      <srai>
+        <star index='1' /> 是 谁
+      </srai>
+    </template>
+  </category>
+  <category>
+    <pattern>
+      * 简历
+    </pattern>
+    <template>
+      <srai>
+        <star index='1' /> 是 谁
+      </srai>
+    </template>
+  </category>
+  <category>
+    <pattern>
+      * 是 <set>民族</set> <set>疑问尾词</set>
+    </pattern>
+    <template>
+      {
+      "answer_type": "result",
+      "server_ask": [
+      { "command":"knowledge","parameter":"<star index='1'/>民族" }
+      ],
+      "result_express": "#s1#",
+      "result_script":"if(\"#result_express#\".contains(\"unknown\")){return \"未找到可以比较的数据。\";} return \"是#result_express#\";",
+      "debug":"推理过程：<star index='1'/>"
+      }
+    </template>
+  </category>
+  
+  <category>
+    <pattern>
+      * 出生 <set>介词</set> 哪一年
+    </pattern>
+    <template>
+      {
+      "answer_type": "result",
+      "server_ask": [
+      { "command":"knowledge","parameter":"<star index='1'/>出生日期" }
+      ],
+      "result_express": "#s1#",
+      "result_script":"if(\"#result_express#\".contains(\"unknown\")){return \"未找到它的出生日期。\";} return \"是#result_express#\";",
+      "debug":"推理过程：<star index='1'/>出生日期"
+      }
+    </template>
+  </category>
+  <category>
+    <pattern>
+      * 出生于 哪一年
+    </pattern>
+    <template>
+      {
+      "answer_type": "result",
+      "server_ask": [
+      { "command":"knowledge","parameter":"<star index='1'/>出生日期" }
+      ],
+      "result_express": "#s1#",
+      "result_script":"if(\"#result_express#\".contains(\"unknown\")){return \"未找到它的出生日期。\";} return \"是#result_express#\";",
+      "debug":"推理过程：<star index='1'/>出生日期"
+      }
+    </template>
+  </category>
+
+  <category>
+    <pattern>
+      * 的 * 是 哪里
+    </pattern>
+    <template>
+      {
+      "answer_type": "result",
+      "server_ask": [
+      { "command":"knowledge","parameter":"<star index='1'/><star index='2'/>" }
+      ],
+      "result_express": "#s1#",
+      "result_script":"if(\"#result_express#\".contains(\"unknown\")){return \"未找到<star index='1'/>的<star index='2'/>。\";} return \"是#result_express#\";",
+      "debug":"推理过程：<star index='1'/><star index='2'/>"
+      }
+    </template>
+  </category>
+  <category>
+    <pattern>
+      * 面积 多 大
+    </pattern>
+    <template>
+      {
+      "answer_type": "result",
+      "server_ask": [
+      { "command":"knowledge","parameter":"<star index='1'/>面积" }
+      ],
+      "result_express": "#s1#",
+      "result_script":"if(\"#result_express#\".contains(\"unknown\")){return \"未找到<star index='1'/>的面积大小信息。\";} return \"是#result_express#\";",
+      "debug":"推理过程：<star index='1'/>面积"
+      }
+    </template>
+  </category>
+
+  <category>
+    <pattern>
+      * 有 多少 面积
+    </pattern>
+    <template>
+      <srai>
+        <star index='1'/> 面积 多 大
+      </srai>
+    </template>
+  </category>
+
+  <category>
+    <pattern>
+      * 位于 哪个 省
+    </pattern>
+    <template>
+      {
+      "answer_type": "result",
+      "server_ask": [
+      { "command":"knowledge","parameter":"<star index='1'/>位于" }
+      ],
+      "result_express": "#s1#",
+      "result_script":" ",
+      "debug":"推理过程：<star index='1'/>位于"
+      }
+    </template>
+  </category>
+
+  <category>
+    <pattern>
+      * 是 哪一年
+    </pattern>
+    <template>
+      {
+      "answer_type": "result",
+      "server_ask": [
+      { "command":"knowledge","parameter":"<star index='1'/>时间" }
+      ],
+      "result_express": "#s1#",
+      "result_script":" ",
+      "debug":"推理过程：<star index='1'/>时间"
+      }
+    </template>
+  </category>
+
+
+  <category>
+    <pattern>
+      * 哪 一 年 开始
+    </pattern>
+    <template>
+      <srai>
+        <star index='1'/> 是 哪一年
+      </srai>
+    </template>
+  </category>
+
+  <category>
+    <pattern>
+      * 是 哪 国人
+    </pattern>
+    <template>
+      {
+      "answer_type": "result",
+      "server_ask": [
+      { "command":"knowledge","parameter":"<star index='1'/>" }
+      ],
+      "result_express": "#s1#",
+      "result_script":" ",
+      "debug":"推理过程：<star index='1'/>"
+      }
+    </template>
+  </category>
+
+  <category>
+    <pattern>
+      * 的 * 是 多少
+    </pattern>
+    <template>
+      {
+      "answer_type": "result",
+      "server_ask": [
+      { "command":"knowledge","parameter":"<star index='1'/><star index='2'/>" }
+      ],
+      "result_express": "#s1#",
+      "result_script":" ",
+      "debug":"推理过程：<star index='1'/><star index='2'/>"
+      }
+    </template>
+  </category>
+
+  <category>
+    <pattern>
+      * 在 哪
+    </pattern>
+    <template>
+      {
+      "answer_type": "result",
+      "server_ask": [
+      { "command":"knowledge","parameter":"<star index='1'/>位置" }
+      ],
+      "result_express": "#s1#",
+      "result_script":" ",
+      "debug":"推理过程：<star index='1'/>位置"
+      }
+    </template>
+  </category>
+
+  <category>
+    <pattern>
+      * 在 哪 *
+    </pattern>
+    <template>
+      <srai><star index='1'> 在 哪</star></srai>
+    </template>
+  </category>
+  <category>
+    <pattern>
+      * 的 老爸
+    </pattern>
+    <template>
+      {
+      "answer_type": "result",
+      "server_ask": [
+      { "command":"knowledge","parameter":"<star index='1'/>父亲" }
+      ],
+      "result_express": "#s1#",
+      "result_script":" ",
+      "debug":"推理过程：<star index='1'/>父亲"
+      }
+    </template>
+  </category>
+  <category>
+    <pattern>
+      * 是 哪 年 出生 *
+    </pattern>
+    <template>
+      {
+      "answer_type": "result",
+      "server_ask": [
+      { "command":"knowledge","parameter":"<star index='1'/>出生日期" }
+      ],
+      "result_express": "#s1#",
+      "result_script":"if(\"#result_express#\".contains(\"???\") || \"#result_express#\".contains(\"unknown\")){return \"资料显示<star index='1'/>的出生日期待发现。\";} return \"是#result_express#\";",
+      "debug":"推理过程：<star index='1'/>出生日期"
+      }
+    </template>
+  </category>
+</aiml>

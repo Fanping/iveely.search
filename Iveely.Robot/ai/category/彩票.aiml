@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<aiml>
+    <category>
+        <pattern>
+            <set>彩票</set>
+        </pattern>
+        <template>
+          {
+          "answer_type": "result",
+          "server_ask": [
+          {
+          "command": "lottery",
+          "parameter": "<star index='1'/>"
+          }
+          ],
+          "result_express": "#s1#",
+          "result_script":" ",
+          "debug":"推理过程：<star index='1'/>"
+          }
+        </template>
+    </category>
+</aiml>
