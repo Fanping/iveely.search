@@ -9,7 +9,7 @@ package com.iveely.robot.node;
  * @author {Iveely Liu}
  *
  */
-public class ServerHandler implements com.iveely.robot.net.Server.IHandler {
+public class ExampleHandler implements com.iveely.robot.net.Server.IHandler {
 
 	/*
 	 * (non-Javadoc)
@@ -18,8 +18,7 @@ public class ServerHandler implements com.iveely.robot.net.Server.IHandler {
 	 */
 	@Override
 	public String process(String info) {
-		System.out.println("[server recived]" + info);
-		return "b";
+		return "1";
 	}
 
 	/*
