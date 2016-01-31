@@ -9,16 +9,20 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import org.apache.log4j.Logger;
 import org.w3c.dom.css.Rect;
 
 import com.iveely.robot.daiml.Category;
+import com.iveely.robot.environment.Branch;
+import com.iveely.robot.environment.Variable;
 import com.iveely.robot.index.Inverted;
 import com.iveely.robot.mind.Nerve.EventHandler;
 import com.iveely.robot.mind.React.Status;
 import com.iveely.robot.net.websocket.WSHandler;
+import com.iveely.robot.util.Serialize;
 import com.iveely.robot.util.StringUtil;
 
 /**
@@ -36,6 +40,11 @@ public class Brain {
 	 * All categories.
 	 */
 	private List<Category> _categories;
+
+	/**
+	 * All branches.
+	 */
+	private Map<String, Branch> _branches;
 
 	/**
 	 * All sessions of talk.
@@ -57,6 +66,7 @@ public class Brain {
 		this._categories = new ArrayList<>();
 		Brain._logger = Logger.getLogger(Brain.class);
 		this._sessions = new HashMap<>();
+		this._branches = Serialize.fromXML(Variable.getPathOfBranch());
 	}
 
 	/**

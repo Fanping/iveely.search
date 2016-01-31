@@ -12,12 +12,7 @@ import java.util.List;
  *
  */
 public class Branch {
-
-	/**
-	 * Name of the branch.
-	 */
-	private String name;
-
+	
 	/**
 	 * IP Address of the branch.
 	 */
@@ -32,21 +27,6 @@ public class Branch {
 	 * Whether branch have enabled
 	 */
 	private boolean isEnable;
-
-	/**
-	 * @return the name
-	 */
-	public String getName() {
-		return name;
-	}
-
-	/**
-	 * @param name
-	 *            the name to set
-	 */
-	public void setName(String name) {
-		this.name = name;
-	}
 
 	/**
 	 * @return the ipAddress

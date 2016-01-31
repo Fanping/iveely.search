@@ -1,7 +1,6 @@
 import com.iveely.robot.api.Local;
 import com.iveely.robot.mind.Awareness;
 import com.iveely.robot.net.websocket.SocketServer;
-import com.iveely.robot.node.SocketHandler;
 
 public class Program {
 

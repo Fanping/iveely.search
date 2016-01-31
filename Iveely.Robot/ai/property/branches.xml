@@ -1,0 +1,10 @@
+<map>
+  <entry>
+    <string>compute</string>
+    <com.iveely.robot.environment.Branch>
+      <ipAddress>127.0.0.1</ipAddress>
+      <port>8001</port>
+      <isEnable>false</isEnable>
+    </com.iveely.robot.environment.Branch>
+  </entry>
+</map>

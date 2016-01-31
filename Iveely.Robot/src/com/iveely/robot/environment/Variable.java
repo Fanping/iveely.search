@@ -21,6 +21,11 @@ public final class Variable {
 	private static String pathOfSelf = "ai/property/self.xml";
 
 	/**
+	 * The path of the branch.
+	 */
+	private static String pathOfBranch = "ai/property/branches.xml";
+
+	/**
 	 * The path of the category.
 	 */
 	private static String pathOfCategory = "ai/category_test";
@@ -85,6 +90,15 @@ public final class Variable {
 	 */
 	public static int getServiceOfPort() {
 		return serviceOfPort;
+	}
+
+	/**
+	 * Get path of the branch.
+	 * 
+	 * @return
+	 */
+	public static String getPathOfBranch() {
+		return pathOfBranch;
 	}
 
 }
