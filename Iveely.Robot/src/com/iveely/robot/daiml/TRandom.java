@@ -18,7 +18,7 @@ import com.iveely.robot.mind.React.Status;
  * @author {Iveely Liu}
  *
  */
-public class RandomTemplate extends ITemplate {
+public class TRandom extends ITemplate {
 
 	/**
 	 * All possible answers.
@@ -26,13 +26,19 @@ public class RandomTemplate extends ITemplate {
 	private List<String> list;
 
 	/**
+	 * All star id of each li.
+	 */
+	private List<List<Integer>> ids;
+
+	/**
 	 * Type of the template.
 	 */
 	private Status status;
 
-	public RandomTemplate() {
+	public TRandom() {
 		this.status = Status.SUCCESS;
 		this.list = new ArrayList<>();
+		this.ids = new ArrayList<>();
 	}
 
 	/*
@@ -46,7 +52,30 @@ public class RandomTemplate extends ITemplate {
 			return false;
 		} else {
 			for (Element child : children) {
-				list.add(child.asXML().trim().replace("<li>", "").replace("</li>", ""));
+				String tag = child.getName();
+				if (tag.equals("li")) {
+
+					List<Element> cs = child.elements();
+					if (cs.size() > 0) {
+						List<Integer> ls = new ArrayList<>();
+						for (Element ele : cs) {
+							String ctname = ele.getName();
+							if (ctname.equals("star")) {
+								int id = Integer.parseInt(ele.attributeValue("index"));
+								ls.add(id);
+								ele.setText("%s" + id + "%");
+								list.add(child.getStringValue());
+							}
+						}
+						ids.add(ls);
+					} else {
+						list.add(child.getStringValue());
+						ids.add(null);
+					}
+
+				} else {
+					return false;
+				}
 			}
 		}
 		return true;
@@ -69,7 +98,7 @@ public class RandomTemplate extends ITemplate {
 	public String getResult(List<String> stars) {
 		int size = list.size();
 		int id = new Random().nextInt(size) % (size + 1);
-		return replaceStar(list.get(id), stars);
+		return replaceStar(list.get(id), ids.get(id), stars);
 	}
 
 }

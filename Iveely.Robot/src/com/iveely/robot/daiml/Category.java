@@ -68,24 +68,15 @@ public class Category {
 			} else if (tag.equals("template")) {
 				// 2.2 template.
 				List<Element> children = ele.elements();
-				if (children.size() > 0) {
-					String name = children.get(0).getName().toLowerCase();
-					if (name.equals("random")) {
-						template = new RandomTemplate();
-						ret = ret && template.parse(children.get(0));
-					} else if (name.equals("request")) {
-						template = new RequestTemplate();
-						ret = ret && template.parse(ele);
-					} else if (name.equals("srai")) {
-						template = new SraiTemplate();
-						ret = ret && template.parse(children.get(0));
-					} else {
-						template = null;
-						ret = false;
-					}
-				} else {
-					template = new NormalTemplate();
+				if (isNormal(children)) {
+					template = new TNormal();
 					ret = ret && template.parse(ele);
+				} else if (isSrai(children)) {
+					template = new TSrai();
+					ret = ret && template.parse(children.get(0));
+				} else if (isRandom(children)) {
+					template = new TRandom();
+					ret = ret && template.parse(children.get(0));
 				}
 				ret = ret && (template != null && pattern != null);
 			}
@@ -109,5 +100,56 @@ public class Category {
 		} else {
 			return new React(Status.FAILURE);
 		}
+	}
+
+	/**
+	 * Check is normal template.
+	 * 
+	 * @param list
+	 * @return
+	 */
+	private boolean isNormal(List<Element> list) {
+		if (list.size() == 0) {
+			return true;
+		}
+		for (Element element : list) {
+			String tag = element.getName();
+			if (!tag.equals("star")) {
+				return false;
+			}
+		}
+		return true;
+	}
+
+	/**
+	 * Check is srai tempalte.
+	 * 
+	 * @param list
+	 * @return
+	 */
+	private boolean isSrai(List<Element> list) {
+		if (list.size() == 1) {
+			String tag = list.get(0).getName();
+			if (tag.equals("srai")) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	/**
+	 * Check is random template.
+	 * 
+	 * @param list
+	 * @return
+	 */
+	private boolean isRandom(List<Element> list) {
+		if (list.size() == 1) {
+			String tag = list.get(0).getName();
+			if (tag.equals("random")) {
+				return true;
+			}
+		}
+		return false;
 	}
 }

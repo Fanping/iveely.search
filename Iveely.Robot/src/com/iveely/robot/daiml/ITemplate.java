@@ -57,10 +57,12 @@ public abstract class ITemplate {
 	 * @param stars
 	 * @return
 	 */
-	public String replaceStar(String text, List<String> stars) {
+	public String replaceStar(String text, List<Integer> ids, List<String> stars) {
 		String ret = text;
-		for (int i = stars.size() - 1; i > -1; i--) {
-			ret = ret.replace("%s" + (i + 1) + "%", stars.get(i));
+		if (ids != null && ids.size() > 0) {
+			for (Integer id : ids) {
+				ret = ret.replace("%s" + id + "%", stars.get(id - 1));
+			}
 		}
 		return ret;
 	}

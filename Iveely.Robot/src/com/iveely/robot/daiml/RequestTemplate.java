@@ -27,7 +27,7 @@ public class RequestTemplate extends ITemplate {
 	/**
 	 * Requst information.
 	 */
-	private List<Request> requests;
+	private List<BranchNode> requests;
 
 	/**
 	 * Response detail.
@@ -57,7 +57,7 @@ public class RequestTemplate extends ITemplate {
 			String tag = ele.getName().toLowerCase();
 			// 1. Parse request.
 			if (tag.equals("request")) {
-				Request req = new Request();
+				BranchNode req = new BranchNode();
 				if (req.parse(ele)) {
 					requests.add(req);
 				} else {
@@ -90,7 +90,7 @@ public class RequestTemplate extends ITemplate {
 	 * @see com.iveely.robot.daiml.ITemplate#getType()
 	 */
 	public Status getStatus() {
-		return this.ret.getStatus();
+		return Status.SUCCESS;
 	}
 
 	/*
@@ -101,8 +101,8 @@ public class RequestTemplate extends ITemplate {
 	public String getResult(List<String> stars) {
 		// 1. Get parameter of request.
 		List<String> nodes = new ArrayList<>();
-		for (Request req : requests) {
-			String temp = replaceStar(req.getParameter(), stars);
+		for (BranchNode req : requests) {
+			String temp = replaceStar(req.getParameter(), null, stars);
 			Packet packet = Brain.getInstance().getBranch(req.getName()).send(temp);
 			temp = com.iveely.robot.util.StringUtil.getString(packet.getData());
 			nodes.add(temp);
@@ -119,18 +119,18 @@ public class RequestTemplate extends ITemplate {
 		if (ret.getStatus() == Status.RECURSIVE) {
 			result = Brain.getInstance().think(retText);
 		}
-		result = replaceStar(result, stars);
+		result = replaceStar(result, null, stars);
 
 		// 4. Execute script.
 		if (script.isEmpty()) {
 			return result;
 		} else {
 			String sret = script.replace("%r%", result);
-			sret = replaceStar(sret, stars);
+			sret = replaceStar(sret, null, stars);
 			for (int i = nodes.size() - 1; i > -1; i--) {
 				sret = sret.replace("%n" + (i + 1) + "%", nodes.get(i));
 			}
-			return Script.eval(sret);
+			return Script.eval(sret.trim());
 		}
 	}
 

@@ -14,7 +14,7 @@ import com.thoughtworks.xstream.io.binary.Token.Attribute;
  * @author {Iveely Liu}
  *
  */
-public class Request {
+public class BranchNode {
 
 	/**
 	 * Name of the server to send request.

@@ -5,6 +5,7 @@
  */
 package com.iveely.robot.daiml;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.dom4j.Element;
@@ -15,7 +16,7 @@ import com.iveely.robot.mind.React.Status;
  * @author {Iveely Liu}
  *
  */
-public class SraiTemplate extends ITemplate {
+public class TSrai extends ITemplate {
 
 	/**
 	 * Srai value.
@@ -28,10 +29,16 @@ public class SraiTemplate extends ITemplate {
 	private Status status;
 
 	/**
+	 * id collection of star.
+	 */
+	private List<Integer> ids;
+
+	/**
 	 * 
 	 */
-	public SraiTemplate() {
+	public TSrai() {
 		this.status = Status.RECURSIVE;
+		this.ids = new ArrayList<>();
 	}
 
 	/*
@@ -41,7 +48,16 @@ public class SraiTemplate extends ITemplate {
 	 */
 	@Override
 	public boolean parse(Element element) {
-		this.val = element.asXML().replace("<srai>", "").replace("</srai>", "").trim();
+		List<Element> children = element.elements();
+		for (Element child : children) {
+			String tag = child.getName();
+			if (tag.equals("star")) {
+				int id = Integer.parseInt(child.attributeValue("index"));
+				ids.add(id);
+				child.setText("%s" + id + "%");
+			}
+		}
+		this.val = element.getStringValue().trim();
 		return true;
 	}
 
@@ -62,7 +78,7 @@ public class SraiTemplate extends ITemplate {
 	 */
 	@Override
 	public String getResult(List<String> stars) {
-		return replaceStar(this.val, stars);
+		return replaceStar(this.val, this.ids, stars);
 	}
 
 }

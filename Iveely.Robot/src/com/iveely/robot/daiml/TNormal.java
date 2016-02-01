@@ -5,6 +5,7 @@
  */
 package com.iveely.robot.daiml;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.dom4j.Element;
@@ -15,8 +16,8 @@ import com.iveely.robot.mind.React.Status;
  * @author {Iveely Liu}
  *
  */
-public class NormalTemplate extends ITemplate {
-
+public class TNormal extends ITemplate {
+	
 	/**
 	 * Text of the answer.
 	 */
@@ -27,8 +28,14 @@ public class NormalTemplate extends ITemplate {
 	 */
 	private Status status;
 
-	public NormalTemplate() {
+	/**
+	 * Star for replace.
+	 */
+	private List<Integer> ids;
+
+	public TNormal() {
 		status = Status.SUCCESS;
+		ids = new ArrayList<>();
 	}
 
 	/*
@@ -46,7 +53,7 @@ public class NormalTemplate extends ITemplate {
 	 * @see com.iveely.robot.daiml.ITemplate#getValue()
 	 */
 	public String getResult(List<String> stars) {
-		return replaceStar(this.text, stars);
+		return replaceStar(this.text, this.ids, stars);
 	}
 
 	/*
@@ -56,7 +63,16 @@ public class NormalTemplate extends ITemplate {
 	 */
 	@Override
 	public boolean parse(Element element) {
-		this.text = element.asXML().replace("<template>", "").replace("</template>", "").trim();
+		List<Element> children = element.elements();
+		for (Element child : children) {
+			String tag = child.getName();
+			if (tag.equals("star")) {
+				int id = Integer.parseInt(child.attributeValue("index"));
+				ids.add(id);
+				child.setText("%s" + id + "%");
+			}
+		}
+		this.text = element.getStringValue().trim();
 		return true;
 	}
 }
