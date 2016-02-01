@@ -18,7 +18,7 @@ public class Program {
 		} else {
 			Local local = new Local();
 			local.start();
-			System.out.println(local.send("马云身高"));
+			System.out.println(local.send(""));
 		}
 //		ExampleNode node = new ExampleNode(8001);
 //		node.start();

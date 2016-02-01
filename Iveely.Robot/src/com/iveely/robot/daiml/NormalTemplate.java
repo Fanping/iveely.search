@@ -56,7 +56,7 @@ public class NormalTemplate extends ITemplate {
 	 */
 	@Override
 	public boolean parse(Element element) {
-		this.text = element.asXML().trim().replace("<template>", "").replace("</template>", "");
+		this.text = element.asXML().replace("<template>", "").replace("</template>", "").trim();
 		return true;
 	}
 }

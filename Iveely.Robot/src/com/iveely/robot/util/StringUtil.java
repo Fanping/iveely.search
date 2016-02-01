@@ -30,7 +30,7 @@ public class StringUtil {
 
 		// 2.Split.
 		List<String> list = new ArrayList<>();
-		int flag = -1; // chinese(0)\number(1)\letter(2)
+		int flag = -1; // chinese(2)\number(0)\letter(1)
 		String temp = "";
 		char[] array = text.toCharArray();
 		for (char c : array) {
@@ -45,9 +45,16 @@ public class StringUtil {
 				if (flag != 1 && temp.length() > 0) {
 					list.add(temp);
 					temp = "";
+					temp += c;
+					flag = 1;
+				} else if (flag == 1 && temp.length() > 0 && (c == 62 || c == 93)) {
+					list.add(temp + c);
+					temp = "";
+				} else {
+					flag = 1;
+					temp += c;
 				}
-				flag = 1;
-				temp += c;
+
 			} else {
 				if (temp.length() > 0) {
 					list.add(temp);

@@ -127,6 +127,9 @@ public class RequestTemplate extends ITemplate {
 		} else {
 			String sret = script.replace("%r%", result);
 			sret = replaceStar(sret, stars);
+			for (int i = nodes.size() - 1; i > -1; i--) {
+				sret = sret.replace("%n" + (i + 1) + "%", nodes.get(i));
+			}
 			return Script.eval(sret);
 		}
 	}
