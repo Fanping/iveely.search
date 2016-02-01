@@ -22,7 +22,7 @@ import bsh.StringUtil;
  * @author {Iveely Liu}
  *
  */
-public class RequestTemplate extends ITemplate {
+public class TRequest extends ITemplate {
 
 	/**
 	 * Requst information.
@@ -39,7 +39,7 @@ public class RequestTemplate extends ITemplate {
 	 */
 	private String script;
 
-	public RequestTemplate() {
+	public TRequest() {
 		this.requests = new ArrayList<>();
 	}
 

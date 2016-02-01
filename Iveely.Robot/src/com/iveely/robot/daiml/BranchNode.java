@@ -68,7 +68,7 @@ public class BranchNode {
 		}
 
 		// 1. Get parameter.
-		org.dom4j.Attribute paraAtt = element.attribute("parameter");
+		org.dom4j.Attribute paraAtt = element.attribute("node");
 		if (paraAtt == null) {
 			return false;
 		}

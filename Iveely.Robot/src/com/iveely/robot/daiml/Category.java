@@ -77,6 +77,9 @@ public class Category {
 				} else if (isRandom(children)) {
 					template = new TRandom();
 					ret = ret && template.parse(children.get(0));
+				} else if (isRequest(children)) {
+					template = new TRequest();
+					ret = ret && template.parse(ele);
 				}
 				ret = ret && (template != null && pattern != null);
 			}
@@ -147,6 +150,22 @@ public class Category {
 		if (list.size() == 1) {
 			String tag = list.get(0).getName();
 			if (tag.equals("random")) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	/**
+	 * Check is request template.
+	 * 
+	 * @param list
+	 * @return
+	 */
+	private boolean isRequest(List<Element> list) {
+		if (list.size() > 1) {
+			String tag = list.get(0).getName();
+			if (tag.equals("request")) {
 				return true;
 			}
 		}
