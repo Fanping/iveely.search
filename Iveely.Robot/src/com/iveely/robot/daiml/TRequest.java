@@ -121,10 +121,10 @@ public class TRequest extends ITemplate {
 		}
 
 		// 4. Execute script.
-		if (script == null) {
+		if (script == null || result == null) {
 			return result;
 		} else {
-			String sret = script.getScript(stars, result).trim();
+			String sret = script.getScript(stars, result, nodes).trim();
 			return Script.eval(sret);
 		}
 	}

@@ -24,10 +24,16 @@ public class Scenario {
 	/**
 	 * Index id of star.
 	 */
-	private List<Integer> ids;
+	private List<Integer> sids;
+
+	/**
+	 * index id of node.
+	 */
+	private List<Integer> nids;
 
 	public Scenario() {
-		this.ids = new ArrayList<>();
+		this.sids = new ArrayList<>();
+		this.nids = new ArrayList<>();
 	}
 
 	/**
@@ -42,8 +48,12 @@ public class Scenario {
 			String tag = child.getName();
 			if (tag.equals("star")) {
 				int id = Integer.parseInt(child.attributeValue("index"));
-				this.ids.add(id);
+				this.sids.add(id);
 				child.setText("%s" + id + "%");
+			} else if (tag.equals("node")) {
+				int id = Integer.parseInt(child.attributeValue("index"));
+				this.nids.add(id);
+				child.setText("%n" + id + "%");
 			} else if (tag.equals("ret")) {
 				child.setText("%r%");
 			} else {
@@ -61,10 +71,13 @@ public class Scenario {
 	 * @param ret
 	 * @return
 	 */
-	public String getScript(List<String> stars, String ret) {
+	public String getScript(List<String> stars, String ret, List<String> nodes) {
 		String result = express.replace("%r%", ret);
-		for (Integer id : ids) {
+		for (Integer id : sids) {
 			result = result.replace("%s" + id + "%", stars.get(id - 1));
+		}
+		for (Integer id : nids) {
+			result = result.replace("%n" + id + "%", nodes.get(id - 1));
 		}
 		return result;
 	}
