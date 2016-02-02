@@ -5,6 +5,9 @@
  */
 package com.iveely.robot.daiml;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.dom4j.Element;
 
 import com.iveely.robot.mind.Brain;
@@ -27,6 +30,15 @@ public class BranchNode {
 	private String parameter;
 
 	/**
+	 * Index id of star.
+	 */
+	private List<Integer> list;
+
+	public BranchNode() {
+		this.list = new ArrayList<>();
+	}
+
+	/**
 	 * @return the name
 	 */
 	public String getName() {
@@ -44,16 +56,16 @@ public class BranchNode {
 	/**
 	 * @return the parameter
 	 */
-	public String getParameter() {
-		return parameter;
-	}
-
-	/**
-	 * @param parameter
-	 *            the parameter to set
-	 */
-	public void setParameter(String parameter) {
-		this.parameter = parameter;
+	public String getParameter(List<String> stars) {
+		if (this.list.size() > 0) {
+			String ret = this.parameter;
+			for (Integer id : list) {
+				ret = ret.replace("%s" + id + "%", stars.get(id - 1));
+			}
+			return ret;
+		} else {
+			return this.parameter;
+		}
 	}
 
 	/**
@@ -67,23 +79,28 @@ public class BranchNode {
 			return false;
 		}
 
-		// 1. Get parameter.
-		org.dom4j.Attribute paraAtt = element.attribute("node");
-		if (paraAtt == null) {
-			return false;
-		}
-		setParameter(paraAtt.getValue());
-		org.dom4j.Attribute nameAtt = element.attribute("name");
-		if (nameAtt == null) {
-			return false;
-		}
-
-		// 2. Get name of branch,and check it.
-		String nav = nameAtt.getValue();
+		// 1. Get name of branch,and check it.
+		String nav = element.attributeValue("node");
 		if (!Brain.getInstance().isBranchExist(nav)) {
 			return false;
 		}
-		setName(nameAtt.getValue());
+		setName(nav);
+
+		// 2. Get parameter.
+		List<Element> children = element.elements();
+		if (children.size() > 0) {
+			for (Element child : children) {
+				String tag = child.getName();
+				if (tag.equals("star")) {
+					int id = Integer.parseInt(child.attributeValue("index"));
+					list.add(id);
+					child.setText("%s" + id + "%");
+				} else {
+					return false;
+				}
+			}
+		}
+		this.parameter = element.getStringValue().trim();
 		return true;
 	}
 }

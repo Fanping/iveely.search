@@ -19,14 +19,15 @@ public class Program {
 		} else {
 			Local local = new Local();
 			local.start();
-			System.out.println(local.send("你好"));
-			System.out.println(local.send("你好,我是刘凡平"));
-			System.out.println(local.send("您好,我是刘凡平"));
-			System.out.println(local.send("今天天气真好"));
-			System.out.println(local.send("马云,在家吗"));
+			// System.out.println(local.send("你好"));
+			// System.out.println(local.send("你好,我是刘凡平"));
+			// System.out.println(local.send("您好,我是刘凡平"));
+			// System.out.println(local.send("今天天气真好"));
+			// System.out.println(local.send("马云,在家吗"));
+			System.out.println(local.send("马云身高"));
 		}
-		// ExampleNode node = new ExampleNode(8001);
-		// node.start();
+//		ExampleNode node = new ExampleNode(8001);
+//		node.start();
 
 	}
 }

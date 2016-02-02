@@ -37,7 +37,7 @@ public class TRequest extends ITemplate {
 	/**
 	 * Script of the response.
 	 */
-	private String script;
+	private Scenario script;
 
 	public TRequest() {
 		this.requests = new ArrayList<>();
@@ -74,7 +74,10 @@ public class TRequest extends ITemplate {
 			}
 			// 3. Parse script.
 			else if (tag.equals("script")) {
-				script = ele.getText();
+				script = new Scenario();
+				if (!script.parse(ele)) {
+					return false;
+				}
 			}
 			// 4. Unknown.
 			else {
@@ -102,35 +105,27 @@ public class TRequest extends ITemplate {
 		// 1. Get parameter of request.
 		List<String> nodes = new ArrayList<>();
 		for (BranchNode req : requests) {
-			String temp = replaceStar(req.getParameter(), null, stars);
-			Packet packet = Brain.getInstance().getBranch(req.getName()).send(temp);
-			temp = com.iveely.robot.util.StringUtil.getString(packet.getData());
+			String par = req.getParameter(stars);
+			Packet packet = Brain.getInstance().getBranch(req.getName()).send(par);
+			String temp = com.iveely.robot.util.StringUtil.getString(packet.getData());
 			nodes.add(temp);
 		}
 
 		// 2. Replace ret.
-		String retText = ret.getExpress();
-		for (int i = nodes.size() - 1; i > -1; i--) {
-			retText = retText.replace("%n" + (i + 1) + "%", nodes.get(i));
-		}
+		String retText = ret.getContent(stars, nodes);
 
 		// 3. Check is recursion.
 		String result = retText;
 		if (ret.getStatus() == Status.RECURSIVE) {
 			result = Brain.getInstance().think(retText);
 		}
-		result = replaceStar(result, null, stars);
 
 		// 4. Execute script.
-		if (script.isEmpty()) {
+		if (script == null) {
 			return result;
 		} else {
-			String sret = script.replace("%r%", result);
-			sret = replaceStar(sret, null, stars);
-			for (int i = nodes.size() - 1; i > -1; i--) {
-				sret = sret.replace("%n" + (i + 1) + "%", nodes.get(i));
-			}
-			return Script.eval(sret.trim());
+			String sret = script.getScript(stars, result).trim();
+			return Script.eval(sret);
 		}
 	}
 
