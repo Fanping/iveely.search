@@ -23,6 +23,11 @@ public class Session implements Runnable {
 	 */
 	private String question;
 
+	/**
+	 * Last hit pattern.
+	 */
+	private String that;
+
 	public Session(Nerve.EventHandler handler, String question) {
 		this.handler = handler;
 		this.question = question;
@@ -38,7 +43,15 @@ public class Session implements Runnable {
 
 	@Override
 	public void run() {
-		String ret = Brain.getInstance().think(this.question);
+		Idio idio = Brain.getInstance().think(this.question, this.that);
+		String ret;
+		if (idio == null) {
+			that = null;
+			ret = "Not found.";
+		} else {
+			that = idio.getThat();
+			ret = idio.getResponse();
+		}
 		handler.response(ret);
 	}
 }

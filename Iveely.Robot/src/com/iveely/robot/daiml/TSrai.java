@@ -77,7 +77,7 @@ public class TSrai extends ITemplate {
 	 * @see com.iveely.robot.daiml.ITemplate#getResult()
 	 */
 	@Override
-	public String getResult(List<String> stars) {
+	public String getResult(List<String> stars,String that) {
 		return replaceStar(this.val, this.ids, stars);
 	}
 

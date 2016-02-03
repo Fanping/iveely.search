@@ -25,7 +25,9 @@ public class Program {
 			// System.out.println(local.send("今天天气真好"));
 			// System.out.println(local.send("马云,在家吗"));
 			// System.out.println(local.send("马云身高"));
-			System.out.println(local.send("马云比刘德华高吗"));
+			// System.out.println(local.send("马云比刘德华高吗"));
+			//System.out.println(local.send("你好"));
+			System.out.println(local.send("你好啊"));
 		}
 		// ExampleNode node = new ExampleNode(8001);
 		// node.start();

@@ -8,6 +8,7 @@ package com.iveely.robot.api;
 import com.iveely.robot.environment.Variable;
 import com.iveely.robot.mind.Awareness;
 import com.iveely.robot.mind.Brain;
+import com.iveely.robot.mind.Idio;
 import com.iveely.robot.net.websocket.SocketClient;
 import com.iveely.robot.net.websocket.WSHandler;
 
@@ -23,6 +24,11 @@ public class Local {
 	 * Whether identification has been started.
 	 */
 	private boolean isStarted;
+
+	/**
+	 * Last hit pattern.
+	 */
+	private String that;
 
 	public Local() {
 		isStarted = false;
@@ -53,7 +59,13 @@ public class Local {
 		if (!isStarted) {
 			start();
 		}
-		return Brain.getInstance().think(msg);
+		Idio idio = Brain.getInstance().think(msg, that);
+		if (idio == null) {
+			return null;
+		} else {
+			this.that = idio.getThat();
+			return idio.getResponse();
+		}
 	}
 
 }

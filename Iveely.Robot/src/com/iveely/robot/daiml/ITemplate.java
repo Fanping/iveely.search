@@ -48,7 +48,7 @@ public abstract class ITemplate {
 	 * 
 	 * @return the result.
 	 */
-	public abstract String getResult(List<String> stars);
+	public abstract String getResult(List<String> stars,String that);
 
 	/**
 	 * Replace star.

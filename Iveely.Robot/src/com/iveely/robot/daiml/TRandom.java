@@ -54,7 +54,6 @@ public class TRandom extends ITemplate {
 			for (Element child : children) {
 				String tag = child.getName();
 				if (tag.equals("li")) {
-
 					List<Element> cs = child.elements();
 					if (cs.size() > 0) {
 						List<Integer> ls = new ArrayList<>();
@@ -64,12 +63,12 @@ public class TRandom extends ITemplate {
 								int id = Integer.parseInt(ele.attributeValue("index"));
 								ls.add(id);
 								ele.setText("%s" + id + "%");
-								list.add(child.getStringValue());
+								list.add(child.getStringValue().trim());
 							}
 						}
 						ids.add(ls);
 					} else {
-						list.add(child.getStringValue());
+						list.add(child.getStringValue().trim());
 						ids.add(null);
 					}
 
@@ -95,7 +94,7 @@ public class TRandom extends ITemplate {
 	 * 
 	 * @see com.iveely.robot.daiml.ITemplate#getResult()
 	 */
-	public String getResult(List<String> stars) {
+	public String getResult(List<String> stars, String that) {
 		int size = list.size();
 		int id = new Random().nextInt(size) % (size + 1);
 		return replaceStar(list.get(id), ids.get(id), stars);

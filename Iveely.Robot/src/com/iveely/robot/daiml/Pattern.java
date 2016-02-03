@@ -45,13 +45,19 @@ public class Pattern {
 	private java.util.regex.Pattern checker;
 
 	/**
+	 * That information.
+	 */
+	private String that;
+
+	/**
 	 * Logger.
 	 */
 	private static Logger logger;
 
-	public Pattern(String val) {
+	public Pattern(String val, String that) {
 		this.logger = Logger.getLogger(Pattern.class);
 		this.ready = this.parse(val);
+		this.that = that;
 	}
 
 	/**
@@ -70,7 +76,10 @@ public class Pattern {
 	 *            The question from user.
 	 * @return true is matched, false is not.
 	 */
-	public boolean isMatch(String question, List<String> stars) {
+	public boolean isMatch(String question, List<String> stars, String that) {
+		if (this.that != null && !this.that.equals(that)) {
+			return false;
+		}
 
 		// 1. Check ready.
 		if (!this.ready) {

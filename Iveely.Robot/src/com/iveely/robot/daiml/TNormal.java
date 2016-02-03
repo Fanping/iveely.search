@@ -17,7 +17,7 @@ import com.iveely.robot.mind.React.Status;
  *
  */
 public class TNormal extends ITemplate {
-	
+
 	/**
 	 * Text of the answer.
 	 */
@@ -52,7 +52,7 @@ public class TNormal extends ITemplate {
 	 * 
 	 * @see com.iveely.robot.daiml.ITemplate#getValue()
 	 */
-	public String getResult(List<String> stars) {
+	public String getResult(List<String> stars, String that) {
 		return replaceStar(this.text, this.ids, stars);
 	}
 

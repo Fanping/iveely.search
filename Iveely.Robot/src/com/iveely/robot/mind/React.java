@@ -36,6 +36,11 @@ public class React {
 	 */
 	private String ret;
 
+	/**
+	 * Hit pattern.
+	 */
+	private String that;
+
 	public React(Status status) {
 		this.status = status;
 	}
@@ -61,5 +66,23 @@ public class React {
 	 */
 	public void setRet(String ret) {
 		this.ret = ret;
+	}
+
+	/**
+	 * Set hit pattern.
+	 * 
+	 * @param text
+	 */
+	public void setThat(String text) {
+		this.that = text;
+	}
+
+	/**
+	 * Get that.
+	 * 
+	 * @return
+	 */
+	public String getThat() {
+		return this.that;
 	}
 }

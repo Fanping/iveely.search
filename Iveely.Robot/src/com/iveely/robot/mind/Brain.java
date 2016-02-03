@@ -141,25 +141,28 @@ public class Brain {
 	 *            The question that user input.
 	 * @return the result what robot think.
 	 */
-	public String think(String question) {
-
+	public Idio think(String question, String that) {
 		List<Integer> list = Inverted.getInstance().get(question);
+		Idio idio;
 		if (list == null || list.size() == 0) {
 			return null;
 		} else {
 			React react;
 			for (Integer id : list) {
-				react = _categories.get(id).getAnwser(question);
+				react = _categories.get(id).getAnwser(question, that);
 				if (react.getStatus() == Status.SUCCESS) {
-					return react.getRet();
+					idio = new Idio();
+					idio.setResponse(react.getRet());
+					idio.setThat(react.getThat());
+					return idio;
 				} else if (react.getStatus() == Status.RECURSIVE) {
-					return think(react.getRet());
+					return think(react.getRet(), that);
 				} else {
 					continue;
 				}
 			}
 		}
-		return "Not found.";
+		return null;
 	}
 
 	/**

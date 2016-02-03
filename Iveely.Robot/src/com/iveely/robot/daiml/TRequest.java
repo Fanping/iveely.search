@@ -13,6 +13,7 @@ import org.dom4j.Element;
 
 import com.iveely.robot.environment.Script;
 import com.iveely.robot.mind.Brain;
+import com.iveely.robot.mind.Idio;
 import com.iveely.robot.mind.React.Status;
 import com.iveely.robot.net.Packet;
 
@@ -101,7 +102,7 @@ public class TRequest extends ITemplate {
 	 * 
 	 * @see com.iveely.robot.daiml.ITemplate#getResult()
 	 */
-	public String getResult(List<String> stars) {
+	public String getResult(List<String> stars, String that) {
 		// 1. Get parameter of request.
 		List<String> nodes = new ArrayList<>();
 		for (BranchNode req : requests) {
@@ -117,7 +118,12 @@ public class TRequest extends ITemplate {
 		// 3. Check is recursion.
 		String result = retText;
 		if (ret.getStatus() == Status.RECURSIVE) {
-			result = Brain.getInstance().think(retText);
+			Idio idio = Brain.getInstance().think(retText, that);
+			if (idio == null) {
+				result = null;
+			} else {
+				result = idio.getResponse();
+			}
 		}
 
 		// 4. Execute script.

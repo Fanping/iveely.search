@@ -64,7 +64,7 @@ public class Category {
 			String tag = ele.getName().toLowerCase();
 			if (tag.equals("pattern")) {
 				// 2.1 pattern.
-				pattern = new Pattern(ele.getStringValue());
+				pattern = new Pattern(ele.getStringValue(), ele.attributeValue("that"));
 			} else if (tag.equals("template")) {
 				// 2.2 template.
 				List<Element> children = ele.elements();
@@ -93,12 +93,13 @@ public class Category {
 	 * @param question
 	 * @return the reaction of the answer.
 	 */
-	public React getAnwser(String question) {
+	public React getAnwser(String question, String that) {
 		// 1. Use pattern to check.
 		List<String> stars = new ArrayList<>();
-		if (pattern.isMatch(question, stars)) {
+		if (pattern.isMatch(question, stars, that)) {
 			React react = new React(template.getStatus());
-			react.setRet(template.getResult(stars));
+			react.setRet(template.getResult(stars, that));
+			react.setThat(pattern.getValue());
 			return react;
 		} else {
 			return new React(Status.FAILURE);
