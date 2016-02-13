@@ -1,3 +1,8 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.Scanner;
+
 import com.iveely.robot.api.Local;
 import com.iveely.robot.environment.Script;
 import com.iveely.robot.mind.Awareness;
@@ -19,18 +24,17 @@ public class Program {
 		} else {
 			Local local = new Local();
 			local.start();
-			// System.out.println(local.send("你好"));
-			// System.out.println(local.send("你好,我是刘凡平"));
-			// System.out.println(local.send("您好,我是刘凡平"));
-			// System.out.println(local.send("今天天气真好"));
-			// System.out.println(local.send("马云,在家吗"));
-			// System.out.println(local.send("马云身高"));
-			// System.out.println(local.send("马云比刘德华高吗"));
-			//System.out.println(local.send("你好"));
-			System.out.println(local.send("你好啊"));
+			BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+			try {
+				String text = reader.readLine().trim();
+				while (!text.equals("exit")) {
+					System.out.println(local.send(text));
+					text = reader.readLine().trim();
+				}
+				reader.close();
+			} catch (IOException ex) {
+				System.err.println(ex);
+			}
 		}
-		// ExampleNode node = new ExampleNode(8001);
-		// node.start();
-
 	}
 }
