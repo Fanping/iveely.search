@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<aiml>
+    <category>
+        <pattern>
+            <set>国内外城市</set> 天气
+        </pattern>
+        <template>
+          {
+          "answer_type": "result",
+          "server_ask": [
+          { "command":"weather","parameter":"<star index='1'/>" }
+          ],
+          "result_express": "#s1#",
+          "result_script":" ",
+          "debug":"推理过程：<star index='1'/>"
+          }
+        </template>
+    </category>
+    <category>
+        <pattern>
+            <set>国内外城市</set> 的 天气
+        </pattern>
+        <template>
+            <srai>
+                <star index='1'/> 天气
+            </srai>
+        </template>
+    </category>
+	<category>
+        <pattern>
+            天气
+        </pattern>
+        <template>
+          {
+          "answer_type": "recursive",
+          "server_ask": [],
+          "result_express": "#city# 天气",
+          "result_script":" ",
+          "debug":"推理过程: #city# 天气"
+          }
+        </template>
+    </category>
+	<category>
+        <pattern>
+            今天 天气
+        </pattern>
+        <template>
+          {
+          "answer_type": "recursive",
+          "server_ask": [],
+          "result_express": "#city# 天气",
+          "result_script":" ",
+          "debug":"推理过程: #city# 天气"
+          }
+        </template>
+    </category>
+</aiml>

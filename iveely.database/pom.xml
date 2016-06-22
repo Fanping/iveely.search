@@ -1,0 +1,42 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.iveely.database</groupId>
+	<artifactId>iveely.database</artifactId>
+	<version>0.9.1-SNAPSHOT</version>
+	<name>Iveely Database.</name>
+	<description>A mini data storage system.</description>
+	<build>
+		<sourceDirectory>src</sourceDirectory>
+		<plugins>
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.3</version>
+				<configuration>
+					<source />
+					<target />
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+	<organization>
+		<name>Iveely</name>
+	</organization>
+	<dependencies>
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>1.2.12</version>
+		</dependency>
+		<dependency>
+			<groupId>com.iveely.framework</groupId>
+			<artifactId>iveely.framework</artifactId>
+			<version>0.9.1-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>com.eclipsesource.minimal-json</groupId>
+			<artifactId>minimal-json</artifactId>
+			<version>0.9.4</version>
+		</dependency>
+	</dependencies>
+</project>

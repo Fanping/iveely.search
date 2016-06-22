@@ -1,0 +1,515 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<aiml>
+  <category>
+    <pattern>
+      * 厘米 <set>加减乘除</set> * 厘米
+    </pattern>
+    <template>
+      {
+      "answer_type": "recursive",
+      "server_ask": [],
+      "result_express": "<star index='1' /> <star index='2' /> <star index='3' />",
+      "result_script":" return \"#result_express#（单位：厘米\";",
+      "debug":"推理过程:<star index='1' /> <star index='2' /> <star index='3' /> = ?"
+      }
+    </template>
+  </category>
+  <category>
+    <pattern>
+      * 米 <set>加减乘除</set> * 米
+    </pattern>
+    <template>
+      {
+      "answer_type": "recursive",
+      "server_ask": [],
+      "result_express": "<star index='1' /> <star index='2' /> <star index='3' />",
+      "result_script":" return \"#result_express#（单位：米）\";",
+      "debug":"推理过程:<star index='1' /> <star index='2' /> <star index='3' /> = ?"
+      }
+    </template>
+  </category>
+
+  <category>
+    <pattern>
+      * 米 <set>加减乘除</set> * 厘米
+    </pattern>
+    <template>
+      {
+      "answer_type": "recursive",
+      "server_ask": [],
+      "result_express": "<star index='1' />*100 <star index='2' /> <star index='3' />",
+      "result_script":" return \"#result_express#（单位：厘米）\";",
+      "debug":"推理过程:<star index='1' /> <star index='2' /> <star index='3' /> = ?"
+      }
+    </template>
+  </category>
+
+  <category>
+    <pattern>
+      * 厘米 <set>加减乘除</set> * 米
+    </pattern>
+    <template>
+      {
+      "answer_type": "recursive",
+      "server_ask": [],
+      "result_express": "<star index='1' /> <star index='2' /> <star index='3' />*100",
+      "result_script":" return \"#result_express#（单位：厘米）\";",
+      "debug":"推理过程:<star index='1' /> <star index='2' /> <star index='3' /> = ?"
+      }
+    </template>
+  </category>
+
+  <category>
+    <pattern>
+      * 厘米 * <set>加减乘除</set> * 里米
+    </pattern>
+    <template>
+      {
+      "answer_type": "recursive",
+      "server_ask": [],
+      "result_express": "<star index='1' /><star index='3' /><star index='4' />",
+      "result_script":" return \"#result_express#（单位：厘米）\";",
+      "debug":"推理过程:<star index='1' /><star index='3' /><star index='4' /> = ?"
+      }
+    </template>
+  </category>
+
+  <category>
+    <pattern>
+      * 公分 * <set>加减乘除</set> * 公分
+    </pattern>
+    <template>
+      {
+      "answer_type": "recursive",
+      "server_ask": [],
+      "result_express": "<star index='1' /><star index='3' /><star index='4' />",
+      "result_script":" return \"#result_express#（单位：公分）\";",
+      "debug":"推理过程:<star index='1' /><star index='3' /><star index='4' /> = ?"
+      }
+    </template>
+  </category>
+
+  <category>
+    <pattern>
+      * 毫米 * <set>加减乘除</set> * 毫米
+    </pattern>
+    <template>
+      {
+      "answer_type": "recursive",
+      "server_ask": [],
+      "result_express": "<star index='1' /><star index='3' /><star index='4' />",
+      "result_script":" return \"#result_express#（单位：毫米）\";",
+      "debug":"推理过程:<star index='1' /><star index='3' /><star index='4' /> = ?"
+      }
+    </template>
+  </category>
+
+  <category>
+    <pattern>
+      * 分米 * <set>加减乘除</set> * 分米
+    </pattern>
+    <template>
+      {
+      "answer_type": "recursive",
+      "server_ask": [],
+      "result_express": "<star index='1' /><star index='3' /><star index='4' />",
+      "result_script":" return \"#result_express#（单位：分米）\";",
+      "debug":"推理过程:<star index='1' /><star index='3' /><star index='4' /> = ?"
+      }
+    </template>
+  </category>
+
+  <category>
+    <pattern>
+      * 米 * <set>加减乘除</set> * 厘米
+    </pattern>
+    <template>
+      {
+      "answer_type": "recursive",
+      "server_ask": [],
+      "result_express": "<star index='1' />*100<star index='3' /><star index='4' />",
+      "result_script":" return \"#result_express#（单位：厘米）\";",
+      "debug":"推理过程:<star index='1' /><star index='3' /><star index='4' /> = ?"
+      }
+    </template>
+  </category>
+
+  <category>
+    <pattern>
+      * 米 * <set>加减乘除</set> * cm
+    </pattern>
+    <template>
+      <srai> <star index='1'/> 米 <star index='2'/> <star index='3'/> <star index='4'/> 厘米</srai>
+    </template>
+  </category>
+
+  <category>
+    <pattern>
+      * 厘米 * <set>加减乘除</set> * 米
+    </pattern>
+    <template>
+      {
+      "answer_type": "recursive",
+      "server_ask": [],
+      "result_express": "<star index='1' /><star index='3' /><star index='4' />*100",
+      "result_script":" return \"#result_express#（单位：厘米）\";",
+      "debug":"推理过程:<star index='1' /><star index='3' /><star index='4' /> = ?"
+      }
+    </template>
+  </category>
+  
+  <category>
+    <pattern>
+      * 米 * <set>加减乘除</set> * 米
+    </pattern>
+    <template>
+      {
+      "answer_type": "recursive",
+      "server_ask": [],
+      "result_express": "<star index='1' /><star index='3' /><star index='4' />",
+      "result_script":" return \"#result_express#（单位：米）\";",
+      "debug":"推理过程:<star index='1' /><star index='3' /><star index='4' /> = ?"
+      }
+    </template>
+  </category>
+  
+  <category>
+    <pattern>
+      * 千米 等于 多少 米
+    </pattern>
+    <template>
+      {
+      "answer_type": "recursive",
+      "server_ask": [],
+      "result_express": "<star index='1' />*1000",
+      "result_script":" return \"#result_express#（单位：米）\";",
+      "debug":"推理过程:<star index='1' />*1000= ?"
+      }
+    </template>
+  </category>
+  <category>
+    <pattern>
+      * 米 等于 多少 分 米
+    </pattern>
+    <template>
+      {
+      "answer_type": "recursive",
+      "server_ask": [],
+      "result_express": "<star index='1' />*100",
+      "result_script":" return \"#result_express#（单位：分米）\";",
+      "debug":"推理过程:<star index='1' />*100= ?"
+      }
+    </template>
+  </category>
+  <category>
+    <pattern>
+      * 分米 等于 多少 厘米
+    </pattern>
+    <template>
+      {
+      "answer_type": "recursive",
+      "server_ask": [],
+      "result_express": "<star index='1' />*10",
+      "result_script":" return \"#result_express#（单位：厘米）\";",
+      "debug":"推理过程:<star index='1' />*10= ?"
+      }
+    </template>
+  </category>
+  <category>
+    <pattern>
+      * 厘米 等于 多少 毫米
+    </pattern>
+    <template>
+      {
+      "answer_type": "recursive",
+      "server_ask": [],
+      "result_express": "<star index='1' />*10",
+      "result_script":" return \"#result_express#（单位：毫米）\";",
+      "debug":"推理过程:<star index='1' />*10= ?"
+      }
+    </template>
+  </category>
+  <category>
+    <pattern>
+      * 毫米 等于 多少 微米
+    </pattern>
+    <template>
+      {
+      "answer_type": "recursive",
+      "server_ask": [],
+      "result_express": "<star index='1' />*1000",
+      "result_script":" return \"#result_express#（单位：毫米）\";",
+      "debug":"推理过程:<star index='1' />*1000= ?"
+      }
+    </template>
+  </category>
+  <category>
+    <pattern>
+      * 毫米 等于 多少 微米
+    </pattern>
+    <template>
+      {
+      "answer_type": "recursive",
+      "server_ask": [],
+      "result_express": "<star index='1' />*1000",
+      "result_script":" return \"#result_express#（单位：毫米）\";",
+      "debug":"推理过程:<star index='1' />*1000= ?"
+      }
+    </template>
+  </category>
+
+
+
+  <category>
+    <pattern>
+      * 等于 几
+    </pattern>
+    <template>
+      {
+      "answer_type": "recursive",
+      "server_ask": [],
+      "result_express": "<star index='1' />",
+      "result_script":" return \"#result_express#\";",
+      "debug":" ",
+      "demo":"1+1等于几"
+      }
+    </template>
+  </category>
+
+  <category>
+    <pattern>
+      * 等于 多少
+    </pattern>
+    <template>
+      {
+      "answer_type": "recursive",
+      "server_ask": [],
+      "result_express": "<star index='1' />",
+      "result_script":" return \"#result_express#\";",
+      "debug":" "
+      }
+    </template>
+  </category>
+
+  <category>
+    <pattern>
+      * 乘 以 * 等于 *
+    </pattern>
+    <template>
+      {
+      "answer_type": "recursive",
+      "server_ask": [],
+      "result_express": "<star index='1' />*<star index='2' />",
+      "result_script":" if(\"unknown\".contains(\"#result_express#\")){return \"我不知道怎么计算<star index='1' />乘以<star index='2' />。\";};return \"#result_express#\";",
+      "debug":" "
+      }
+    </template>
+  </category>
+
+  <category>
+    <pattern>
+      * 除以 * 等于
+    </pattern>
+    <template>
+      {
+      "answer_type": "recursive",
+      "server_ask": [],
+      "result_express": "<star index='1' />/<star index='2' />",
+      "result_script":" return \"#result_express#\";",
+      "debug":" "
+      }
+    </template>
+  </category>
+
+  <category>
+    <pattern>
+      * 加 * 等 于
+    </pattern>
+    <template>
+      {
+      "answer_type": "recursive",
+      "server_ask": [],
+      "result_express": "<star index='1' />+<star index='2' />",
+      "result_script":" return \"#result_express#\";",
+      "debug":" "
+      }
+    </template>
+  </category>
+
+  <category>
+    <pattern>
+      * 加 * 等于
+    </pattern>
+    <template>
+      {
+      "answer_type": "recursive",
+      "server_ask": [],
+      "result_express": "<star index='1' />+<star index='2' />",
+      "result_script":" return \"#result_express#\";",
+      "debug":" "
+      }
+    </template>
+  </category>
+
+  <category>
+    <pattern>
+      * 加 * 等于 *
+    </pattern>
+    <template>
+      <srai>
+        <star index='1'/> 加 <star index='2'/> 等于
+      </srai>
+    </template>
+  </category>
+
+  <category>
+    <pattern>
+      * 加 * 等 多少
+    </pattern>
+    <template>
+      <srai>
+        <star index='1'/> 加 <star index='2'/> 等于
+      </srai>
+    </template>
+  </category>
+
+  <category>
+    <pattern>
+      * 的 平方 是 多少
+    </pattern>
+    <template>
+      {
+      "answer_type": "recursive",
+      "server_ask": [],
+      "result_express": "<star index='1' />*<star index='1' />",
+      "result_script":" return \"#result_express#\";",
+      "debug":" "
+      }
+    </template>
+  </category>
+
+  <category>
+    <pattern>
+      * 的 立方 是 多少
+    </pattern>
+    <template>
+      {
+      "answer_type": "recursive",
+      "server_ask": [],
+      "result_express": "<star index='1' />*<star index='1' />*<star index='1' />",
+      "result_script":" return \"#result_express#\";",
+      "debug":" "
+      }
+    </template>
+  </category>
+
+  <category>
+    <pattern>
+      * 的 * 次 方
+    </pattern>
+    <template>
+      {
+      "answer_type": "recursive",
+      "server_ask": [],
+      "result_express": " ",
+      "result_script":" return Math.pow(<star index='1' />,<star index='2' />)+\"\";",
+      "debug":" "
+      }
+    </template>
+  </category>
+
+  <category>
+    <pattern>
+      * 的 * 次 方 等于 *
+    </pattern>
+    <template>
+      <srai>
+        <star index='1' /> 的 <star index='2' /> 次 方</srai>
+    </template>
+  </category>
+
+  <category>
+    <pattern>
+      * 的 * 次 方 是 *
+    </pattern>
+    <template>
+      <srai>
+        <star index='1' /> 的 <star index='2' /> 次 方
+      </srai>
+    </template>
+  </category>
+
+
+  <category>
+    <pattern>
+      * 减 * 等于
+    </pattern>
+    <template>
+      {
+      "answer_type": "recursive",
+      "server_ask": [],
+      "result_express": "<star index='1' />-<star index='2' />",
+      "result_script":" return \"#result_express#\";",
+      "debug":" "
+      }
+    </template>
+  </category>
+
+  <category>
+    <pattern>
+      * 减 * 等于 *
+    </pattern>
+    <template>
+      <srai><star index='1'/> 减 <star index='2'/> 等于</srai>
+    </template>
+  </category>
+
+  <category>
+    <pattern>
+      * 年 是 <set>生肖</set> 吗
+    </pattern>
+    <template>
+      {
+      "answer_type": "result",
+      "server_ask": [
+      {
+      "command": "knowledge",
+      "parameter": "<star index='1' />年生肖"
+      }
+      ],
+      "result_express": "#s1#",
+      "result_script":"if(\"<star index='2' />\".contains(\"#result_express#\")){return \"是的。\";};return \"不是，是#result_express#年\";",
+      "debug":" "
+      }
+    </template>
+  </category>
+
+  <category>
+    <pattern>
+      一 年 有 * 天
+    </pattern>
+    <template>
+      一年有365天
+    </template>
+  </category>
+
+  <category>
+    <pattern>
+      一个 星期 有 * 天
+    </pattern>
+    <template>
+      一个星期有七天
+    </template>
+  </category>
+
+  <category>
+    <pattern>
+      一天 天 有 * 个 小时
+    </pattern>
+    <template>
+      一天有24个小时
+    </template>
+  </category>
+  
+</aiml>
+

@@ -1,0 +1,75 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<aiml>
+  <category>
+    <pattern>
+      <set>美食菜谱</set> 的 做法
+    </pattern>
+    <template>
+      {
+      "answer_type": "result",
+      "server_ask": [
+      { "command":"cooking","parameter":"<star index='1'/>" }
+      ],
+      "result_express": "#s1#",
+      "result_script":" ",
+      "debug":"推理过程：<star index='1'/>"
+      }
+    </template>
+  </category>
+  <category>
+    <pattern>
+      怎么 做 <set>美食菜谱</set>
+    </pattern>
+    <template>
+      <srai>
+        <star index='1'/> 的 做法
+      </srai>
+    </template>
+ </category>
+  <category>
+    <pattern>
+       <set>美食菜谱</set> 怎么做
+    </pattern>
+    <template>
+      <srai>
+        <star index='1'/> 的 做法
+      </srai>
+    </template>
+  </category>
+  <category>
+    <pattern>
+      <set>美食菜谱</set>
+    </pattern>
+    <template>
+      您 是 想 知道 <star index='1'/> 怎么做 吗
+    </template>
+  </category>
+  <category>
+    <pattern>
+      是 的
+    </pattern>
+    <that>您 是 想 知道 * 怎么做 吗</that>
+    <template>
+      <srai>
+        <thatstar/> 的 做法
+      </srai>
+    </template>
+  </category>
+  <category>
+    <pattern>
+      不是
+    </pattern>
+    <that>您 是 想 知道 * 怎么做 吗</that>
+    <template>
+      {
+      "answer_type": "result",
+      "server_ask": [
+      { "command":"knowledge","parameter":"<thatstar/>" }
+      ],
+      "result_express": "#s1#",
+      "result_script":" ",
+      "debug":"推理过程：<star index='1'/>"
+      }
+    </template>
+  </category>
+</aiml>
