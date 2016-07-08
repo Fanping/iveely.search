@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.iveely</groupId>
     <artifactId>com.iveely.framework</artifactId>
-    <version>0.9.1-SNAPSHOT</version>
+    <version>0.9.1</version>
     <distributionManagement>
         <snapshotRepository>
             <id>ossrh</id>
@@ -154,7 +154,7 @@
         </license>
     </licenses>
     <scm>
-        <url>https://github.com/Fanping/iveely.framework</url>
+        <url>https://github.com/Fanping/iveely.search/iveely.framework</url>
         <developerConnection>Liu Fanping</developerConnection>
     </scm>
 </project>
