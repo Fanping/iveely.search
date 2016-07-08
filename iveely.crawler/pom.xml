@@ -1,0 +1,50 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.iveely</groupId>
+    <artifactId>com.iveely.crawler</artifactId>
+    <version>0.9.1</version>
+    <name>iveely.crawler</name>
+    <description>A simple distributed crawling system.</description>
+    <build>
+        <sourceDirectory>src</sourceDirectory>
+        <plugins>
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.3</version>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+    <organization>
+        <name>iveely</name>
+    </organization>
+    <dependencies>
+        <!-- https://mvnrepository.com/artifact/uk.org.lidalia/lidalia-slf4j-ext -->
+        <dependency>
+            <groupId>uk.org.lidalia</groupId>
+            <artifactId>lidalia-slf4j-ext</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/com.iveely/com.iveely.framework -->
+        <dependency>
+            <groupId>com.iveely</groupId>
+            <artifactId>com.iveely.framework</artifactId>
+            <version>0.9.1</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.jsoup/jsoup -->
+        <dependency>
+            <groupId>org.jsoup</groupId>
+            <artifactId>jsoup</artifactId>
+            <version>1.9.2</version>
+        </dependency>
+    </dependencies>
+    <scm>
+        <url>https://github.com/Fanping/iveely.search</url>
+        <developerConnection>Liu Fanping</developerConnection>
+    </scm>
+</project>
