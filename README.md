@@ -7,4 +7,3 @@ Pure java realize search engine, try to directly hit the user's search for answe
 ## (5) How to use iveely database?
 ## (6) Can I known more about iveely search engine?
 ## (7) Why you did iveely search engine?
-
