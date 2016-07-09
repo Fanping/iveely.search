@@ -9,6 +9,12 @@ public class StoreField<T> {
   private String name;
   private T value;
 
+  public StoreField() {
+    this.type = Type.STRING;
+    this.name = "";
+    this.value = null;
+  }
+
   public StoreField(Type type, String name, T value) {
     this.type = type;
     this.name = name;

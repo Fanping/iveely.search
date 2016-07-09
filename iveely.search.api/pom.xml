@@ -63,6 +63,12 @@
             <artifactId>swagger-springmvc</artifactId>
             <version>1.0.2</version>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/com.iveely/com.iveely.framework -->
+        <dependency>
+            <groupId>com.iveely</groupId>
+            <artifactId>com.iveely.framework</artifactId>
+            <version>0.9.1</version>
+        </dependency>
     </dependencies>
     <scm>
         <url>https://github.com/Fanping/iveely.search</url>

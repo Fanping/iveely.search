@@ -63,6 +63,7 @@ public class IndexBuilder {
 
   public void flush(boolean isClose) throws IOException {
     writer.flush();
+    writer.commit();
     if (isClose) {
       writer.close();
     }

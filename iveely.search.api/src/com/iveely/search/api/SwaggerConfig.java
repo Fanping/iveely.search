@@ -28,7 +28,7 @@ public class SwaggerConfig {
         .forCodeGeneration(false)
         .pathMapping("/")
         .select()
-        .paths(or(regex("/api/.*")))
+        .paths(or(regex("/api/0.9.1/.*")))
         .build()
         .apiInfo(getApiInfo());
   }

@@ -1,5 +1,6 @@
 package com.iveely.framework.index;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -8,6 +9,10 @@ import java.util.List;
 public class StoredDocument {
 
   private List<StoreField> storeFields;
+  
+  public StoredDocument(){
+	  this.storeFields = new ArrayList<>();
+  }
 
   public StoredDocument(List<StoreField> storeFields) {
     this.storeFields = storeFields;
