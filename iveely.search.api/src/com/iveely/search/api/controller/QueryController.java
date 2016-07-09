@@ -30,10 +30,10 @@ public class QueryController {
   @RequestMapping(value = "/query", method = RequestMethod.GET)
   @ApiOperation(value = "Query method", notes = "Submit query to get articles" +
       "." )
-  public List<StoredDocument> getArticle(@RequestParam String queryField,
-                                         @RequestParam String[] respFields,
-                                         @RequestParam String keywords,
-                                         @RequestParam int totalHits)
+  public List<StoredDocument> doQuery(@RequestParam String queryField,
+                                      @RequestParam String[] respFields,
+                                      @RequestParam String keywords,
+                                      @RequestParam int totalHits)
       throws IOException, ParseException {
     if (this.executor == null) {
       this.executor = new QueryExecutor(Configurate.indexPath);

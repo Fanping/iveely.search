@@ -33,7 +33,7 @@ public class IndexController {
   @ResponseBody
   @RequestMapping(value = "/index", method = RequestMethod.POST)
   @ApiOperation(value = "Index method", notes = "Submit an article to index." )
-  public void forArticle(
+  public void doIndex(
       @ApiParam(required = true, name = "article", value = "This is document " +
           "article." )
       @RequestBody StoredDocument document) throws IOException {
@@ -42,7 +42,7 @@ public class IndexController {
     }
     indexBuilder.build(document.getStoreFields().get(0), document.getStoreFields());
     count++;
-    if (count % 1 == 0) {
+    if (count % 100 == 0) {
       this.indexBuilder.flush(false);
     }
   }
