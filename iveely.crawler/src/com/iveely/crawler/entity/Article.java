@@ -5,15 +5,18 @@ package com.iveely.crawler.entity;
  */
 public class Article {
 
-  private String title;
+  private final String title;
 
-  private String content;
+  private final String content;
+
+  private final String url;
 
   private Long crawlTimestamp;
 
-  public Article(final String title, final String content) {
+  public Article(final String title, final String content,final String url) {
     this.title = title;
     this.content = content;
+    this.url = url;
     this.crawlTimestamp = System.currentTimeMillis();
   }
 
@@ -27,5 +30,9 @@ public class Article {
 
   public Long getCrawlTimestamp() {
     return crawlTimestamp;
+  }
+
+  public String getUrl() {
+    return url;
   }
 }

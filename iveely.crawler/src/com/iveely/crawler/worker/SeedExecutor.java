@@ -2,7 +2,6 @@ package com.iveely.crawler.worker;
 
 import com.iveely.crawler.common.WildcardMatcher;
 import com.iveely.crawler.config.Seed;
-import com.iveely.crawler.entity.Article;
 import com.iveely.crawler.entity.WebUrl;
 
 import org.apache.commons.lang3.SerializationUtils;
@@ -85,7 +84,7 @@ public class SeedExecutor implements Runnable {
         if (urls != null && !urls.isEmpty()) {
           queued.addAll(urls);
         }
-        Article article = parser.get(document);
+        IndexRequest.post(parser.get(document, webUrl.getUrl()));
       } catch (Exception ex) {
         logger.error("Crawl url:" + webUrl.getUrl() + " failed.", ex);
       }
@@ -106,7 +105,6 @@ public class SeedExecutor implements Runnable {
     Worker.remove(this.seed.getName());
     logger.info("Finish crawl seed:" + this.seed.getName());
   }
-
 
   protected Document getDocument(final WebUrl webUrl) {
     try {

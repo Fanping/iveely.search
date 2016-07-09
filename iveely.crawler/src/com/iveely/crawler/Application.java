@@ -10,9 +10,6 @@ import java.io.IOException;
 
 public class Application {
 
-  private static Logger logger = LoggerFactory.getLogger(
-      Application.class);
-
   private static Worker worker;
 
   public static void main(String[] args) throws IOException {

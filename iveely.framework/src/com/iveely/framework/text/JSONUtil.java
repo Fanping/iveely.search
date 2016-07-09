@@ -16,6 +16,8 @@
 package com.iveely.framework.text;
 
 import org.codehaus.jackson.map.ObjectMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.IOException;
@@ -26,6 +28,8 @@ import java.io.IOException;
  * @author liufanping (liufanping@iveely.com)
  */
 public class JSONUtil {
+
+  private static Logger logger = LoggerFactory.getLogger(JSONUtil.class);
 
   /**
    * Convert object into a JSON string.
@@ -42,7 +46,7 @@ public class JSONUtil {
       }
       return mapper.writeValueAsString(obj);
     } catch (Exception e) {
-      e.printStackTrace();
+      logger.error("Write value as string failed.", e);
       return null;
     }
   }
@@ -52,10 +56,10 @@ public class JSONUtil {
    *
    * @return Object of specify.
    */
-  public static <T> T fromString(String text) throws IOException {
+  public static <T> T fromString(String text,Class<T> clazz)
+      throws IOException {
     ObjectMapper mapper = new ObjectMapper();
-    T t = null;
-    return mapper.readValue(text, (Class<T>) t.getClass());
+    return mapper.readValue(text, clazz);
   }
 
   /**

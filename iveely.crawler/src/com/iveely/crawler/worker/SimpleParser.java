@@ -14,8 +14,8 @@ public class SimpleParser {
     return true;
   }
 
-  public Article get(final Document document) {
+  public Article get(final Document document, final String url) {
     return new Article(document.title(),
-        document.body().text().replace(" ", ""));
+        document.body().text().trim(), url);
   }
 }
