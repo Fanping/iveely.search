@@ -4,7 +4,7 @@
 package com.iveely.brain.mind;
 
 import com.iveely.brain.environment.Variable;
-import com.iveely.framework.file.Serialize;
+import com.iveely.framework.file.XmlSerialize;
 
 /**
  * @author {Iveely Liu}
@@ -37,11 +37,11 @@ public class Self {
   private String hobby;
 
   private Self() {
-    setName("小薇");
+    setName("Iveely talker");
     setDady("Iveely Liu");
     setBirthday("2015-05-01");
-    setGender("女");
-    setHobby("聊天");
+    setGender("female");
+    setHobby("talking");
   }
 
   /**
@@ -53,7 +53,7 @@ public class Self {
         if (self == null) {
           if (!loadFromFile()) {
             self = new Self();
-            Serialize.toXML(self, Variable.getPathOfSelf());
+            XmlSerialize.toXML(self, Variable.getPathOfSelf());
           }
         }
       }
@@ -65,7 +65,7 @@ public class Self {
    * Load self information from local file.
    */
   private static boolean loadFromFile() {
-    self = Serialize.fromXML(Variable.getPathOfSelf());
+    self = XmlSerialize.fromXML(Variable.getPathOfSelf());
     return self != null;
   }
 

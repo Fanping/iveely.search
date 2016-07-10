@@ -73,7 +73,7 @@ public class Branch {
     Packet packet = new Packet();
     packet.setMimeType(MimeType.STRING.ordinal());
     packet.setData(msg);
-    packet.setExecutType(1);
+    packet.setExecuteType(1);
     return this.client.send(packet);
   }
 

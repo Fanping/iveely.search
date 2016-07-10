@@ -9,7 +9,7 @@ import com.iveely.brain.environment.Variable;
 import com.iveely.brain.index.Inverted;
 import com.iveely.brain.mind.Nerve.EventHandler;
 import com.iveely.brain.mind.React.Status;
-import com.iveely.framework.file.Serialize;
+import com.iveely.framework.file.XmlSerialize;
 
 import org.apache.log4j.Logger;
 
@@ -55,7 +55,7 @@ public class Brain {
     this._categories = new ArrayList<>();
     Brain._logger = Logger.getLogger(Brain.class);
     this._sessions = new HashMap<>();
-    this._branches = Serialize.fromXML(Variable.getPathOfBranch());
+    this._branches = XmlSerialize.fromXML(Variable.getPathOfBranch());
   }
 
   /**

@@ -3,6 +3,7 @@
  */
 package com.iveely.brain.node;
 
+import com.iveely.brain.daiml.SimpleString;
 import com.iveely.framework.net.Packet;
 import com.iveely.framework.net.Packet.MimeType;
 import com.iveely.framework.net.SyncServer;
@@ -42,7 +43,7 @@ public class ExampleNode {
     @Override
     public Packet invoke(Packet packet) {
       packet.setMimeType(MimeType.STRING.ordinal());
-      packet.setData("125cm");
+      packet.setData(new SimpleString("Hello!"));
       packet.setExecuteType(1);
       return packet;
     }

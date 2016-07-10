@@ -15,9 +15,10 @@ public class Program {
       local.start();
       BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
       try {
+        System.out.print("Q:");
         String text = reader.readLine().trim();
         while (!text.equals("exit")) {
-          System.out.println(local.send(text));
+          System.out.println("A:" + local.send(text));
           text = reader.readLine().trim();
         }
         reader.close();

@@ -2,7 +2,7 @@
 Welcome here,Iveely search engine is a pure java realize search engine, try to directly hit the user's search for answers.
 Iveely is an abbreviation from 'I void everything,except love you'.<br/>
 <br/>
-Contact me if you have any questions, [mailto:liufanping@iveely.com](mailto:liufanping@iveely.com).
+Contact me if you have any questions, [liufanping@iveely.com](mailto:liufanping@iveely.com).
 ### (1) Quick Start in five minutes.
 #### 1. Download and build.
 Download iveely.crawler & iveely.search.api,and build to executable jar,you can use maven build them quickly.
@@ -17,10 +17,16 @@ Moreover API information were described using Swagger-UI. So you can visit [http
 Iveely also was submitted to the maven central repositry. visit [maven with iveely](http://search.maven.org/#search%7Cga%7C1%7Civeely) to get more.
 ### (3) How to make search engine more smarter?
 With only document search is not the goal,to build more intelligent search engine is very important,so we have added a project named 'iveely.brain'.<br/>
+iveely.brain has two mode, local debug & Remote network calls.
 To run iveely.brain,you should do as follow:
-#### 1.
-#### 2. 
-#### 3.
+#### 1. Download and build.
+Download iveely.brain and use maven to build,you also can run code by main class Progam.java. <br/>
+Local operation does not require any arguments,but you need copy folder 'example conf/for brain/ai' to the same parent directory with 'iveely.brain.jar'. <br/>
+#### 2. Test is successful start.
+When run local mode,you can enter a question on console like 'Which city is the capital of the United States?' <br/>
+If console write 'Washington.',congratulations, you've successfully run.<br/>
+#### 3. Configuration for remote calls.
+Modify file 'ai/property/branches.xml', configure the port number and offer to provide network services, so that the external system can access the service, which is important for distributed search engine.<br/>
 ### (4) What's is the iveely computing used for,and how to use it?
 In 2015, my friend and I began to research in the field of artificial intelligence, we need a lightweight computing framework to help us build data model in fast. Rapid deployment, rapid results, simple to fit is our original intention at that time. Even hope that any program can be distributed, such as crawler program of search engine. In the process of last year, Iveely Computing has given us a lot of help, so we decided to open source to more developers.<br/>
 ### (5) How to use iveely database?

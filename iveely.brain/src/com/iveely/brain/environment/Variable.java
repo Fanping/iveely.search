@@ -26,7 +26,7 @@ public final class Variable {
   /**
    * The path of the category.
    */
-  private static String pathOfCategory = "ai/category_test";
+  private static String pathOfCategory = "ai/category";
 
   /**
    * The service port of robot.

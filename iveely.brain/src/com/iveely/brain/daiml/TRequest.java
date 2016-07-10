@@ -102,7 +102,7 @@ public class TRequest extends ITemplate {
     for (BranchNode req : requests) {
       String par = req.getParameter(stars);
       Packet packet = Brain.getInstance().getBranch(req.getName()).send(par);
-      String temp = com.iveely.framework.text.StringUtil.getString(packet.getData());
+      String temp = ((SimpleString) packet.getData()).getValue();
       nodes.add(temp);
     }
 
