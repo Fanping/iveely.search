@@ -33,7 +33,7 @@ In 2015, my friend and I began to research in the field of artificial intelligen
 ### (5) How to use iveely database?
 iveely database is a mini data storage system,it's has two mode, as follow:<br/>
 #### 1. Local mode.
-Local mode is easy to use, example code=>
+Local mode is easy to use, example code =>
 
 
 
@@ -48,6 +48,20 @@ Local mode is easy to use, example code=>
 		
 
 #### 2. Remote mode.
+Use remote mode you can build a database server,and every application can access the database. example code =>
+
+
+
+		final String houseName = "example_house";
+        final String tableName = "example_table";
+        DbConnector connector = new DbConnector(houseName, "localhost", 4321);
+        final int id = connector.insert(tableName, new Object[]{"1", "this is example"});
+        Object[] data = connector.selectOne(tableName, id);
+        System.out.print(data);
+        connector.dropTable(tableName);
+		
+
+ 
 ### (6) Can I known more about iveely search engine?
 For a better understanding of the next generation of modern search engines, I wrote a book named "Big Data Search Engine Principle Analysis and Implementation", you can get this book on  [amazon.com](https://www.amazon.cn/%E5%A4%A7%E6%95%B0%E6%8D%AE%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90%E5%8F%8A%E7%BC%96%E7%A8%8B%E5%AE%9E%E7%8E%B0-%E5%88%98%E5%87%A1%E5%B9%B3/dp/B01HYCX288/ref=sr_1_1?ie=UTF8&qid=1468111657&sr=8-1&keywords=%E5%88%98%E5%87%A1%E5%B9%B3) or [jd.com](http://item.jd.com/11981242.html).
 ### (7) Why you did iveely search engine?
