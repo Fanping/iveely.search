@@ -1,7 +1,5 @@
 /**
- * date   : 2016年1月29日
- * author : Iveely Liu
- * contact: sea11510@mail.ustc.edu.cn
+ * date   : 2016年1月29日 author : Iveely Liu contact: sea11510@mail.ustc.edu.cn
  */
 package com.iveely.brain.mind;
 
@@ -10,150 +8,135 @@ import com.iveely.framework.file.Serialize;
 
 /**
  * @author {Iveely Liu}
- *
  */
 public class Self {
 
-	/**
-	 * Name of the robot.
-	 */
-	private String name;
+  /**
+   * Single instance;
+   */
+  private static Self self;
+  /**
+   * Name of the robot.
+   */
+  private String name;
+  /**
+   * Dady of the robot.
+   */
+  private String dady;
+  /**
+   * Birthday of the robot.
+   */
+  private String birthday;
+  /**
+   * Gender of the robot.
+   */
+  private String gender;
+  /**
+   * hobby of the robot.
+   */
+  private String hobby;
 
-	/**
-	 * Dady of the robot.
-	 */
-	private String dady;
+  private Self() {
+    setName("小薇");
+    setDady("Iveely Liu");
+    setBirthday("2015-05-01");
+    setGender("女");
+    setHobby("聊天");
+  }
 
-	/**
-	 * Birthday of the robot.
-	 */
-	private String birthday;
+  /**
+   * Get single instance.
+   */
+  public static Self getInstance() {
+    if (self == null) {
+      synchronized (Self.class) {
+        if (self == null) {
+          if (!loadFromFile()) {
+            self = new Self();
+            Serialize.toXML(self, Variable.getPathOfSelf());
+          }
+        }
+      }
+    }
+    return self;
+  }
 
-	/**
-	 * Gender of the robot.
-	 */
-	private String gender;
+  /**
+   * Load self information from local file.
+   */
+  private static boolean loadFromFile() {
+    self = Serialize.fromXML(Variable.getPathOfSelf());
+    return self != null;
+  }
 
-	/**
-	 * hobby of the robot.
-	 */
-	private String hobby;
+  /**
+   * @return the name
+   */
+  public String getName() {
+    return name;
+  }
 
-	/**
-	 * Single instance;
-	 */
-	private static Self self;
+  /**
+   * @param name the name to set
+   */
+  public void setName(String name) {
+    this.name = name;
+  }
 
-	private Self() {
-		setName("小薇");
-		setDady("Iveely Liu");
-		setBirthday("2015-05-01");
-		setGender("女");
-		setHobby("聊天");
-	}
+  /**
+   * @return the dady
+   */
+  public String getDady() {
+    return dady;
+  }
 
-	/**
-	 * @return the name
-	 */
-	public String getName() {
-		return name;
-	}
+  /**
+   * @param dady the dady to set
+   */
+  public void setDady(String dady) {
+    this.dady = dady;
+  }
 
-	/**
-	 * @param name
-	 *            the name to set
-	 */
-	public void setName(String name) {
-		this.name = name;
-	}
+  /**
+   * @return the birthday
+   */
+  public String getBirthday() {
+    return birthday;
+  }
 
-	/**
-	 * @return the dady
-	 */
-	public String getDady() {
-		return dady;
-	}
+  /**
+   * @param birthday the birthday to set
+   */
+  public void setBirthday(String birthday) {
+    this.birthday = birthday;
+  }
 
-	/**
-	 * @param dady
-	 *            the dady to set
-	 */
-	public void setDady(String dady) {
-		this.dady = dady;
-	}
+  /**
+   * @return the gender
+   */
+  public String getGender() {
+    return gender;
+  }
 
-	/**
-	 * @return the birthday
-	 */
-	public String getBirthday() {
-		return birthday;
-	}
+  /**
+   * @param gender the gender to set
+   */
+  public void setGender(String gender) {
+    this.gender = gender;
+  }
 
-	/**
-	 * @param birthday
-	 *            the birthday to set
-	 */
-	public void setBirthday(String birthday) {
-		this.birthday = birthday;
-	}
+  /**
+   * @return the hobby
+   */
+  public String getHobby() {
+    return hobby;
+  }
 
-	/**
-	 * @return the gender
-	 */
-	public String getGender() {
-		return gender;
-	}
-
-	/**
-	 * @param gender
-	 *            the gender to set
-	 */
-	public void setGender(String gender) {
-		this.gender = gender;
-	}
-
-	/**
-	 * @return the hobby
-	 */
-	public String getHobby() {
-		return hobby;
-	}
-
-	/**
-	 * @param hobby
-	 *            the hobby to set
-	 */
-	public void setHobby(String hobby) {
-		this.hobby = hobby;
-	}
-
-	/**
-	 * Get single instance.
-	 * 
-	 * @return
-	 */
-	public static Self getInstance() {
-		if (self == null) {
-			synchronized (Self.class) {
-				if (self == null) {
-					if (!loadFromFile()) {
-						self = new Self();
-						Serialize.toXML(self, Variable.getPathOfSelf());
-					}
-				}
-			}
-		}
-		return self;
-	}
-
-	/**
-	 * Load self information from local file.
-	 * 
-	 * @return
-	 */
-	private static boolean loadFromFile() {
-		self = Serialize.fromXML(Variable.getPathOfSelf());
-		return self != null;
-	}
+  /**
+   * @param hobby the hobby to set
+   */
+  public void setHobby(String hobby) {
+    this.hobby = hobby;
+  }
 
 }

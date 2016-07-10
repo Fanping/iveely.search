@@ -12,8 +12,9 @@ Query with keyword 'java', you can open browser with [http://127.0.0.1:8080/api/
 If you get the response json,congratulations, you've successfully run.<br/>
 Moreover API information were described using Swagger-UI. So you can visit [http://127.0.0.1:8080/swagger-ui.html](http://127.0.0.1:8080/swagger-ui.html) to get more api.
 ### (2) Maven support
-Iveely also was submitted to the maven central repositry. visit [http://search.maven.org/#search%7Cga%7C1%7Civeely](http://search.maven.org/#search%7Cga%7C1%7Civeely) to get them.
+Iveely also was submitted to the maven central repositry. visit [http://search.maven.org/#search%7Cga%7C1%7Civeely](http://search.maven.org/#search%7Cga%7C1%7Civeely) to get more.
 ### (3) How to make search engine more smarter?
+With only document search is not the goal,to build more intelligent search engine is very important,so we have added a project named 'iveely.brain'.<br/>
 ### (4) What's is the iveely computing used for,and how to use it?
 ### (5) How to use iveely database?
 ### (6) Can I known more about iveely search engine?

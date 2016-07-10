@@ -1,52 +1,53 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<modelVersion>4.0.0</modelVersion>
-	<groupId>com.iveely</groupId>
-	<artifactId>com.iveely.brain</artifactId>
-	<version>0.9.1</version>
-	<name>iveely.brain</name>
-	<description>AI conversation application.</description>
-	<build>
-		<sourceDirectory>src</sourceDirectory>
-		<plugins>
-			<plugin>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.3</version>
-				<configuration>
-					<source>1.8</source>
-					<target>1.8</target>
-				</configuration>
-			</plugin>
-		</plugins>
-	</build>
-	<organization>
-		<name>iveely</name>
-	</organization>
-	<dependencies>
-		<dependency>
-			<groupId>dom4j</groupId>
-			<artifactId>dom4j</artifactId>
-			<version>1.6.1</version>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.maven.shared</groupId>
-			<artifactId>maven-script-interpreter</artifactId>
-			<version>1.1</version>
-		</dependency>
-		
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-log4j12</artifactId>
-			<version>1.7.14</version>
-		</dependency>
-		<dependency>
-			<groupId>com.iveely</groupId>
-			<artifactId>com.iveely.framework</artifactId>
-			<version>0.9.1</version>
-		</dependency>
-	</dependencies>
-	<scm>
-		<url>https://github.com/Fanping/iveely.brain</url>
-		<developerConnection>Liu Fanping</developerConnection>
-	</scm>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.iveely</groupId>
+    <artifactId>com.iveely.brain</artifactId>
+    <version>0.9.1</version>
+    <name>iveely.brain</name>
+    <description>AI conversation application.</description>
+    <build>
+        <sourceDirectory>src</sourceDirectory>
+        <plugins>
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.3</version>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+    <organization>
+        <name>iveely</name>
+    </organization>
+    <dependencies>
+        <dependency>
+            <groupId>dom4j</groupId>
+            <artifactId>dom4j</artifactId>
+            <version>1.6.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.maven.shared</groupId>
+            <artifactId>maven-script-interpreter</artifactId>
+            <version>1.1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
+            <version>1.7.14</version>
+        </dependency>
+        <dependency>
+            <groupId>com.iveely</groupId>
+            <artifactId>com.iveely.framework</artifactId>
+            <version>0.9.1</version>
+        </dependency>
+    </dependencies>
+    <scm>
+        <url>https://github.com/Fanping/iveely.brain</url>
+        <developerConnection>Liu Fanping</developerConnection>
+    </scm>
 </project>

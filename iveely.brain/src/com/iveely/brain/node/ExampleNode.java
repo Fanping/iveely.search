@@ -1,51 +1,50 @@
 /**
- * date   : 2016年1月31日
- * author : Iveely Liu
- * contact: sea11510@mail.ustc.edu.cn
+ * date   : 2016年1月31日 author : Iveely Liu contact: sea11510@mail.ustc.edu.cn
  */
 package com.iveely.brain.node;
 
 import com.iveely.framework.net.Packet;
-import com.iveely.framework.net.SyncServer;
 import com.iveely.framework.net.Packet.MimeType;
+import com.iveely.framework.net.SyncServer;
+
+import java.io.IOException;
 
 /**
  * @author {Iveely Liu}
- *
  */
 public class ExampleNode {
 
-	public class Handler implements com.iveely.framework.net.SyncServer.ICallback {
+  /**
+   * Synchronous communication.
+   */
+  public SyncServer server;
 
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see
-		 * com.iveely.robot.net.SyncServer.ICallback#invoke(com.iveely.robot.net
-		 * .Packet)
-		 */
-		@Override
-		public Packet invoke(Packet packet) {
-			packet.setMimeType(MimeType.STRING.ordinal());
-			packet.setData("125cm");
-			packet.setExecutType(1);
-			return packet;
-		}
-	}
+  public ExampleNode(int port) {
+    this.server = new SyncServer(new Handler(), port);
+  }
 
-	/**
-	 * Synchronous communication.
-	 */
-	public SyncServer server;
+  /**
+   * Start example node to help brain more clever.
+   */
+  public void start() throws IOException {
+    this.server.start();
+  }
 
-	public ExampleNode(int port) {
-		this.server = new SyncServer(new Handler(), port);
-	}
+  public class Handler implements com.iveely.framework.net.SyncServer.ICallback {
 
-	/**
-	 * Start example node to help brain more clever.
-	 */
-	public void start() {
-		this.server.start();
-	}
+    /*
+     * (non-Javadoc)
+     *
+     * @see
+     * com.iveely.robot.net.SyncServer.ICallback#invoke(com.iveely.robot.net
+     * .Packet)
+     */
+    @Override
+    public Packet invoke(Packet packet) {
+      packet.setMimeType(MimeType.STRING.ordinal());
+      packet.setData("125cm");
+      packet.setExecuteType(1);
+      return packet;
+    }
+  }
 }
