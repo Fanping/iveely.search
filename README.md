@@ -1,6 +1,8 @@
 ## iveely search engine
 Welcome here,Iveely search engine is a pure java realize search engine, try to directly hit the user's search for answers.
-Iveely is short from 'I void everything,except love you'.
+Iveely is an abbreviation from 'I void everything,except love you'.<br/>
+<br/>
+Contact me if you have any questions, [mailto:liufanping@iveely.com](mailto:liufanping@iveely.com).
 ### (1) Quick Start in five minutes.
 #### 1. Download and build.
 Download iveely.crawler & iveely.search.api,and build to executable jar,you can use maven build them quickly.
@@ -27,4 +29,3 @@ For a better understanding of the next generation of modern search engines, I wr
 ### (7) Why you did iveely search engine?
 From 2009, I began to think search engine not just a simple search tool. I offer keywords to search engine, the search engine returns some documents, I think this is not smart enough. <br/>
 I expect I'll give the search engines a question, it gives me an answer,this is my original goal.<br/>
-Contact me if you have any questions, [mailto:liufanping@iveely.com](mailto:liufanping@iveely.com).
