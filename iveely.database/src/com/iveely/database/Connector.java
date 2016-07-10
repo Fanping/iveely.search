@@ -11,37 +11,30 @@ import com.iveely.database.message.OpenStatus;
  */
 public class Connector {
 
-    /**
-     * The server to connect.
-     */
-    private String server;
+  /**
+   * The server to connect.
+   */
+  private String server;
 
-    /**
-     * @return the server
-     */
-    public String getServer() {
-        return server;
-    }
+  /**
+   * @return the server
+   */
+  public String getServer() {
+    return server;
+  }
 
-    /**
-     * Open connection.
-     *
-     * @param server
-     * @param port
-     * @param dbName
-     * @return
-     */
-    public OpenStatus open(String server, String port, String dbName) {
-        this.server = server;
-        return OpenStatus.NOT_FOUND_HOST;
-    }
+  /**
+   * Open connection.
+   */
+  public OpenStatus open(String server, String port, String dbName) {
+    this.server = server;
+    return OpenStatus.NOT_FOUND_HOST;
+  }
 
-    /**
-     * Close connection.
-     *
-     * @return
-     */
-    public CloseStatus close() {
-        return CloseStatus.SUCCESS;
-    }
+  /**
+   * Close connection.
+   */
+  public CloseStatus close() {
+    return CloseStatus.SUCCESS;
+  }
 }

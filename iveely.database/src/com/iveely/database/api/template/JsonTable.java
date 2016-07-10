@@ -6,96 +6,91 @@
 package com.iveely.database.api.template;
 
 /**
- *
  * @author X1 Carbon
  */
 public class JsonTable {
 
-    private String dbName;
+  private String dbName;
+  private String tableName;
+  private String[] columns;
+  private Integer[] types;
+  private boolean[] uniques;
 
-    public JsonTable(String dbName) {
-        this.dbName = dbName;
-    }
+  public JsonTable(String dbName) {
+    this.dbName = dbName;
+  }
 
-    private String tableName;
+  /**
+   * @return the tableName
+   */
+  public String getTableName() {
+    return tableName;
+  }
 
-    /**
-     * @return the tableName
-     */
-    public String getTableName() {
-        return tableName;
-    }
+  /**
+   * @param tableName the tableName to set
+   */
+  public void setTableName(String tableName) {
+    this.tableName = tableName;
+  }
 
-    /**
-     * @param tableName the tableName to set
-     */
-    public void setTableName(String tableName) {
-        this.tableName = tableName;
-    }
+  /**
+   * @return the columns
+   */
+  public String[] getColumns() {
+    return columns;
+  }
 
-    private String[] columns;
+  /**
+   * @param columns the columns to set
+   */
+  public void setColumns(String[] columns) {
+    this.columns = columns;
+  }
 
-    /**
-     * @return the columns
-     */
-    public String[] getColumns() {
-        return columns;
-    }
+  /**
+   * @return the types
+   */
+  public Integer[] getTypes() {
+    return types;
+  }
 
-    /**
-     * @param columns the columns to set
-     */
-    public void setColumns(String[] columns) {
-        this.columns = columns;
-    }
+  /**
+   * @param types the types to set
+   */
+  public void setTypes(Integer[] types) {
+    this.types = types;
+  }
 
-    private Integer[] types;
+  /**
+   * @return the uniques
+   */
+  public boolean[] getUniques() {
+    return uniques;
+  }
 
-    /**
-     * @return the types
-     */
-    public Integer[] getTypes() {
-        return types;
-    }
+  /**
+   * @param uniques the uniques to set
+   */
+  public void setUniques(boolean[] uniques) {
+    this.uniques = uniques;
+  }
 
-    /**
-     * @param types the types to set
-     */
-    public void setTypes(Integer[] types) {
-        this.types = types;
-    }
+  public String toJson() {
+    return com.iveely.framework.text.JSONUtil.toString(this);
+  }
 
-    private boolean[] uniques;
+  /**
+   * @return the dbName
+   */
+  public String getDbName() {
+    return dbName;
+  }
 
-    /**
-     * @return the uniques
-     */
-    public boolean[] getUniques() {
-        return uniques;
-    }
-
-    /**
-     * @param uniques the uniques to set
-     */
-    public void setUniques(boolean[] uniques) {
-        this.uniques = uniques;
-    }
-
-    public String toJson() {
-        return com.iveely.framework.text.JsonUtil.beanToJson(this);
-    }
-
-    /**
-     * @return the dbName
-     */
-    public String getDbName() {
-        return dbName;
-    }
-
-    /**
-     * @param dbName the dbName to set
-     */
-    public void setDbName(String dbName) {
-        this.dbName = dbName;
-    }
+  /**
+   * @param dbName the dbName to set
+   */
+  public void setDbName(String dbName) {
+    this.dbName = dbName;
+  }
 }

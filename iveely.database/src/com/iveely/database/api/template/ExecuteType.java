@@ -6,10 +6,9 @@
 package com.iveely.database.api.template;
 
 /**
- *
  * @author X1 Carbon
  */
 public enum ExecuteType {
 
-    CREATETABLE
+  CREATETABLE
 }

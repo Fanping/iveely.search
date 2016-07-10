@@ -5,26 +5,23 @@
  */
 package com.iveely.database;
 
-import java.util.Date;
-
 /**
- *
  * @author Administrator
  */
 public class FlushTimer implements Runnable {
 
-	@Override
-	public void run() {
-		while (true) {
-			try {
-				String[] names = LocalStore.getDatabases();
-				for (String name : names) {
-					LocalStore.getWarehouse(name).close();
-				}
-				Thread.sleep(1000 * 60 * 10);
-			} catch (Exception ex) {
-				ex.printStackTrace();
-			}
-		}
-	}
+  @Override
+  public void run() {
+    while (true) {
+      try {
+        String[] names = LocalStore.getDatabases();
+        for (String name : names) {
+          LocalStore.getWarehouse(name).close();
+        }
+        Thread.sleep(1000 * 60 * 10);
+      } catch (Exception ex) {
+        ex.printStackTrace();
+      }
+    }
+  }
 }

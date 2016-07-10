@@ -8,16 +8,16 @@ package com.iveely.database.message;
  */
 public enum OpenStatus {
 
-    /*
-     Open connection success.
-     */
-    SUCCESS,
-    /**
-     * Not found host,
-     */
-    NOT_FOUND_HOST,
-    /**
-     * Not found the database.
-     */
-    NOT_FOUND_DATABASE
+  /*
+   Open connection success.
+   */
+  SUCCESS,
+  /**
+   * Not found host,
+   */
+  NOT_FOUND_HOST,
+  /**
+   * Not found the database.
+   */
+  NOT_FOUND_DATABASE
 }

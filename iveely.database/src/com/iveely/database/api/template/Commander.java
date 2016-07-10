@@ -6,20 +6,19 @@
 package com.iveely.database.api.template;
 
 /**
- *
  * @author X1 Carbon
  */
 public enum Commander {
 
-    CREATETABLE,
-    INSERTONE,
-    INSERTMANY,
-    SELECTONE,
-    SELECTMANY,
-    CLOSE,
-    DROPTABLE,
-    COUNT,
-    PUSH_QUEUE,
-    POP_QUEUE,
-    CLOSE_QUEUE
+  CREATETABLE,
+  INSERTONE,
+  INSERTMANY,
+  SELECTONE,
+  SELECTMANY,
+  CLOSE,
+  DROPTABLE,
+  COUNT,
+  PUSH_QUEUE,
+  POP_QUEUE,
+  CLOSE_QUEUE
 }

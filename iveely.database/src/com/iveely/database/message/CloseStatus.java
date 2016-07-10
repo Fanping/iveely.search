@@ -8,12 +8,12 @@ package com.iveely.database.message;
  */
 public enum CloseStatus {
 
-    /**
-     * Close success.
-     */
-    SUCCESS,
-    /**
-     * Close failure.
-     */
-    FAILURE
+  /**
+   * Close success.
+   */
+  SUCCESS,
+  /**
+   * Close failure.
+   */
+  FAILURE
 }
