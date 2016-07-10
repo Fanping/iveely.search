@@ -1,0 +1,10 @@
+{
+  "name": "stackoverflow",
+  "url": "http://stackoverflow.com/",
+  "patterns": [
+    "http://stackoverflow.com/questions/*"
+  ],
+  "depth": "4",
+  "userAgent": "",
+  "frequency": 5
+}
