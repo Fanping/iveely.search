@@ -25,6 +25,7 @@ Local operation does not require any arguments,but you need copy folder 'example
 #### 2. Test is successful start.
 When run local mode,you can enter a question on console like 'Which city is the capital of the United States?' <br/>
 If console write 'Washington.',congratulations, you've successfully run.<br/>
+For more information see [Distributed Artificial Intelligence Markup Language](http://www.cnblogs.com/liufanping/p/5189678.html).
 #### 3. Configuration for remote calls.
 Modify file 'ai/property/branches.xml', configure the port number and offer to provide network services, so that the external system can access the service, which is important for distributed search engine.<br/>
 ### (4) What's is the iveely computing used for,and how to use it?
