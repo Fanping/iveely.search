@@ -20,7 +20,7 @@ package com.iveely.computing.api.writable;
  */
 public class BoolWritable extends BasicWritable<Boolean> {
 
-    public BoolWritable(Boolean t) {
-        super(t);
-    }
+  public BoolWritable(Boolean t) {
+    super(t);
+  }
 }

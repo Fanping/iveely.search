@@ -16,6 +16,7 @@
 package com.iveely.computing.api;
 
 import com.iveely.computing.api.writable.IWritable;
+
 import java.io.Serializable;
 
 /**
@@ -23,47 +24,47 @@ import java.io.Serializable;
  */
 public class DataTuple implements Serializable {
 
-    /**
-     * Serial id.
-     */
-    private static final long serialVersionUID = -1466479389299512377L;
+  /**
+   * Serial id.
+   */
+  private static final long serialVersionUID = -1466479389299512377L;
 
-    /**
-     * The Key can be serialized.
-     */
-    public IWritable key;
+  /**
+   * The Key can be serialized.
+   */
+  public IWritable key;
 
-    /**
-     * The Value can be serialized.
-     */
-    public IWritable value;
+  /**
+   * The Value can be serialized.
+   */
+  public IWritable value;
 
-    /**
-     * Build tuple by two elements.
-     *
-     * @param key Key element.
-     * @param value Value element.
-     */
-    public DataTuple(IWritable key, IWritable value) {
-        this.key = key;
-        this.value = value;
-    }
+  /**
+   * Build tuple by two elements.
+   *
+   * @param key   Key element.
+   * @param value Value element.
+   */
+  public DataTuple(IWritable key, IWritable value) {
+    this.key = key;
+    this.value = value;
+  }
 
-    /**
-     * Get key of writable.
-     *
-     * @return Key.
-     */
-    public IWritable getKey() {
-        return this.key;
-    }
+  /**
+   * Get key of writable.
+   *
+   * @return Key.
+   */
+  public IWritable getKey() {
+    return this.key;
+  }
 
-    /**
-     * Get value of writable.
-     *
-     * @return Value.
-     */
-    public IWritable getValue() {
-        return this.value;
-    }
+  /**
+   * Get value of writable.
+   *
+   * @return Value.
+   */
+  public IWritable getValue() {
+    return this.value;
+  }
 }

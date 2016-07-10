@@ -16,6 +16,7 @@
 package com.iveely.computing.config;
 
 import com.iveely.framework.text.JSONUtil;
+
 import java.io.File;
 
 /**
@@ -23,40 +24,40 @@ import java.io.File;
  */
 public class ConfigWrapper {
 
-    private static Configurator configurator;
+  private static Configurator configurator;
 
-    /**
-     * Access to the configuration details.
-     *
-     * @return Instance of the configurator.
-     */
-    public static Configurator get() {
+  private ConfigWrapper() {
+  }
+
+  /**
+   * Access to the configuration details.
+   *
+   * @return Instance of the configurator.
+   */
+  public static Configurator get() {
+    if (configurator == null) {
+      synchronized (Configurator.class) {
         if (configurator == null) {
-            synchronized (Configurator.class) {
-                if (configurator == null) {
-                    load();
-                }
-            }
+          load();
         }
-        return configurator;
+      }
     }
+    return configurator;
+  }
 
-    /**
-     * load configuration information from a file,if load fails,use the default
-     * configuration.
-     */
-    private static void load() {
-        Configurator instance = JSONUtil.fromFile(new File("conf/system.json"), Configurator.class);
-        if (instance != null) {
-            configurator = instance;
-        } else {
-            configurator.setMaster(new MasterConfig("127.0.0.1", 8001, 9000, "", "/iveely.computing/master"));
-            configurator.setSlave(new SlaveConfig(4000, 6000, 6, "/iveely.computing/slave"));
-            configurator.setZookeeper(new ZookeeperConfig("127.0.0.1", 2181));
-            JSONUtil.toFile(configurator, new File("conf/system.json"));
-        }
+  /**
+   * load configuration information from a file,if load fails,use the default
+   * configuration.
+   */
+  private static void load() {
+    Configurator instance = JSONUtil.fromFile(new File("conf/system.json"), Configurator.class);
+    if (instance != null) {
+      configurator = instance;
+    } else {
+      configurator.setMaster(new MasterConfig("127.0.0.1", 8001, 9000, "", "/iveely.computing/master"));
+      configurator.setSlave(new SlaveConfig(4000, 6000, 6, "/iveely.computing/slave"));
+      configurator.setZookeeper(new ZookeeperConfig("127.0.0.1", 2181));
+      JSONUtil.toFile(configurator, new File("conf/system.json"));
     }
-
-    private ConfigWrapper() {
-    }
+  }
 }

@@ -16,6 +16,7 @@
 package com.iveely.computing.task;
 
 import com.iveely.computing.io.IReader;
+
 import java.util.List;
 
 /**
@@ -23,46 +24,46 @@ import java.util.List;
  */
 public class ReaderTask {
 
-    private IReader reader;
+  private IReader reader;
 
-    private List<String> files;
+  private List<String> files;
 
-    /**
-     * Build reader task.
-     *
-     * @param reader The reader to read.
-     * @param files All files assigned to the reader.
-     */
-    public ReaderTask(IReader reader, List<String> files) {
-        this.reader = reader;
-        this.files = files;
-    }
+  /**
+   * Build reader task.
+   *
+   * @param reader The reader to read.
+   * @param files  All files assigned to the reader.
+   */
+  public ReaderTask(IReader reader, List<String> files) {
+    this.reader = reader;
+    this.files = files;
+  }
 
-    /**
-     * @return the reader
-     */
-    public IReader getReader() {
-        return reader;
-    }
+  /**
+   * @return the reader
+   */
+  public IReader getReader() {
+    return reader;
+  }
 
-    /**
-     * @param reader the reader to set
-     */
-    public void setReader(IReader reader) {
-        this.reader = reader;
-    }
+  /**
+   * @param reader the reader to set
+   */
+  public void setReader(IReader reader) {
+    this.reader = reader;
+  }
 
-    /**
-     * @return the files
-     */
-    public List<String> getFiles() {
-        return files;
-    }
+  /**
+   * @return the files
+   */
+  public List<String> getFiles() {
+    return files;
+  }
 
-    /**
-     * @param files the files to set
-     */
-    public void setFiles(List<String> files) {
-        this.files = files;
-    }
+  /**
+   * @param files the files to set
+   */
+  public void setFiles(List<String> files) {
+    this.files = files;
+  }
 }

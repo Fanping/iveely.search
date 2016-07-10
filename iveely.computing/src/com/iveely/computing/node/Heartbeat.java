@@ -30,140 +30,138 @@ import org.apache.log4j.Logger;
  */
 public class Heartbeat implements Runnable {
 
+  /**
+   * Message client.
+   */
+  private final AsynClient client;
+  /**
+   * Logger.
+   */
+  private final Logger logger = Logger.getLogger(Heartbeat.class.getName());
+  private boolean shouldWork;
+
+  /**
+   * Build heartbeat.
+   */
+  public Heartbeat() {
+    client = new AsynClient(ConfigWrapper.get().getMaster().getAddress(), ConfigWrapper.get().getMaster().getPort(), null);
+    this.shouldWork = true;
+  }
+
+  /**
+   * Start heartbeat to prove alive.
+   */
+  @Override
+  public void run() {
+    Thread.currentThread().setName("slave heartbeat thread");
+    while (this.shouldWork) {
+      try {
+        Packet packet = new Packet();
+        packet.setExecuteType(Message.ExecuteType.HEARTBEAT.ordinal());
+        packet.setMimeType(Message.MIMEType.MESSAGE.ordinal());
+        packet.setData(Message.getBytes(beatInfo()));
+        client.send(packet);
+        ThreadUtil.sleep(5);
+      } catch (Exception ex) {
+        logger.error("Send heartbeat stoped:" + ex.getMessage(), ex.getCause());
+        return;
+      }
+    }
+  }
+
+  /**
+   * Stop heartbeat.
+   */
+  public void stop() {
+    this.shouldWork = false;
+  }
+
+  /**
+   * Heartbeat information.
+   *
+   * @return Heartbeat information.
+   */
+  private String beatInfo() {
+    return new HeartbeatInfo().toString();
+  }
+
+  /**
+   * Heart beat informations.
+   */
+  public static class HeartbeatInfo {
+
     /**
-     * Heart beat informations.
+     * The heartbeat from address.
      */
-    public static class HeartbeatInfo {
+    private String ipaddress;
 
-        /**
-         * The heartbeat from address.
-         */
-        private String ipaddress;
+    /**
+     * The heartbeat from port.
+     */
+    private int port;
 
-        /**
-         * The heartbeat from port.
-         */
-        private int port;
+    /**
+     * The current slave used slot count.
+     */
+    private int usedSlot;
 
-        /**
-         * The current slave used slot count.
-         */
-        private int usedSlot;
-
-        /**
-         * Build instance.
-         */
-        public HeartbeatInfo() {
-            this.ipaddress = Internet.getLocalIpAddress();
-            this.port = ConfigWrapper.get().getSlave().getPort();
-            this.usedSlot = Communicator.getInstance().getUsedSlotCount();
-        }
-
-        /**
-         * @return the ipaddress
-         */
-        public String getIpaddress() {
-            return ipaddress;
-        }
-
-        /**
-         * @param ipaddress the ipaddress to set
-         */
-        public void setIpaddress(String ipaddress) {
-            this.ipaddress = ipaddress;
-        }
-
-        /**
-         * @return the port
-         */
-        public int getPort() {
-            return port;
-        }
-
-        /**
-         * @param port the port to set
-         */
-        public void setPort(int port) {
-            this.port = port;
-        }
-
-        /**
-         * @return the freeSlot
-         */
-        public int getUsedSlot() {
-            return usedSlot;
-        }
-
-        /**
-         * @param usedSlot the freeSlot to set
-         */
-        public void setUsedSlot(int usedSlot) {
-            this.usedSlot = usedSlot;
-        }
-
-        /**
-         * @return JSON String of serilize this.
-         */
-        @Override
-        public String toString() {
-            return JSONUtil.toString(this);
-        }
+    /**
+     * Build instance.
+     */
+    public HeartbeatInfo() {
+      this.ipaddress = Internet.getLocalIpAddress();
+      this.port = ConfigWrapper.get().getSlave().getPort();
+      this.usedSlot = Communicator.getInstance().getUsedSlotCount();
     }
 
     /**
-     * Message client.
+     * @return the ipaddress
      */
-    private final AsynClient client;
-
-    /**
-     * Logger.
-     */
-    private final Logger logger = Logger.getLogger(Heartbeat.class.getName());
-
-    private boolean shouldWork;
-
-    /**
-     * Build heartbeat.
-     */
-    public Heartbeat() {
-        client = new AsynClient(ConfigWrapper.get().getMaster().getAddress(), ConfigWrapper.get().getMaster().getPort(), null);
-        this.shouldWork = true;
+    public String getIpaddress() {
+      return ipaddress;
     }
 
     /**
-     * Start heartbeat to prove alive.
+     * @param ipaddress the ipaddress to set
+     */
+    public void setIpaddress(String ipaddress) {
+      this.ipaddress = ipaddress;
+    }
+
+    /**
+     * @return the port
+     */
+    public int getPort() {
+      return port;
+    }
+
+    /**
+     * @param port the port to set
+     */
+    public void setPort(int port) {
+      this.port = port;
+    }
+
+    /**
+     * @return the freeSlot
+     */
+    public int getUsedSlot() {
+      return usedSlot;
+    }
+
+    /**
+     * @param usedSlot the freeSlot to set
+     */
+    public void setUsedSlot(int usedSlot) {
+      this.usedSlot = usedSlot;
+    }
+
+    /**
+     * @return JSON String of serilize this.
      */
     @Override
-    public void run() {
-        Thread.currentThread().setName("slave heartbeat thread");
-        while (this.shouldWork) {
-            try {
-                Packet packet = new Packet();
-                packet.setExecuteType(Message.ExecuteType.HEARTBEAT.ordinal());
-                packet.setMimeType(Message.MIMEType.MESSAGE.ordinal());
-                packet.setData(Message.getBytes(beatInfo()));
-                client.send(packet);
-                ThreadUtil.sleep(5);
-            } catch (Exception ex) {
-                logger.error("Send heartbeat stoped:" + ex.getMessage(), ex.getCause());
-                return;
-            }
-        }
+    public String toString() {
+      return JSONUtil.toString(this);
     }
-
-    /**
-     * Stop heartbeat.
-     */
-    public void stop() {
-        this.shouldWork = false;
-    }
-
-    /**
-     * Heartbeat information.
-     *
-     * @return Heartbeat information.
-     */
-    private String beatInfo() {
-        return new HeartbeatInfo().toString();
-    }
+  }
 }

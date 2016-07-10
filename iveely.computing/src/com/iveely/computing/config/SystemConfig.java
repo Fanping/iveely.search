@@ -1,4 +1,3 @@
-
 /*
  * Copyright 2016 liufanping@iveely.com.
  *
@@ -23,19 +22,19 @@ package com.iveely.computing.config;
  */
 public class SystemConfig {
 
-    /**
-     * App folder for store runing app.
-     */
-    public final static String appFoler = "app";
+  /**
+   * App folder for store runing app.
+   */
+  public final static String appFoler = "app";
 
-    /**
-     * Max worker count for a slave.
-     */
-    public final static int maxWorkerCount = 50;
+  /**
+   * Max worker count for a slave.
+   */
+  public final static int maxWorkerCount = 50;
 
-    /**
-     * Is running in cluster.
-     */
-    public static boolean isCluster = true;
-    
+  /**
+   * Is running in cluster.
+   */
+  public static boolean isCluster = true;
+
 }

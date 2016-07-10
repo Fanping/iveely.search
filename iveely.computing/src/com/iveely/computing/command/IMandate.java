@@ -22,12 +22,12 @@ package com.iveely.computing.command;
  */
 interface IMandate {
 
-    /**
-     * process command.
-     *
-     * @param cmd cmd
-     * @return process result.
-     */
-    public String processCmd(String cmd);
+  /**
+   * process command.
+   *
+   * @param cmd cmd
+   * @return process result.
+   */
+  public String processCmd(String cmd);
 
 }

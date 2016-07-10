@@ -17,100 +17,102 @@ package com.iveely.computing.supervisor;
 
 import com.iveely.computing.config.ConfigWrapper;
 import com.iveely.framework.process.ThreadUtil;
+
+import org.apache.log4j.Logger;
+
 import java.util.ArrayList;
 import java.util.List;
-import org.apache.log4j.Logger;
 
 /**
  * Monitor for node. Used to start and manage slave node.
  */
 public class Monitor {
 
-    /**
-     * Logger.
-     */
-    private static Logger logger = Logger.getLogger(Monitor.class);
+  /**
+   * Logger.
+   */
+  private static Logger logger = Logger.getLogger(Monitor.class);
 
-    /**
-     * The slave service port.
-     */
-    private int slavePort;
+  /**
+   * The slave service port.
+   */
+  private int slavePort;
 
-    /**
-     * Slot on slave basic port to provide service.
-     */
-    private int slotBasicPort;
+  /**
+   * Slot on slave basic port to provide service.
+   */
+  private int slotBasicPort;
 
-    /**
-     * Allow slot count on a slave.
-     */
-    private int slotCount;
+  /**
+   * Allow slot count on a slave.
+   */
+  private int slotCount;
 
-    /**
-     * All slaves on current machine.
-     */
-    private List<Process> slaves;
+  /**
+   * All slaves on current machine.
+   */
+  private List<Process> slaves;
 
-    /**
-     * The jar path of slave.
-     */
-    private String path;
+  /**
+   * The jar path of slave.
+   */
+  private String path;
 
-    /**
-     * Max slaves count allow on current machine.
-     */
-    private int maxSlaves;
+  /**
+   * Max slaves count allow on current machine.
+   */
+  private int maxSlaves;
 
-    /**
-     * Build monitor instance.
-     */
-    public Monitor() {
-        this.slavePort = ConfigWrapper.get().getSlave().getPort();
-        this.slotBasicPort = ConfigWrapper.get().getSlave().getSlot();
-        this.slotCount = ConfigWrapper.get().getSlave().getSlotCount();
-        this.slaves = new ArrayList<>();
-        this.path = Monitor.class.getProtectionDomain().getCodeSource().getLocation().getPath();
-        if (this.path.contains(":")) {
-            this.path = this.path.split(":")[1];
-        }
-        this.maxSlaves = 2;
+  /**
+   * Build monitor instance.
+   */
+  public Monitor() {
+    this.slavePort = ConfigWrapper.get().getSlave().getPort();
+    this.slotBasicPort = ConfigWrapper.get().getSlave().getSlot();
+    this.slotCount = ConfigWrapper.get().getSlave().getSlotCount();
+    this.slaves = new ArrayList<>();
+    this.path = Monitor.class.getProtectionDomain().getCodeSource().getLocation().getPath();
+    if (this.path.contains(":")) {
+      this.path = this.path.split(":")[1];
     }
+    this.maxSlaves = 2;
+  }
 
-    /**
-     * Do action for monitor.
-     */
-    public void doAction() {
-        logger.info(String.format("jar path is %s .", this.path));
-        while (true) {
-            for (int i = 0; i < this.slaves.size(); i++) {
-                if (!this.slaves.get(i).isAlive()) {
-                    logger.info("remove useless process");
-                    this.slaves.remove(i);
-                }
-            }
-            int left = maxSlaves - this.slaves.size();
-            for (int i = 0; i < left; i++) {
-                logger.info("start process.");
-                startProcess();
-            }
-            ThreadUtil.sleep(60);
+  /**
+   * Do action for monitor.
+   */
+  public void doAction() {
+    logger.info(String.format("jar path is %s .", this.path));
+    while (true) {
+      for (int i = 0; i < this.slaves.size(); i++) {
+        if (!this.slaves.get(i).isAlive()) {
+          logger.info("remove useless process");
+          this.slaves.remove(i);
         }
+      }
+      int left = maxSlaves - this.slaves.size();
+      for (int i = 0; i < left; i++) {
+        logger.info("start process.");
+        startProcess();
+      }
+      ThreadUtil.sleep(60);
     }
+  }
 
-    /**
-     * Start a slave process.
-     */
-    private void startProcess() {
-        String args = "slave " + this.slavePort + " " + this.slotBasicPort + " " + this.slotCount;
-        logger.info(String.format("start process,jar path:%s,arguments:%s", path, args));
-        Process process = com.iveely.computing.common.ProcessBuilder.start(path, args);
-        if (process != null && process.isAlive()) {
-            this.slavePort++;
-            this.slotBasicPort += this.slotCount;
-            this.slaves.add(process);
-            logger.info("process is started.");
-        } else {
-            logger.info("process start failure.");
-        }
+  /**
+   * Start a slave process.
+   */
+  private void startProcess() {
+    String args = "slave " + this.slavePort + " " + this.slotBasicPort + " " + this.slotCount;
+    logger.info(String.format("start process,jar path:%s,arguments:%s", path, args));
+    Process process = com.iveely.computing.common.ProcessBuilder.start(path, args);
+    if (process != null && process.isAlive()) {
+      this.slavePort++;
+      this.slotBasicPort += this.slotCount;
+      this.slaves.add(process);
+      logger.info("process is started.");
+    } else {
+      logger.info("process start failure.");
     }
+  }
 }

@@ -22,52 +22,52 @@ import com.iveely.computing.io.IWriter;
  */
 public class WriterTask {
 
-    /**
-     * The writer instance.
-     */
-    private IWriter writer;
+  /**
+   * The writer instance.
+   */
+  private IWriter writer;
 
-    /**
-     * The file to written.
-     */
-    private String file;
+  /**
+   * The file to written.
+   */
+  private String file;
 
-    /**
-     * Build writer task.
-     *
-     * @param writer The writer instance.
-     * @param file The file to written.
-     */
-    public WriterTask(IWriter writer, String file) {
-        this.writer = writer;
-        this.file = file;
-    }
+  /**
+   * Build writer task.
+   *
+   * @param writer The writer instance.
+   * @param file   The file to written.
+   */
+  public WriterTask(IWriter writer, String file) {
+    this.writer = writer;
+    this.file = file;
+  }
 
-    /**
-     * @return the writer
-     */
-    public IWriter getWriter() {
-        return writer;
-    }
+  /**
+   * @return the writer
+   */
+  public IWriter getWriter() {
+    return writer;
+  }
 
-    /**
-     * @param writer the writer to set
-     */
-    public void setWriter(IWriter writer) {
-        this.writer = writer;
-    }
+  /**
+   * @param writer the writer to set
+   */
+  public void setWriter(IWriter writer) {
+    this.writer = writer;
+  }
 
-    /**
-     * @return the file
-     */
-    public String getFile() {
-        return file;
-    }
+  /**
+   * @return the file
+   */
+  public String getFile() {
+    return file;
+  }
 
-    /**
-     * @param file the file to set
-     */
-    public void setFile(String file) {
-        this.file = file;
-    }
+  /**
+   * @param file the file to set
+   */
+  public void setFile(String file) {
+    this.file = file;
+  }
 }

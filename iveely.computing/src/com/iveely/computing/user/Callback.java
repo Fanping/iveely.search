@@ -18,25 +18,25 @@ package com.iveely.computing.user;
 import com.iveely.computing.common.Message;
 import com.iveely.framework.net.AsynClient;
 import com.iveely.framework.net.Packet;
+
 import org.apache.log4j.Logger;
 
 /**
- *
  * @author Administrator
  */
 class Callback implements AsynClient.IHandler {
 
-    private final Logger logger = Logger.getLogger(Callback.class);
+  private final Logger logger = Logger.getLogger(Callback.class);
 
-    @Override
-    public void receive(Packet response) {
-        Packet packet = (Packet) response;
-        Message.ExecuteType executeType = Message.getExecuteType(packet.getExecuteType());
-        if (executeType == Message.ExecuteType.RESPLISTTASK) {
-            logger.info(Message.getString(packet.getData()));
-        } else {
-            logger.error("Responsed,but execute type is error.");
-        }
+  @Override
+  public void receive(Packet response) {
+    Packet packet = (Packet) response;
+    Message.ExecuteType executeType = Message.getExecuteType(packet.getExecuteType());
+    if (executeType == Message.ExecuteType.RESPLISTTASK) {
+      logger.info(Message.getString((byte[])packet.getData()));
+    } else {
+      logger.error("Responsed,but execute type is error.");
+    }
 //        Message.MIMEType respMimeType = Message.getMIMEType(packet.getMimeType());
 //        if (respMimeType == Message.MIMEType.MESSAGE) {
 //            logger.info("Execute success.");
@@ -46,11 +46,11 @@ class Callback implements AsynClient.IHandler {
 //        else {
 //            logger.error("Responsed,but mime type error.");
 //        }
-    }
+  }
 
-    @Override
-    public void caught(String exception) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+  @Override
+  public void caught(String exception) {
+    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+  }
 
 }

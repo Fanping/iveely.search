@@ -15,6 +15,8 @@
  */
 package com.iveely.computing.io;
 
+import org.apache.log4j.Logger;
+
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -22,106 +24,100 @@ import java.io.FileOutputStream;
 import java.io.OutputStreamWriter;
 import java.io.UnsupportedEncodingException;
 
-import org.apache.log4j.Logger;
-
 /**
  * Basic file write operation, the api is based on the basic of the operating
  * system.
  */
 public class BasicWriter implements IWriter {
 
-    private final Logger logger = Logger.getLogger(BufferedWriter.class);
+  private final Logger logger = Logger.getLogger(BufferedWriter.class);
+  /**
+   * The cache max size.
+   */
+  private final int max;
+  /**
+   * Buffer writer.
+   */
+  private BufferedWriter writer;
+  /**
+   * String buffer to cache data.
+   */
+  private StringBuffer buffer;
+  /**
+   * The cursor of buffer.
+   */
+  private int cursor;
 
-    /**
-     * Buffer writer.
-     */
-    private BufferedWriter writer;
+  /**
+   * Build basic writer.
+   */
+  public BasicWriter() {
+    this.max = 1000;
+    this.cursor = 0;
+    this.buffer = new StringBuffer();
+  }
 
-    /**
-     * String buffer to cache data.
-     */
-    private StringBuffer buffer;
+  /*
+   * (non-Javadoc)
+   *
+   * @see com.iveely.computing2.io.IWriter#onOpen(java.io.File)
+   */
+  @Override
+  public boolean onOpen(String filePath) {
+    try {
+      File file = new File(filePath);
+      writer = new BufferedWriter(
+          new OutputStreamWriter(new FileOutputStream(file, true), "UTF-8"));
+      return true;
+    } catch (FileNotFoundException | UnsupportedEncodingException e) {
+      logger.error("When open file on basic writer,exception happend.", e);
+    }
+    return false;
+  }
 
-    /**
-     * The cache max size.
-     */
-    private final int max;
-
-    /**
-     * The cursor of buffer.
-     */
-    private int cursor;
-
-    /**
-     * Build basic writer.
-     */
-    public BasicWriter() {
-        this.max = 1000;
+  /*
+   * (non-Javadoc)
+   *
+   * @see com.iveely.computing2.io.IWriter#onWrite()
+   */
+  @Override
+  public boolean onWrite(String text) {
+    try {
+      if (this.cursor == this.max) {
         this.cursor = 0;
-        this.buffer = new StringBuffer();
+        this.writer.write(buffer.toString());
+        this.buffer.setLength(0);
+      }
+      this.buffer.append(text);
+      this.buffer.append("\n");
+      this.cursor++;
+      return true;
+    } catch (Exception e) {
+      logger.error("When write file on basic writer,exception happend.", e);
     }
+    return false;
+  }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see com.iveely.computing2.io.IWriter#onOpen(java.io.File)
-     */
-    @Override
-    public boolean onOpen(String filePath) {
-        try {
-            File file = new File(filePath);
-            writer = new BufferedWriter(
-                    new OutputStreamWriter(new FileOutputStream(file, true), "UTF-8"));
-            return true;
-        } catch (FileNotFoundException | UnsupportedEncodingException e) {
-            logger.error("When open file on basic writer,exception happend.", e);
-        }
-        return false;
+  /*
+   * (non-Javadoc)
+   *
+   * @see com.iveely.computing2.io.IWriter#onClose()
+   */
+  @Override
+  public boolean onClose() {
+    try {
+      if (buffer.length() != 0 && writer != null) {
+        writer.write(buffer.toString());
+        buffer = new StringBuffer();
+      }
+      if (writer != null) {
+        writer.close();
+        writer = null;
+      }
+      return true;
+    } catch (Exception e) {
+      logger.error("When close file on basic writer,exception happend.", e);
     }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see com.iveely.computing2.io.IWriter#onWrite()
-     */
-    @Override
-    public boolean onWrite(String text) {
-        try {
-            if (this.cursor == this.max) {
-                this.cursor = 0;
-                this.writer.write(buffer.toString());
-                this.buffer.setLength(0);
-            }
-            this.buffer.append(text);
-            this.buffer.append("\n");
-            this.cursor++;
-            return true;
-        } catch (Exception e) {
-            logger.error("When write file on basic writer,exception happend.", e);
-        }
-        return false;
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see com.iveely.computing2.io.IWriter#onClose()
-     */
-    @Override
-    public boolean onClose() {
-        try {
-            if (buffer.length() != 0 && writer != null) {
-                writer.write(buffer.toString());
-                buffer = new StringBuffer();
-            }
-            if (writer != null) {
-                writer.close();
-                writer = null;
-            }
-            return true;
-        } catch (Exception e) {
-            logger.error("When close file on basic writer,exception happend.", e);
-        }
-        return false;
-    }
+    return false;
+  }
 }

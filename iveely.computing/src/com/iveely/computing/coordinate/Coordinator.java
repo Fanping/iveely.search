@@ -22,23 +22,22 @@ import com.iveely.computing.config.SystemConfig;
  */
 public class Coordinator {
 
-    /**
-     * Instance of coordinator.
-     */
-    private static ICoordinate ic;
+  /**
+   * Instance of coordinator.
+   */
+  private static ICoordinate ic;
 
-    /**
-     *
-     * @return Get coordinator instance.
-     */
-    public static ICoordinate getInstance() {
-        if (ic == null) {
-            if (SystemConfig.isCluster) {
-                ic = ZookeeperClient.getInstance();
-            } else {
-                ic = new SimulateClient();
-            }
-        }
-        return ic;
+  /**
+   * @return Get coordinator instance.
+   */
+  public static ICoordinate getInstance() {
+    if (ic == null) {
+      if (SystemConfig.isCluster) {
+        ic = ZookeeperClient.getInstance();
+      } else {
+        ic = new SimulateClient();
+      }
     }
+    return ic;
+  }
 }

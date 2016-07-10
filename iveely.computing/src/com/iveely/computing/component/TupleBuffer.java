@@ -16,94 +16,96 @@
 package com.iveely.computing.component;
 
 import com.iveely.computing.common.StreamPacket;
+
+import org.apache.commons.lang3.SerializationUtils;
+
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.TreeMap;
-import org.apache.commons.lang.SerializationUtils;
 
 /**
  * Tuple cache buffer.
  */
 public class TupleBuffer {
 
-    /**
-     * Cache list.
-     */
-    private final Map<Integer, ArrayList<StreamPacket>> list;
+  /**
+   * Cache list.
+   */
+  private final Map<Integer, ArrayList<StreamPacket>> list;
 
-    /**
-     * Max buffer size for each key. When reach max size will be send out.
-     */
-    private final Integer MAX_BUFFER_SIZE = 10;
+  /**
+   * Max buffer size for each key. When reach max size will be send out.
+   */
+  private final Integer MAX_BUFFER_SIZE = 10;
 
-    /**
-     * Build tuple buffer instance.
-     */
-    public TupleBuffer() {
-        this.list = new TreeMap<>();
+  /**
+   * Build tuple buffer instance.
+   */
+  public TupleBuffer() {
+    this.list = new TreeMap<>();
+  }
+
+  /**
+   * Push data intp buffer.
+   *
+   * @param index  Index of client to send.
+   * @param packet packet to prepare send.
+   */
+  public void push(int index, StreamPacket packet) {
+    if (this.list.containsKey(index)) {
+      this.list.get(index).add(packet);
+    } else {
+      ArrayList<StreamPacket> packets = new ArrayList<>();
+      packets.add(packet);
+      this.list.put(index, packets);
     }
+  }
 
-    /**
-     * Push data intp buffer.
-     *
-     * @param index Index of client to send.
-     * @param packet packet to prepare send.
-     */
-    public void push(int index, StreamPacket packet) {
-        if (this.list.containsKey(index)) {
-            this.list.get(index).add(packet);
-        } else {
-            ArrayList<StreamPacket> packets = new ArrayList<>();
-            packets.add(packet);
-            this.list.put(index, packets);
-        }
-    }
+  /**
+   * @return Max cached size.
+   */
+  public int getMaxStored() {
+    return this.MAX_BUFFER_SIZE;
+  }
 
-    /**
-     * @return Max cached size.
-     */
-    public int getMaxStored() {
-        return this.MAX_BUFFER_SIZE;
+  /**
+   * Is full on one client.
+   *
+   * @param index Index of client.
+   * @return True is full,or is not.
+   */
+  public boolean isFull(int index) {
+    if (!this.list.containsKey(index)) {
+      return false;
     }
+    return this.list.get(index).size() >= MAX_BUFFER_SIZE;
+  }
 
-    /**
-     * Is full on one client.
-     *
-     * @param index Index of client.
-     * @return True is full,or is not.
-     */
-    public boolean isFull(int index) {
-        if (!this.list.containsKey(index)) {
-            return false;
-        }
-        return this.list.get(index).size() >= MAX_BUFFER_SIZE;
+  /**
+   * Is empty of cahce.
+   *
+   * @param index Index of client.
+   * @return True is empty.
+   */
+  public boolean isEmpty(int index) {
+    if (!this.list.containsKey(index)) {
+      return true;
     }
+    return this.list.get(index).isEmpty();
+  }
 
-    /**
-     * Is empty of cahce.
-     *
-     * @param index Index of client.
-     * @return True is empty.
-     */
-    public boolean isEmpty(int index) {
-        if (!this.list.containsKey(index)) {
-            return true;
-        }
-        return this.list.get(index).isEmpty();
+  /**
+   * Pop cache to bytes.
+   *
+   * @param index Index of client.
+   * @return Bytes data.
+   */
+  public byte[] pop(int index) {
+    if (isEmpty(index)) {
+      return new byte[0];
     }
-
-    /**
-     * Pop cache to bytes.
-     *
-     * @param index Index of client.
-     * @return Bytes data.
-     */
-    public byte[] pop(int index) {
-        if (isEmpty(index)) {
-            return new byte[0];
-        }
-        byte[] ret = SerializationUtils.serialize(this.list.get(index));
-        this.list.remove(index);
-        return ret;
-    }
+    byte[] ret = SerializationUtils.serialize(this.list.get(index));
+    this.list.remove(index);
+    return ret;
+  }
 }

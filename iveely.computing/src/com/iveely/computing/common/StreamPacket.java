@@ -15,116 +15,108 @@
  */
 package com.iveely.computing.common;
 
-import java.io.Serializable;
-import org.apache.commons.lang.SerializationUtils;
+import org.apache.commons.lang3.SerializationUtils;
 import org.apache.log4j.Logger;
 
+import java.io.Serializable;
+
 /**
- *
  * @author Iveely Liu
  */
 public class StreamPacket implements Serializable {
 
-    private static final long serialVersionUID = -8902317L;
+  private static final long serialVersionUID = -8902317L;
 
-    /**
-     * Logger.
-     */
-    private static final Logger logger = Logger.getLogger(StreamPacket.class.getName());
+  /**
+   * Logger.
+   */
+  private static final Logger logger = Logger.getLogger(StreamPacket.class.getName());
 
-    /**
-     * Guid of the topology.
-     */
-    private String guid;
+  /**
+   * Guid of the topology.
+   */
+  private String guid;
+  /**
+   * Name of the topology.
+   */
+  private String name;
+  /**
+   * Stream commond type.
+   */
+  private StreamType type;
+  /**
+   * Stream data.
+   */
+  private byte[] data;
 
-    /**
-     * @return the guid
-     */
-    public String getGuid() {
-        return guid;
-    }
+  /**
+   * @return the guid
+   */
+  public String getGuid() {
+    return guid;
+  }
 
-    /**
-     * @param guid the guid to set
-     */
-    public void setGuid(String guid) {
-        this.guid = guid;
-    }
+  /**
+   * @param guid the guid to set
+   */
+  public void setGuid(String guid) {
+    this.guid = guid;
+  }
 
-    /**
-     * Name of the topology.
-     */
-    private String name;
+  /**
+   * @return the name
+   */
+  public String getName() {
+    return name;
+  }
 
-    /**
-     * @return the name
-     */
-    public String getName() {
-        return name;
-    }
+  /**
+   * @param name the name to set
+   */
+  public void setName(String name) {
+    this.name = name;
+  }
 
-    /**
-     * @param name the name to set
-     */
-    public void setName(String name) {
-        this.name = name;
-    }
+  /**
+   * @return the type
+   */
+  public StreamType getType() {
+    return type;
+  }
 
-    /**
-     * Stream commond type.
-     */
-    private StreamType type;
+  /**
+   * @param type the type to set
+   */
+  public void setType(StreamType type) {
+    this.type = type;
+  }
 
-    /**
-     * @return the type
-     */
-    public StreamType getType() {
-        return type;
-    }
+  /**
+   * @return the data
+   */
+  public byte[] getData() {
+    byte[] copyVersion = data;
+    return copyVersion;
+  }
 
-    /**
-     * @param type the type to set
-     */
-    public void setType(StreamType type) {
-        this.type = type;
-    }
+  /**
+   * @param data the data to set
+   */
+  public void setData(byte[] data) {
+    this.data = (byte[]) data.clone();
+  }
 
-    /**
-     * Stream data.
-     */
-    private byte[] data;
+  /**
+   * Stream packet to bytes.
+   */
+  public byte[] toBytes() {
+    return SerializationUtils.serialize(this);
+  }
 
-    /**
-     * @return the data
-     */
-    public byte[] getData() {
-        byte[] copyVersion = data;
-        return copyVersion;
-    }
-
-    /**
-     * @param data the data to set
-     */
-    public void setData(byte[] data) {
-        this.data = (byte[]) data.clone();
-    }
-
-    /**
-     * Stream packet to bytes.
-     *
-     * @return
-     */
-    public byte[] toBytes() {
-        return SerializationUtils.serialize(this);
-    }
-
-    /**
-     * Bytes to stream packet.
-     *
-     * @param bytes
-     * @return
-     */
-    public StreamPacket toObject(byte[] bytes) {
-        return (StreamPacket) SerializationUtils.deserialize(bytes);
-    }
+  /**
+   * Bytes to stream packet.
+   */
+  public StreamPacket toObject(byte[] bytes) {
+    return (StreamPacket) SerializationUtils.deserialize(bytes);
+  }
 }

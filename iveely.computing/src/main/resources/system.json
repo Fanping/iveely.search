@@ -1,19 +1,19 @@
 {
-    "master": {
-        "address": "127.0.0.1",
-        "port": 8001,
-        "password": "",
-        "ui_port": 9000,
-        "root": "/iveely.computing/master"
-    },
-    "slave": {
-        "root": "/iveely.computing/slave",
-        "port": 4000,
-        "slot": 6000,
-        "slotCount": 6
-    },
-    "zookeeper": {
-        "address": "127.0.0.1",
-        "port": 2181
-    }
+  "master": {
+    "address": "127.0.0.1",
+    "port": 8001,
+    "password": "",
+    "ui_port": 9000,
+    "root": "/iveely.computing/master"
+  },
+  "slave": {
+    "root": "/iveely.computing/slave",
+    "port": 4000,
+    "slot": 6000,
+    "slotCount": 6
+  },
+  "zookeeper": {
+    "address": "127.0.0.1",
+    "port": 2181
+  }
 }

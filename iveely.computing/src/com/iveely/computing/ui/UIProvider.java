@@ -26,44 +26,42 @@ import org.apache.log4j.Logger;
  */
 public class UIProvider implements Runnable {
 
-    /**
-     * Websocket server.
-     */
-    private SocketServer socket;
+  /**
+   * Logger.
+   */
+  private final Logger logger = Logger.getLogger(UIProvider.class.getName());
+  /**
+   * Websocket server.
+   */
+  private SocketServer socket;
+  /**
+   * Response callback.
+   */
+  private UIResponse response;
 
-    /**
-     * Response callback.
-     */
-    private UIResponse response;
-
-    /**
-     * Logger.
-     */
-    private final Logger logger = Logger.getLogger(UIProvider.class.getName());
-
-    /**
-     * Build UI provider.
-     *
-     * @param masterEvent Master event.
-     * @param uiPwd The UI password.
-     */
-    public UIProvider(AsynServer.IHandler masterEvent, String uiPwd) {
-        try {
-            this.response = new UIResponse(masterEvent, uiPwd);
-            this.socket = new SocketServer(this.response, ConfigWrapper.get().getMaster().getUi_port());
-        } catch (Exception e) {
-            logger.error("When initialize ui provider,exception happend.", e);
-        }
-
+  /**
+   * Build UI provider.
+   *
+   * @param masterEvent Master event.
+   * @param uiPwd       The UI password.
+   */
+  public UIProvider(AsynServer.IHandler masterEvent, String uiPwd) {
+    try {
+      this.response = new UIResponse(masterEvent, uiPwd);
+      this.socket = new SocketServer(this.response, ConfigWrapper.get().getMaster().getUi_port());
+    } catch (Exception e) {
+      logger.error("When initialize ui provider,exception happend.", e);
     }
 
-    /**
-     * Start ui.
-     */
-    @Override
-    public void run() {
-        Thread.currentThread().setName("ui provider thread");
-        logger.info("UI service is starting...");
-        this.socket.start();
-    }
+  }
+
+  /**
+   * Start ui.
+   */
+  @Override
+  public void run() {
+    Thread.currentThread().setName("ui provider thread");
+    logger.info("UI service is starting...");
+    this.socket.start();
+  }
 }

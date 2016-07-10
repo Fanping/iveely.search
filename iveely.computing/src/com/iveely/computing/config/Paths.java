@@ -20,74 +20,74 @@ package com.iveely.computing.config;
  */
 public class Paths {
 
-    public static String getAppRoot() {
-        return "/app";
-    }
+  public static String getAppRoot() {
+    return "/app";
+  }
 
-    /**
-     * Path data sources to send the amount of data statistics.
-     *
-     * @param appName Application name.
-     * @param inputName IInput name.
-     * @return Path.
-     */
-    public static String getInputTotalEmit(String appName, String inputName) {
-        return getAppRoot() + "/" + appName + "/statistic/input/" + inputName + "/emit";
-    }
+  /**
+   * Path data sources to send the amount of data statistics.
+   *
+   * @param appName   Application name.
+   * @param inputName IInput name.
+   * @return Path.
+   */
+  public static String getInputTotalEmit(String appName, String inputName) {
+    return getAppRoot() + "/" + appName + "/statistic/input/" + inputName + "/emit";
+  }
 
-    public static String getInputAvgEmit(String appName, String inputName) {
-        return getAppRoot() + "/" + appName + "/statistic/input/" + inputName + "/emit_avg";
-    }
+  public static String getInputAvgEmit(String appName, String inputName) {
+    return getAppRoot() + "/" + appName + "/statistic/input/" + inputName + "/emit_avg";
+  }
 
-    public static String getInputEmitFinished(String appName, String inputName) {
-        return getAppRoot() + "/" + appName + "/finished/" + inputName;
-    }
+  public static String getInputEmitFinished(String appName, String inputName) {
+    return getAppRoot() + "/" + appName + "/finished/" + inputName;
+  }
 
-    public static String getRecordExecutorOutput(String executorName, String outputName) {
-        return getAppRoot() + "/" + executorName + "/output/" + outputName;
-    }
+  public static String getRecordExecutorOutput(String executorName, String outputName) {
+    return getAppRoot() + "/" + executorName + "/output/" + outputName;
+  }
 
-    public static String getTopologyMapper(String topologyName) {
-        return "/iveely.computing/app/mapper/" + topologyName;
-    }
+  public static String getTopologyMapper(String topologyName) {
+    return "/iveely.computing/app/mapper/" + topologyName;
+  }
 
-    public static String getTopologyRoot(String topologyName) {
-        return getAppRoot() + "/" + topologyName;
-    }
+  public static String getTopologyRoot(String topologyName) {
+    return getAppRoot() + "/" + topologyName;
+  }
 
-    public static String getTopologyFinished(String topologyName) {
-        return getTopologyRoot(topologyName) + "/finished";
-    }
+  public static String getTopologyFinished(String topologyName) {
+    return getTopologyRoot(topologyName) + "/finished";
+  }
 
-    public static String getTopologySlaveCount(String topologyName) {
-        return getTopologyRoot(topologyName) + "/slavecount";
-    }
+  public static String getTopologySlaveCount(String topologyName) {
+    return getTopologyRoot(topologyName) + "/slavecount";
+  }
 
-    public static String getTopologyInputRecord(String topologyName, String inputClass, String inputName) {
-        return getTopologyRoot(topologyName) + "/input/" + inputClass + "/" + inputName;
-    }
+  public static String getTopologyInputRecord(String topologyName, String inputClass, String inputName) {
+    return getTopologyRoot(topologyName) + "/input/" + inputClass + "/" + inputName;
+  }
 
-    public static String getTopologyOutputRecord(String topologyName, String outputClass, String outputName) {
-        return getTopologyRoot(topologyName) + "/output/" + outputClass + "/" + outputName;
-    }
+  public static String getTopologyOutputRecord(String topologyName, String outputClass, String outputName) {
+    return getTopologyRoot(topologyName) + "/output/" + outputClass + "/" + outputName;
+  }
 
-    public static String getTopologyStopped(String topologyName, String inputName) {
-        return getTopologyFinished(topologyName) + "/" + inputName;
-    }
+  public static String getTopologyStopped(String topologyName, String inputName) {
+    return getTopologyFinished(topologyName) + "/" + inputName;
+  }
 
-    public static String getTopologyInputStatus(String topologyName, String inputName, String slotName) {
-        return getTopologyRoot(topologyName) + "/statistic/input/" + inputName + "/" + slotName;
-    }
+  public static String getTopologyInputStatus(String topologyName, String inputName, String slotName) {
+    return getTopologyRoot(topologyName) + "/statistic/input/" + inputName + "/" + slotName;
+  }
 
-    public static String getTopologyOutputExecute(String topologyName, String outputName) {
-        return getTopologyRoot(topologyName) + "/statistic/output/" + outputName + "/execute";
-    }
+  public static String getTopologyOutputExecute(String topologyName, String outputName) {
+    return getTopologyRoot(topologyName) + "/statistic/output/" + outputName + "/execute";
+  }
 
-    public static String getTopologyOutputAvgExecute(String topologyName, String outputName) {
-        return getTopologyRoot(topologyName) + "/statistic/output/" + outputName + "/execute_avg";
-    }
+  public static String getTopologyOutputAvgExecute(String topologyName, String outputName) {
+    return getTopologyRoot(topologyName) + "/statistic/output/" + outputName + "/execute_avg";
+  }
 
-    public static String getTopologyStatusRoot(String topologyName) {
-        return getTopologyRoot(topologyName) + "/status";
-    }
+  public static String getTopologyStatusRoot(String topologyName) {
+    return getTopologyRoot(topologyName) + "/status";
+  }
 }

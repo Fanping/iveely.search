@@ -20,7 +20,7 @@ package com.iveely.computing.api.writable;
  */
 public class IntWritable extends BasicWritable<Integer> {
 
-    public IntWritable(Integer t) {
-        super(t);
-    }
+  public IntWritable(Integer t) {
+    super(t);
+  }
 }

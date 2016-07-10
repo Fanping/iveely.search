@@ -22,65 +22,65 @@ package com.iveely.computing.app;
  */
 public interface IApplication {
 
-    /**
-     * The status of application. Normal status:
-     * JUSTINSTALL READY WATTING RUNNING SUCCESS.
-     */
-    public enum Status {
-
-        /**
-         * Just installed on iveely computing.
-         */
-        JUSTINSTALL, /**
-         * It's ready to run.
-         */
-        READY, /**
-         * Killed by user.
-         */
-        KILLED, /**
-         * App has died.
-         */
-        DIED, /**
-         * Will runing.
-         */
-        WATTING, /**
-         * In runing.
-         */
-        RUNNING, /**
-         * Finish running with success.
-         */
-        SUCCESS, /**
-         * Finish running with exception.
-         */
-        EXCEPTION
-    }
+  /**
+   * The status of application. Normal status: JUSTINSTALL READY WATTING RUNNING
+   * SUCCESS.
+   */
+  public enum Status {
 
     /**
-     * Execution cycle
+     * Just installed on iveely computing.
      */
-    public enum ExecutePlan {
+    JUSTINSTALL, /**
+     * It's ready to run.
+     */
+    READY, /**
+     * Killed by user.
+     */
+    KILLED, /**
+     * App has died.
+     */
+    DIED, /**
+     * Will runing.
+     */
+    WATTING, /**
+     * In runing.
+     */
+    RUNNING, /**
+     * Finish running with success.
+     */
+    SUCCESS, /**
+     * Finish running with exception.
+     */
+    EXCEPTION
+  }
 
-        /**
-         * Just run once.
-         */
-        ONCE, /**
-         * Run at each hour.
-         */
-        HOURLY, /**
-         * Run at each day.
-         */
-        DAILY, /**
-         * Run at each week.
-         */
-        WEEKLY, /**
-         * Run at each month.
-         */
-        MONTHLY, /**
-         * Run at each minute.
-         */
-        ALWAYS, /**
-         * UNKNOWN.
-         */
-        UNKOWN
-    }
+  /**
+   * Execution cycle
+   */
+  public enum ExecutePlan {
+
+    /**
+     * Just run once.
+     */
+    ONCE, /**
+     * Run at each hour.
+     */
+    HOURLY, /**
+     * Run at each day.
+     */
+    DAILY, /**
+     * Run at each week.
+     */
+    WEEKLY, /**
+     * Run at each month.
+     */
+    MONTHLY, /**
+     * Run at each minute.
+     */
+    ALWAYS, /**
+     * UNKNOWN.
+     */
+    UNKOWN
+  }
 }

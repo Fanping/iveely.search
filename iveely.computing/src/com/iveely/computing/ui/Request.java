@@ -22,41 +22,40 @@ package com.iveely.computing.ui;
  */
 public class Request {
 
-    /**
-     * User command.
-     */
-    private String command;
+  /**
+   * User command.
+   */
+  private String command;
+  /**
+   * Name of the topology.
+   */
+  private String topology;
 
-    /**
-     * @return the command
-     */
-    public String getCommand() {
-        return command;
-    }
+  /**
+   * @return the command
+   */
+  public String getCommand() {
+    return command;
+  }
 
-    /**
-     * @param command the command to set
-     */
-    public void setCommand(String command) {
-        this.command = command;
-    }
+  /**
+   * @param command the command to set
+   */
+  public void setCommand(String command) {
+    this.command = command;
+  }
 
-    /**
-     * Name of the topology.
-     */
-    private String topology;
+  /**
+   * @return the topology
+   */
+  public String getTopology() {
+    return topology;
+  }
 
-    /**
-     * @return the topology
-     */
-    public String getTopology() {
-        return topology;
-    }
-
-    /**
-     * @param topology the topology to set
-     */
-    public void setTopology(String topology) {
-        this.topology = topology;
-    }
+  /**
+   * @param topology the topology to set
+   */
+  public void setTopology(String topology) {
+    this.topology = topology;
+  }
 }

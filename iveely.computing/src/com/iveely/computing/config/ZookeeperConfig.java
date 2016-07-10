@@ -20,53 +20,53 @@ package com.iveely.computing.config;
  */
 public class ZookeeperConfig {
 
-    /**
-     * The address of zookeeper server.
-     */
-    private String address;
+  /**
+   * The address of zookeeper server.
+   */
+  private String address;
 
-    /**
-     * The port to visit zookeeper.
-     */
-    private Integer port;
+  /**
+   * The port to visit zookeeper.
+   */
+  private Integer port;
 
-    /**
-     * Build instance.
-     */
-    public ZookeeperConfig() {
+  /**
+   * Build instance.
+   */
+  public ZookeeperConfig() {
 
-    }
+  }
 
-    /**
-     * Build zookeeper configiration.
-     *
-     * @param address The address of zookeeper.
-     * @param port The port of zookeeper to visit.
-     */
-    public ZookeeperConfig(String address, Integer port) {
-        this.address = address;
-        this.port = port;
-    }
+  /**
+   * Build zookeeper configiration.
+   *
+   * @param address The address of zookeeper.
+   * @param port    The port of zookeeper to visit.
+   */
+  public ZookeeperConfig(String address, Integer port) {
+    this.address = address;
+    this.port = port;
+  }
 
-    /**
-     * @return the address
-     */
-    public String getAddress() {
-        return address;
-    }
+  /**
+   * @return the address
+   */
+  public String getAddress() {
+    return address;
+  }
 
-    /**
-     * @param address the address to set
-     */
-    public void setAddress(String address) {
-        this.address = address;
-    }
+  /**
+   * @param address the address to set
+   */
+  public void setAddress(String address) {
+    this.address = address;
+  }
 
-    /**
-     * @return the port
-     */
-    public Integer getPort() {
-        return port;
-    }
+  /**
+   * @return the port
+   */
+  public Integer getPort() {
+    return port;
+  }
 
 }

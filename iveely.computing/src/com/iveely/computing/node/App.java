@@ -16,6 +16,7 @@
 package com.iveely.computing.node;
 
 import com.iveely.computing.app.IApplication;
+
 import java.util.Date;
 
 /**
@@ -25,332 +26,319 @@ import java.util.Date;
  */
 class App {
 
-    public App() {
-        lastExeTime = new Date(1);
-    }
+  /**
+   * Name of application.
+   */
+  private String name;
+  /**
+   * Default parameter.
+   */
+  private String defaultParam;
+  /**
+   * Size of the application.
+   */
+  private long size;
+  /**
+   * Upload time of the application.
+   */
+  private String uploadTime;
+  /**
+   * Status of application.
+   */
+  private IApplication.Status status;
+  /**
+   * The exception of applition ,if has.
+   */
+  private String exception;
+  /**
+   * Execution cycle.
+   */
+  private IApplication.ExecutePlan executePlan;
+  /**
+   * Last execute time.
+   */
+  private Date lastExeTime;
+  /**
+   * The start run timestamp,if has run.
+   */
+  private Date startExeTime;
+  /**
+   * The main calss of the application to invoke.
+   */
+  private String exeClass;
+  /**
+   * The main method of the application to invoke.
+   */
+  private String exeMethod;
+  /**
+   * The parameters to run.
+   */
+  private String exeParam;
+  /**
+   * Execute result,if has run.
+   */
+  private String exeResult;
+  /**
+   * The jar path.
+   */
+  private String jarPath;
 
-    /**
-     * Name of application.
-     */
-    private String name;
+  public App() {
+    lastExeTime = new Date(1);
+  }
 
-    /**
-     * Get application's name.
-     *
-     * @return the name
-     */
-    public String getAppName() {
-        return name;
-    }
+  /**
+   * Get application's name.
+   *
+   * @return the name
+   */
+  public String getAppName() {
+    return name;
+  }
 
-    /**
-     * Set application's name.
-     *
-     * @param appName the name to set
-     */
-    public void setAppName(String appName) {
-        this.name = appName;
-    }
+  /**
+   * Set application's name.
+   *
+   * @param appName the name to set
+   */
+  public void setAppName(String appName) {
+    this.name = appName;
+  }
 
-    /**
-     * Default parameter.
-     */
-    private String defaultParam;
+  /**
+   * Get size of application.
+   *
+   * @return the size
+   */
+  public long getSize() {
+    return size;
+  }
 
-    /**
-     * Size of the application.
-     */
-    private long size;
+  /**
+   * @param size the size to set
+   */
+  public void setSize(long size) {
+    this.size = size;
+  }
 
-    /**
-     * Get size of application.
-     *
-     * @return the size
-     */
-    public long getSize() {
-        return size;
-    }
+  /**
+   * Get upload time of the application.
+   *
+   * @return the uploadTime
+   */
+  public String getUploadTime() {
+    return uploadTime;
+  }
 
-    /**
-     * @param size the size to set
-     */
-    public void setSize(long size) {
-        this.size = size;
-    }
+  /**
+   * Set the upload time of the application.
+   *
+   * @param uploadTime the uploadTime to set
+   */
+  public void setUploadTime(String uploadTime) {
+    this.uploadTime = uploadTime;
+  }
 
-    /**
-     * Upload time of the application.
-     */
-    private String uploadTime;
+  /**
+   * Get status.
+   *
+   * @return the status
+   */
+  public IApplication.Status getStatus() {
+    return status;
+  }
 
-    /**
-     * Get upload time of the application.
-     *
-     * @return the uploadTime
-     */
-    public String getUploadTime() {
-        return uploadTime;
-    }
+  /**
+   * Set Status.
+   *
+   * @param status the status to set
+   */
+  public void setStatus(IApplication.Status status) {
+    this.status = status;
+  }
 
-    /**
-     * Set the upload time of the application.
-     *
-     * @param uploadTime the uploadTime to set
-     */
-    public void setUploadTime(String uploadTime) {
-        this.uploadTime = uploadTime;
-    }
+  /**
+   * Get exception of application,if has.
+   *
+   * @return the exception
+   */
+  public String getException() {
+    return exception;
+  }
 
-    /**
-     * Status of application.
-     */
-    private IApplication.Status status;
+  /**
+   * Set exception of the application,if has.
+   *
+   * @param exception the exception to set
+   */
+  public void setException(String exception) {
+    this.exception = exception;
+  }
 
-    /**
-     * Get status.
-     *
-     * @return the status
-     */
-    public IApplication.Status getStatus() {
-        return status;
-    }
+  /**
+   * Get execution cycle.
+   *
+   * @return the executePlan
+   */
+  public IApplication.ExecutePlan getExecutePlan() {
+    return executePlan;
+  }
 
-    /**
-     * Set Status.
-     *
-     * @param status the status to set
-     */
-    public void setStatus(IApplication.Status status) {
-        this.status = status;
-    }
+  /**
+   * Set execution cycle.
+   *
+   * @param executeTime the executePlan to set
+   */
+  public void setExecutePlan(IApplication.ExecutePlan executeTime) {
+    this.executePlan = executeTime;
+  }
 
-    /**
-     * The exception of applition ,if has.
-     */
-    private String exception;
+  /**
+   * Get last execute time.
+   *
+   * @return the lastExeTime
+   */
+  public Date getLastExeTime() {
+    return lastExeTime;
+  }
 
-    /**
-     * Get exception of application,if has.
-     *
-     * @return the exception
-     */
-    public String getException() {
-        return exception;
-    }
+  /**
+   * Set last execute time.
+   *
+   * @param lastExeTime the lastExeTime to set
+   */
+  public void setLastExeTime(Date lastExeTime) {
+    this.lastExeTime = lastExeTime;
+  }
 
-    /**
-     * Set exception of the application,if has.
-     *
-     * @param exception the exception to set
-     */
-    public void setException(String exception) {
-        this.exception = exception;
-    }
+  /**
+   * Get start run timestamp,if has run.
+   *
+   * @return the startExeTime
+   */
+  public Date getStartExeTime() {
+    return startExeTime;
+  }
 
-    /**
-     * Execution cycle.
-     */
-    private IApplication.ExecutePlan executePlan;
+  /**
+   * Get start run timestamp,if has run.
+   *
+   * @param startExeTime the startExeTime to set
+   */
+  public void setStartExeTime(Date startExeTime) {
+    this.startExeTime = startExeTime;
+  }
 
-    /**
-     * Get execution cycle.
-     *
-     * @return the executePlan
-     */
-    public IApplication.ExecutePlan getExecutePlan() {
-        return executePlan;
-    }
+  /**
+   * Get main class of the application.
+   *
+   * @return the exeClass
+   */
+  public String getExeClass() {
+    return exeClass;
+  }
 
-    /**
-     * Set execution cycle.
-     *
-     * @param executeTime the executePlan to set
-     */
-    public void setExecutePlan(IApplication.ExecutePlan executeTime) {
-        this.executePlan = executeTime;
-    }
+  /**
+   * Set main class of the application.
+   *
+   * @param exeClass the exeClass to set
+   */
+  public void setExeClass(String exeClass) {
+    this.exeClass = exeClass;
+  }
 
-    /**
-     * Last execute time.
-     */
-    private Date lastExeTime;
+  /**
+   * Get main method.
+   *
+   * @return the exeMethod
+   */
+  public String getExeMethod() {
+    return exeMethod;
+  }
 
-    /**
-     * Get last execute time.
-     *
-     * @return the lastExeTime
-     */
-    public Date getLastExeTime() {
-        return lastExeTime;
-    }
+  /**
+   * Set main method.
+   *
+   * @param exeMethod the exeMethod to set
+   */
+  public void setExeMethod(String exeMethod) {
+    this.exeMethod = exeMethod;
+  }
 
-    /**
-     * Set last execute time.
-     *
-     * @param lastExeTime the lastExeTime to set
-     */
-    public void setLastExeTime(Date lastExeTime) {
-        this.lastExeTime = lastExeTime;
-    }
+  /**
+   * Get parameters.
+   *
+   * @return the exeParam
+   */
+  public String getExeParam() {
+    return exeParam;
+  }
 
-    /**
-     * The start run timestamp,if has run.
-     */
-    private Date startExeTime;
+  /**
+   * Set parameters.
+   *
+   * @param exeParam the exeParam to set
+   */
+  public void setExeParam(String exeParam) {
+    this.exeParam = exeParam;
+  }
 
-    /**
-     * Get start run timestamp,if has run.
-     *
-     * @return the startExeTime
-     */
-    public Date getStartExeTime() {
-        return startExeTime;
-    }
+  /**
+   * Get execute result,if has run.
+   *
+   * @return the exeResult
+   */
+  public String getExeResult() {
+    return exeResult;
+  }
 
-    /**
-     * Get start run timestamp,if has run.
-     *
-     * @param startExeTime the startExeTime to set
-     */
-    public void setStartExeTime(Date startExeTime) {
-        this.startExeTime = startExeTime;
-    }
+  /**
+   * Set execute result,if has run.
+   *
+   * @param exeResult the exeResult to set
+   */
+  public void setExeResult(String exeResult) {
+    this.exeResult = exeResult;
+  }
 
-    /**
-     * The main calss of the application to invoke.
-     */
-    private String exeClass;
+  /**
+   * Get jar path.
+   *
+   * @return the jarPath
+   */
+  public String getJarPath() {
+    return jarPath;
+  }
 
-    /**
-     * Get main class of the application.
-     *
-     * @return the exeClass
-     */
-    public String getExeClass() {
-        return exeClass;
-    }
+  /**
+   * Set jar path.
+   *
+   * @param jarPath the jarPath to set
+   */
+  public void setJarPath(String jarPath) {
+    this.jarPath = jarPath;
+  }
 
-    /**
-     * Set main class of the application.
-     *
-     * @param exeClass the exeClass to set
-     */
-    public void setExeClass(String exeClass) {
-        this.exeClass = exeClass;
-    }
+  @Override
+  public String toString() {
+    return "app name:" + getAppName() + " " + getStatus().toString() + " " + getException();
+  }
 
-    /**
-     * The main method of the application to invoke.
-     */
-    private String exeMethod;
+  /**
+   * Get default parameters.
+   *
+   * @return the defaultParam
+   */
+  public String getDefaultParam() {
+    return defaultParam;
+  }
 
-    /**
-     * Get main method.
-     *
-     * @return the exeMethod
-     */
-    public String getExeMethod() {
-        return exeMethod;
-    }
-
-    /**
-     * Set main method.
-     *
-     * @param exeMethod the exeMethod to set
-     */
-    public void setExeMethod(String exeMethod) {
-        this.exeMethod = exeMethod;
-    }
-
-    /**
-     * The parameters to run.
-     */
-    private String exeParam;
-
-    /**
-     * Get parameters.
-     *
-     * @return the exeParam
-     */
-    public String getExeParam() {
-        return exeParam;
-    }
-
-    /**
-     * Set parameters.
-     *
-     * @param exeParam the exeParam to set
-     */
-    public void setExeParam(String exeParam) {
-        this.exeParam = exeParam;
-    }
-
-    /**
-     * Execute result,if has run.
-     */
-    private String exeResult;
-
-    /**
-     * Get execute result,if has run.
-     *
-     * @return the exeResult
-     */
-    public String getExeResult() {
-        return exeResult;
-    }
-
-    /**
-     * Set execute result,if has run.
-     *
-     * @param exeResult the exeResult to set
-     */
-    public void setExeResult(String exeResult) {
-        this.exeResult = exeResult;
-    }
-
-    /**
-     * The jar path.
-     */
-    private String jarPath;
-
-    /**
-     * Get jar path.
-     *
-     * @return the jarPath
-     */
-    public String getJarPath() {
-        return jarPath;
-    }
-
-    /**
-     * Set jar path.
-     *
-     * @param jarPath the jarPath to set
-     */
-    public void setJarPath(String jarPath) {
-        this.jarPath = jarPath;
-    }
-
-    @Override
-    public String toString() {
-        return "app name:" + getAppName() + " " + getStatus().toString() + " " + getException();
-    }
-
-    /**
-     * Get default parameters.
-     *
-     * @return the defaultParam
-     */
-    public String getDefaultParam() {
-        return defaultParam;
-    }
-
-    /**
-     * Set default parameters.
-     *
-     * @param defaultParam the defaultParam to set
-     */
-    public void setDefaultParam(String defaultParam) {
-        this.defaultParam = defaultParam;
-    }
+  /**
+   * Set default parameters.
+   *
+   * @param defaultParam the defaultParam to set
+   */
+  public void setDefaultParam(String defaultParam) {
+    this.defaultParam = defaultParam;
+  }
 }

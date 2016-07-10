@@ -16,6 +16,7 @@
 package com.iveely.computing.component;
 
 import com.iveely.computing.api.StreamChannel;
+
 import java.util.HashMap;
 
 /**
@@ -26,27 +27,27 @@ import java.util.HashMap;
  */
 public class IExecutor {
 
-    /**
-     * User-defined configuration information.
-     */
-    protected HashMap<String, Object> _conf;
+  /**
+   * User-defined configuration information.
+   */
+  protected HashMap<String, Object> _conf;
 
-    /**
-     * Output of the collector.
-     */
-    protected StreamChannel _collector;
+  /**
+   * Output of the collector.
+   */
+  protected StreamChannel _collector;
 
-    /**
-     * Name of the topology.
-     */
-    protected String _name;
+  /**
+   * Name of the topology.
+   */
+  protected String _name;
 
-    /**
-     * Get name of the toplogy.
-     *
-     * @return Name of the topology.
-     */
-    public String getName() {
-        return this._name;
-    }
+  /**
+   * Get name of the toplogy.
+   *
+   * @return Name of the topology.
+   */
+  public String getName() {
+    return this._name;
+  }
 }

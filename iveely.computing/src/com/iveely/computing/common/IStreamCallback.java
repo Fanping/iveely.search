@@ -22,10 +22,10 @@ package com.iveely.computing.common;
  */
 public interface IStreamCallback {
 
-    /**
-     * The actual process.
-     *
-     * @param packet The data flow packet.
-     */
-    public void invoke(StreamPacket packet);
+  /**
+   * The actual process.
+   *
+   * @param packet The data flow packet.
+   */
+  public void invoke(StreamPacket packet);
 }

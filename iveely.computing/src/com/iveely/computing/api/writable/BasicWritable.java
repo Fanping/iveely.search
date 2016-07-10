@@ -20,26 +20,26 @@ package com.iveely.computing.api.writable;
  */
 class BasicWritable<T> implements IWritable {
 
-    /**
-     * Instance of data.
-     */
-    private T t;
+  /**
+   * Instance of data.
+   */
+  private T t;
 
-    /**
-     * Build basic writable instance.
-     *
-     * @param t Value.
-     */
-    public BasicWritable(T t) {
-        this.t = t;
-    }
+  /**
+   * Build basic writable instance.
+   *
+   * @param t Value.
+   */
+  public BasicWritable(T t) {
+    this.t = t;
+  }
 
-    /**
-     * Get value.
-     *
-     * @return value.
-     */
-    public T get() {
-        return this.t;
-    }
+  /**
+   * Get value.
+   *
+   * @return value.
+   */
+  public T get() {
+    return this.t;
+  }
 }

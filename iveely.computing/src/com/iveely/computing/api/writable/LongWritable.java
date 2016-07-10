@@ -20,7 +20,7 @@ package com.iveely.computing.api.writable;
  */
 public class LongWritable extends BasicWritable<Long> {
 
-    public LongWritable(Long t) {
-        super(t);
-    }
+  public LongWritable(Long t) {
+    super(t);
+  }
 }

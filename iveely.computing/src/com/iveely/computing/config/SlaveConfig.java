@@ -20,102 +20,102 @@ package com.iveely.computing.config;
  */
 public class SlaveConfig {
 
-    /**
-     * The root path on zookeeper to record slave information.
-     */
-    private String root;
+  /**
+   * The root path on zookeeper to record slave information.
+   */
+  private String root;
 
-    /**
-     * The slave service port.
-     */
-    private Integer port;
+  /**
+   * The slave service port.
+   */
+  private Integer port;
 
-    /**
-     * The slot based port.
-     */
-    private Integer slot;
+  /**
+   * The slot based port.
+   */
+  private Integer slot;
 
-    /**
-     * The slot count to provide services.
-     */
-    private Integer slotCount;
+  /**
+   * The slot count to provide services.
+   */
+  private Integer slotCount;
 
-    /**
-     * Build instance.
-     */
-    public SlaveConfig() {
+  /**
+   * Build instance.
+   */
+  public SlaveConfig() {
 
-    }
+  }
 
-    /**
-     * Build slave configiration.
-     *
-     * @param port The port that slave based on.
-     * @param slot The slot based port.
-     * @param slotCount The slot count.
-     * @param root The root path on zookeeper to record slave information.
-     */
-    public SlaveConfig(Integer port, Integer slot, Integer slotCount, String root) {
-        this.slot = slot;
-        this.port = port;
-        this.root = root;
-        this.slotCount = slotCount;
-    }
+  /**
+   * Build slave configiration.
+   *
+   * @param port      The port that slave based on.
+   * @param slot      The slot based port.
+   * @param slotCount The slot count.
+   * @param root      The root path on zookeeper to record slave information.
+   */
+  public SlaveConfig(Integer port, Integer slot, Integer slotCount, String root) {
+    this.slot = slot;
+    this.port = port;
+    this.root = root;
+    this.slotCount = slotCount;
+  }
 
-    /**
-     * @return the port
-     */
-    public Integer getPort() {
-        return port;
-    }
+  /**
+   * @return the port
+   */
+  public Integer getPort() {
+    return port;
+  }
 
-    /**
-     * @param port the port to set
-     */
-    public void setPort(Integer port) {
-        this.port = port;
-    }
+  /**
+   * @param port the port to set
+   */
+  public void setPort(Integer port) {
+    this.port = port;
+  }
 
-    /**
-     * @return the slot
-     */
-    public Integer getSlot() {
-        return slot;
-    }
+  /**
+   * @return the slot
+   */
+  public Integer getSlot() {
+    return slot;
+  }
 
-    /**
-     * @return the root
-     */
-    public String getRoot() {
-        return root;
-    }
+  /**
+   * @param slot the slot to set
+   */
+  public void setSlot(Integer slot) {
+    this.slot = slot;
+  }
 
-    /**
-     * @param root the root to set
-     */
-    public void setRoot(String root) {
-        this.root = root;
-    }
+  /**
+   * @return the root
+   */
+  public String getRoot() {
+    return root;
+  }
 
-    /**
-     * @param slot the slot to set
-     */
-    public void setSlot(Integer slot) {
-        this.slot = slot;
-    }
+  /**
+   * @param root the root to set
+   */
+  public void setRoot(String root) {
+    this.root = root;
+  }
 
-    /**
-     * @return the slotCount
-     */
-    public Integer getSlotCount() {
-        return slotCount;
-    }
+  /**
+   * @return the slotCount
+   */
+  public Integer getSlotCount() {
+    return slotCount;
+  }
 
-    /**
-     * @param slotCount the slotCount to set
-     */
-    public void setSlotCount(Integer slotCount) {
-        this.slotCount = slotCount;
-    }
+  /**
+   * @param slotCount the slotCount to set
+   */
+  public void setSlotCount(Integer slotCount) {
+    this.slotCount = slotCount;
+  }
 
 }

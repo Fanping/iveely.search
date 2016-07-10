@@ -20,22 +20,21 @@ import java.util.List;
 import java.util.TreeMap;
 
 /**
- *
  * @author Iveely Liu
  */
 public class Luggage {
 
-    /**
-     * Slaves sorted by performance.
-     */
-    public final static List<String> performanceSlaves = new ArrayList<>();
+  /**
+   * Slaves sorted by performance.
+   */
+  public final static List<String> performanceSlaves = new ArrayList<>();
 
-    /**
-     * All slaves.
-     */
-    public final static TreeMap<String, Integer> slaves = new TreeMap<>();
+  /**
+   * All slaves.
+   */
+  public final static TreeMap<String, Integer> slaves = new TreeMap<>();
 
-    private Luggage() {
-    }
+  private Luggage() {
+  }
 
 }

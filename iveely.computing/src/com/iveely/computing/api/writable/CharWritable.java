@@ -20,7 +20,7 @@ package com.iveely.computing.api.writable;
  */
 public class CharWritable extends BasicWritable<Character> {
 
-    public CharWritable(Character t) {
-        super(t);
-    }
+  public CharWritable(Character t) {
+    super(t);
+  }
 }

@@ -20,33 +20,30 @@ package com.iveely.computing.io;
  */
 public interface IReader {
 
-    /**
-     * Initialize the reading interface. Similar as the constructor.
-     *
-     * @param file
-     * @return True is Start-up success.
-     */
-    public boolean onOpen(String file);
+  /**
+   * Initialize the reading interface. Similar as the constructor.
+   *
+   * @return True is Start-up success.
+   */
+  public boolean onOpen(String file);
 
-    /**
-     * Has next data to read.
-     *
-     * @return True is has data.
-     */
-    public boolean hasNext();
+  /**
+   * Has next data to read.
+   *
+   * @return True is has data.
+   */
+  public boolean hasNext();
 
-    /**
-     * Read data by line.
-     *
-     * @return
-     */
-    public String onRead();
+  /**
+   * Read data by line.
+   */
+  public String onRead();
 
-    /**
-     * Close file.
-     *
-     * @return True is closed.
-     */
-    public boolean onClose();
+  /**
+   * Close file.
+   *
+   * @return True is closed.
+   */
+  public boolean onClose();
 
 }

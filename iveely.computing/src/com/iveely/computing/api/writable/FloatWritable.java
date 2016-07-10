@@ -20,7 +20,7 @@ package com.iveely.computing.api.writable;
  */
 public class FloatWritable extends BasicWritable<Float> {
 
-    public FloatWritable(Float t) {
-        super(t);
-    }
+  public FloatWritable(Float t) {
+    super(t);
+  }
 }

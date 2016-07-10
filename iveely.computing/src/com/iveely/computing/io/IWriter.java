@@ -20,26 +20,26 @@ package com.iveely.computing.io;
  */
 public interface IWriter {
 
-    /**
-     * According to the file path to open the file.
-     *
-     * @param filePath The file path to open.
-     * @return True is open successed.
-     */
-    public boolean onOpen(String filePath);
+  /**
+   * According to the file path to open the file.
+   *
+   * @param filePath The file path to open.
+   * @return True is open successed.
+   */
+  public boolean onOpen(String filePath);
 
-    /**
-     * Write one line of text.
-     *
-     * @param text The text.
-     * @return True is write suceessed.
-     */
-    public boolean onWrite(String text);
+  /**
+   * Write one line of text.
+   *
+   * @param text The text.
+   * @return True is write suceessed.
+   */
+  public boolean onWrite(String text);
 
-    /**
-     * Close the written file.
-     *
-     * @return True is close successed.
-     */
-    public boolean onClose();
+  /**
+   * Close the written file.
+   *
+   * @return True is close successed.
+   */
+  public boolean onClose();
 }

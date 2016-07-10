@@ -26,212 +26,196 @@ import java.util.List;
  */
 public class TopologySummary {
 
-    /**
-     * Response type.
-     */
-    private String resType;
+  /**
+   * Response type.
+   */
+  private String resType;
+  /**
+   * All topology simple information.
+   */
+  private String zBuffer;
 
-    /**
-     * @return Get response type,actually is "topology summary".
-     */
-    public String getResType() {
-        return this.resType;
+  /**
+   * @return Get response type,actually is "topology summary".
+   */
+  public String getResType() {
+    return this.resType;
+  }
+
+  /**
+   * Get buffer.
+   */
+  public String getZBuffer() {
+    return this.zBuffer;
+  }
+
+  /**
+   * Initialize.
+   */
+  public void init() {
+    // 1. Response type.
+    this.resType = "topology summary";
+
+    // 2. Build topologys.
+    List<String> names = Coordinator.getInstance().getChildren(Paths.getAppRoot());
+    this.zBuffer = "[";
+    if (names.size() > 0) {
+      names.stream().map((name) -> new TopologySimple(name)).map((simple) -> {
+        simple.get();
+        return simple;
+      }).forEach((simple) -> {
+        this.zBuffer += simple.toJson() + ",";
+      });
     }
+    this.zBuffer = this.zBuffer.substring(0, this.zBuffer.length() - 1);
+    this.zBuffer += "]";
+  }
 
-    /**
-     * All topology simple information.
-     */
-    private String zBuffer;
+  /**
+   * Query to json.
+   */
+  public String queryToJson(String tpName) {
+    // 1. Response type.
+    this.resType = "query topology";
 
-    /**
-     * Toplogy simple information.
-     */
-    public static class TopologySimple {
-
-        /**
-         * Build topology simple instance.
-         *
-         * @param name Name of the topology.
-         */
-        public TopologySimple(String name) {
-            this.name = name;
-            this.id = name.hashCode();
-        }
-
-        /**
-         * Name of the topology.
-         */
-        private final String name;
-
-        /**
-         * @return Name of the topology.
-         */
-        public String getName() {
-            return this.name;
-        }
-
-        /**
-         * Id of the topology.
-         */
-        private final int id;
-
-        /**
-         * @return Get topology id.
-         */
-        public int getId() {
-            return this.id;
-        }
-
-        /**
-         * setupTime of the topology.
-         */
-        private String setupTime;
-
-        /**
-         * @return Get topology setup time.
-         */
-        public String getSetupTime() {
-            return this.setupTime;
-        }
-
-        /**
-         * Status of topology.
-         */
-        private String status;
-
-        /**
-         *
-         * @return Get status of toplogy.
-         */
-        public String getStatus() {
-            return this.status;
-        }
-
-        /**
-         * How many slaves run this topology.
-         */
-        private int inSlaveCount;
-
-        /**
-         *
-         * @return Get number occupies the slaves.
-         */
-        public int getInSlaveCount() {
-            return this.inSlaveCount;
-        }
-
-        /**
-         * How many thread run this topology.
-         */
-        private int threadCount;
-
-        /**
-         * @return Get all thread count.
-         */
-        public int getThreadCount() {
-            return this.threadCount;
-        }
-
-        /**
-         * Get toplogy summary.
-         */
-        public void get() {
-            // 1. Status.
-            int count = Integer.parseInt(Coordinator.getInstance().getNodeValue(Paths.getTopologyFinished(this.name)));
-            int finishCount = Coordinator.getInstance().getChildren(Paths.getTopologyFinished(this.name)).size();
-            if (count == finishCount && count != -1) {
-                this.status = "Completed";
-            } else if (count == -1) {
-                this.status = "Exception";
-            } else {
-                this.status = "Running";
-            }
-
-            // 2. Setuptime.
-            String time = Coordinator.getInstance().getNodeValue(Paths.getTopologyRoot(this.name));
-            this.setupTime = time;
-
-            // 3. InSlave
-            this.inSlaveCount = Integer
-                    .parseInt(Coordinator.getInstance().getNodeValue(Paths.getTopologySlaveCount(this.name)));
-
-            // 4. Thread count.
-            this.threadCount = Coordinator.getInstance().getChildren(Paths.getTopologyRoot(this.name)).size();
-        }
-
-        /**
-         *
-         * @return JSON serialize this.
-         */
-        public String toJson() {
-            return JSONUtil.toString(this);
-        }
+    // 2. Build topologys.
+    List<String> names = Coordinator.getInstance().getChildren(Paths.getAppRoot());
+    this.zBuffer = "[";
+    if (names.size() > 0) {
+      names.stream().filter((name) -> (name.equals(tpName))).map((name) -> new TopologySimple(name))
+          .map((simple) -> {
+            simple.get();
+            return simple;
+          }).forEach((simple) -> {
+        this.zBuffer += simple.toJson() + ",";
+      });
     }
+    this.zBuffer = this.zBuffer.substring(0, this.zBuffer.length() - 1);
+    this.zBuffer += "]";
+    return toJson();
+  }
+
+  /**
+   * Topology summary to json.
+   */
+  public String toJson() {
+    return JSONUtil.toString(this);
+  }
+
+  /**
+   * Toplogy simple information.
+   */
+  public static class TopologySimple {
 
     /**
-     * Get buffer.
+     * Name of the topology.
+     */
+    private final String name;
+    /**
+     * Id of the topology.
+     */
+    private final int id;
+    /**
+     * setupTime of the topology.
+     */
+    private String setupTime;
+    /**
+     * Status of topology.
+     */
+    private String status;
+    /**
+     * How many slaves run this topology.
+     */
+    private int inSlaveCount;
+    /**
+     * How many thread run this topology.
+     */
+    private int threadCount;
+
+    /**
+     * Build topology simple instance.
      *
-     * @return
+     * @param name Name of the topology.
      */
-    public String getZBuffer() {
-        return this.zBuffer;
+    public TopologySimple(String name) {
+      this.name = name;
+      this.id = name.hashCode();
     }
 
     /**
-     * Initialize.
+     * @return Name of the topology.
      */
-    public void init() {
-        // 1. Response type.
-        this.resType = "topology summary";
-
-        // 2. Build topologys.
-        List<String> names = Coordinator.getInstance().getChildren(Paths.getAppRoot());
-        this.zBuffer = "[";
-        if (names.size() > 0) {
-            names.stream().map((name) -> new TopologySimple(name)).map((simple) -> {
-                simple.get();
-                return simple;
-            }).forEach((simple) -> {
-                this.zBuffer += simple.toJson() + ",";
-            });
-        }
-        this.zBuffer = this.zBuffer.substring(0, this.zBuffer.length() - 1);
-        this.zBuffer += "]";
+    public String getName() {
+      return this.name;
     }
 
     /**
-     * Query to json.
-     *
-     * @param tpName
-     * @return
+     * @return Get topology id.
      */
-    public String queryToJson(String tpName) {
-        // 1. Response type.
-        this.resType = "query topology";
-
-        // 2. Build topologys.
-        List<String> names = Coordinator.getInstance().getChildren(Paths.getAppRoot());
-        this.zBuffer = "[";
-        if (names.size() > 0) {
-            names.stream().filter((name) -> (name.equals(tpName))).map((name) -> new TopologySimple(name))
-                    .map((simple) -> {
-                        simple.get();
-                        return simple;
-                    }).forEach((simple) -> {
-                        this.zBuffer += simple.toJson() + ",";
-                    });
-        }
-        this.zBuffer = this.zBuffer.substring(0, this.zBuffer.length() - 1);
-        this.zBuffer += "]";
-        return toJson();
+    public int getId() {
+      return this.id;
     }
 
     /**
-     * Topology summary to json.
-     *
-     * @return
+     * @return Get topology setup time.
+     */
+    public String getSetupTime() {
+      return this.setupTime;
+    }
+
+    /**
+     * @return Get status of toplogy.
+     */
+    public String getStatus() {
+      return this.status;
+    }
+
+    /**
+     * @return Get number occupies the slaves.
+     */
+    public int getInSlaveCount() {
+      return this.inSlaveCount;
+    }
+
+    /**
+     * @return Get all thread count.
+     */
+    public int getThreadCount() {
+      return this.threadCount;
+    }
+
+    /**
+     * Get toplogy summary.
+     */
+    public void get() {
+      // 1. Status.
+      int count = Integer.parseInt(Coordinator.getInstance().getNodeValue(Paths.getTopologyFinished(this.name)));
+      int finishCount = Coordinator.getInstance().getChildren(Paths.getTopologyFinished(this.name)).size();
+      if (count == finishCount && count != -1) {
+        this.status = "Completed";
+      } else if (count == -1) {
+        this.status = "Exception";
+      } else {
+        this.status = "Running";
+      }
+
+      // 2. Setuptime.
+      String time = Coordinator.getInstance().getNodeValue(Paths.getTopologyRoot(this.name));
+      this.setupTime = time;
+
+      // 3. InSlave
+      this.inSlaveCount = Integer
+          .parseInt(Coordinator.getInstance().getNodeValue(Paths.getTopologySlaveCount(this.name)));
+
+      // 4. Thread count.
+      this.threadCount = Coordinator.getInstance().getChildren(Paths.getTopologyRoot(this.name)).size();
+    }
+
+    /**
+     * @return JSON serialize this.
      */
     public String toJson() {
-        return JSONUtil.toString(this);
+      return JSONUtil.toString(this);
     }
+  }
 }

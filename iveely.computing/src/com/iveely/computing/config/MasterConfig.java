@@ -20,122 +20,122 @@ package com.iveely.computing.config;
  */
 public class MasterConfig {
 
-    /**
-     * The address of master.
-     */
-    private String address;
+  /**
+   * The address of master.
+   */
+  private String address;
 
-    /**
-     * The service port on master.
-     */
-    private Integer port;
+  /**
+   * The service port on master.
+   */
+  private Integer port;
 
-    /**
-     * The password when visit UI.
-     */
-    private String password;
+  /**
+   * The password when visit UI.
+   */
+  private String password;
 
-    /**
-     * The ui service port.
-     */
-    private Integer ui_port;
+  /**
+   * The ui service port.
+   */
+  private Integer ui_port;
 
-    /**
-     * Thes information record position in the zookeeper.
-     */
-    private String root;
+  /**
+   * Thes information record position in the zookeeper.
+   */
+  private String root;
 
-    /**
-     * Build instance.
-     */
-    public MasterConfig() {
+  /**
+   * Build instance.
+   */
+  public MasterConfig() {
 
-    }
+  }
 
-    /**
-     * Build instance.
-     *
-     * @param address Address of master.
-     * @param port The master service port.
-     * @param uiport The ui port.
-     * @param password The ui password.
-     * @param root The root path on zookeeper to record master information.
-     */
-    public MasterConfig(String address, Integer port, Integer uiport, String password, String root) {
-        this.address = address;
-        this.port = port;
-        this.password = password;
-        this.ui_port = uiport;
-        this.root = root;
-    }
+  /**
+   * Build instance.
+   *
+   * @param address  Address of master.
+   * @param port     The master service port.
+   * @param uiport   The ui port.
+   * @param password The ui password.
+   * @param root     The root path on zookeeper to record master information.
+   */
+  public MasterConfig(String address, Integer port, Integer uiport, String password, String root) {
+    this.address = address;
+    this.port = port;
+    this.password = password;
+    this.ui_port = uiport;
+    this.root = root;
+  }
 
-    /**
-     * @return the address
-     */
-    public String getAddress() {
-        return address;
-    }
+  /**
+   * @return the address
+   */
+  public String getAddress() {
+    return address;
+  }
 
-    /**
-     * @param address the address to set
-     */
-    public void setAddress(String address) {
-        this.address = address;
-    }
+  /**
+   * @param address the address to set
+   */
+  public void setAddress(String address) {
+    this.address = address;
+  }
 
-    /**
-     * @return the port
-     */
-    public Integer getPort() {
-        return port;
-    }
+  /**
+   * @return the port
+   */
+  public Integer getPort() {
+    return port;
+  }
 
-    /**
-     * @return the password
-     */
-    public String getPassword() {
-        return password;
-    }
+  /**
+   * @param port the port to set
+   */
+  public void setPort(Integer port) {
+    this.port = port;
+  }
 
-    /**
-     * @param password the password to set
-     */
-    public void setPassword(String password) {
-        this.password = password;
-    }
+  /**
+   * @return the password
+   */
+  public String getPassword() {
+    return password;
+  }
 
-    /**
-     * @return the ui_port
-     */
-    public Integer getUi_port() {
-        return ui_port;
-    }
+  /**
+   * @param password the password to set
+   */
+  public void setPassword(String password) {
+    this.password = password;
+  }
 
-    /**
-     * @param ui_port the ui_port to set
-     */
-    public void setUi_port(Integer ui_port) {
-        this.ui_port = ui_port;
-    }
+  /**
+   * @return the ui_port
+   */
+  public Integer getUi_port() {
+    return ui_port;
+  }
 
-    /**
-     * @return the root
-     */
-    public String getRoot() {
-        return root;
-    }
+  /**
+   * @param ui_port the ui_port to set
+   */
+  public void setUi_port(Integer ui_port) {
+    this.ui_port = ui_port;
+  }
 
-    /**
-     * @param root the root to set
-     */
-    public void setRoot(String root) {
-        this.root = root;
-    }
+  /**
+   * @return the root
+   */
+  public String getRoot() {
+    return root;
+  }
 
-    /**
-     * @param port the port to set
-     */
-    public void setPort(Integer port) {
-        this.port = port;
-    }
+  /**
+   * @param root the root to set
+   */
+  public void setRoot(String root) {
+    this.root = root;
+  }
 }

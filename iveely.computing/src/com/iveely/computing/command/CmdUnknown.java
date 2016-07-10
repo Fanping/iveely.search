@@ -22,8 +22,8 @@ package com.iveely.computing.command;
  */
 class CmdUnknown implements IMandate {
 
-    @Override
-    public String processCmd(String cmd) {
-        return "Unknow mandate:" + cmd;
-    }
+  @Override
+  public String processCmd(String cmd) {
+    return "Unknow mandate:" + cmd;
+  }
 }

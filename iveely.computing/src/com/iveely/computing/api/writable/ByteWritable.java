@@ -20,7 +20,7 @@ package com.iveely.computing.api.writable;
  */
 public class ByteWritable extends BasicWritable<Byte> {
 
-    public ByteWritable(Byte t) {
-        super(t);
-    }
+  public ByteWritable(Byte t) {
+    super(t);
+  }
 }

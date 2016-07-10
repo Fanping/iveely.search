@@ -20,20 +20,20 @@ package com.iveely.computing.common;
  */
 public enum StreamType {
 
-    /**
-     * Send the data package.
-     */
-    DATASENDING,
-    /**
-     * Data sent over package.
-     */
-    END,
-    /**
-     * FAILURE.
-     */
-    FAILURE,
-    /**
-     * Success get the data.
-     */
-    SUCCESS
+  /**
+   * Send the data package.
+   */
+  DATASENDING,
+  /**
+   * Data sent over package.
+   */
+  END,
+  /**
+   * FAILURE.
+   */
+  FAILURE,
+  /**
+   * Success get the data.
+   */
+  SUCCESS
 }

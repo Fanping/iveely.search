@@ -17,6 +17,7 @@ package com.iveely.computing.api;
 
 import com.iveely.computing.io.IWriter;
 import com.iveely.computing.task.WriterTask;
+
 import java.util.HashMap;
 
 /**
@@ -27,76 +28,75 @@ import java.util.HashMap;
  */
 public abstract class IOutputWriter extends IOutput {
 
-    /**
-     * Data writing tools.
-     */
-    private IWriter writer;
+  /**
+   * Data writing tools.
+   */
+  private IWriter writer;
 
-    /**
-     * Whether the file is already open properly.
-     */
-    private boolean isOpenProperly;
+  /**
+   * Whether the file is already open properly.
+   */
+  private boolean isOpenProperly;
 
-    /**
-     * Build output writer instance..
-     */
-    public IOutputWriter() {
-        super();
-        this.isOpenProperly = false;
+  /**
+   * Build output writer instance..
+   */
+  public IOutputWriter() {
+    super();
+    this.isOpenProperly = false;
+  }
+
+  /**
+   * @param conf The user's custom configuration information.
+   * @see IOutput#start(java.util.HashMap)
+   */
+  @Override
+  public void start(HashMap<String, Object> conf) {
+    WriterTask writerTask = (WriterTask) conf.get(this.getClass().getName());
+    try {
+      this.writer = writerTask.getWriter().getClass().newInstance();
+    } catch (InstantiationException | IllegalAccessException ex) {
+
     }
+    this.isOpenProperly = this.writer.onOpen(writerTask.getFile());
+  }
 
-    /**
-     * @see IOutput#start(java.util.HashMap)
-     * @param conf The user's custom configuration information.
-     */
-    @Override
-    public void start(HashMap<String, Object> conf) {
-        WriterTask writerTask = (WriterTask) conf.get(this.getClass().getName());
-        try {
-            this.writer = writerTask.getWriter().getClass().newInstance();
-        } catch (InstantiationException | IllegalAccessException ex) {
-
-        }
-        this.isOpenProperly = this.writer.onOpen(writerTask.getFile());
+  @Override
+  public void execute(DataTuple tuple, StreamChannel channel) {
+    if (this.isOpenProperly) {
+      execute(tuple, channel, writer);
+    } else {
+      execute(tuple, channel, null);
     }
+  }
 
-    @Override
-    public void execute(DataTuple tuple, StreamChannel channel) {
-        if (this.isOpenProperly) {
-            execute(tuple, channel, writer);
-        } else {
-            execute(tuple, channel, null);
-        }
+  /**
+   * Process recived tuple with writer.
+   *
+   * @param tuple   The data tuple.
+   * @param channel Stream channel.
+   * @param writer  Data writing tools.
+   */
+  public abstract void execute(DataTuple tuple, StreamChannel channel, IWriter writer);
+
+  /**
+   * @param conf The user's custom configuration information.
+   * @see IOutput#end(java.util.HashMap)
+   */
+  @Override
+  public void end(HashMap<String, Object> conf) {
+    this.end(conf, this.writer);
+    if (this.writer != null) {
+      this.writer.onClose();
     }
+  }
 
-    /**
-     * Process recived tuple with writer.
-     *
-     * @param tuple The data tuple.
-     * @param channel Stream channel.
-     * @param writer Data writing tools.
-     */
-    public abstract void execute(DataTuple tuple, StreamChannel channel, IWriter writer);
-
-    /**
-     * @see IOutput#end(java.util.HashMap)
-     *
-     * @param conf The user's custom configuration information.
-     */
-    @Override
-    public void end(HashMap<String, Object> conf) {
-        this.end(conf, this.writer);
-        if (this.writer != null) {
-            this.writer.onClose();
-        }
-    }
-
-    /**
-     * Prepare before execute.
-     *
-     * @param conf Customized information.
-     * @param writer Data writing tools.
-     */
-    public abstract void end(HashMap<String, Object> conf, IWriter writer);
+  /**
+   * Prepare before execute.
+   *
+   * @param conf   Customized information.
+   * @param writer Data writing tools.
+   */
+  public abstract void end(HashMap<String, Object> conf, IWriter writer);
 
 }

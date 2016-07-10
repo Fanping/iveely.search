@@ -20,67 +20,67 @@ package com.iveely.computing.config;
  */
 public class Configurator {
 
-    /**
-     * Master configuration.
-     */
-    private MasterConfig master;
+  /**
+   * Master configuration.
+   */
+  private MasterConfig master;
 
-    /**
-     * Slave configuration.
-     */
-    private SlaveConfig slave;
+  /**
+   * Slave configuration.
+   */
+  private SlaveConfig slave;
 
-    /**
-     * Zoojeeper configuration.
-     */
-    private ZookeeperConfig zookeeper;
+  /**
+   * Zoojeeper configuration.
+   */
+  private ZookeeperConfig zookeeper;
 
-    /**
-     * Build instance.
-     */
-    public Configurator() {
+  /**
+   * Build instance.
+   */
+  public Configurator() {
 
-    }
+  }
 
-    /**
-     * @return Get master configuration.
-     */
-    public MasterConfig getMaster() {
-        return master;
-    }
+  /**
+   * @return Get master configuration.
+   */
+  public MasterConfig getMaster() {
+    return master;
+  }
 
-    /**
-     * @param master the master to set
-     */
-    public void setMaster(MasterConfig master) {
-        this.master = master;
-    }
+  /**
+   * @param master the master to set
+   */
+  public void setMaster(MasterConfig master) {
+    this.master = master;
+  }
 
-    /**
-     * @return Get slave configuration.
-     */
-    public SlaveConfig getSlave() {
-        return slave;
-    }
+  /**
+   * @return Get slave configuration.
+   */
+  public SlaveConfig getSlave() {
+    return slave;
+  }
 
-    /**
-     * @param slave the slave to set
-     */
-    public void setSlave(SlaveConfig slave) {
-        this.slave = slave;
-    }
+  /**
+   * @param slave the slave to set
+   */
+  public void setSlave(SlaveConfig slave) {
+    this.slave = slave;
+  }
 
-    /**
-     * @return Get zookeeper configuration.
-     */
-    public ZookeeperConfig getZookeeper() {
-        return zookeeper;
-    }
+  /**
+   * @return Get zookeeper configuration.
+   */
+  public ZookeeperConfig getZookeeper() {
+    return zookeeper;
+  }
 
-    /**
-     * @param zookeeper the zookeeper to set
-     */
-    public void setZookeeper(ZookeeperConfig zookeeper) {
-        this.zookeeper = zookeeper;
-    }
+  /**
+   * @param zookeeper the zookeeper to set
+   */
+  public void setZookeeper(ZookeeperConfig zookeeper) {
+    this.zookeeper = zookeeper;
+  }
 }

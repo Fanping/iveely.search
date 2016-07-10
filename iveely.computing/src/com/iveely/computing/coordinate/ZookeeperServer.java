@@ -22,12 +22,12 @@ import org.apache.zookeeper.server.quorum.QuorumPeerMain;
  */
 public class ZookeeperServer implements Runnable {
 
-    /**
-     * Start zookeeper server.
-     */
-    @Override
-    public void run() {
-        Thread.currentThread().setName("zookeeper server thread");
-        QuorumPeerMain.main(new String[]{"zoo.cfg"});
-    }
+  /**
+   * Start zookeeper server.
+   */
+  @Override
+  public void run() {
+    Thread.currentThread().setName("zookeeper server thread");
+    QuorumPeerMain.main(new String[]{"zoo.cfg"});
+  }
 }

@@ -15,8 +15,8 @@
  */
 package com.iveely.computing.host;
 
-import com.iveely.framework.net.websocket.WSHandler;
 import com.iveely.framework.net.websocket.SocketServer;
+import com.iveely.framework.net.websocket.WSHandler;
 
 /**
  * Event processor for web to master.
@@ -25,14 +25,14 @@ import com.iveely.framework.net.websocket.SocketServer;
  */
 public class EventProcessor implements SocketServer.IHandler {
 
-    @Override
-    public String invoke(Integer sessionId, WSHandler handler, String data) {
-        return data;
-    }
+  @Override
+  public String invoke(Integer sessionId, WSHandler handler, String data) {
+    return data;
+  }
 
-    @Override
-    public void close(Integer sessionId) {
+  @Override
+  public void close(Integer sessionId) {
 
-    }
+  }
 
 }

@@ -19,9 +19,9 @@ package com.iveely.computing.api.writable;
  * Short writable.
  */
 public class ShortWritable extends BasicWritable<Short> {
-    
-    public ShortWritable(Short t) {
-        super(t);
-    }
-    
+
+  public ShortWritable(Short t) {
+    super(t);
+  }
+
 }

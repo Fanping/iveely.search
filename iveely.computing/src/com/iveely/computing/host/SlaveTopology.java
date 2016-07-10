@@ -25,69 +25,66 @@ import java.util.Set;
  */
 public class SlaveTopology {
 
-    /**
-     * Slave topology instance.
-     */
-    private static SlaveTopology instance;
+  /**
+   * Slave topology instance.
+   */
+  private static SlaveTopology instance;
 
-    /**
-     * The relation bettwen slave and topologies.
-     */
-    private static Map<String, HashSet<String>> list;
+  /**
+   * The relation bettwen slave and topologies.
+   */
+  private static Map<String, HashSet<String>> list;
 
-    /**
-     * Build slave topology.
-     */
-    private SlaveTopology() {
+  /**
+   * Build slave topology.
+   */
+  private SlaveTopology() {
 
+  }
+
+  /**
+   * Get single instance.
+   *
+   * @return The slave toplogy.
+   */
+  public static SlaveTopology getInstance() {
+    if (instance == null) {
+      instance = new SlaveTopology();
     }
+    return instance;
+  }
 
-    /**
-     * Get single instance.
-     *
-     * @return The slave toplogy.
-     */
-    public static SlaveTopology getInstance() {
-        if (instance == null) {
-            instance = new SlaveTopology();
-        }
-        return instance;
+  /**
+   * Record toplogy on a slave.
+   *
+   * @param node   Slave name.
+   * @param tpName Topology name.
+   */
+  public void set(String node, String tpName) {
+    if (list == null) {
+      list = new HashMap<>();
     }
+    if (list.containsKey(node)) {
+      if (!list.get(node).contains(tpName)) {
+        list.get(node).add(tpName);
+      }
+    } else {
+      HashSet<String> set = new HashSet<>();
+      set.add(tpName);
+      list.put(node, set);
+    }
+  }
 
-    /**
-     * Record toplogy on a slave.
-     *
-     * @param node Slave name.
-     * @param tpName Topology name.
-     */
-    public void set(String node, String tpName) {
-        if (list == null) {
-            list = new HashMap<>();
-        }
-        if (list.containsKey(node)) {
-            if (!list.get(node).contains(tpName)) {
-                list.get(node).add(tpName);
-            }
-        } else {
-            HashSet<String> set = new HashSet<>();
-            set.add(tpName);
-            list.put(node, set);
-        }
+  /**
+   * Get toplogyies on a slave.
+   */
+  public String[] get(String node) {
+    if (list.containsKey(node)) {
+      Set<String> set = list.get(node);
+      String[] res = new String[set.size()];
+      res = set.toArray(res);
+      return res;
     }
-
-    /**
-     * Get toplogyies on a slave.
-     *
-     * @param node
-     * @return
-     */
-    public String[] get(String node) {
-        if (list.containsKey(node)) {
-            Set<String> set = list.get(node);
-            String[] res = new String[set.size()];
-            res = set.toArray(res);
-            return res;
-        }
-        return new String[0];
-    }
+    return new String[0];
+  }
 }

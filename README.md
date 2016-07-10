@@ -13,7 +13,7 @@ Use 'java -jar iveely.search.api.jar' & 'java -jar iveely.crawler.jar' to execut
 
 
 		1. First run: java -jar iveely.search.api.jar
-		2. Next run:java -jar iveely.crawler.jar
+		2. Next  run: java -jar iveely.crawler.jar
 		
 
 

@@ -27,156 +27,148 @@ import java.util.List;
  */
 public class SlaveSummary {
 
-    /**
-     * Response type.
-     */
-    private String resType;
+  /**
+   * Response type.
+   */
+  private String resType;
+  /**
+   * All slave simple information.
+   */
+  private String zBuffer;
 
-    /**
-     * @return Get response type information,actually is "slave summary".
-     */
-    public String getResType() {
-        return this.resType;
+  /**
+   * @return Get response type information,actually is "slave summary".
+   */
+  public String getResType() {
+    return this.resType;
+  }
+
+  /**
+   * @return Get buffer, json data.
+   */
+  public String getZBuffer() {
+    return this.zBuffer;
+  }
+
+  /**
+   * Get slave summary information.
+   */
+  public void get() {
+    // 1. Response type.
+    this.resType = "slave summary";
+
+    // 2. Build topologys.
+    List<String> names = Coordinator.getInstance().getChildren(ConfigWrapper.get().getSlave().getRoot());
+    this.zBuffer = "[";
+    if (names.size() > 0) {
+      names.stream().map((name) -> new SlaveSimple(name)).map((simple) -> {
+        simple.init();
+        return simple;
+      }).forEach((simple) -> {
+        this.zBuffer += simple.toJson() + ",";
+      });
     }
+    this.zBuffer = this.zBuffer.substring(0, this.zBuffer.length() - 1);
+    this.zBuffer += "]";
+  }
+
+  /**
+   * Current summary to json.
+   */
+  public String toJson() {
+    return JSONUtil.toString(this);
+  }
+
+  /**
+   * Slave simple summary information.
+   */
+  public static class SlaveSimple {
 
     /**
-     * All slave simple information.
+     * Id of the slave.
      */
-    private String zBuffer;
-
+    private final int id;
     /**
-     * @return Get buffer, json data.
+     * Host of the slave.
      */
-    public String getZBuffer() {
-        return this.zBuffer;
-    }
-
+    private final String host;
     /**
-     * Slave simple summary information.
+     * Setup time.
      */
-    public static class SlaveSimple {
-
-        /**
-         * Build slave simple instance.
-         *
-         * @param host The host of slave.
-         */
-        public SlaveSimple(String host) {
-            this.host = host;
-            this.id = host.hashCode();
-        }
-
-        /**
-         * Id of the slave.
-         */
-        private final int id;
-
-        /**
-         * @return Get slave id.
-         */
-        public int getId() {
-            return this.id;
-        }
-
-        /**
-         * Host of the slave.
-         */
-        private final String host;
-
-        /**
-         * @return Get host address of the slave.
-         */
-        public String getHost() {
-            return this.host;
-        }
-
-        /**
-         * Setup time.
-         */
-        private String setupTime;
-
-        /**
-         * @return Get slave setup time.
-         */
-        public String getSetupTime() {
-            return this.setupTime;
-        }
-
-        /**
-         * Count of slots.
-         */
-        private int slotsCount;
-
-        /**
-         * @return Get total slot count.
-         */
-        public int getSlotsCount() {
-            return this.slotsCount;
-        }
-
-        /**
-         * How many app on this slave.
-         */
-        private int runningApp;
-
-        /**
-         *
-         * @return Get applications count which in runing.
-         */
-        public int getRunningApp() {
-            return this.runningApp;
-        }
-
-        /**
-         * Initialize the basic information.
-         */
-        public void init() {
-            // 1. Running app.
-            this.runningApp = Luggage.slaves.get(this.host);
-
-            // 2. slots count.
-            this.slotsCount = ConfigWrapper.get().getSlave().getSlotCount();
-
-            // 3. setup time.
-            this.setupTime = Coordinator.getInstance().getNodeValue(ConfigWrapper.get().getSlave().getRoot() + "/" + this.host);
-        }
-
-        /**
-         * @return Convert to JSON data.
-         */
-        public String toJson() {
-            return JSONUtil.toString(this);
-        }
-    }
-
+    private String setupTime;
     /**
-     * Get slave summary information.
+     * Count of slots.
      */
-    public void get() {
-        // 1. Response type.
-        this.resType = "slave summary";
-
-        // 2. Build topologys.
-        List<String> names = Coordinator.getInstance().getChildren(ConfigWrapper.get().getSlave().getRoot());
-        this.zBuffer = "[";
-        if (names.size() > 0) {
-            names.stream().map((name) -> new SlaveSimple(name)).map((simple) -> {
-                simple.init();
-                return simple;
-            }).forEach((simple) -> {
-                this.zBuffer += simple.toJson() + ",";
-            });
-        }
-        this.zBuffer = this.zBuffer.substring(0, this.zBuffer.length() - 1);
-        this.zBuffer += "]";
-    }
+    private int slotsCount;
+    /**
+     * How many app on this slave.
+     */
+    private int runningApp;
 
     /**
-     * Current summary to json.
+     * Build slave simple instance.
      *
-     * @return
+     * @param host The host of slave.
+     */
+    public SlaveSimple(String host) {
+      this.host = host;
+      this.id = host.hashCode();
+    }
+
+    /**
+     * @return Get slave id.
+     */
+    public int getId() {
+      return this.id;
+    }
+
+    /**
+     * @return Get host address of the slave.
+     */
+    public String getHost() {
+      return this.host;
+    }
+
+    /**
+     * @return Get slave setup time.
+     */
+    public String getSetupTime() {
+      return this.setupTime;
+    }
+
+    /**
+     * @return Get total slot count.
+     */
+    public int getSlotsCount() {
+      return this.slotsCount;
+    }
+
+    /**
+     * @return Get applications count which in runing.
+     */
+    public int getRunningApp() {
+      return this.runningApp;
+    }
+
+    /**
+     * Initialize the basic information.
+     */
+    public void init() {
+      // 1. Running app.
+      this.runningApp = Luggage.slaves.get(this.host);
+
+      // 2. slots count.
+      this.slotsCount = ConfigWrapper.get().getSlave().getSlotCount();
+
+      // 3. setup time.
+      this.setupTime = Coordinator.getInstance().getNodeValue(ConfigWrapper.get().getSlave().getRoot() + "/" + this.host);
+    }
+
+    /**
+     * @return Convert to JSON data.
      */
     public String toJson() {
-        return JSONUtil.toString(this);
+      return JSONUtil.toString(this);
     }
+  }
 }

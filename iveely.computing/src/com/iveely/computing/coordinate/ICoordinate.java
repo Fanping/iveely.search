@@ -22,40 +22,39 @@ import java.util.List;
  */
 public interface ICoordinate {
 
-    /**
-     *
-     * @param path The specify path.
-     * @return Get node value.
-     */
-    public String getNodeValue(String path);
+  /**
+   * @param path The specify path.
+   * @return Get node value.
+   */
+  public String getNodeValue(String path);
 
-    /**
-     * Set node value on specify path.
-     *
-     * @param path The path to store.
-     * @param val The value on the path.
-     */
-    public void setNodeValue(String path, String val);
+  /**
+   * Set node value on specify path.
+   *
+   * @param path The path to store.
+   * @param val  The value on the path.
+   */
+  public void setNodeValue(String path, String val);
 
-    /**
-     * Delete node.
-     *
-     * @param path The specify path.
-     */
-    public void deleteNode(String path);
+  /**
+   * Delete node.
+   *
+   * @param path The specify path.
+   */
+  public void deleteNode(String path);
 
-    /**
-     * Get children of specify path.
-     *
-     * @param path The path.
-     * @return The children pathes.
-     */
-    public List<String> getChildren(String path);
+  /**
+   * Get children of specify path.
+   *
+   * @param path The path.
+   * @return The children pathes.
+   */
+  public List<String> getChildren(String path);
 
-    /**
-     * Check the node is exist.
-     *
-     * @param path The specify path.
-     */
-    public void checkNodeExist(String path);
+  /**
+   * Check the node is exist.
+   *
+   * @param path The specify path.
+   */
+  public void checkNodeExist(String path);
 }

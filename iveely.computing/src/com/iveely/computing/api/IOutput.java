@@ -15,9 +15,10 @@
  */
 package com.iveely.computing.api;
 
+import org.apache.log4j.Logger;
+
 import java.util.HashMap;
 import java.util.UUID;
-import org.apache.log4j.Logger;
 
 /**
  * The basic data output interface.
@@ -28,65 +29,62 @@ import org.apache.log4j.Logger;
  */
 public abstract class IOutput implements Cloneable {
 
-    /**
-     * Unique instance name.
-     */
-    private final String name;
+  /**
+   * Logger.
+   */
+  private static final Logger logger = Logger.getLogger(IOutput.class.getName());
+  /**
+   * Unique instance name.
+   */
+  private final String name;
 
-    /**
-     * Logger.
-     */
-    private static final Logger logger = Logger.getLogger(IOutput.class.getName());
+  /**
+   * Build IOutput instance.
+   */
+  public IOutput() {
+    this.name = this.getClass().getSimpleName() + "(" + UUID.randomUUID().toString() + ")";
+  }
 
-    /**
-     * Build IOutput instance.
-     */
-    public IOutput() {
-        this.name = this.getClass().getSimpleName() + "(" + UUID.randomUUID().toString() + ")";
-    }
+  /**
+   * Prepare before execute, initialization method. You can customize
+   * functionality. Including initialization, can be regarded as a constructor.
+   *
+   * @param conf The user's custom configuration information.
+   */
+  public void start(HashMap<String, Object> conf) {
+  }
 
-    /**
-     * Prepare before execute, initialization method. You can customize
-     * functionality. Including initialization, can be regarded as a
-     * constructor.
-     *
-     * @param conf The user's custom configuration information.
-     */
-    public void start(HashMap<String, Object> conf) {
-    }
+  /**
+   * Process recived tuple.
+   *
+   * @param tuple   Data tuple.
+   * @param channel Stream channel.
+   */
+  public abstract void execute(DataTuple tuple, StreamChannel channel);
 
-    /**
-     * Process recived tuple.
-     *
-     * @param tuple Data tuple.
-     * @param channel Stream channel.
-     */
-    public abstract void execute(DataTuple tuple, StreamChannel channel);
+  /**
+   * Data to which output. The next step in the data transfer to another IOuput.
+   * If currently IOutput is the final one, you do not need to override this
+   * method.
+   *
+   * @param channel Stream channel.
+   */
+  public void toOutput(StreamChannel channel) {
+  }
 
-    /**
-     * Data to which output. The next step in the data transfer to another
-     * IOuput. If currently IOutput is the final one, you do not need to
-     * override this method.
-     *
-     * @param channel Stream channel.
-     */
-    public void toOutput(StreamChannel channel) {
-    }
+  /**
+   * Finally function after the execute() method, can be regarded as the
+   * destructor.
+   *
+   * @param conf The user's custom configuration information.
+   */
+  public void end(HashMap<String, Object> conf) {
+  }
 
-    /**
-     * Finally function after the execute() method, can be regarded as the
-     * destructor.
-     *
-     * @param conf The user's custom configuration information.
-     */
-    public void end(HashMap<String, Object> conf) {
-    }
-
-    /**
-     *
-     * @return Name of the task.
-     */
-    public String getName() {
-        return name;
-    }
+  /**
+   * @return Name of the task.
+   */
+  public String getName() {
+    return name;
+  }
 }

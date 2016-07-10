@@ -16,6 +16,7 @@
 package com.iveely.computing.common;
 
 import com.sun.management.OperatingSystemMXBean;
+
 import java.lang.management.ManagementFactory;
 
 /**
@@ -23,22 +24,22 @@ import java.lang.management.ManagementFactory;
  */
 public class ServiceNode {
 
-    /**
-     * Get free memory of current service node.
-     *
-     * @return The free memory.
-     */
-    public static int getFreeMemory() {
-        OperatingSystemMXBean osmb = (OperatingSystemMXBean) ManagementFactory.getOperatingSystemMXBean();
-        return (int) (osmb.getFreePhysicalMemorySize() / 1024 / 1024);
-    }
+  /**
+   * Get free memory of current service node.
+   *
+   * @return The free memory.
+   */
+  public static int getFreeMemory() {
+    OperatingSystemMXBean osmb = (OperatingSystemMXBean) ManagementFactory.getOperatingSystemMXBean();
+    return (int) (osmb.getFreePhysicalMemorySize() / 1024 / 1024);
+  }
 
-    /**
-     * Get current jar of runing.
-     *
-     * @return The jar path.
-     */
-    public static String getCurrentJar() {
-        return ServiceNode.class.getProtectionDomain().getCodeSource().getLocation().toString();
-    }
+  /**
+   * Get current jar of runing.
+   *
+   * @return The jar path.
+   */
+  public static String getCurrentJar() {
+    return ServiceNode.class.getProtectionDomain().getCodeSource().getLocation().toString();
+  }
 }

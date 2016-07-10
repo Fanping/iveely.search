@@ -20,7 +20,7 @@ package com.iveely.computing.api.writable;
  */
 public class DoubleWritable extends BasicWritable<Double> {
 
-    public DoubleWritable(Double t) {
-        super(t);
-    }
+  public DoubleWritable(Double t) {
+    super(t);
+  }
 }
