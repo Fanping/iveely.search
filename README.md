@@ -56,7 +56,9 @@ IOutput data sources can be from IOutput and IInput, but the output must IOutput
 IInputReader is an input with the function of file read, any IReader implementation can be used in IInputReader, including Windows file system,Unix file system, Hadoop file system, etc.
 #### 4. IOutputWriter
 It is a subclass of IOuput, used for writing data to a local file system or other file system.
- 
+<br/>
+Example can be found [here](https://github.com/Fanping/iveely.search/blob/master/iveely.computing/src/com/iveely/computing/example/WordCount.java).
+
 ### (5) How to use iveely database?
 iveely database is a mini data storage system,it's has two mode, as follow:<br/>
 #### 1. Local mode.
