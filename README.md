@@ -9,6 +9,15 @@ Download iveely.crawler & iveely.search.api,and build to executable jar,you can 
 #### 2. Config and run.
 Copy "example conf/for crawler/conf" to the same parent directory with 'iveely.crawler.jar'.
 Use 'java -jar iveely.search.api.jar' & 'java -jar iveely.crawler.jar' to execute them,please run iveely.search.api.jar first.
+
+
+
+		1. First run: java -jar iveely.search.api.jar
+		2. Next run:java -jar iveely.crawler.jar
+		
+
+
+
 #### 3. Let's search.
 Query with keyword 'java', you can open browser with [http://127.0.0.1:8080/api/0.9.1/query?queryField=title&respFields=title%2Ccontent%2Curl&keywords=java&totalHits=10](http://127.0.0.1:8080/api/0.9.1/query?queryField=title&respFields=title%2Ccontent%2Curl&keywords=java&totalHits=10) to get the result.<br/>
 If you get the response json,congratulations, you've successfully run.<br/>
@@ -25,6 +34,14 @@ Local operation does not require any arguments,but you need copy folder 'example
 #### 2. Test is successful start.
 When run local mode,you can enter a question on console like 'Which city is the capital of the United States?' <br/>
 If console write 'Washington.',congratulations, you've successfully run.<br/>
+
+
+
+		Q:Which city is the capital of the United States?
+		A:Washington.
+		
+
+
 For more information see [Distributed Artificial Intelligence Markup Language](http://www.cnblogs.com/liufanping/p/5189678.html).
 #### 3. Configuration for remote calls.
 Modify file 'ai/property/branches.xml', configure the port number and offer to provide network services, so that the external system can access the service, which is important for distributed search engine.<br/>
