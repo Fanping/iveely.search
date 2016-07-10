@@ -54,6 +54,7 @@ public class ConfigWrapper {
     if (instance != null) {
       configurator = instance;
     } else {
+      configurator = new Configurator();
       configurator.setMaster(new MasterConfig("127.0.0.1", 8001, 9000, "", "/iveely.computing/master"));
       configurator.setSlave(new SlaveConfig(4000, 6000, 6, "/iveely.computing/slave"));
       configurator.setZookeeper(new ZookeeperConfig("127.0.0.1", 2181));
