@@ -5,6 +5,8 @@
  */
 package com.iveely.database;
 
+import com.iveely.database.storage.Warehouse;
+
 /**
  * @author liufanping@iveely.com
  */

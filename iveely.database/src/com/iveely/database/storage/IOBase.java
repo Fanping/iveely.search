@@ -441,9 +441,13 @@ public class IOBase implements Serializable {
       if ((this.totalCount) % maxRecodSize == 0) {
         fileName = rootFile + "." + blockFlag;
 
-        //---------------------------------------------------------------------------------------------------------
-        // 4byte:version| 4byte:当前文件块数 | 4byte：表记录数 | 4byte:Header长度 | 4byte:表标识 | cloumntype(4byte) |
-        //--------------------------------------------------------------------------------------------------------
+        //-------------------------------------------------------------------------------------------------------
+        // 4byte:version|
+        // 4byte:file blocks |
+        // 4byte：table records |
+        // 4byte:Header length |
+        // 4byte:table identifies cloumntype(4byte) |
+        //-------------------------------------------------------------------------------------------------------
         // 2.1 Write data.
         DataOutputStream out = FileStream.getOutputStream(fileName);
         {

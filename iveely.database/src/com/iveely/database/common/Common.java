@@ -36,7 +36,7 @@ public class Common {
   }
 
   /**
-   * Get size normal string（4096）
+   * Get size normal string.
    *
    * @return size.
    */
