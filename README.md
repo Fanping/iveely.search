@@ -8,8 +8,8 @@ Download iveely.crawler & iveely.search.api,and build to executable jar,you can 
 Copy "example conf/for crawler/conf" to the same parent directory with 'iveely.crawler.jar'.
 Use 'java -jar iveely.search.api.jar' & 'java -jar iveely.crawler.jar' to execute them,please run iveely.search.api.jar first.
 #### 3. Let's search.
-Query with keyword 'java', you can open browser with [http://127.0.0.1:8080/api/0.9.1/query?queryField=title&respFields=title%2Ccontent%2Curl&keywords=java&totalHits=10](http://127.0.0.1:8080/api/0.9.1/query?queryField=title&respFields=title%2Ccontent%2Curl&keywords=java&totalHits=10) to get the result.
-If you get the response json,Congratulations, you've successfully run.
+Query with keyword 'java', you can open browser with [http://127.0.0.1:8080/api/0.9.1/query?queryField=title&respFields=title%2Ccontent%2Curl&keywords=java&totalHits=10](http://127.0.0.1:8080/api/0.9.1/query?queryField=title&respFields=title%2Ccontent%2Curl&keywords=java&totalHits=10) to get the result.<br/>
+If you get the response json,Congratulations, you've successfully run.<br/>
 Moreover API information were described using Swagger-UI. So you can visit [http://127.0.0.1:8080/swagger-ui.html](http://127.0.0.1:8080/swagger-ui.html) to get more api.
 ### (2) Maven support
 ### (3) How to make search engine more smarter?
