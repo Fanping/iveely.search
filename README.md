@@ -47,6 +47,16 @@ For more information see [Distributed Artificial Intelligence Markup Language](h
 Modify file 'ai/property/branches.xml', configure the port number and offer to provide network services, so that the external system can access the service, which is important for distributed search engine.<br/>
 ### (4) What's is the iveely computing used for,and how to use it?
 In 2015, my friend and I began to research in the field of artificial intelligence, we need a lightweight computing framework to help us build data model in fast. Rapid deployment, rapid results, simple to fit is our original intention at that time. Even hope that any program can be distributed, such as crawler program of search engine. In the process of last year, Iveely Computing has given us a lot of help, so we decided to open source to more developers.<br/>
+It is a very lightweight distributed real-time computing framework like storm,it has four very important components:<br/>
+#### 1. IInput(The basic data input interface)
+It is the input source data, can be gained by reading the file system data source, also can be achieved by other ways. It is also the place where the whole cluster program execution started
+#### 2. IOutput(The basic data output interface)
+IOutput data sources can be from IOutput and IInput, but the output must IOutput or no output, cannot be directly output to a file.It is the middle of the data processing unit.
+#### 3. IInputReader
+IInputReader is an input with the function of file read, any IReader implementation can be used in IInputReader, including Windows file system,Unix file system, Hadoop file system, etc.
+#### 4. IOutputWriter
+It is a subclass of IOuput, used for writing data to a local file system or other file system.
+ 
 ### (5) How to use iveely database?
 iveely database is a mini data storage system,it's has two mode, as follow:<br/>
 #### 1. Local mode.
