@@ -9,7 +9,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>com.iveely.database</artifactId>
-    <name>Iveely Database.</name>
+    <name>com.iveely database.</name>
     <description>A mini data storage system.</description>
     <distributionManagement>
         <snapshotRepository>

@@ -1,7 +1,7 @@
 <project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-        <parent>
+    <parent>
         <artifactId>com.iveely.project</artifactId>
         <groupId>com.iveely</groupId>
         <version>0.9.1</version>
@@ -43,7 +43,7 @@
                             <transformers>
                                 <transformer
                                         implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                                    <mainClass>com.iveely.computing.Program
+                                    <mainClass>com.iveely.computing.BrainApplication
                                     </mainClass>
                                 </transformer>
                             </transformers>
@@ -62,7 +62,7 @@
         <dependency>
             <groupId>com.iveely</groupId>
             <artifactId>com.iveely.framework</artifactId>
-            <version>0.9.1-SNAPSHOT</version>
+            <version>0.9.1</version>
         </dependency>
         <dependency>
             <groupId>org.apache.zookeeper</groupId>

@@ -8,21 +8,8 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <artifactId>com.iveely.brain</artifactId>
-    <name>iveely.brain</name>
+    <name>com.iveely.brain</name>
     <description>AI conversation application.</description>
-    <build>
-        <sourceDirectory>src</sourceDirectory>
-        <plugins>
-            <plugin>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.3</version>
-                <configuration>
-                    <source>1.8</source>
-                    <target>1.8</target>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
     <organization>
         <name>iveely</name>
     </organization>

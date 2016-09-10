@@ -35,12 +35,12 @@ import java.util.Locale;
  *
  * Parameters including "master","slave","console",and starting in this order.
  */
-public class Program {
+public class ComputingApplication {
 
   /**
    * Logger.
    */
-  private static final Logger logger = Logger.getLogger(Program.class);
+  private static final Logger logger = Logger.getLogger(ComputingApplication.class);
 
   /**
    * @param args the command line arguments

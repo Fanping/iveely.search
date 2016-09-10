@@ -5,7 +5,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-public class Program {
+public class BrainApplication {
 
   public static void main(String[] args) {
     if (args != null && args.length > 1) {

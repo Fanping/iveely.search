@@ -9,21 +9,8 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>com.iveely.crawler</artifactId>
-    <name>iveely.crawler</name>
+    <name>com.iveely.crawler</name>
     <description>A simple distributed crawling system.</description>
-    <build>
-        <sourceDirectory>src</sourceDirectory>
-        <plugins>
-            <plugin>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.3</version>
-                <configuration>
-                    <source>1.8</source>
-                    <target>1.8</target>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
     <organization>
         <name>iveely</name>
     </organization>

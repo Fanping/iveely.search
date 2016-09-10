@@ -8,7 +8,7 @@ import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 
-public class Application {
+public class CrawlerApplication {
 
   private static Worker worker;
 
