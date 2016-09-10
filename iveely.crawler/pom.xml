@@ -1,10 +1,14 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+       <parent>
+        <artifactId>com.iveely.project</artifactId>
+        <groupId>com.iveely</groupId>
+        <version>0.9.1</version>
+    </parent>
     <modelVersion>4.0.0</modelVersion>
-    <groupId>com.iveely</groupId>
+
     <artifactId>com.iveely.crawler</artifactId>
-    <version>0.9.1</version>
     <name>iveely.crawler</name>
     <description>A simple distributed crawling system.</description>
     <build>
