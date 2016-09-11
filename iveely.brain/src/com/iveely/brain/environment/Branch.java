@@ -61,6 +61,8 @@ public class Branch {
 
   /**
    * Send message to branch.
+   * @param msg message
+   * @return response packet
    */
   public Packet send(String msg) {
     if (this.client == null) {

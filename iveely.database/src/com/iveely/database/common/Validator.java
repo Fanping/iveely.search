@@ -4,7 +4,6 @@ package com.iveely.database.common;
  * Validation.
  *
  * @author liufanping@iveely.com
- * @date 2014-12-26 22:12:00
  */
 public class Validator {
 

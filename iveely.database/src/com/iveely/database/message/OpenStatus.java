@@ -4,7 +4,6 @@ package com.iveely.database.message;
  * Open status for connector.
  *
  * @author liufanping@iveely.com
- * @date 2014-12-26 20:46:06
  */
 public enum OpenStatus {
 

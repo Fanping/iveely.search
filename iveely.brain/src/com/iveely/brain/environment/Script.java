@@ -13,6 +13,8 @@ public class Script {
 
   /**
    * Dynamic execut javascript
+   * @param code code
+   * @return response
    */
   public static String eval(String code) {
     Interpreter interpreter = new Interpreter();

@@ -31,12 +31,16 @@ public abstract class ITemplate {
 
   /**
    * Get result by template.
-   *
+   * @param that last question
+   * @param stars starts
    * @return the result.
    */
   public abstract String getResult(List<String> stars, String that);
 
   /**
+   * @param text text
+   * @param ids ids
+   * @param stars stars
    * Replace star.
    */
   public String replaceStar(String text, List<Integer> ids, List<String> stars) {

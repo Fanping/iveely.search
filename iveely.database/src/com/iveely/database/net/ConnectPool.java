@@ -6,7 +6,6 @@ import java.io.IOException;
 
 /**
  * @author liufanping@iveely.com
- * @date 2015-3-11 8:24:22
  */
 public class ConnectPool {
 

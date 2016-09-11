@@ -6,7 +6,6 @@ import java.util.Date;
 
 /**
  * @author liufanping@iveely.com
- * @date 2015-4-1 19:41:37
  */
 public class Backup implements Runnable {
 

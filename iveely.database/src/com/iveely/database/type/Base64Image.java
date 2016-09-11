@@ -8,7 +8,6 @@ import java.io.Serializable;
  * Image as incode content
  *
  * @author liufanping@iveely.com
- * @date 2014-11-22 21:06:47
  */
 public class Base64Image implements Serializable {
 

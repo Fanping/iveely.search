@@ -2,7 +2,6 @@ package com.iveely.database.api.template;
 
 /**
  * @author liufanping@iveely.com
- * @date 2015-3-28 12:45:44
  */
 public final class JsonInsertOne {
 

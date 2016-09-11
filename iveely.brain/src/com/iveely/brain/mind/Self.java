@@ -46,6 +46,7 @@ public class Self {
 
   /**
    * Get single instance.
+   * @return instance
    */
   public static Self getInstance() {
     if (self == null) {

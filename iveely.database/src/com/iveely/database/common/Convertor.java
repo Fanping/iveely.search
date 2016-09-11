@@ -10,7 +10,6 @@ import java.io.UnsupportedEncodingException;
  * Convertor for int and byte[4].
  *
  * @author liufanping@iveely.com
- * @date 2014-10-17 22:30:56
  */
 public class Convertor {
 

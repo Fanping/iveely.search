@@ -44,6 +44,8 @@ public class Local {
 
   /**
    * Start
+   *
+   * @param msg the message send to brain.
    */
   public String send(String msg) {
     if (!isStarted) {

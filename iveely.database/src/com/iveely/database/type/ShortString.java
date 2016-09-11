@@ -8,7 +8,6 @@ import java.io.Serializable;
  * Short string.
  *
  * @author liufanping@iveely.com
- * @date 2014-10-17 21:47:33
  */
 public class ShortString implements Serializable {
 

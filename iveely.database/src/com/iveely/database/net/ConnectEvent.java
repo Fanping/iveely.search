@@ -5,7 +5,6 @@ import com.iveely.framework.net.SyncServer;
 
 /**
  * @author liufanping@iveely.com
- * @date 2015-3-11 8:25:05
  */
 public class ConnectEvent implements SyncServer.ICallback {
 

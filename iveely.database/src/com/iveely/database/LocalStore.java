@@ -16,7 +16,6 @@ import java.util.logging.Logger;
  * Local storage.
  *
  * @author liufanping@iveely.com
- * @date 2014-12-27 17:17:35
  */
 public class LocalStore {
 

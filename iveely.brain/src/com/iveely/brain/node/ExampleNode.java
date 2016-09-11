@@ -26,6 +26,7 @@ public class ExampleNode {
 
   /**
    * Start example node to help brain more clever.
+   * @throws IOException io exception
    */
   public void start() throws IOException {
     this.server.start();

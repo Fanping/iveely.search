@@ -35,6 +35,9 @@ public class Scenario {
 
   /**
    * Parse element to script.
+   *
+   * @param element element
+   * @return whether parse success
    */
   public boolean parse(Element element) {
     List<Element> children = element.elements();
@@ -60,6 +63,11 @@ public class Scenario {
 
   /**
    * Get script content.
+   *
+   * @param stars stars
+   * @param ret   ret
+   * @param nodes nodes
+   * @return script
    */
   public String getScript(List<String> stars, String ret, List<String> nodes) {
     String result = express.replace("%r%", ret);

@@ -10,7 +10,6 @@ import java.io.ObjectOutputStream;
  * Configurator for database.
  *
  * @author liufanping@iveely.com
- * @date 2014-12-27 17:23:47
  */
 public class Configurator {
 

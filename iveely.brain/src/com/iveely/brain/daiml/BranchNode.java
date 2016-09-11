@@ -49,6 +49,7 @@ public class BranchNode {
   }
 
   /**
+   * @param stars starts
    * @return the parameter
    */
   public String getParameter(List<String> stars) {
@@ -65,6 +66,8 @@ public class BranchNode {
 
   /**
    * Parse to request information.
+   * @param element element
+   * @return whether parse success.
    */
   public boolean parse(Element element) {
     if (element == null) {

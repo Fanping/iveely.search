@@ -35,7 +35,7 @@ public class CategoryLoader {
   }
 
   /**
-   * Get single instance.
+   * @return  Get single instance.
    */
   public static CategoryLoader getInstance() {
     if (loader == null) {

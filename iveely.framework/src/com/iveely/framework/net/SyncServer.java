@@ -111,7 +111,6 @@ public class SyncServer {
    * Server executor.
    *
    * @author liufanping (liufanping@iveely.com)
-   * @date 2014-10-18 11:23:11
    */
   private class Executor extends Thread {
 

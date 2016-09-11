@@ -4,7 +4,6 @@ import com.iveely.framework.text.JSONUtil;
 
 /**
  * @author liufanping@iveely.com
- * @date 2015-3-28 18:14:35
  */
 public class WebSocketMessage {
 

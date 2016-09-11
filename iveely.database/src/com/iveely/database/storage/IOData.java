@@ -14,7 +14,6 @@ import java.util.List;
 
 /**
  * @author liufanping@iveely.com
- * @date 2015-3-27 19:27:57
  */
 public class IOData implements Serializable {
 

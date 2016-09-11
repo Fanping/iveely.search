@@ -2,10 +2,8 @@ package com.iveely.database.api.template;
 
 /**
  * @author liufanping@iveely.com
- * @date 2015-3-28 12:26:47
  */
 public enum ExchangeCode {
-
   TABLE_CREATE_FALURE,
   TABLE_CREATE_SUCCESS,
   SELECT_ONE_SUCCESS,

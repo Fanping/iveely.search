@@ -96,6 +96,7 @@ public class Brain {
 
   /**
    * Add category into brain.
+   * @param category category
    */
   public void addCategory(Category category) {
     this._categories.add(category);
@@ -121,6 +122,7 @@ public class Brain {
    * Think the question to find the answer.
    *
    * @param question The question that user input.
+   * @param that last question
    * @return the result what robot think.
    */
   public Idio think(String question, String that) {
@@ -131,7 +133,7 @@ public class Brain {
     } else {
       React react;
       for (Integer id : list) {
-        react = _categories.get(id).getAnwser(question, that);
+        react = _categories.get(id).getAnswer(question, that);
         if (react.getStatus() == Status.SUCCESS) {
           idio = new Idio();
           idio.setResponse(react.getRet());
@@ -151,6 +153,8 @@ public class Brain {
    * A session request to brain.
    *
    * @param sessionId session id of current request.
+   * @param handler callback handler
+   * @param question question
    */
   public void request(int sessionId, EventHandler handler, String question) {
     Session session;
@@ -167,6 +171,7 @@ public class Brain {
 
   /**
    * Release a session.
+   * @param sessionId session id
    */
   public void release(int sessionId) {
     if (this._sessions.containsKey(sessionId)) {

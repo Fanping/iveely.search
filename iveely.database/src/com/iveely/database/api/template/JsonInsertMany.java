@@ -4,7 +4,6 @@ import java.util.List;
 
 /**
  * @author liufanping@iveely.com
- * @date 2015-3-28 15:41:26
  */
 public final class JsonInsertMany {
 

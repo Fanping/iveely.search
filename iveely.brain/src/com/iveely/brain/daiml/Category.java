@@ -84,9 +84,11 @@ public class Category {
   /**
    * Get the answer of the question in category.
    *
+   * @param question the question to get answer.
+   * @param that last question
    * @return the reaction of the answer.
    */
-  public React getAnwser(String question, String that) {
+  public React getAnswer(String question, String that) {
     // 1. Use pattern to check.
     List<String> stars = new ArrayList<>();
     if (pattern.isMatch(question, stars, that)) {
@@ -101,6 +103,7 @@ public class Category {
 
   /**
    * Check is normal template.
+   * @param list list
    */
   private boolean isNormal(List<Element> list) {
     if (list.size() == 0) {
@@ -117,6 +120,7 @@ public class Category {
 
   /**
    * Check is srai tempalte.
+   * @param list list
    */
   private boolean isSrai(List<Element> list) {
     if (list.size() == 1) {
@@ -130,6 +134,7 @@ public class Category {
 
   /**
    * Check is random template.
+   * @param list list
    */
   private boolean isRandom(List<Element> list) {
     if (list.size() == 1) {
@@ -143,6 +148,7 @@ public class Category {
 
   /**
    * Check is request template.
+   * @param list list
    */
   private boolean isRequest(List<Element> list) {
     if (list.size() > 1) {

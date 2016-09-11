@@ -7,7 +7,6 @@ import java.util.HashSet;
  * Unique for a column.
  *
  * @author liufanping@iveely.com
- * @date 2014-12-26 21:00:21
  */
 public class Unique implements Serializable {
 

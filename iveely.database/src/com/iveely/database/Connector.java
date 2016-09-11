@@ -7,7 +7,6 @@ import com.iveely.database.message.OpenStatus;
  * Connector for database.
  *
  * @author liufanping@iveely.com
- * @date 2014-12-26 20:38:20
  */
 public class Connector {
 

@@ -7,7 +7,6 @@ import org.apache.log4j.Logger;
 
 /**
  * @author liufanping@iveely.com
- * @date 2014-12-26 20:27:32
  */
 public class Engine {
 

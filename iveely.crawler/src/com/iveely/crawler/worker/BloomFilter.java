@@ -14,17 +14,6 @@ import java.util.Collection;
 /**
  * Implementation of a Bloom-filter, as described here:
  * http://en.wikipedia.org/wiki/Bloom_filter
- *
- * For updates and bugfixes, see http://github.com/magnuss/java-bloomfilter
- *
- * Inspired by the SimpleBloomFilter-class written by Ian Clarke. This
- * implementation provides a more evenly distributed Hash-function by using a
- * proper digest instead of the Java RNG. Many of the changes were proposed in
- * comments in his blog: http://blog.locut.us/2008/01/12/a-decent-stand-alone-java-bloom-filter-implementation/
- *
- * @param <E> Object type that is to be inserted into the Bloom filter, e.g.
- *            String or Integer.
- * @author Magnus Skjegstad <magnus@skjegstad.com>
  */
 public class BloomFilter<E> implements Serializable {
   private BitSet bitset;
@@ -233,8 +222,8 @@ public class BloomFilter<E> implements Serializable {
 
   /**
    * Calculates the expected probability of false positives based on the number
-   * of expected filter elements and the size of the Bloom filter. <br /><br />
-   * The value returned by this method is the <i>expected</i> rate of false
+   * of expected filter elements and the size of the Bloom filter.
+   * The value returned by this method is the expected rate of false
    * positives, assuming the number of inserted elements equals the number of
    * expected elements. If the number of elements in the Bloom filter is less
    * than the expected value, the true probability of false positives will be
@@ -273,7 +262,8 @@ public class BloomFilter<E> implements Serializable {
 
 
   /**
-   * Returns the value chosen for K.<br /> <br /> K is the optimal number of
+   * Returns the value chosen for K.
+   * K is the optimal number of
    * hash functions based on the size of the Bloom filter and the expected
    * number of inserted elements.
    *

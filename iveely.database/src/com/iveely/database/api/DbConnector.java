@@ -25,7 +25,6 @@ import java.util.logging.Logger;
 
 /**
  * @author liufanping@iveely.com
- * @date 2015-3-11 8:28:42
  */
 public class DbConnector {
 
@@ -64,8 +63,17 @@ public class DbConnector {
 
   /**
    * Create table.
+   *
+   * @param tableName   table name
+   * @param columns     columns
+   * @param columnTypes column types
+   * @param uniques     uniques
+   * @return whether created success
    */
-  public boolean createTable(String tableName, String[] columns, Types[] columnTypes, boolean[] uniques) {
+  public boolean createTable(String tableName,
+                             String[] columns,
+                             Types[] columnTypes,
+                             boolean[] uniques) {
     if (tables.containsKey(tableName)) {
       return false;
     } else {
@@ -98,16 +106,20 @@ public class DbConnector {
 
   /**
    * Insert data to database.
+   *
+   * @param tableName table name
+   * @param objects   objects
+   * @return last id
    */
-  public int insert(String tableName, Object[] objs) {
-    if (!tables.containsKey(tableName) || objs == null) {
+  public int insert(String tableName, Object[] objects) {
+    if (!tables.containsKey(tableName) || objects == null) {
       return -1;
     } else {
-      if ((Integer) tables.get(tableName) != objs.length) {
+      if ((Integer) tables.get(tableName) != objects.length) {
         return -1;
       }
       JsonInsertOne table = new JsonInsertOne(dbName, tableName);
-      table.setValues(objs);
+      table.setValues(objects);
       String tableJson = table.toJson();
       Packet packet = new Packet();
       packet.setMimeType(0);
@@ -121,6 +133,13 @@ public class DbConnector {
     }
   }
 
+  /**
+   * Insert many data.
+   *
+   * @param tableName table name
+   * @param list      list
+   * @return ids
+   */
   public Integer[] insertMany(String tableName, List<Object[]> list) {
     if (!tables.containsKey(tableName) || list == null || list.size() == 0) {
       return null;
@@ -149,10 +168,22 @@ public class DbConnector {
     }
   }
 
+  /**
+   * delete a record by id.
+   *
+   * @param tableName table name
+   * @param id        Id
+   * @return return is success
+   */
   public int delete(String tableName, int id) {
     return -1;
   }
 
+  /**
+   * drop table
+   * @param tableName table name
+   * @return whether drop table success
+   */
   public boolean dropTable(String tableName) {
     JsonDropTable table = new JsonDropTable();
     table.setDbName(dbName);
@@ -168,6 +199,11 @@ public class DbConnector {
     return false;
   }
 
+  /**
+   * get count
+   * @param tableName table name
+   * @return count
+   */
   public Integer getCount(String tableName) {
     JsonCountTable table = new JsonCountTable();
     table.setDbName(dbName);
@@ -184,6 +220,12 @@ public class DbConnector {
     return -1;
   }
 
+  /**
+   * get one record
+   * @param tableName table name
+   * @param id record id
+   * @return data
+   */
   public Object[] selectOne(String tableName, int id) {
     if (!tables.containsKey(tableName) || id < 0) {
       return null;
@@ -197,7 +239,7 @@ public class DbConnector {
       packet.setData(new SimpleString(tableJson));
       Packet resPacket = this.client.send(packet);
       if (resPacket != null && resPacket.getExecuteType() == ExchangeCode
-          .SELECT_ONE_SUCCESS.ordinal()) {
+              .SELECT_ONE_SUCCESS.ordinal()) {
         String jsonData = ((SimpleString) resPacket.getData()).getValue();
         JsonArray array = JsonObject.readFrom(jsonData).asArray().values().get(0).asArray();
         Object[] objs = new Object[array.size()];
@@ -210,6 +252,13 @@ public class DbConnector {
     }
   }
 
+  /**
+   * Select many records
+   * @param tableName table name
+   * @param startIndex from start index
+   * @param count get count
+   * @return all data
+   */
   public List<Object[]> selectMany(String tableName, int startIndex, int count) {
     if (!tables.containsKey(tableName) || startIndex < 0 || count < 1) {
       return null;
@@ -245,6 +294,11 @@ public class DbConnector {
     }
   }
 
+  /**
+   * replace text
+   * @param text text
+   * @return text
+   */
   private String replace(String text) {
     text = text.substring(1, text.length() - 1);
     return text;

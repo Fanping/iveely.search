@@ -7,7 +7,6 @@ import java.util.List;
 
 /**
  * @author liufanping@iveely.com
- * @date 2015-3-11 8:36:27
  */
 public class DbTable {
 
@@ -34,6 +33,10 @@ public class DbTable {
 
   /**
    * Add filed.
+   * @param name filed name
+   * @param type type of filed
+   * @param isUnique set unique
+   * @return whether add success
    */
   public boolean addFiled(String name, Types type, boolean isUnique) {
     DbFiled filed = new DbFiled();

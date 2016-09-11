@@ -61,7 +61,9 @@ public class Pattern {
   /**
    * The question is match the pattern.
    *
-   * @param question The question from user.
+   * @param question the question from user.
+   * @param stars  stars
+   * @param that that
    * @return true is matched, false is not.
    */
   public boolean isMatch(String question, List<String> stars, String that) {
@@ -110,6 +112,8 @@ public class Pattern {
 
   /**
    * Parse pattern to understandable expression. [*]\[set]
+   * @param val value
+   * @return whether parse success
    */
   private boolean parse(String val) {
     if (val == null) {
@@ -287,7 +291,7 @@ public class Pattern {
   /**
    * To check weather the set matched for current pattern.
    *
-   * @param text The array of string to be check.
+   * @param vals The array of string to be check.
    * @return true is matched,or is not.
    */
   private boolean checkType(List<String> vals) {

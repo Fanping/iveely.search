@@ -6,7 +6,6 @@ import java.io.Serializable;
  * Proxy object to store.
  *
  * @author liufanping@iveely.com
- * @date 2014-12-27 10:49:45
  */
 public class Proxy implements Serializable {
 

@@ -10,7 +10,6 @@ import org.apache.log4j.Logger;
 
 /**
  * @author liufanping@iveely.com
- * @date 2015-3-7 23:04:07
  */
 public class Response implements SocketServer.IHandler {
 

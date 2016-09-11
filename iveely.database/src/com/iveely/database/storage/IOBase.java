@@ -22,7 +22,6 @@ import java.util.List;
  * Object write.
  *
  * @author liufanping@iveely.com
- * @date 2014-10-17 22:00:53
  */
 public class IOBase implements Serializable {
 

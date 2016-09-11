@@ -4,7 +4,6 @@ package com.iveely.database.common;
  * Common for database.
  *
  * @author liufanping@iveely.com
- * @date 2014-10-17 21:48:49
  */
 public class Common {
 

@@ -26,7 +26,7 @@ public class React {
   }
 
   /**
-   * @param status the status to get
+   * @return  the status
    */
   public Status getStatus() {
     return this.status;
@@ -55,6 +55,7 @@ public class React {
 
   /**
    * Set hit pattern.
+   * @param text text
    */
   public void setThat(String text) {
     this.that = text;

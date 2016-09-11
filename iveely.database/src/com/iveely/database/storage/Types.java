@@ -2,7 +2,6 @@ package com.iveely.database.storage;
 
 /**
  * @author liufanping@iveely.com
- * @date 2014-10-17 22:29:19
  */
 public enum Types {
 

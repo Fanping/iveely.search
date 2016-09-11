@@ -32,6 +32,7 @@ public class Inverted {
 
   /**
    * Get instance of inverted index.
+   * @return instance
    */
   public static Inverted getInstance() {
     if (inverted == null) {
@@ -46,8 +47,8 @@ public class Inverted {
 
   /**
    * Add words to index.
-   *
-   * @param words The words to index.
+   * @param docId doc id
+   * @param text The words to index.
    */
   public void set(int docId, String text) {
     if (text == null) {
@@ -78,6 +79,8 @@ public class Inverted {
 
   /**
    * Get best doc id by words.
+   * @param text text
+   * @return document ids
    */
   public List<Integer> get(String text) {
     if (text == null) {

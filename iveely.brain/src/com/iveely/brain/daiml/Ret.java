@@ -50,7 +50,7 @@ public class Ret {
 
   /**
    * Parse ret element.
-   *
+   * @param element element
    * @return true is successfully parse.
    */
   public boolean parse(Element element) {
@@ -88,6 +88,9 @@ public class Ret {
 
   /**
    * Get return content.
+   * @param stars stars
+   * @param nodes nodes
+   * @return content
    */
   public String getContent(List<String> stars, List<String> nodes) {
     String result = express;

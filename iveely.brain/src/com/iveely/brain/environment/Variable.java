@@ -47,6 +47,7 @@ public final class Variable {
 
   /**
    * Get environment mode.
+   * @return environment mode
    */
   public static boolean isLocalMode() {
     return isLocal;

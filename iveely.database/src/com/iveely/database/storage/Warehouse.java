@@ -19,7 +19,6 @@ import java.util.TreeMap;
  * Database instance.
  *
  * @author liufanping@iveely.com
- * @date 2014-12-26 21:18:07
  */
 public class Warehouse implements Serializable {
 

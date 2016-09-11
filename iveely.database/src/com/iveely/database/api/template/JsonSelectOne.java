@@ -2,7 +2,6 @@ package com.iveely.database.api.template;
 
 /**
  * @author liufanping@iveely.com
- * @date 2015-3-28 14:30:03
  */
 public final class JsonSelectOne {
 

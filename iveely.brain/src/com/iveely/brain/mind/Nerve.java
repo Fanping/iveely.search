@@ -36,11 +36,7 @@ public class Nerve {
     private WSHandler handler;
 
     /*
-     * (non-Javadoc)
-     *
-     * @see
-     * com.iveely.robot.net.websocket.SocketServer.IHandler#invoke(java.lang
-     * .Integer, com.iveely.robot.net.websocket.WSHandler, java.lang.String)
+     * invoke function
      */
     @Override
     public String invoke(Integer sessionId, WSHandler handler, String data) {
@@ -51,11 +47,7 @@ public class Nerve {
     }
 
     /*
-     * (non-Javadoc)
-     *
-     * @see
-     * com.iveely.robot.net.websocket.SocketServer.IHandler#close(java.lang.
-     * Integer)
+     * close session
      */
     @Override
     public void close(Integer sessionId) {
@@ -66,10 +58,11 @@ public class Nerve {
 
     /**
      * Response information back.
+     * @param answer answer
      */
-    public void response(String anwser) {
+    public void response(String answer) {
       if (handler != null) {
-        handler.send(anwser);
+        handler.send(answer);
       }
     }
 
