@@ -11,9 +11,6 @@
     <artifactId>com.iveely.crawler</artifactId>
     <name>com.iveely.crawler</name>
     <description>A simple distributed crawling system.</description>
-    <organization>
-        <name>iveely</name>
-    </organization>
     <dependencies>
         <!-- https://mvnrepository.com/artifact/uk.org.lidalia/lidalia-slf4j-ext -->
         <dependency>
@@ -40,8 +37,4 @@
             <version>4.5.2</version>
         </dependency>
     </dependencies>
-    <scm>
-        <url>https://github.com/Fanping/iveely.search</url>
-        <developerConnection>Liu Fanping</developerConnection>
-    </scm>
 </project>

@@ -25,6 +25,17 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     </properties>
+    <distributionManagement>
+        <snapshotRepository>
+            <id>ossrh</id>
+            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+        </snapshotRepository>
+        <repository>
+            <id>ossrh</id>
+            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/
+            </url>
+        </repository>
+    </distributionManagement>
     <build>
         <sourceDirectory>src</sourceDirectory>
         <plugins>
@@ -78,7 +89,7 @@
                 <artifactId>maven-gpg-plugin</artifactId>
                 <version>1.5</version>
                 <configuration>
-                    <skip>true</skip>
+                    <skip>false</skip>
                 </configuration>
                 <executions>
                     <execution>
@@ -111,7 +122,7 @@
         </license>
     </licenses>
     <scm>
-        <url>https://github.com/Fanping/iveely.search/iveely.framework</url>
+        <url>https://github.com/Fanping/iveely.search/</url>
         <developerConnection>Liu Fanping</developerConnection>
     </scm>
 </project>

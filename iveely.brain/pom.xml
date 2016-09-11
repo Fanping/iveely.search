@@ -10,9 +10,6 @@
     <artifactId>com.iveely.brain</artifactId>
     <name>com.iveely.brain</name>
     <description>AI conversation application.</description>
-    <organization>
-        <name>iveely</name>
-    </organization>
     <dependencies>
         <dependency>
             <groupId>dom4j</groupId>
@@ -36,8 +33,4 @@
             <version>0.9.1</version>
         </dependency>
     </dependencies>
-    <scm>
-        <url>https://github.com/Fanping/iveely.brain</url>
-        <developerConnection>Liu Fanping</developerConnection>
-    </scm>
 </project>
