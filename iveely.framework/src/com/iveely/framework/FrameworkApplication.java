@@ -1,4 +1,4 @@
-/*
+package com.iveely.framework;/*
  * Copyright 2016 liufanping@iveely.com.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-public class Program {
+public class FrameworkApplication {
 
   public static void main(String[] args) {
 

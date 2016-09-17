@@ -3,12 +3,12 @@
  */
 package com.iveely.brain.daiml;
 
-import com.iveely.brain.mind.React.Status;
-
 import org.dom4j.Element;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import com.iveely.brain.mind.React;
 
 /**
  * @author {Iveely Liu}
@@ -23,7 +23,7 @@ public class TSrai extends ITemplate {
   /**
    * Status of srai.
    */
-  private Status status;
+  private React.Status status;
 
   /**
    * id collection of star.
@@ -34,7 +34,7 @@ public class TSrai extends ITemplate {
    *
    */
   public TSrai() {
-    this.status = Status.RECURSIVE;
+    this.status = React.Status.RECURSIVE;
     this.ids = new ArrayList<>();
   }
 
@@ -64,7 +64,7 @@ public class TSrai extends ITemplate {
    * @see com.iveely.robot.daiml.ITemplate#getType()
    */
   @Override
-  public Status getStatus() {
+  public React.Status getStatus() {
     return this.status;
   }
 

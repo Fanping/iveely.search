@@ -4,7 +4,6 @@
 package com.iveely.brain.daiml;
 
 import com.iveely.brain.mind.React;
-import com.iveely.brain.mind.React.Status;
 
 import org.dom4j.Element;
 
@@ -97,7 +96,7 @@ public class Category {
       react.setThat(pattern.getValue());
       return react;
     } else {
-      return new React(Status.FAILURE);
+      return new React(React.Status.FAILURE);
     }
   }
 

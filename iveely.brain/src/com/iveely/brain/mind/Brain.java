@@ -7,7 +7,6 @@ import com.iveely.brain.daiml.Category;
 import com.iveely.brain.environment.Branch;
 import com.iveely.brain.environment.Variable;
 import com.iveely.brain.index.Inverted;
-import com.iveely.brain.mind.Nerve.EventHandler;
 import com.iveely.brain.mind.React.Status;
 import com.iveely.framework.file.XmlSerialize;
 
@@ -156,7 +155,7 @@ public class Brain {
    * @param handler callback handler
    * @param question question
    */
-  public void request(int sessionId, EventHandler handler, String question) {
+  public void request(int sessionId, Nerve.EventHandler handler, String question) {
     Session session;
     if (this._sessions.containsKey(sessionId)) {
       session = this._sessions.get(sessionId);

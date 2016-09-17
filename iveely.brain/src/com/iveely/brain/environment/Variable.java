@@ -3,6 +3,9 @@
  */
 package com.iveely.brain.environment;
 
+import java.net.URLDecoder;
+import java.net.URLEncoder;
+
 /**
  * @author {Iveely Liu} The variables of all robot environment.
  */
@@ -11,22 +14,26 @@ public final class Variable {
   /**
    * The path of the set.
    */
-  private static String pathOfSet = "ai/set";
+  private static String pathOfSet = URLDecoder.decode(ClassLoader.getSystemResource
+          ("corpus/set").getPath());
 
   /**
    * The path of the self information.
    */
-  private static String pathOfSelf = "ai/property/self.xml";
+  private static String pathOfSelf = URLDecoder.decode(ClassLoader.getSystemResource
+          ("corpus/property/self.xml").getPath());
 
   /**
    * The path of the branch.
    */
-  private static String pathOfBranch = "ai/property/branches.xml";
+  private static String pathOfBranch = URLDecoder.decode(ClassLoader.getSystemResource
+          ("corpus/property/branches.xml").getPath());
 
   /**
    * The path of the category.
    */
-  private static String pathOfCategory = "ai/category";
+  private static String pathOfCategory = URLDecoder.decode(ClassLoader.getSystemResource
+          ("corpus/category").getPath());
 
   /**
    * The service port of robot.
@@ -47,6 +54,7 @@ public final class Variable {
 
   /**
    * Get environment mode.
+   *
    * @return environment mode
    */
   public static boolean isLocalMode() {

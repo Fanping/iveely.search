@@ -10,7 +10,7 @@ import com.iveely.database.api.DbConnector;
 /**
  * @author liufanping@iveely.com
  */
-public class Program {
+public class DBApplication {
 
   /**
    * @param args the command line arguments

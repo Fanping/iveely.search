@@ -9,7 +9,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>com.iveely.database</artifactId>
-    <name>com.iveely database.</name>
+    <name>com.iveely database</name>
     <description>A mini data storage system.</description>
     <dependencies>
         <dependency>
@@ -28,18 +28,22 @@
             <version>0.9.4</version>
         </dependency>
     </dependencies>
-    <developers>
-        <developer>
-            <name>liufanping</name>
-            <email>liufanping@iveely.com</email>
-            <organization>iveely</organization>
-            <organizationUrl>http://www.iveely.com</organizationUrl>
-        </developer>
-    </developers>
-    <licenses>
-        <license>
-            <name>The Apache License, Version 2.0</name>
-            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
-        </license>
-    </licenses>
+    <build>
+        <plugins>
+            <plugin>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <mainClass>com.iveely.database.DBApplication
+                                .Main</mainClass>
+                        </manifest>
+                    </archive>
+                    <descriptorRefs>
+                        <descriptorRef>jar-with-dependencies</descriptorRef>
+                    </descriptorRefs>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 </project>

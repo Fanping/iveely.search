@@ -3,11 +3,11 @@
  */
 package com.iveely.brain.daiml;
 
-import com.iveely.brain.mind.React.Status;
-
 import org.dom4j.Element;
 
 import java.util.List;
+
+import com.iveely.brain.mind.React;
 
 /**
  * @author {Iveely Liu}
@@ -27,7 +27,7 @@ public abstract class ITemplate {
    *
    * @return the status of template.
    */
-  public abstract Status getStatus();
+  public abstract React.Status getStatus();
 
   /**
    * Get result by template.
