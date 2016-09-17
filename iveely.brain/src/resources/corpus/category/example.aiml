@@ -1,8 +1,42 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-
 <aiml> 
   <category> 
     <pattern>Which city is the capital of the United States?</pattern>  
     <template>Washington.</template> 
-  </category>
+  </category>  
+  <category> 
+    <pattern>你 好</pattern>  
+    <template>你好！</template> 
+  </category>  
+  <category> 
+    <pattern>今 天 天 气 真 好</pattern>  
+    <template> 
+      <random> 
+        <li>是呀，天气不错。</li>  
+        <li>要不出去走走？</li>  
+        <li>希望每天天气都这么好!</li> 
+      </random> 
+    </template> 
+  </category>  
+  <category> 
+    <pattern>你 好 ， 我 是 *</pattern>  
+    <template>你好，很高兴认识 <star index="1"/>。
+    </template> 
+  </category>  
+  <category> 
+    <pattern>您 好 ， 我 是 *</pattern>  
+    <template> 
+      <srai>你 好 ， 我 是 <star index="1"/>。
+      </srai> 
+    </template> 
+  </category>  
+  <category> 
+    <pattern that="你 好">你 好 啊</pattern>  
+    <template> 
+      <random> 
+        <li>你好，我们刚刚说过一遍了。</li>  
+        <li>你好，客气啥！</li> 
+      </random> 
+    </template> 
+  </category> 
 </aiml>

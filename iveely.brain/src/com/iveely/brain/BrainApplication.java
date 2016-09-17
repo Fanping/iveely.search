@@ -11,9 +11,9 @@ import java.net.URL;
 public class BrainApplication {
 
   public static void main(String[] args) throws IOException {
-    if (args != null && args.length > 1) {
+    if (args != null && args.length == 1 && args[0].equals("-remote")) {
       Awareness.wake();
-    } else {
+    } else if (args.length == 0) {
       Local local = new Local();
       local.start();
       BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
@@ -30,6 +30,9 @@ public class BrainApplication {
         }
       }
       reader.close();
+    } else {
+      System.err.println("arguments error:local mode without any arguments;" +
+              "remote mode with '-remote'");
     }
   }
 }
