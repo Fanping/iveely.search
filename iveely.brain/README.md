@@ -4,50 +4,31 @@ Let the program with logical reasoning ability of intelligent conversational ser
 ### (1) Local Mode.
 Local mode means you can use console to test your AIML.You can execute the jar
 without any arguments,that would be local mode.
-
 ### (2) Remote Mode.
 Remote mode means we can use TCP to visit the service as product enviroment
 .the default service port is 8001,also you can modify it in branches.xml.You
 can execute the jar with argument "-remote".
-
 ### (3) Example Case.
 #### 1.Direct exact match mode.
-
-
-
-
+```xml
 <category>
         <pattern>Hello</pattern>
         <template>
             Hello!
         </template>
 </category>
-
-
-
-
-
+```
 #### 2.Match with *.
-
-
-
-
+```xml
 <category>
         <pattern>My name is *</pattern>
         <template>
             Hello,<star index="1" />.
         </template>
 </category>
-
-
-
-
-
+```
 #### 3.Random answers.
-
-
-
-
+```xml
 <category>
         <pattern>How are you?</pattern>
         <template>
@@ -58,16 +39,9 @@ can execute the jar with argument "-remote".
             </random>
         </template>
 </category>
-
-
-
-
-
+```
 #### 4.Recursive answer.
-
-
-
-
+```xml
 <category>
         <pattern>How are you? JIM</pattern>
         <template>
@@ -76,14 +50,9 @@ can execute the jar with argument "-remote".
             </srai>
         </template>
 </category>
-
-
-
+```
 #### 5.Pattern matching with constraints.
-
-
-
-
+```xml
 <category>
         <pattern that="Hello">Hi</pattern>
         <template>
@@ -97,5 +66,5 @@ can execute the jar with argument "-remote".
             </random>
         </template>
 </category>
-
+```
 
