@@ -18,6 +18,7 @@ can execute the jar with argument "-remote".
         </template>
 </category>
 ```
+When you say 'Hello',it would be response with 'Hello!'.
 #### 2.Match with *.
 ```xml
 <category>
@@ -27,6 +28,7 @@ can execute the jar with argument "-remote".
         </template>
 </category>
 ```
+When you say 'Hello JIM',it would be response with 'Hello,JIM'.
 #### 3.Random answers.
 ```xml
 <category>
@@ -40,6 +42,7 @@ can execute the jar with argument "-remote".
         </template>
 </category>
 ```
+When you say 'How are you?',it would be response by random.
 #### 4.Recursive answer.
 ```xml
 <category>
@@ -51,6 +54,8 @@ can execute the jar with argument "-remote".
         </template>
 </category>
 ```
+When you say 'How are you?JIM',the answer would be same with question 'How
+are you?'
 #### 5.Pattern matching with constraints.
 ```xml
 <category>
@@ -67,4 +72,5 @@ can execute the jar with argument "-remote".
         </template>
 </category>
 ```
+When you say 'Hello',and say 'Hi',it would be response with random.
 
