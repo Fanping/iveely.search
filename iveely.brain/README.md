@@ -74,3 +74,5 @@ are you?'
 ```
 When you say 'Hello',and say 'Hi',it would be response with random.
 
+Get more information, you can visit my [blog](http://www.cnblogs.com/liufanping/p/5879822.html).
+
