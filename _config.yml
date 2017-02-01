@@ -1,1 +1,6 @@
 ﻿baseurl: /iveely
+title: Iveely
+description: Iveely Computing
+google_analytics: 
+show_downloads: true
+theme: jekyll-theme-leap-day
