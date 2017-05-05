@@ -1,4 +1,4 @@
-## iveely search engine
+## iveely search engine [![Build Status](https://travis-ci.org/Fanping/iveely.search.svg?branch=master)](https://travis-ci.org/Fanping/iveely.search)
 Welcome here,Iveely search engine is a pure java realize search engine, try to directly hit the user's search for answers.
 Iveely is an abbreviation from 'I void everything,except love you'.<br/>
 <br/>
