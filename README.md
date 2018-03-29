@@ -1,8 +1,11 @@
 ## iveely search engine [![Build Status](https://travis-ci.org/Fanping/iveely.search.svg?branch=master)](https://travis-ci.org/Fanping/iveely.search)
-Welcome here,Iveely search engine is a pure java realize search engine, try to directly hit the user's search for answers.
-Iveely is an abbreviation from 'I void everything,except love you'.<br/>
-<br/>
-Contact me if you have any questions, [liufanping@iveely.com](mailto:liufanping@iveely.com). Auto build [here](https://travis-ci.org/Fanping/iveely.search).
+
+Iveely is an abbreviation from 'I void everything, except loving you'.
+Iveely search engine tries to directly hit the user's search for answers， which is implemented with pure java.
+
+Contact me if you have any questions, [liufanping@iveely.com](mailto:liufanping@iveely.com).
+Auto build [here](https://travis-ci.org/Fanping/iveely.search).
+
 ### (1) Quick Start in five minutes.
 #### 1. Download and build.
 Download iveely.crawler & iveely.search.api,and build to executable jar,you can use maven build them quickly.
