@@ -21,7 +21,7 @@ java -jar iveely.crawler.jar
 Note that `iveely.search.api.jar` should run before `iveely.crawler.jar`.
 
 #### 3. Let's search.
-Query with keyword 'java', you can open browser with [http://127.0.0.1:8080/api/0.9.1/query?queryField=title&respFields=title%2Ccontent%2Curl&keywords=java&totalHits=10](http://127.0.0.1:8080/api/0.9.1/query?queryField=title&respFields=title%2Ccontent%2Curl&keywords=java&totalHits=10) to get the result.
+To query with keyword `java`, you can visit [http://127.0.0.1:8080/api/0.9.1/query?queryField=title&respFields=title%2Ccontent%2Curl&keywords=java&totalHits=10](http://127.0.0.1:8080/api/0.9.1/query?queryField=title&respFields=title%2Ccontent%2Curl&keywords=java&totalHits=10) to get the result.
 
 If you get the response json,congratulations, you've successfully run.
 
@@ -31,7 +31,7 @@ Moreover API information were described using Swagger-UI. So you can visit [http
 Iveely also was submitted to the maven central repositry. visit [iveely@maven](http://search.maven.org/#search%7Cga%7C1%7Civeely) to get more.
 
 ### (3) How to make search engine more smarter?
-With only document search is not the goal,to build more intelligent search engine is very important,so we have added a project named 'iveely.brain'.
+With only document search is not the goal,to build more intelligent search engine is very important,so we have added a project named `iveely.brain`.
 
 iveely.brain has two mode, local debug & Remote network calls.
 
@@ -40,7 +40,7 @@ To run iveely.brain, do as follows:
 #### 1. Download and build.
 Download iveely.brain and use maven to build,you also can run code by main class Progam.java. 
 
-Local operation does not require any arguments,but you need copy folder 'example conf/for brain/ai' to the same parent directory with 'iveely.brain.jar'.
+Local operation does not require any arguments,but you need copy folder 'example conf/for brain/ai' to the same parent directory with `iveely.brain.jar`.
 
 #### 2. Test is successful start.
 When run local mode,you can enter a question on console like 'Which city is the capital of the United States?'
